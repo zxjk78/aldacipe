@@ -1,0 +1,21 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+}
+
+.title,
+.menu {
+  display: flex;
+  gap: 20px;
+}
+.menu {
+  justify-content: space-around;
+  gap: 0px;
+}
+
+.userInfo {
+  font-weight: bold;
+  &:hover {
+    background-color: aqua;
+  }
+}
