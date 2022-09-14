@@ -6,21 +6,30 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-
+import styled from '@emotion/styled';
 import { FormContent1, FormContent2, FormContent3 } from './Forms';
 
 import * as all from './config';
 
 const steps = ['이메일 입력', '상세정보 입력', '비밀번호 입력'];
 
+const MyStep = styled(Step)`
+  & .MuiStepLabel-root .Mui-completed {
+    color: #058181;
+  }
+  & .MuiStepLabel-root .Mui-active {
+    color: #2fbba0;
+  }
+`;
+
 const SignUpStepper: React.FC<{ cur: number }> = (props) => {
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={props.cur} alternativeLabel>
         {steps.map((label) => (
-          <Step key={label}>
+          <MyStep key={label}>
             <StepLabel>{label}</StepLabel>
-          </Step>
+          </MyStep>
         ))}
       </Stepper>
     </Box>
@@ -65,11 +74,11 @@ const SignUp: React.FC<{}> = (props) => {
     });
     setCurrentStep(() => currentStep + 1);
   };
-  const addThreeData = (data: all.form3Data) => {
+  const submitFormData = (data: all.form3Data) => {
     setSignUpInfo((prevState) => {
       return { ...prevState, email: data.password };
     });
-    setCurrentStep(() => currentStep + 1);
+    // api 서버에 signUpInfo 제출 (asyncThunk or 그냥)
   };
   const stepBack = () => {
     if (currentStep > 0) {
@@ -77,21 +86,22 @@ const SignUp: React.FC<{}> = (props) => {
     }
   };
   const stepForms = [
-    <FormContent1 stepOneDataHandle={addOneData} />,
-    <FormContent2 stepTwoDataHandle={addTwoData} stepBackHandle={stepBack} />,
+    <FormContent1 formData={signUpInfo} stepOneDataHandle={addOneData} />,
+    <FormContent2
+      formData={signUpInfo}
+      stepTwoDataHandle={addTwoData}
+      stepBackHandle={stepBack}
+    />,
     <FormContent3
-      stepThreeDataHandle={addThreeData}
+      formData={signUpInfo}
+      stepThreeDataHandle={submitFormData}
       stepBackHandle={stepBack}
     />,
   ];
 
-  const finalHandler = (event: FormEvent) => {
-    event.preventDefault();
-  };
-
   return (
     <>
-      <div className={classes.backdrop}>
+      <div className={classes.background}>
         <div className={classes.wrapper}>
           <div className={classes.signupHeader}>
             <div>회원가입</div>
@@ -100,7 +110,7 @@ const SignUp: React.FC<{}> = (props) => {
             </div>
           </div>
           <SignUpStepper cur={currentStep} />
-          <form>
+          <form className={classes.signupForm}>
             <>{stepForms[currentStep]}</>
           </form>
         </div>

@@ -7,9 +7,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const BirthdayInput: React.FC<{
+  birthday: string;
   changeBirthday: (birthday: Dayjs | null) => void;
 }> = (props) => {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2000-01-01'));
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs(props.birthday));
 
   const handleChange = (newBirthday: Dayjs | null) => {
     setValue(newBirthday);
@@ -19,7 +20,6 @@ const BirthdayInput: React.FC<{
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DesktopDatePicker
-        label="BirthDay"
         inputFormat="YYYY/MM/DD"
         value={value}
         onChange={handleChange}
