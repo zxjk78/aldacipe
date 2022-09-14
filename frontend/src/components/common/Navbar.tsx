@@ -5,7 +5,7 @@ import SearchInput from '../UI/SearchInput';
 // css
 import classes from './Navbar.module.scss';
 
-const Navbar: React.FC<{ username: string }> = (props) => {
+const Navbar: React.FC<{ username?: string }> = (props) => {
   return (
     <>
       <div className={classes.wrapper}>
@@ -22,7 +22,9 @@ const Navbar: React.FC<{ username: string }> = (props) => {
           <SearchInput isNavbar />
         </div>
 
-        <div className={classes.userInfo}>{props.username}</div>
+        <div className={classes.userInfo}>
+          {props.username ? props.username : '로그인'}
+        </div>
       </div>
     </>
   );

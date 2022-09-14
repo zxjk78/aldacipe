@@ -1,20 +1,17 @@
 import React, { FormEvent, useState } from 'react';
 
 import classes from './SignUp.module.scss';
-
+// mui
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
+import { FormContent1, FormContent2, FormContent3 } from './Forms';
+
+import * as all from './config';
+
 const steps = ['이메일 입력', '상세정보 입력', '비밀번호 입력'];
-type userInfo = {
-  email: string;
-  password: string;
-  weight: number;
-  height: number;
-  gender: string;
-};
 
 const SignUpStepper: React.FC<{ cur: number }> = (props) => {
   return (
@@ -32,16 +29,65 @@ const SignUpStepper: React.FC<{ cur: number }> = (props) => {
 
 const SignUp: React.FC<{}> = (props) => {
   const [currentStep, setCurrentStep] = useState(0);
-
-  const [signUpInfo, setSignUpInfo] = useState<userInfo>({
+  const [signUpInfo, setSignUpInfo] = useState<all.userInfo>({
     email: '',
     password: '',
+    birthday: '',
     weight: 0,
     height: 0,
     gender: '',
   });
 
-  const submitHandler = (event: FormEvent) => {};
+  const handleRegister = (formValue: any) => {
+    const { email, password } = formValue;
+    const data = {
+      email,
+      password,
+    };
+  };
+
+  const addOneData = (data: all.form1Data) => {
+    setSignUpInfo((prevState) => {
+      return { ...prevState, email: data.email };
+    });
+    setCurrentStep(() => currentStep + 1);
+  };
+  // tsx 확장자 파일에서는 <> 는 태그도 의미하므로, Type extends 구문을 붙여야 함
+  const addTwoData = (data: all.form2Data) => {
+    setSignUpInfo((prevState) => {
+      return {
+        ...prevState,
+        birthday: data.birthday,
+        gender: data.gender,
+        height: data.height,
+        weight: data.weight,
+      };
+    });
+    setCurrentStep(() => currentStep + 1);
+  };
+  const addThreeData = (data: all.form3Data) => {
+    setSignUpInfo((prevState) => {
+      return { ...prevState, email: data.password };
+    });
+    setCurrentStep(() => currentStep + 1);
+  };
+  const stepBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(() => currentStep - 1);
+    }
+  };
+  const stepForms = [
+    <FormContent1 stepOneDataHandle={addOneData} />,
+    <FormContent2 stepTwoDataHandle={addTwoData} stepBackHandle={stepBack} />,
+    <FormContent3
+      stepThreeDataHandle={addThreeData}
+      stepBackHandle={stepBack}
+    />,
+  ];
+
+  const finalHandler = (event: FormEvent) => {
+    event.preventDefault();
+  };
 
   return (
     <>
@@ -54,6 +100,9 @@ const SignUp: React.FC<{}> = (props) => {
             </div>
           </div>
           <SignUpStepper cur={currentStep} />
+          <form>
+            <>{stepForms[currentStep]}</>
+          </form>
         </div>
       </div>
     </>

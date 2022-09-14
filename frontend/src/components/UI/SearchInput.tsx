@@ -1,9 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { searchKeyword, searchIngredient } from '../../api/search';
 import SearchIcon from '@mui/icons-material/Search';
+import styled from '@emotion/styled';
 
 // css
 import classes from './SearchInput.module.scss';
+
+const MySearchIcon = styled(SearchIcon)`
+  color: #5d5d5d;
+`;
 
 // 물음표 사용해서 있으면 boolean true, 없으면 undefined로
 const SearchInput: React.FC<{
@@ -54,14 +59,18 @@ const SearchInput: React.FC<{
     <>
       <div className="wrapper">
         <form onSubmit={submitHandler}>
-          <SearchIcon />
+          <div className={classes.searchContainer}>
+            <span>
+              <MySearchIcon />
+            </span>
 
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={keywordChangeHandler}
-            ref={searchRef}
-          />
+            <input
+              type="text"
+              placeholder="요리 또는 재료명 검색"
+              onChange={keywordChangeHandler}
+              ref={searchRef}
+            />
+          </div>
         </form>
       </div>
       {briefVisible && props.isNavbar ? (
