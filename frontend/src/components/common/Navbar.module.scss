@@ -1,0 +1,33 @@
+@import '../../global.scss';
+
+.wrapper {
+  height: 3rem;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr 1fr;
+  column-gap: 50px;
+  align-items: center;
+  border-bottom: solid 1px $text-primary;
+  box-shadow: 0px 5px 7px 0px #000;
+}
+
+.title,
+.menu {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+  color: $text-primary;
+}
+.menu {
+  justify-content: space-around;
+  gap: 0px;
+  & > div:hover {
+    color: $green-primary;
+  }
+}
+
+.userInfo {
+  font-weight: bold;
+  &:hover {
+    background-color: aqua;
+  }
+}

@@ -1,0 +1,32 @@
+@import '../../global.scss';
+.header {
+  color: $green-primary;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  label {
+    align-self: flex-start;
+  }
+  input {
+    background-color: $background-primary;
+  }
+}
+.other {
+  font-size: 0.9rem;
+  span {
+    color: $green-secondary;
+    &:hover {
+      color: $green-primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+.errorMsg {
+  font-size: 0.8rem;
+  color: $orange;
+}
