@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import Card from './CarouselCard';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -46,7 +46,7 @@ const Carousel: React.FC<{}> = () => {
     <>
       <section className={classes.carousel}>
         <Slider {...settings}>
-          {cardList.map((card:any)=>(<Card key={card[0]} title={card[0]}/>))}
+          {cardList.map((card:string[])=>(<Card key={card[0]} title={card[0]}/>))}
         </Slider>
       </section>
     </>
