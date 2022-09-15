@@ -34,7 +34,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, length = 100)
     private String password;
 
-    private LocalDate birth;
+    private LocalDate birthday;
 
     private Gender gender;
 
