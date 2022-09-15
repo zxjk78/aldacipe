@@ -1,0 +1,13 @@
+@import '../../../global.scss';
+
+.wrapper {
+  background-color: $background-highlight;
+  width: 95%;
+  margin: 0px auto;
+}
+
+.main {
+  & > div:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}

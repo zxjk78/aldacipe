@@ -7,12 +7,14 @@ import './global.scss';
 import Navbar from './components/common/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import RecipeDetailPage from './pages/RecipeDetailPage';
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar />
       <SignupPage />
-      <LoginPage />
+      <LoginPage /> */}
+      <RecipeDetailPage />
     </div>
   );
 }
