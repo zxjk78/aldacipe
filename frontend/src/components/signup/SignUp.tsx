@@ -61,7 +61,6 @@ const SignUp: React.FC<{}> = (props) => {
     });
     setCurrentStep(() => currentStep + 1);
   };
-  // tsx 확장자 파일에서는 <> 는 태그도 의미하므로, Type extends 구문을 붙여야 함
   const addTwoData = (data: all.form2Data) => {
     setSignUpInfo((prevState) => {
       return {

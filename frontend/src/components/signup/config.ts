@@ -23,12 +23,6 @@ export interface form3Data {
   password: string;
 }
 
-export const emailRegExp =
-  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-
-export const passwordRegExp =
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,16}$/;
-
 // // 선언형 유효성 검사
 // export const validationSchema = Yup.object().shape({
 //   email: Yup.string()

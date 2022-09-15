@@ -4,6 +4,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 // interface - 타입스크립트 인터페이스를 다른 곳에 입력해두고 받아옴
 import * as all from './config';
+import { emailRegExp, passwordRegExp } from '../../util/regexp';
 // css
 import classes from './Forms.module.scss';
 
@@ -12,9 +13,10 @@ export const FormContent1: React.FC<{
   formData: all.userInfo;
   stepOneDataHandle: (data: all.form1Data) => void;
 }> = (props) => {
+  const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(
     props.formData.email.length > 0
-      ? all.emailRegExp.test(props.formData.email)
+      ? emailRegExp.test(props.formData.email)
       : false
   );
 
@@ -28,7 +30,9 @@ export const FormContent1: React.FC<{
   };
 
   const checkEmailValid = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (all.emailRegExp.test(event.target.value)) {
+    setEmail(event.target.value);
+
+    if (emailRegExp.test(event.target.value)) {
       setEmailValid(() => true);
     } else {
       setEmailValid(() => false);
@@ -36,15 +40,19 @@ export const FormContent1: React.FC<{
   };
   return (
     <div className={classes.wrapper}>
-      <input
-        type="email"
-        className={classes.signupInput}
-        placeholder="이메일을 입력해 주세요."
-        ref={emailRef}
-        onBlur={checkEmailValid}
-        defaultValue={props.formData.email}
-      />
-
+      <div className={classes.inputContainer}>
+        <input
+          className={classes.signupInput}
+          type="email"
+          placeholder="이메일을 입력해 주세요."
+          ref={emailRef}
+          onBlur={checkEmailValid}
+          defaultValue={props.formData.email}
+        />
+        <p className={classes.errorMsg}>
+          {email.length > 0 && !emailValid && '유효한 이메일을 입력해 주세요.'}
+        </p>
+      </div>
       <div className={classes.btnContainer}>
         <div></div>
         <button
@@ -209,7 +217,7 @@ export const FormContent3: React.FC<{
 
   const checkPasswordValid = (event: React.FocusEvent<HTMLInputElement>) => {
     const tmp = event.target.value;
-    if (tmp.length > 0 && all.passwordRegExp.test(tmp)) {
+    if (tmp.length > 0 && passwordRegExp.test(tmp)) {
       setPassword(() => tmp);
     } else {
       setPassword(() => '');

@@ -9,12 +9,17 @@
   gap: 2rem;
 }
 
+.inputContainer {
+  width: 100%;
+}
+
 .signupInput {
   width: 80%;
   padding: 10px 8px;
   background-color: #fafafa;
   border: none;
   border-radius: 5px;
+
   &:focus {
     outline: solid 2px $green-secondary;
     background-color: #a4f6e6;
@@ -66,4 +71,12 @@
   .btnContainer {
     align-self: center;
   }
+}
+.errorMsg {
+  width: 100%;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  margin-left: 10%;
+  text-align: left;
+  color: $orange;
 }
