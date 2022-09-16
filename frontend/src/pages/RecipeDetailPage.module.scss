@@ -1,0 +1,26 @@
+@import '../global.scss';
+.backdrop {
+  width: 100%;
+  height: 100%;
+  background-color: $background-primary;
+}
+.wrapper {
+  width: 80%;
+  margin: 0px auto;
+}
+.menus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background-highlight;
+  border-bottom: solid 2px $green-secondary;
+  padding: 8px;
+  color: $text-primary;
+  font-size: 1.5rem;
+  font-weight: bold;
+  & > div:hover {
+    cursor: pointer;
+    color: $green-primary;
+    text-decoration: underline;
+  }
+}

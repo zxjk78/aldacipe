@@ -1,0 +1,25 @@
+@import '../../global.scss';
+
+.wrapper {
+  padding: 5px 8px;
+  background-color: gray;
+  color: black;
+}
+.searchContainer {
+  width: 20rem;
+  position: relative;
+  span {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.6rem;
+  }
+  input {
+    width: 100%;
+    padding: 0.5rem;
+
+    border: none;
+    background-color: #d3d3d3;
+    border-radius: 15px;
+    text-align: center;
+  }
+}
