@@ -7,11 +7,11 @@ import "slick-carousel/slick/slick-theme.css";
 import classes from './Banner.module.scss';
 const Banner: React.FC<{}> = () => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     // dotsClass: "custom-dots"

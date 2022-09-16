@@ -12,9 +12,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <MainPage />
       <SignupPage />
       <LoginPage />
+      <MainPage />
     </div>
   );
 }
