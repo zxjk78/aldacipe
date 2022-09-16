@@ -5,7 +5,7 @@ import ReviewContainer from '../components/detail/reviews/ReviewContainer';
 import classes from './RecipeDetailPage.module.scss';
 // 더미데이터
 import { dummyReview } from '../components/detail/interface';
-const RecipeDetailPage: React.FC<{}> = () => {
+export default function RecipeDetailPage(props: {}) {
   return (
     <>
       <div className={classes.backdrop}>
@@ -23,6 +23,4 @@ const RecipeDetailPage: React.FC<{}> = () => {
       </div>
     </>
   );
-};
-
-export default RecipeDetailPage;
+}
