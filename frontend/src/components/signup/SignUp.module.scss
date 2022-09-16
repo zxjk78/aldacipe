@@ -1,0 +1,45 @@
+@import '../../global.scss';
+
+.background {
+  background-color: $background-primary;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper {
+  background-color: #fff;
+  width: 30vw;
+  height: 60vh;
+
+  display: grid;
+  grid-template-rows: 10vh 15vh 30vh;
+  border-radius: 15px;
+  padding: 1.5rem 0.8rem;
+}
+.signupHeader {
+  width: 95%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & > div:nth-of-type(1) {
+    font-size: 1.4rem;
+    color: $green-primary;
+    font-weight: bold;
+  }
+  & > div:nth-of-type(2) {
+    font-size: 0.9rem;
+    span {
+      color: $green-secondary;
+      &:hover {
+        text-decoration: underline;
+        color: $green-primary;
+      }
+    }
+  }
+}
+.signupForm {
+  height: 100%;
+}
