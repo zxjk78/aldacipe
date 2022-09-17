@@ -14,13 +14,13 @@ export const login = async (userInfo: { email: string; password: string }) => {
 
     if (response.data.success) {
       const { accessToken, accessTokenExpireDate } = response.data.data;
-      // accessToken은 cookie에 저장
+      // accessToken, 만료기간 cookie에 저장
       setCookie('accessToken', accessToken, {
         path: '/',
         secure: true,
         sameSite: 'none',
       });
-      // 만료기간은 response만 intercept 사용해서 할꺼면 의미없긴함, 일단은 저장
+
       setCookie('accessTokenExpireDate', accessTokenExpireDate, {
         path: '/',
         secure: true,
@@ -35,12 +35,6 @@ export const login = async (userInfo: { email: string; password: string }) => {
 
 export async function logout() {
   try {
-    // localStorage.removeItem('expireDate');
-    // localStorage.removeItem('isLoggedIn');
-
-    // console.log(axiosAuthInstance.defaults.headers.common);
-    // console.log(axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN']);
-
     const response = await axiosAuthInstance.delete(API_URL + 'log-out', {});
 
     if (response.data.success) {
@@ -52,19 +46,3 @@ export async function logout() {
     console.log(err);
   }
 }
-
-// axios delete 로 x-auth token 넣어준 경우는 됨
-
-// export async function logout() {
-//   try {
-//     const response = await axios.delete(API_URL + 'log-out', {});
-//     console.log(response);
-
-//     // if (response.data.success) {
-//     //   axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] = '';
-//     //   return true;
-//     // }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }

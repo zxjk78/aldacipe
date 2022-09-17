@@ -3,6 +3,20 @@ import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from './cookie';
 import { API_URL } from './http-config';
 
+let isTokenRefreshing = false;
+let refreshSubscribers: any[] = [];
+
+function onTokenRefreshed(accessToken: any) {
+  refreshSubscribers.map((callback) => callback(accessToken));
+}
+function addRefreshRequestQueue(callback: any) {
+  refreshSubscribers.push(callback);
+}
+
+// 재발급 요청, 만료시 로그아웃 함수
+// request 랑 response의 차이? 요청은 accessToken 만료 30초 전부터 문제라고 인식, 응답은 에러 코드 1013를 받아야 만료되었다고 인식
+// 다중 요청을 처리하면서 두개를 공통적으로 사용하려면??  throw Error 시도해보기?
+
 async function reissueToken() {
   try {
     const reissueRes = await axios.post(
@@ -18,7 +32,7 @@ async function reissueToken() {
         withCredentials: true,
       }
     );
-    console.log('재발급받았습니다.');
+    // console.log('재발급받았습니다.');
     return reissueRes.data.data;
   } catch (error: any) {
     // refresh token도 만료된 상황이면
@@ -61,6 +75,7 @@ axiosAuthInstance.interceptors.request.use(
     const currentAddRequestTime = moment(moment().add(30, 'seconds'));
     if (expireTime < currentAddRequestTime) {
       // console.log('요청쪽에서 재발급 합니다.');
+      // throw new AxiosError('accessToken 시간 만료 예상 에러 강제발생', 1013, {})
       const reissueRes = await reissueToken();
       if (reissueRes) {
         const { accessToken, accessTokenExpireDate } = reissueRes;
@@ -80,160 +95,40 @@ axiosAuthInstance.interceptors.request.use(
   }
 );
 axiosAuthInstance.interceptors.response.use(
-  async (response) => {
-    // false가 온 경우: accessToken 만료인 경우
-    if (!response.data.success) {
-      console.log(response);
-
-      if (response.data.code === 1013) {
-        // console.log('응답쪽에서 재발급 합니다.');
-
-        const reissueRes = await axios.post(API_URL + 'reissue', {
-          accessToken: getCookie('accessToken'),
-        });
-
-        const { accessToken, accessTokenExpireDate } = reissueRes.data.data;
-        setCookie('accessToken', accessToken);
-        setCookie('accessTokenExpireDate', accessTokenExpireDate);
-        return axios(response.config);
-      }
-    }
-
+  // 정상작동
+  (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    const originalRequest = config;
+    if (status === 1013) {
+      if (!isTokenRefreshing) {
+        isTokenRefreshing = true;
+        const reissueRes = await reissueToken();
+        const {
+          accessToken: newAccessToken,
+          accessTokenExpireDate: newAccessTokenExpireDate,
+        } = reissueRes;
+        setCookie('accessToken', newAccessToken);
+        setCookie('accessTokenExpireDate', newAccessTokenExpireDate);
+        isTokenRefreshing = false;
+        axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] =
+          newAccessToken;
+        onTokenRefreshed(newAccessToken);
+      }
+      const retryOriginalRequest = new Promise((resolve) => {
+        addRefreshRequestQueue((newAccessToken: any) => {
+          originalRequest.headers['X-AUTH-TOKEN'] = newAccessToken;
+          resolve(axiosAuthInstance(originalRequest));
+        });
+      });
+      return retryOriginalRequest;
+    }
+
     return Promise.reject(error);
   }
 );
-
-// import axios, { AxiosResponse } from 'axios';
-// import moment from 'moment';
-// import { API_URL } from './http-config';
-
-// export const axiosCommonInstance = axios.create({
-//   timeout: 10000,
-
-// });
-
-// axiosCommonInstance.interceptors.request.use(
-//   (config: any) => {
-//     config.headers['Content-Type'] = 'application/json; charset=utf-8';
-//     return config;
-//   },
-//   (error) => {
-//     console.log(error);
-//     return Promise.reject(error);
-//   }
-// );
-
-// // expire check 하는 함수
-
-// const isExpired = () => {
-//   const expireDate = localStorage?.getItem('expireDate');
-//   if (expireDate) {
-//     const expireBefore30Second = moment(new Date()) - moment(expireDate).subtract(30, 'seconds'));
-//   }
-// };
-
-// export const axiosAuthInstance = axios.create({
-//   timeout: 10000,
-//   withCredentials: true,
-//   headers: {
-//     'Content-Type': 'application/json; charset=utf-8',
-//   },
-// });
-
-// axiosAuthInstance.interceptors.request.use(
-//   async (config: any) => {
-//     if (!axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] ||  ) {
-//       console.log('accessToken 없음 또는 기간만료');
-//       const reissueRes = await axios.post(
-//         API_URL + `reissue`,
-//         {},
-//         { withCredentials: true }
-//       );
-//       const { newAccessToken } = reissueRes.data;
-//       axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] =
-//         newAccessToken;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     console.log(error);
-//     return Promise.reject(error);
-//   }
-// );
-// axiosAuthInstance.interceptors.response.use(
-//   async (response: any) => {
-//     console.log('axios Auth 통신 성공', response);
-//     if (response?.success === false) {
-//       console.log(
-//         '만료 응답 success:false 중 에러코드 1013이 accessToken 만료입니다.'
-//       );
-//       // 리이슈 전에 보내려던 원래 요청을 저장해놓는 로직 필요
-
-//       const reissueRes = await axiosAuthInstance.post(
-//         API_URL + `reissue`,
-//         {
-//           accessToken:
-//             axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'],
-//         },
-//         { withCredentials: true }
-//       );
-//       const { newAccessToken } = reissueRes.data;
-//       axios.defaults.headers.common['X-AUTH-TOKEN'] = newAccessToken;
-//     } else if (response?.code === 1006) {
-//       window.location.href = '/login';
-//     }
-//     return response;
-//   },
-//   (error) => {
-//     console.log('axios Auth 통신 실패', error);
-//     return Promise.reject(error);
-//   }
-// );
-
-// axios.interceptors.request.use(
-//   (config: any) => {
-//     axios.defaults.headers.common['X-AUTH-TOKEN'] =
-//       localStorage.getItem('accessToken')!;
-//     console.log(axios.defaults.headers.common['X-AUTH-TOKEN']);
-
-//     return config;
-//   },
-//   (error) => {
-//     console.log(error);
-//     return Promise.reject(error);
-//   }
-// );
-
-// axios.interceptors.response.use(
-//   async (response: any) => {
-//     console.log('인터셉터 성공 콜백.', response);
-
-//     if (response?.success === false) {
-//       if (response?.code === 1013) {
-//         console.log(
-//           '만료 응답 success:false 중 에러코드 1013이 accessToken 만료입니다.'
-//         );
-
-//         // 현재 요청들을 어디다가 keep 해놓아야한다.
-
-//         const reissueRes = await axios.post(
-//           API_URL + `reissue`,
-//           { accessToken: axios.defaults.headers.common['X-AUTH-TOKEN'] },
-//           { withCredentials: true }
-//         );
-//         const { newAccessToken } = reissueRes.data;
-//         axios.defaults.headers.common['X-AUTH-TOKEN'] = newAccessToken;
-//       } else if (response?.code === 1006) {
-//         window.location.href = '/login';
-//       }
-//     }
-
-//     return response;
-//   },
-//   (error) => {
-//     console.log('인터셉터 에러 콜백', error);
-//   }
-// );
