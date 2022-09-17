@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import BirthdayInput from '../common/mui/BirthdayInput';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -209,11 +209,20 @@ export const FormContent2: React.FC<{
 };
 export const FormContent3: React.FC<{
   formData: all.userInfo;
-  stepThreeDataHandle: (data: all.form3Data) => void;
+  stepThreeDataHandle: () => void;
   stepBackHandle: () => void;
+  updatePw: (password: string) => void;
 }> = (props) => {
   const [password, setPassword] = useState('');
   const [pwValid, setPwValid] = useState(false);
+
+  useEffect(() => {
+    if (pwValid) {
+      props.updatePw(password);
+    } else {
+      props.updatePw('');
+    }
+  }, [pwValid]);
 
   const checkPasswordValid = (event: React.FocusEvent<HTMLInputElement>) => {
     const tmp = event.target.value;
@@ -236,7 +245,7 @@ export const FormContent3: React.FC<{
     props.stepBackHandle();
   };
   const sumbitStepThreeHandler = () => {
-    props.stepThreeDataHandle({ password: password });
+    props.stepThreeDataHandle();
   };
   return (
     <div className={classes.wrapper}>

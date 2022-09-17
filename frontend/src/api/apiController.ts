@@ -2,16 +2,42 @@ import axios, { AxiosResponse } from 'axios';
 
 import { API_URL } from './http-config';
 
+export const axiosPostCommonInstance = axios.create({
+  baseURL: API_URL,
+  timeout: 10000,
+});
+
+axiosPostCommonInstance.interceptors.request.use(
+  (config: any) => {
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
+// expire check 하는 함수
+
+const isExpired = () => {
+  const expireDate = localStorage?.getItem('expireDate');
+  if (expireDate) {
+    console.log(expireDate, new Date(expireDate));
+  }
+};
+
 export const axiosAuthInstance = axios.create({
   baseURL: API_URL,
-  timeout: 2000,
+  timeout: 10000,
 });
 
 axiosAuthInstance.interceptors.request.use(
   (config: any) => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
-    config.headers['X-AUTH-TOKEN'] =
-      axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'];
+    isExpired();
+    // config.headers['X-AUTH-TOKEN'] =
+    //   axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'];
     return config;
   },
   (error) => {
