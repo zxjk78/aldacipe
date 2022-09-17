@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import './App.css';
 import './global.scss';
 // route
@@ -9,14 +8,18 @@ import Navbar from './components/common/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
+import { getCookie } from './api/cookie';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  useEffect(() => {
+    // isLoggedIn
+    //   ? localStorage.setItem('isLoggedIn', 'true')
+    //   : localStorage.removeItem('isLoggedIn');
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    const tmp = localStorage.getItem('isLoggedIn');
-    tmp && JSON.parse(tmp)
-      ? setIsLoggedIn(() => true)
-      : setIsLoggedIn(() => false);
+    const accessToken = getCookie('accessToken');
+    accessToken ? setIsLoggedIn(() => true) : setIsLoggedIn(() => false);
   }, []);
   return (
     <div className="App">
