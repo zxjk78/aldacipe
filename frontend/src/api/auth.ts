@@ -1,7 +1,8 @@
 import { API_URL } from './http-config';
 import moment from 'moment';
-import { axiosAuthInstance, axiosCommonInstance } from './apiController';
-import { setCookie, removeCookie } from './cookie';
+import axios from 'axios';
+import { axiosCommonInstance, axiosAuthInstance } from './apiController';
+import { setCookie, removeCookie, getCookie } from './cookie';
 
 export const login = async (userInfo: { email: string; password: string }) => {
   try {
@@ -34,6 +35,8 @@ export const login = async (userInfo: { email: string; password: string }) => {
 };
 
 export async function logout() {
+  // console.log('로그아웃합니다.');
+
   try {
     const response = await axiosAuthInstance.delete(API_URL + 'log-out', {});
 
@@ -43,6 +46,6 @@ export async function logout() {
       return true;
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 }

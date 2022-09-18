@@ -1,49 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from './cookie';
 import { API_URL } from './http-config';
-
-let isTokenRefreshing = false;
-let refreshSubscribers: any[] = [];
-
-function onTokenRefreshed(accessToken: any) {
-  refreshSubscribers.map((callback) => callback(accessToken));
-}
-function addRefreshRequestQueue(callback: any) {
-  refreshSubscribers.push(callback);
-}
-
-// 재발급 요청, 만료시 로그아웃 함수
-// request 랑 response의 차이? 요청은 accessToken 만료 30초 전부터 문제라고 인식, 응답은 에러 코드 1013를 받아야 만료되었다고 인식
-// 다중 요청을 처리하면서 두개를 공통적으로 사용하려면??  throw Error 시도해보기?
-
-async function reissueToken() {
-  try {
-    const reissueRes = await axios.post(
-      API_URL + 'reissue',
-      {
-        accessToken: getCookie('accessToken'),
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': API_URL,
-        },
-        withCredentials: true,
-      }
-    );
-    // console.log('재발급받았습니다.');
-    return reissueRes.data.data;
-  } catch (error: any) {
-    // refresh token도 만료된 상황이면
-    if (error.response.data.code === 1006) {
-      // console.log('refresh도 유효기한을 넘겼습니다.');
-      removeCookie('accessToken');
-      removeCookie('accessTokenExpireDate');
-      window.location.reload();
-    }
-  }
-}
 
 export const axiosCommonInstance = axios.create({
   timeout: 10000,
@@ -59,7 +17,7 @@ axiosCommonInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// X-AUTH-TOKEN으로 인증 필요로 하는 요청들
+// 헤더에 X-AUTH-TOKEN 사용하는 axios instance
 export const axiosAuthInstance = axios.create({
   headers: {
     'Access-Control-Allow-Origin': API_URL,
@@ -67,66 +25,104 @@ export const axiosAuthInstance = axios.create({
   withCredentials: true,
   timeout: 10000,
 });
+
 axiosAuthInstance.interceptors.request.use(
-  async (config: any) => {
-    const expireTime = moment(new Date(getCookie('accessTokenExpireDate')));
-
-    // 요청-응답 소요 유효기간 지날 것 같으면 재발급위해서, 30초 전에 미리 재발급 요청
-    const currentAddRequestTime = moment(moment().add(30, 'seconds'));
-    if (expireTime < currentAddRequestTime) {
-      // console.log('요청쪽에서 재발급 합니다.');
-      // throw new AxiosError('accessToken 시간 만료 예상 에러 강제발생', 1013, {})
-      const reissueRes = await reissueToken();
-      if (reissueRes) {
-        const { accessToken, accessTokenExpireDate } = reissueRes;
-        setCookie('accessToken', accessToken);
-        setCookie('accessTokenExpireDate', accessTokenExpireDate);
-      }
-    }
-
+  (config: any) => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     config.headers['X-AUTH-TOKEN'] = getCookie('accessToken');
-    // console.log(config.headers['X-AUTH-TOKEN']);
-    // console.log(getCookie('accessToken'));
     return config;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
+
+let isTokenRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
 axiosAuthInstance.interceptors.response.use(
   // 정상작동
   (response) => {
     return response;
   },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
+  // 응답에서 에러 처리
+  (error) => {
+    const { config, response } = error;
     const originalRequest = config;
-    if (status === 1013) {
-      if (!isTokenRefreshing) {
-        isTokenRefreshing = true;
-        const reissueRes = await reissueToken();
-        const {
-          accessToken: newAccessToken,
-          accessTokenExpireDate: newAccessTokenExpireDate,
-        } = reissueRes;
-        setCookie('accessToken', newAccessToken);
-        setCookie('accessTokenExpireDate', newAccessTokenExpireDate);
-        isTokenRefreshing = false;
-        axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] =
-          newAccessToken;
-        onTokenRefreshed(newAccessToken);
+    if (response.data.code === 1013 && !originalRequest._retry) {
+      // console.log('access token 만료. 재발급 요청');
+
+      // 현재 다른 요청쪽에서 accessToken refreshing 위한 작업중인 경우, 에러난 요청은 if문을 진행해서 queue에 집어넣어진다.
+      if (isTokenRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((accessToken) => {
+            originalRequest.headers['X-AUTH-TOKEN'] = accessToken;
+            return axiosAuthInstance(originalRequest);
+          })
+          .catch((error) => {
+            return Promise.reject(error);
+          });
       }
-      const retryOriginalRequest = new Promise((resolve) => {
-        addRefreshRequestQueue((newAccessToken: any) => {
-          originalRequest.headers['X-AUTH-TOKEN'] = newAccessToken;
-          resolve(axiosAuthInstance(originalRequest));
-        });
+      // 요청이 이미 재시도 중인지 확인 위해 _retry 속성 추가, 지금이 최초 요청인 경우 flag 세움
+      originalRequest._retry = true;
+      isTokenRefreshing = true;
+
+      return new Promise((resolve, reject) => {
+        // console.log('accessToken 재발급 요청');
+
+        axios
+          .post(
+            API_URL + 'reissue',
+            {
+              accessToken: getCookie('accessToken'),
+            },
+            { withCredentials: true }
+          )
+          .then(({ data }) => {
+            const { accessToken: newToken, accessTokenExpireDate: newDate } =
+              data.data;
+            // 발급받으면 저장
+            setCookie('accessToken', newToken);
+            setCookie('accessTokenExpireDate', newDate);
+            // axiosAuthInstance.defaults는 사실 해줄필요 없긴할듯? request Interceptor에서 처리해주니까
+            axiosAuthInstance.defaults.headers.common['X-AUTH-TOKEN'] =
+              newToken;
+            // 원래 요청의 header를 새 토큰으로 변경한다
+            originalRequest.headers['X-AUTH-TOKEN'] = newToken;
+            // 큐에 담긴 요청을 전부 다시 쏴주고, 지금 요청을 마지막으로 마무리한다.
+            processQueue(null, newToken);
+            resolve(axiosAuthInstance(originalRequest));
+          })
+          .catch((error) => {
+            processQueue(error, null);
+            reject(error);
+          })
+          .finally(() => {
+            //무조건 마지막 작업으로 플래그 내림
+            isTokenRefreshing = false;
+          });
       });
-      return retryOriginalRequest;
+    } else if (response.data.code === 1006) {
+      // console.log('refresh token 만료, 로그아웃');
+
+      removeCookie('accessToken');
+      removeCookie('accessTokenExpireDate');
+      failedQueue = [];
+      window.location.reload();
     }
 
     return Promise.reject(error);
