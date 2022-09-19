@@ -12,9 +12,9 @@
   background-color: #fff;
   width: 30vw;
   height: 60vh;
-
+  min-height: 450px;
   display: grid;
-  grid-template-rows: 10vh 15vh 30vh;
+  grid-template-rows: 2fr 3fr 6fr;
   border-radius: 15px;
   padding: 1.5rem 0.8rem;
 }
