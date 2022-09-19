@@ -2,6 +2,8 @@ import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import BirthdayInput from '../common/mui/BirthdayInput';
 import dayjs, { Dayjs } from 'dayjs';
 
+import { debounce } from 'lodash';
+
 // interface - 타입스크립트 인터페이스를 다른 곳에 입력해두고 받아옴
 import * as all from './config';
 import { emailRegExp, passwordRegExp } from '../../util/regexp';
@@ -29,13 +31,15 @@ export const FormContent1: React.FC<{
   };
 
   const checkEmailValid = (event: React.FocusEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    debounce(() => {
+      setEmail(event.target.value);
 
-    if (emailRegExp.test(event.target.value)) {
-      setEmailValid(() => true);
-    } else {
-      setEmailValid(() => false);
-    }
+      if (emailRegExp.test(event.target.value)) {
+        setEmailValid(() => true);
+      } else {
+        setEmailValid(() => false);
+      }
+    }, 500)();
   };
   return (
     <div className={classes.wrapper}>
@@ -57,7 +61,7 @@ export const FormContent1: React.FC<{
           type="button"
           className={`${classes.nextBtn}`}
           onClick={submitStepOneDataHandler}
-          disabled={!emailValid}
+          disabled={email.length === 0 || !emailValid}
         >
           다음
         </button>
@@ -95,8 +99,6 @@ export const FormContent2: React.FC<{
     });
   };
   const genderChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-
     setStepTwoData((prev) => {
       return { ...prev, gender: event.target.value };
     });
