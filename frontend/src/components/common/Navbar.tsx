@@ -71,7 +71,7 @@ export default function Navbar() {
           {/* <MenuItem onClick={handleClose}>내 정보</MenuItem> */}
           {/* <MenuItem onClick={handleClose}>로그아웃</MenuItem> */}
           <MenuItem>
-            <Link to={`/myPage/${username}`}>내 정보</Link>
+            <Link to={`/mypage`}>내 정보</Link>
           </MenuItem>
           <MenuItem onClick={logoutHandler}>로그아웃</MenuItem>
         </Menu>

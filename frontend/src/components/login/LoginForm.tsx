@@ -58,7 +58,8 @@ const LoginForm: React.FC<{}> = () => {
       <form className={classes.loginForm} onSubmit={submitloginUserInfoHandler}>
         <div>
           <label htmlFor="email">이메일</label>
-          <input type="email" id="email" onChange={emailHandler} />
+          {/* <input type="email" id="email" onChange={emailHandler} /> */}
+          <input type="text" id="email" onChange={emailHandler} />
           <p className={classes.errorMsg}>
             {loginUserInfo.email.length > 0 &&
               !emailValid &&
