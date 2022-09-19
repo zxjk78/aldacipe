@@ -18,9 +18,11 @@ export default function MyInfo(props: {}) {
       <div>
         <div className={classes.container}>
           <div className={classes.header}>
-            <div className={classes.title}>회원정보</div>
-            <div className={classes.modify} onClick={modifyUserInfoHandler}>
-              회원정보 수정
+            <div>
+              <div className={classes.title}>회원정보</div>
+              <div className={classes.modify} onClick={modifyUserInfoHandler}>
+                회원정보 수정
+              </div>
             </div>
           </div>
           <div className={classes.main}>
