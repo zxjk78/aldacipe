@@ -1,36 +1,51 @@
-import axios from 'axios';
-
 import { API_URL } from './http-config';
+import moment from 'moment';
+import axios from 'axios';
+import { axiosCommonInstance, axiosAuthInstance } from './apiController';
+import { setCookie, removeCookie, getCookie } from './cookie';
 
-// refresh 만료 시 재발급 위한 응답 인터셉터 추가 (응답시 콜백, 에러시 콜백)
+export const login = async (userInfo: { email: string; password: string }) => {
+  try {
+    const response = await axiosCommonInstance({
+      url: API_URL + 'login',
+      method: 'POST',
+      data: userInfo,
+      withCredentials: true,
+    });
 
-axios.interceptors.response.use(
-  (response: any) => {
-    console.log('인터셉터 정상 콜백', response);
+    if (response.data.success) {
+      const { accessToken, accessTokenExpireDate } = response.data.data;
+      // accessToken, 만료기간 cookie에 저장
+      setCookie('accessToken', accessToken, {
+        path: '/',
+        secure: true,
+        sameSite: 'none',
+      });
 
-    if (response?.success === false) {
-      if (response?.code === 1013) {
-      }
+      setCookie('accessTokenExpireDate', accessTokenExpireDate, {
+        path: '/',
+        secure: true,
+        sameSite: 'none',
+      });
+      return true;
     }
-
-    return response;
-  },
-  async (error) => {
-    console.log('인터셉터 에러 콜백', error);
-
-    const {
-      config,
-      response: { data },
-    } = error;
-    console.log(config, data);
-
-    if (data.code === 1013) {
-      const response = await axios.post(API_URL + `reissue`, {}, {});
-      const { newAccessToken } = response.data;
-      axios.defaults.headers.common['X-AUTH-TOKEN'] = newAccessToken;
-      window.location.href = '/main';
-    } else if (data.code === 1006) {
-      window.location.href = '/login';
-    }
+  } catch (error) {
+    console.log(error);
   }
-);
+};
+
+export async function logout() {
+  // console.log('로그아웃합니다.');
+
+  try {
+    const response = await axiosAuthInstance.delete(API_URL + 'log-out', {});
+
+    if (response.data.success) {
+      removeCookie('accessToken');
+      removeCookie('accessTokenExpireDate');
+      return true;
+    }
+  } catch (err) {
+    // console.log(err);
+  }
+}

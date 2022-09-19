@@ -1,11 +1,39 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+// redux
+import { useDispatch } from 'react-redux';
+import { loginActions } from '../../redux/slice/login';
 // custom component
+import { useSelector } from 'react-redux/es/exports';
 import SearchInput from '../UI/SearchInput';
 // external component
-
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+// api
+import { logout } from '../../api/auth';
 // css
 import classes from './Navbar.module.scss';
 
-const Navbar: React.FC<{ username?: string }> = (props) => {
+export default function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const username = useSelector((state: any) => state.login.username);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const showMenuHandler = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const logoutHandler = async () => {
+    const isLogout = await logout();
+    if (isLogout) {
+      // 리덕스 persist에 user명 삭제
+      dispatch(loginActions.setUsername(''));
+      window.location.reload();
+    }
+  };
   return (
     <>
       <div className={classes.wrapper}>
@@ -22,12 +50,32 @@ const Navbar: React.FC<{ username?: string }> = (props) => {
           <SearchInput isNavbar />
         </div>
 
-        <div className={classes.userInfo}>
-          {props.username ? props.username : '로그인'}
+        <div className={classes.userInfo} onClick={showMenuHandler}>
+          {username}
         </div>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {/* <MenuItem onClick={handleClose}>내 정보</MenuItem> */}
+          {/* <MenuItem onClick={handleClose}>로그아웃</MenuItem> */}
+          <MenuItem>
+            <Link to={`/myPage/${username}`}>내 정보</Link>
+          </MenuItem>
+          <MenuItem onClick={logoutHandler}>로그아웃</MenuItem>
+        </Menu>
       </div>
     </>
   );
-};
-
-export default Navbar;
+}

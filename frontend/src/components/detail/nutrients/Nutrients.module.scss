@@ -1,0 +1,10 @@
+@import '../../../global.scss';
+
+.wrapper {
+  background-color: $background-highlight;
+  width: 95%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  border-radius: 15px;
+}

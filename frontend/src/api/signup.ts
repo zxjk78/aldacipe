@@ -1,19 +1,22 @@
 import { API_URL } from './http-config';
+// import { axiosPostCommonInstance } from './apiController';
 import axios from 'axios';
 
-export const signUp = async (userInfo: {
+export const signup = async (userInfo: {
   email: string;
-  name: string;
   password: string;
+  gender: string;
+  height: number;
+  weight: number;
 }) => {
   try {
-    const response: {
-      success: boolean;
-      code: string;
-      message: string;
-    } = await axios.post(API_URL + `signup`, userInfo);
+    const response: any = await axios.post(API_URL + `signup`, userInfo, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    return response.success;
+    return response.data.success;
   } catch (error) {
     console.error(error);
   }
