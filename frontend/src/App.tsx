@@ -8,6 +8,7 @@ import Navbar from './components/common/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
+import MainPage from './pages/MainPage';
 import { getCookie } from './api/cookie';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
