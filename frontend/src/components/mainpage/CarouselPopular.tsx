@@ -6,8 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
 // css
-import classes from './Carousel.module.scss';
-const Carousel: React.FC<{}> = () => {
+import classes from './CarouselPopular.module.scss';
+const CarouselPopular: React.FC<{}> = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -21,8 +21,8 @@ const Carousel: React.FC<{}> = () => {
 
   const cardList = [] 
   // axios 로 데이터 20개 받아와서 map 돌릴 예정
-  cardList.push(['keyOne','value1', 'value2']);
-  cardList.push(['key2', 'value1', 'value2']);
+  cardList.push(['key인기','value1', 'value2']);
+  cardList.push(['key2인기', 'value1', 'value2']);
   cardList.push(['key3', 'value1', 'value2']);
   cardList.push(['key4', 'value1', 'value2']);
   cardList.push(['key5', 'value1', 'value2']);
@@ -53,4 +53,4 @@ const Carousel: React.FC<{}> = () => {
   );
 };
 
-export default Carousel;
+export default CarouselPopular;

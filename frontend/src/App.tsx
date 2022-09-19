@@ -28,34 +28,28 @@ function App() {
   }, []);
   return (
     <div className="App">
-      {!isLoading && (
-        <BrowserRouter>
-          {isLoggedIn && <Navbar />}
-          <Routes>
-            {!isLoggedIn && (
-              <>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignupPage />} />
-              </>
-            )}
-            {isLoggedIn && (
-              <>
-                <Route path="/mypage" element={<MyPage />} />
-                <Route
-                  path="/detail/:recipeId"
-                  element={<RecipeDetailPage />}
-                />
-                <Route path="/main" element={<MainPage />} />
-              </>
-            )}
-            {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}
-            <Route
-              path="*"
-              element={<Navigate to={isLoggedIn ? '/main' : '/login'} />}
-            />
-          </Routes>
-        </BrowserRouter>
-      )}
+      <BrowserRouter>
+        {isLoggedIn && <Navbar />}
+        <Routes>
+          {!isLoggedIn && (
+            <>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+            </>
+          )}
+          {isLoggedIn && (
+            <>
+              <Route path="/detail/:recipeId" element={<RecipeDetailPage />} />
+              <Route path="/main" element={<MainPage />} />
+            </>
+          )}
+          {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}
+          <Route
+            path="*"
+            element={<Navigate to={isLoggedIn ? '/main' : 'login'} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
