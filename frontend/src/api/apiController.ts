@@ -22,7 +22,7 @@ export const axiosAuthInstance = axios.create({
   headers: {
     'Access-Control-Allow-Origin': API_URL,
   },
-  withCredentials: true,
+  withCredentials: true, // refesh token 발급 위해서 사용하는 옵션
   timeout: 10000,
 });
 
@@ -37,8 +37,8 @@ axiosAuthInstance.interceptors.request.use(
   }
 );
 
-let isTokenRefreshing = false;
-let failedQueue: any[] = [];
+let isTokenRefreshing = false; // flag
+let failedQueue: any[] = []; // 
 
 const processQueue = (error: any, token = null) => {
   failedQueue.forEach((prom) => {
