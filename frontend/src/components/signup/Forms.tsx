@@ -21,12 +21,11 @@ export const FormContent1: React.FC<{
   );
 
   // useRef 는 이런식으로 제네릭<null>
-  const emailRef = useRef<HTMLInputElement>(null);
   const submitStepOneDataHandler = () => {
     // 그리고 current 가 항상 null이 아니라는 것을 보장해서 사용
-    const email: string = emailRef.current!.value;
+    const emailData = email;
 
-    props.stepOneDataHandle({ email: email });
+    props.stepOneDataHandle({ email: emailData });
   };
 
   const checkEmailValid = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -45,8 +44,7 @@ export const FormContent1: React.FC<{
           className={classes.signupInput}
           type="email"
           placeholder="이메일을 입력해 주세요."
-          ref={emailRef}
-          onBlur={checkEmailValid}
+          onChange={checkEmailValid}
           defaultValue={props.formData.email}
         />
         <p className={classes.errorMsg}>
@@ -254,14 +252,14 @@ export const FormContent3: React.FC<{
         type="password"
         className={classes.signupInput}
         id="password1"
-        onBlur={checkPasswordValid}
+        onChange={checkPasswordValid}
       />
       <label htmlFor="password1">비밀번호 확인</label>
       <input
         type="password"
         className={classes.signupInput}
         id="password2"
-        onBlur={checkPasswordConfirm}
+        onChange={checkPasswordConfirm}
       />
       <div className={classes.btnContainer}>
         <button className={classes.prevBtn} onClick={formStepBackHandler}>

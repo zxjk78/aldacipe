@@ -9,9 +9,11 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import MainPage from './pages/MainPage';
+import MyPage from './pages/MyPage';
 import { getCookie } from './api/cookie';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     // isLoggedIn
     //   ? localStorage.setItem('isLoggedIn', 'true')
@@ -19,8 +21,10 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    setIsLoading(true);
     const accessToken = getCookie('accessToken');
     accessToken ? setIsLoggedIn(() => true) : setIsLoggedIn(() => false);
+    setIsLoading(false);
   }, []);
   return (
     <div className="App">
@@ -36,7 +40,7 @@ function App() {
           {isLoggedIn && (
             <>
               <Route path="/detail/:recipeId" element={<RecipeDetailPage />} />
-              <Route path="/main" element={<MainPage />} />
+              <Route path="/main" element={<RecipeDetailPage />} />
             </>
           )}
           {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}

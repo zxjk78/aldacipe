@@ -1,0 +1,35 @@
+@import '../../global.scss';
+.container {
+  width: 90%;
+  margin: 0px auto;
+
+  background-color: $background-highlight;
+  box-shadow: 2px 2px 2px $text-primary;
+}
+.header {
+  margin-top: 10vh;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 2px $green-primary;
+  .title {
+    color: $green-primary;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+.main {
+  width: 90%;
+  margin: 0px auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  & > div {
+    font-size: 1.2rem;
+  }
+  & span {
+    color: $green-primary;
+  }
+}
