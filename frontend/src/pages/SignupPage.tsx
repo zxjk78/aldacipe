@@ -49,8 +49,10 @@ const SignupPage: React.FC<{}> = () => {
       return { ...prevState, password: password };
     });
   };
-  const submitFormData = async () => {
+  const submitFormData = async (event: FormEvent) => {
+    event.preventDefault();
     const done = await signup(signUpInfo);
+
     if (done) {
       navigate('/login', { replace: true });
     }
@@ -69,7 +71,6 @@ const SignupPage: React.FC<{}> = () => {
     />,
     <FormContent3
       formData={signUpInfo}
-      stepThreeDataHandle={submitFormData}
       stepBackHandle={stepBack}
       updatePw={form3PwChangeHandler}
     />,
@@ -89,7 +90,7 @@ const SignupPage: React.FC<{}> = () => {
             </div>
           </div>
           <SignUpStepper cur={currentStep} />
-          <form className={classes.signupForm}>
+          <form className={classes.signupForm} onSubmit={submitFormData}>
             <>{stepForms[currentStep]}</>
           </form>
         </div>

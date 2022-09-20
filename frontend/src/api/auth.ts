@@ -6,12 +6,11 @@ import { setCookie, removeCookie, getCookie } from './cookie';
 
 export const login = async (userInfo: { email: string; password: string }) => {
   try {
-    const response = await axiosCommonInstance({
-      url: API_URL + 'login',
-      method: 'POST',
-      data: userInfo,
-      withCredentials: true,
-    });
+    const response = await axiosCommonInstance.post(
+      API_URL + 'login',
+      userInfo,
+      { withCredentials: true }
+    );
 
     if (response.data.success) {
       const { accessToken, accessTokenExpireDate } = response.data.data;
