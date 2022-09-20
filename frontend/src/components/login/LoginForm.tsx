@@ -53,7 +53,7 @@ const LoginForm: React.FC<{}> = () => {
     // accessToken은 axiosHeader에 저장, accessTokenExpireDate 는 localstorage에 문자열로 저장된 상황
   };
   return (
-    <>
+    <div className={classes.container}>
       <div className={classes.header}>로그인</div>
       <form className={classes.loginForm} onSubmit={submitloginUserInfoHandler}>
         <div>
@@ -76,7 +76,12 @@ const LoginForm: React.FC<{}> = () => {
           </p>
         </div>
 
-        <button>로그인</button>
+        <button
+          className={classes.loginBtn}
+          disabled={!passwordValid || !emailValid}
+        >
+          로그인
+        </button>
         <div className={classes.other}>
           회원이 아니신가요?{' '}
           <Link to="/signup">
@@ -84,7 +89,7 @@ const LoginForm: React.FC<{}> = () => {
           </Link>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
