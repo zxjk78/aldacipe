@@ -1,18 +1,35 @@
 @import '../../global.scss';
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
 .header {
   color: $green-primary;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 .loginForm {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  label {
-    align-self: flex-start;
+  > div {
+    position: relative;
+    label {
+      position: absolute;
+      top: -1rem;
+      font-size: 0.8rem;
+      color: $green-primary;
+    }
   }
   input {
+    padding: 10px;
     background-color: $background-primary;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
   }
 }
 .other {
@@ -29,4 +46,17 @@
 .errorMsg {
   font-size: 0.8rem;
   color: $orange;
+}
+.loginBtn {
+  width: 110%;
+  color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: $green-secondary;
+
+  :disabled {
+    background-color: $text-disable;
+  }
 }
