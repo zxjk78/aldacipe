@@ -24,10 +24,7 @@ export const FormContent1: React.FC<{
 
   // useRef 는 이런식으로 제네릭<null>
   const submitStepOneDataHandler = () => {
-    // 그리고 current 가 항상 null이 아니라는 것을 보장해서 사용
-    const emailData = email;
-
-    props.stepOneDataHandle({ email: emailData });
+    props.stepOneDataHandle({ email: email });
   };
 
   const checkEmailValid = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -41,8 +38,15 @@ export const FormContent1: React.FC<{
       }
     }, 500)();
   };
+  const enterHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter' || !emailValid) {
+      return;
+    } else {
+      props.stepOneDataHandle({ email: email });
+    }
+  };
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} onKeyDown={enterHandler}>
       <div className={classes.inputContainer}>
         <input
           className={classes.signupInput}
@@ -50,6 +54,7 @@ export const FormContent1: React.FC<{
           placeholder="이메일을 입력해 주세요."
           onChange={checkEmailValid}
           defaultValue={props.formData.email}
+          autoFocus
         />
         <p className={classes.errorMsg}>
           {email.length > 0 && !emailValid && '유효한 이메일을 입력해 주세요.'}
@@ -93,10 +98,16 @@ export const FormContent2: React.FC<{
   );
 
   const birthdayChange = (newBirthday: Dayjs | null) => {
-    const tmp = newBirthday!.format('YYYY-MM-DD');
-    setStepTwoData((prev) => {
-      return { ...prev, birthday: tmp };
-    });
+    const tmp = newBirthday?.format('YYYY-MM-DD');
+    if (tmp) {
+      setStepTwoData((prev) => {
+        return { ...prev, birthday: tmp };
+      });
+    } else {
+      setStepTwoData((prev) => {
+        return { ...prev, birthday: '2000-01-01' };
+      });
+    }
   };
   const genderChange = (event: ChangeEvent<HTMLInputElement>) => {
     setStepTwoData((prev) => {
@@ -130,19 +141,24 @@ export const FormContent2: React.FC<{
   const formStepBackHandler = () => {
     props.stepBackHandle();
   };
+  const enterHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (
+      !(isGenderValid && isWeightValid && isHeightValid) ||
+      event.key !== 'Enter'
+    ) {
+      return;
+    } else {
+      props.stepTwoDataHandle(stepTwoData);
+    }
+  };
   const submitStepTwoDataHandler = () => {
     props.stepTwoDataHandle(stepTwoData);
   };
   return (
-    <div className={`${classes.wrapper} ${classes.form2}`}>
-      <div>
-        <div>생년월일</div>
-        <br />
-        <BirthdayInput
-          birthday={props.formData.birthday}
-          changeBirthday={birthdayChange}
-        />
-      </div>
+    <div
+      className={`${classes.wrapper} ${classes.form2}`}
+      onKeyDown={enterHandler}
+    >
       <div>
         <div>성별</div>
         <label htmlFor="male">남성</label>
@@ -150,8 +166,8 @@ export const FormContent2: React.FC<{
           type="radio"
           name="gender"
           id="male"
-          value="male"
-          defaultChecked={props.formData.gender === 'male'}
+          value="MALE"
+          defaultChecked={props.formData.gender === 'MALE'}
           onChange={genderChange}
         />
         <label htmlFor="female">여성</label>
@@ -159,9 +175,17 @@ export const FormContent2: React.FC<{
           type="radio"
           name="gender"
           id="female"
-          value="female"
-          defaultChecked={props.formData.gender === 'female'}
+          value="FEMALE"
+          defaultChecked={props.formData.gender === 'FEMALE'}
           onChange={genderChange}
+        />
+      </div>
+      <div>
+        <div>생년월일</div>
+        <br />
+        <BirthdayInput
+          birthday={props.formData.birthday}
+          changeBirthday={birthdayChange}
         />
       </div>
       <div>
@@ -192,7 +216,11 @@ export const FormContent2: React.FC<{
       </div>
 
       <div className={classes.btnContainer}>
-        <button className={classes.prevBtn} onClick={formStepBackHandler}>
+        <button
+          type="button"
+          className={classes.prevBtn}
+          onClick={formStepBackHandler}
+        >
           이전
         </button>
         <button
@@ -209,7 +237,6 @@ export const FormContent2: React.FC<{
 };
 export const FormContent3: React.FC<{
   formData: all.userInfo;
-  stepThreeDataHandle: () => void;
   stepBackHandle: () => void;
   updatePw: (password: string) => void;
 }> = (props) => {
@@ -244,9 +271,7 @@ export const FormContent3: React.FC<{
   const formStepBackHandler = () => {
     props.stepBackHandle();
   };
-  const sumbitStepThreeHandler = () => {
-    props.stepThreeDataHandle();
-  };
+
   return (
     <div className={classes.wrapper}>
       <label htmlFor="password1">비밀번호</label>
@@ -264,13 +289,17 @@ export const FormContent3: React.FC<{
         onChange={checkPasswordConfirm}
       />
       <div className={classes.btnContainer}>
-        <button className={classes.prevBtn} onClick={formStepBackHandler}>
+        <button
+          type="button"
+          className={classes.prevBtn}
+          onClick={formStepBackHandler}
+        >
           이전
         </button>
         <button
-          type="button"
+          type="submit"
           className={classes.nextBtn}
-          onClick={sumbitStepThreeHandler}
+          // onClick={sumbitStepThreeHandler}
           disabled={!pwValid}
         >
           완료

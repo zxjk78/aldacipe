@@ -14,6 +14,8 @@ const BirthdayInput: React.FC<{
 
   const handleChange = (newBirthday: Dayjs | null) => {
     setValue(newBirthday);
+    // console.log(newBirthday);
+
     props.changeBirthday(newBirthday);
   };
 
