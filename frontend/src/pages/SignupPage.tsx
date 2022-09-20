@@ -83,7 +83,7 @@ const SignupPage: React.FC<{}> = () => {
           <div className={classes.signupHeader}>
             <div>회원가입</div>
             <div>
-              이미 가입하셨나요?
+              이미 가입하셨나요?{` `}
               <Link to="/login">
                 <span>로그인</span>
               </Link>

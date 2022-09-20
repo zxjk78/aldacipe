@@ -4,22 +4,16 @@ import { getCookie, setCookie, removeCookie } from './cookie';
 import { API_URL } from './http-config';
 
 export const axiosCommonInstance = axios.create({
+  baseURL: API_URL,
   timeout: 10000,
+  headers: { 'Content-Type': 'application/json; charset=utf-8' },
 });
 
-axiosCommonInstance.interceptors.request.use(
-  (config: any) => {
-    config.headers['Content-Type'] = 'application/json; charset=utf-8';
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 // 헤더에 X-AUTH-TOKEN 사용하는 axios instance
 export const axiosAuthInstance = axios.create({
+  baseURL: API_URL,
   headers: {
+    'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': API_URL,
   },
   withCredentials: true, // refesh token 발급 위해서 사용하는 옵션
@@ -28,7 +22,6 @@ export const axiosAuthInstance = axios.create({
 
 axiosAuthInstance.interceptors.request.use(
   (config: any) => {
-    config.headers['Content-Type'] = 'application/json; charset=utf-8';
     config.headers['X-AUTH-TOKEN'] = getCookie('accessToken');
     return config;
   },
@@ -38,7 +31,7 @@ axiosAuthInstance.interceptors.request.use(
 );
 
 let isTokenRefreshing = false; // flag
-let failedQueue: any[] = []; // 
+let failedQueue: any[] = []; //
 
 const processQueue = (error: any, token = null) => {
   failedQueue.forEach((prom) => {

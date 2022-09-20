@@ -8,13 +8,14 @@
 
 .header {
   color: $green-primary;
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: bold;
 }
 .loginForm {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   > div {
     position: relative;
     label {
@@ -25,17 +26,27 @@
     }
   }
   input {
+    box-sizing: border-box;
     padding: 10px;
-    background-color: $background-primary;
+    background-color: $background-input;
     border: none;
     border-radius: 10px;
     width: 100%;
+    &:focus {
+      @extend %input-focused;
+    }
   }
 }
 .other {
+  // align-self: flex-start;
+  // margin-left: 1rem;
   font-size: 0.9rem;
+  a {
+    text-decoration: none;
+  }
   span {
     color: $green-secondary;
+
     &:hover {
       color: $green-primary;
       text-decoration: underline;
@@ -48,15 +59,16 @@
   color: $orange;
 }
 .loginBtn {
-  width: 110%;
+  width: 100%;
   color: #fff;
   padding: 8px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   background-color: $green-secondary;
+  transition: 0.5s;
 
-  :disabled {
+  &:disabled {
     background-color: $text-disable;
   }
 }
