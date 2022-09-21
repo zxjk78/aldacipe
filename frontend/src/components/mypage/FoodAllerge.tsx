@@ -5,7 +5,7 @@ import { searchIngredient } from '../../api/search';
 // external component
 
 // custom component
-
+import SearchInput from '../UI/SearchInput';
 // css
 import { ChangeEvent } from 'react';
 import classes from './FoodAllerge.module.scss';
@@ -27,11 +27,9 @@ export default function FoodAllerge(props: {}) {
             식품 검색 및 추가를 통해서, 요리 검색 및 추천 서비스에서 해당 식품이
             들어간 레시피들을 제외할 수 있습니다.
           </div>
-          <input
-            type="text"
-            placeholder="식품 이름을 검색하세요"
-            onChange={keywordInputHandler}
-          />
+          <div className={classes.searchBar}>
+            <SearchInput isMypage placeholder="재료명 검색" />
+          </div>
           <div className={classes.fetched}>보내진 리스트</div>
           <div className={classes.enrolled}>지금 현재 가지고 있는 리스트</div>
         </div>

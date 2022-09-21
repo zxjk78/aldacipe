@@ -280,6 +280,7 @@ export const FormContent3: React.FC<{
         className={classes.signupInput}
         id="password1"
         onChange={checkPasswordValid}
+        autoFocus
       />
       <label htmlFor="password1">비밀번호 확인</label>
       <input
