@@ -9,7 +9,7 @@ import classes from './LoginForm.module.scss';
 // etc
 import { emailRegExp, passwordRegExp } from '../../util/regexp';
 
-const LoginForm: React.FC<{}> = () => {
+const LoginForm = (props: { loginFail: () => void }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,14 +46,15 @@ const LoginForm: React.FC<{}> = () => {
     if (result) {
       // 리덕스 persist에 user명 저장
       dispatch(loginActions.setUsername(loginUserInfo.email.split('@')[0]));
-      // 새로고침 하면서 main으로 라우팅되도록 - 새로고침시 accessToken 증발: cookie에 담아서 증발 막음
-      // navigate('/main', { replace: true });
+
       window.location.reload();
+    } else {
+      props.loginFail();
     }
     // accessToken은 axiosHeader에 저장, accessTokenExpireDate 는 localstorage에 문자열로 저장된 상황
   };
   return (
-    <>
+    <div className={classes.container}>
       <div className={classes.header}>로그인</div>
       <form className={classes.loginForm} onSubmit={submitloginUserInfoHandler}>
         <div>
@@ -76,7 +77,12 @@ const LoginForm: React.FC<{}> = () => {
           </p>
         </div>
 
-        <button>로그인</button>
+        <button
+          className={classes.loginBtn}
+          disabled={!passwordValid || !emailValid}
+        >
+          로그인
+        </button>
         <div className={classes.other}>
           회원이 아니신가요?{' '}
           <Link to="/signup">
@@ -84,7 +90,7 @@ const LoginForm: React.FC<{}> = () => {
           </Link>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -6,10 +6,7 @@ import { setCookie, removeCookie, getCookie } from './cookie';
 
 export const login = async (userInfo: { email: string; password: string }) => {
   try {
-    const response = await axiosCommonInstance({
-      url: API_URL + 'login',
-      method: 'POST',
-      data: userInfo,
+    const response = await axiosCommonInstance.post('login', userInfo, {
       withCredentials: true,
     });
 
@@ -38,7 +35,7 @@ export async function logout() {
   // console.log('로그아웃합니다.');
 
   try {
-    const response = await axiosAuthInstance.delete(API_URL + 'log-out', {});
+    const response = await axiosAuthInstance.delete('log-out', {});
 
     if (response.data.success) {
       removeCookie('accessToken');

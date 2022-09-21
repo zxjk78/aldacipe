@@ -37,10 +37,13 @@ export default function Navbar() {
   return (
     <>
       <div className={classes.wrapper}>
-        <div className={classes.title}>
-          <img src="" alt="로고이미지" />
-          <h1>서비스명</h1>
-        </div>
+        <Link to={`/main`}>
+          <div className={classes.title}>
+            <img src="" alt="로고이미지" />
+            <h1>알다시피</h1>
+          </div>
+        </Link>
+
         <div className={classes.menu}>
           <div>레시피</div>
           <div>내 냉장고</div>
@@ -68,8 +71,6 @@ export default function Navbar() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          {/* <MenuItem onClick={handleClose}>내 정보</MenuItem> */}
-          {/* <MenuItem onClick={handleClose}>로그아웃</MenuItem> */}
           <MenuItem>
             <Link to={`/mypage`}>내 정보</Link>
           </MenuItem>
