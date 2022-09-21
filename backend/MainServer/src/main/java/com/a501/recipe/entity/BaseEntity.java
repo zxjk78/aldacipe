@@ -9,18 +9,18 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass // 해당 클래스를 상속하면 이 클래스의 필드들이 Column으로 인식
-@EntityListeners(AuditingEntityListener.class) // Auditing 기능을 포함
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreatedDate // 생성된 시간 저장
+    @CreatedDate
     private LocalDateTime createdTime;
 
-    @LastModifiedDate // Entity의 값을 변경할 때 시간 갱신 저장
+    @LastModifiedDate
     private LocalDateTime modifiedTime;
 
 }
