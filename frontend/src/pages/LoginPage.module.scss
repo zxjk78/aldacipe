@@ -17,11 +17,26 @@
 .wrapper {
   width: 70%;
   height: 70%;
-  min-height: 700px;
-  background-color: $background-highlight;
+  min-height: 500px;
+  background-color: #fff;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
   padding: 1rem 2rem;
-  gap: 2rem;
   border-radius: 10px;
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loginImg {
+  width: 30vw;
+  height: 30vw;
+}
+.errorMsg {
+  font-size: 0.9rem;
+  line-height: 20px;
+  color: $red;
 }

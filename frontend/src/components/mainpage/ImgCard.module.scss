@@ -1,0 +1,14 @@
+@import '../../global.scss';
+.container {
+  display: flex;
+  text-align: center;
+}
+.img_card {
+  height: 450px;
+  width: 50vw;
+  // display: block;
+  margin-left: 5rem;
+}
+.description {
+  width: 30vw;
+}

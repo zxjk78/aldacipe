@@ -1,0 +1,8 @@
+@import '../../global.scss';
+.card {
+  margin: 2rem;
+  transition: all .3s ease-in-out
+}
+.card:hover {
+  transform: scale(1.2);
+}

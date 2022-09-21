@@ -6,7 +6,7 @@
   color: black;
 }
 .searchContainer {
-  width: 20rem;
+  width: 100%;
   position: relative;
   span {
     position: absolute;
@@ -14,12 +14,38 @@
     left: 0.6rem;
   }
   input {
+    box-sizing: border-box;
     width: 100%;
     padding: 0.5rem;
-
     border: none;
     background-color: #d3d3d3;
     border-radius: 15px;
     text-align: center;
   }
+}
+form {
+  position: relative;
+}
+.searchBriefResult {
+  width: 100%;
+  padding: 20px;
+  position: absolute;
+  top: 5vh;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.category {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  text-align: left;
+  &.recipe {
+    color: $green-primary;
+  }
+  &.ingredient {
+    color: $orange;
+  }
+}
+.searchResult {
+  min-height: 200px;
 }

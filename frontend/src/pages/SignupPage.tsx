@@ -1,17 +1,21 @@
 import React, { FormEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   FormContent1,
   FormContent2,
   FormContent3,
 } from '../components/signup/Forms';
-import * as all from '../components/signup/config';
 import { SignUpStepper } from '../components/signup/SignUpComponents';
-
+// api
+import { signup } from '../api/signup';
 // css
 import classes from './SignupPage.module.scss';
+// etc
+import * as all from '../components/signup/config';
 
 const SignupPage: React.FC<{}> = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [signUpInfo, setSignUpInfo] = useState<all.userInfo>({
     email: '',
@@ -21,14 +25,6 @@ const SignupPage: React.FC<{}> = () => {
     height: 0,
     gender: '',
   });
-
-  const handleRegister = (formValue: any) => {
-    const { email, password } = formValue;
-    const data = {
-      email,
-      password,
-    };
-  };
 
   const addOneData = (data: all.form1Data) => {
     setSignUpInfo((prevState) => {
@@ -48,11 +44,18 @@ const SignupPage: React.FC<{}> = () => {
     });
     setCurrentStep(() => currentStep + 1);
   };
-  const submitFormData = (data: all.form3Data) => {
+  const form3PwChangeHandler = (password: string) => {
     setSignUpInfo((prevState) => {
-      return { ...prevState, email: data.password };
+      return { ...prevState, password: password };
     });
-    // api 서버에 signUpInfo 제출 (asyncThunk or 그냥)
+  };
+  const submitFormData = async (event: FormEvent) => {
+    event.preventDefault();
+    const done = await signup(signUpInfo);
+
+    if (done) {
+      navigate('/login', { replace: true });
+    }
   };
   const stepBack = () => {
     if (currentStep > 0) {
@@ -68,8 +71,8 @@ const SignupPage: React.FC<{}> = () => {
     />,
     <FormContent3
       formData={signUpInfo}
-      stepThreeDataHandle={submitFormData}
       stepBackHandle={stepBack}
+      updatePw={form3PwChangeHandler}
     />,
   ];
 
@@ -80,11 +83,14 @@ const SignupPage: React.FC<{}> = () => {
           <div className={classes.signupHeader}>
             <div>회원가입</div>
             <div>
-              이미 가입하셨나요? <span>로그인</span>
+              이미 가입하셨나요?{` `}
+              <Link to="/login">
+                <span>로그인</span>
+              </Link>
             </div>
           </div>
           <SignUpStepper cur={currentStep} />
-          <form className={classes.signupForm}>
+          <form className={classes.signupForm} onSubmit={submitFormData}>
             <>{stepForms[currentStep]}</>
           </form>
         </div>
