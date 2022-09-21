@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "refrigerator")
-public class Refrigerator extends BaseEntity{
+@Table(name = "refrigerator_ingredient")
+public class RefrigeratorIngredient extends BaseEntity{
 
     private float weight;
 

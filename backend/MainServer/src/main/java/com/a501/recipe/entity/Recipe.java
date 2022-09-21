@@ -21,6 +21,8 @@ public class Recipe extends BaseEntity{
 
     private String imageSmall;
 
+    private float weight;
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 

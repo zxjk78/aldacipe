@@ -48,6 +48,7 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Evaluation> evaluations = new ArrayList<>();
 
+    // blackList List
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
