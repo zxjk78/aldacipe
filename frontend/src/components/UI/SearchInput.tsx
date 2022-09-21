@@ -14,6 +14,7 @@ const MySearchIcon = styled(SearchIcon)`
 const SearchInput: React.FC<{
   isNavbar?: boolean;
   isMypage?: boolean;
+  placeholder?: string;
 }> = (props) => {
   type SearchResult = { recipe: string[]; ingredient: string[] };
   type myPageIngredient = { ingredient: string[] };
@@ -66,31 +67,39 @@ const SearchInput: React.FC<{
 
             <input
               type="text"
-              placeholder="요리 또는 재료명 검색"
+              placeholder={props?.placeholder || '요리 또는 재료명 검색'}
               onChange={keywordChangeHandler}
               ref={searchRef}
             />
           </div>
+          {briefVisible && props.isNavbar ? (
+            <div className={classes.searchBriefResult}>
+              <div className={classes.recipe}>
+                <div className={`${classes.category} ${classes.recipe}`}>
+                  요리
+                </div>
+                <div className={classes.searchResult}>
+                  {navSearchResult?.recipe}요리 부분
+                </div>
+              </div>
+              <div className={classes.ingredient}>
+                <div className={`${classes.category} ${classes.ingredient}`}>
+                  재료
+                </div>
+                <div className={classes.searchResult}>
+                  {navSearchResult?.ingredient}재료 부분
+                </div>
+              </div>
+            </div>
+          ) : briefVisible && props.isMypage ? (
+            <div className={classes.searchBriefResult}>
+              {myPageSearchResult?.ingredient}
+            </div>
+          ) : (
+            <></>
+          )}
         </form>
       </div>
-      {briefVisible && props.isNavbar ? (
-        <div className={classes.searchBriefResult}>
-          <div className={classes.recipe}>
-            <h2>요리</h2>
-            {navSearchResult?.recipe}
-          </div>
-          <div className={classes.ingredient}>
-            <h2>재료</h2>
-            {navSearchResult?.ingredient}
-          </div>
-        </div>
-      ) : briefVisible && props.isMypage ? (
-        <div className={classes.searchBriefResult}>
-          {myPageSearchResult?.ingredient}
-        </div>
-      ) : (
-        <></>
-      )}
     </>
   );
 };

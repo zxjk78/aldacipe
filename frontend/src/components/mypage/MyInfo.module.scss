@@ -1,6 +1,6 @@
 @import '../../global.scss';
 .container {
-  width: 90%;
+  width: 80%;
   margin: 0px auto;
 
   background-color: $background-highlight;
@@ -26,19 +26,40 @@
     font-weight: bold;
     font-size: 1.2rem;
   }
+  .modify {
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover {
+      color: $green-primary;
+    }
+  }
 }
 .main {
   width: 90%;
   margin: 0px auto;
-  margin-top: 10vh;
+  margin-top: 5vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 10vh 10vh;
-
+  text-align: left;
   & > div {
     font-size: 1.2rem;
   }
   & span {
     color: $green-primary;
+  }
+}
+
+.modalContainer {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  input {
+    width: 60px;
+    padding: 6px;
+    border: 2px solid #2fbba0;
+    background-color: #fff;
+    border-radius: 10px;
   }
 }

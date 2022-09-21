@@ -2,7 +2,7 @@
 .container {
   background-color: #fff;
 
-  width: 90%;
+  width: 80%;
   margin: 0px auto;
   border-radius: 5px;
   box-shadow: 5px 5px 5px #000;
@@ -15,12 +15,20 @@
   border-bottom: solid 2px $green-primary;
   color: $green-primary;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   > div {
-    margin-left: 10%;
+    width: 90%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 .main {
+  text-align: left;
+  width: 90%;
+  margin: 0px auto;
 }
-.footer {
+.searchBar {
+  width: 40%;
 }
