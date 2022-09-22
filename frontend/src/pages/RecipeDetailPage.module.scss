@@ -24,3 +24,10 @@
     text-decoration: underline;
   }
 }
+.selected {
+  color: black;
+  background-color: $green-secondary;
+}
+.notselected {
+  color: black;
+}
