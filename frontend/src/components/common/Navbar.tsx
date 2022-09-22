@@ -52,7 +52,7 @@ export default function Navbar() {
           <div>영양관리</div>
         </div>
         <div className={classes.search}>
-          <SearchInput isNavbar />
+          <SearchInput />
         </div>
 
         <div className={classes.userInfo} onClick={showMenuHandler}>

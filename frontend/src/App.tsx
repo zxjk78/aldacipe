@@ -12,6 +12,7 @@ import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import SearchPage from './pages/SearchPage';
 // 테스트용
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
                 />
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
-                <Route path="/recipe" element={<MyPage />} />
+                <Route path="/search" element={<SearchPage />} />
               </>
             )}
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}

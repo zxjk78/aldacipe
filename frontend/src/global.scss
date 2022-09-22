@@ -17,6 +17,23 @@ $red: #f33620 !global;
 % 문법: id, class 선택자처럼 %로 선택자를 사용할 수 있음. 이 scss 파일 import 후 이거를 사용하고 싶은 클래스에서 @extend %선택자명  해주면 사용가능
 예시: LoginForm.module.scss 파일의 로그인 비밀번호 input
 */
+
+%input-normal {
+  width: 300px;
+  height: 23px;
+  box-sizing: border-box;
+  border: none;
+  outline: solid 2px #474747;
+  background-color: #d3d3d3;
+  border-radius: 15px;
+  padding: 8px;
+}
+%input-search {
+  @extend %input-normal;
+  height: 30px;
+  text-align: center;
+}
+
 %input-focused {
   outline: solid 2px $green-secondary;
   background-color: #a4f6e6;
