@@ -23,7 +23,6 @@ const ReviewItem = (props: { review: Review }) => {
           readOnly
           precision={0.5}
         />
-        리뷰리뷰리뷰
       </div>
       <div className={classes.main}>{review.content}</div>
     </>

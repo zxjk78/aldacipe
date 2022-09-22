@@ -56,7 +56,7 @@ function App() {
                   <Route index element={<CuisineContainer />} />
                   {/* <Route path="ingredient" element={<IngredientContainer />} /> */}
                   <Route path="nutrients" element={<Nutrients /> } />
-                  <Route path="review" element={<ReviewContainer />} />
+                  <Route path="review" element={<ReviewContainer /> } />
                 </Route>
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />

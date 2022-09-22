@@ -9,6 +9,7 @@ const ReviewContainer = () => {
       {reviewList.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
+      리뷰리뷰리뷰
     </>
   );
 };
