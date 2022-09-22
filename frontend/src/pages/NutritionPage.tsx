@@ -16,9 +16,11 @@ export default function NutritionPage(props: {}) {
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}></div>
-          <div className={classes.main}></div>
-          <div className={classes.footer}></div>
+          <div className={classes.graphWeek}></div>
+          <div className={classes.meal}></div>
+          <div className={classes.graphDay}></div>
+          <div className={classes.graphMonth}></div>
+          <div className={classes.overall}></div>
         </div>
       </div>
     </>

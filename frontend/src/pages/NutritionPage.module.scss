@@ -1,12 +1,8 @@
 @import '../global.scss';
 .wrapper {
-  display: grid;
+  padding: 15px;
+  background-color: $background-primary;
 }
 .container {
-}
-.header {
-}
-.main {
-}
-.footer {
+  display: grid;
 }
