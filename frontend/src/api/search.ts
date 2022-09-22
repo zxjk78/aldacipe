@@ -1,10 +1,12 @@
-import axios, { AxiosResponse } from 'axios';
+import { axiosAuthInstance } from './apiController';
 import { API_URL } from './http-config';
-export const searchKeyword = async (keyword: string) => {
+
+// 제목에 맞는 요리 5개만 추천해주는
+export const searchRecipeByKeyword = async (keyword: string) => {
   try {
     const response: {
-      data: { recipe: string[]; ingredient: string[] };
-    } = await axios.get(API_URL + `어쩌고${keyword}`, {});
+      data: { recipe: string[] };
+    } = await axiosAuthInstance.get(API_URL + `어쩌고${keyword}`, {});
 
     return response.data;
   } catch (error) {
@@ -14,10 +16,8 @@ export const searchKeyword = async (keyword: string) => {
 
 export const searchIngredient = async (keyword: string) => {
   try {
-    const response: { data: { ingredient: string[] } } = await axios.get(
-      API_URL + `어쩌고${keyword}`,
-      {}
-    );
+    const response: { data: { ingredient: string[] } } =
+      await axiosAuthInstance.get(API_URL + `어쩌고${keyword}`, {});
 
     return response.data;
   } catch (error) {

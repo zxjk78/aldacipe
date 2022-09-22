@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { searchKeyword, searchIngredient } from '../../api/search';
+import { searchRecipeByKeyword, searchIngredient } from '../../api/search';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from '@emotion/styled';
 
@@ -16,12 +16,16 @@ const SearchInput: React.FC<{
   isMypage?: boolean;
   placeholder?: string;
 }> = (props) => {
-  type SearchResult = { recipe: string[]; ingredient: string[] };
-  type myPageIngredient = { ingredient: string[] };
+  interface SearchRecipeResult {
+    recipe: string[];
+  }
+  interface myPageIngredient {
+    ingredient: string[];
+  }
 
   const [briefVisible, setBriefVisible] = useState(false);
   const [navSearchResult, setNavSearchResult] = useState<
-    SearchResult | undefined
+    SearchRecipeResult | undefined
   >(undefined);
   const [myPageSearchResult, setMyPageSearchResult] = useState<
     myPageIngredient | undefined
@@ -42,7 +46,9 @@ const SearchInput: React.FC<{
     // 인풋의 키워드 변화가
     //네비게이션 바의 검색에서면
     if (props.isNavbar) {
-      const data: SearchResult | undefined = await searchKeyword(keyword);
+      const data: SearchRecipeResult | undefined = await searchRecipeByKeyword(
+        keyword
+      );
       setNavSearchResult((prev) => data);
       setBriefVisible(true);
     }
@@ -67,7 +73,7 @@ const SearchInput: React.FC<{
 
             <input
               type="text"
-              placeholder={props?.placeholder || '요리 또는 재료명 검색'}
+              placeholder={props?.placeholder || '요리 이름 검색'}
               onChange={keywordChangeHandler}
               ref={searchRef}
             />
@@ -80,14 +86,6 @@ const SearchInput: React.FC<{
                 </div>
                 <div className={classes.searchResult}>
                   {navSearchResult?.recipe}요리 부분
-                </div>
-              </div>
-              <div className={classes.ingredient}>
-                <div className={`${classes.category} ${classes.ingredient}`}>
-                  재료
-                </div>
-                <div className={classes.searchResult}>
-                  {navSearchResult?.ingredient}재료 부분
                 </div>
               </div>
             </div>
