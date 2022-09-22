@@ -12,7 +12,11 @@
 .inputContainer {
   width: 100%;
 }
-
+.title {
+  font-weight: bold;
+  color: $green-primary;
+  margin-bottom: 1rem;
+}
 .signupInput {
   width: 80%;
   padding: 10px 8px;
@@ -25,7 +29,24 @@
     background-color: #a4f6e6;
   }
 }
-
+.form2InputContainer {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  // background-color: #474747;
+  margin: 0px auto;
+}
+.numberInput {
+  width: 40px;
+  border: solid 1px $green-secondary;
+  border-radius: 5px;
+}
+.numberInputs {
+  width: 150%;
+  display: flex;
+  justify-content: space-between;
+  // background-color: #5f5f5f;
+}
 .btnContainer {
   width: 80%;
   position: absolute;
