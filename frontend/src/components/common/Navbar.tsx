@@ -45,7 +45,9 @@ export default function Navbar() {
         </Link>
 
         <div className={classes.menu}>
-          <div>레시피</div>
+          <Link to={`/main`}>
+            <div>레시피</div>
+          </Link>
           <div>내 냉장고</div>
           <div>영양관리</div>
         </div>
