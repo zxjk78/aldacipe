@@ -1,5 +1,6 @@
 package com.a501.recipe.entity;
 
+import com.a501.recipe.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,15 +25,30 @@ import java.util.stream.Collectors;
 @Table(name = "user")
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(unique = true, nullable = true, length = 30)
-    String name;
-
+    @Column(length = 20)
+    private String name;
     @Column(nullable = false, unique = true, length = 50)
-    String email;
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false, length = 100)
-    String password;
+    private String password;
+
+    private LocalDate birthday;
+
+    private Gender gender;
+
+    private float height;
+
+    private float weight;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserIntake> userIntakes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Evaluation> evaluations = new ArrayList<>();
+
+    // blackList List
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

@@ -50,6 +50,7 @@ function App() {
                 />
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
+                <Route path="/recipe" element={<MyPage />} />
               </>
             )}
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}

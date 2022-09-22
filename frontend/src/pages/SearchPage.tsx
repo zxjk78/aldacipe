@@ -1,18 +1,23 @@
-// custom component
-import CarouselRefrigerator from '../components/mainpage/CarouselRefrigerator';
-// css
-import classes from './SearchPage.module.scss';
-import { classicNameResolver } from 'typescript';
-const SearchPage: React.FC<{}> = () => {
-  return (
-    <div className={classes.container}>
-      <h1>검색결과</h1>
-      <h3>요리</h3>
-      <CarouselRefrigerator />
-      <h3>재료로 하는 요리</h3>
-      <CarouselRefrigerator />
-    </div>
-  );
-};
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+export default function SearchPage(props: {}) {
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSearch, setIsSearch] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    if (searchParams.get('keyword')) {
+      setIsSearch(() => true);
+    }
+    return () => {};
+  }, [searchParams]);
+  setIsLoading(false);
 
-export default SearchPage;
+  return (
+    <>
+      <div>재료 상세 검색</div>
+
+      <div>검색 결과</div>
+    </>
+  );
+}
