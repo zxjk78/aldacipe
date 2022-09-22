@@ -12,6 +12,10 @@ import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import CuisineContainer from '../src/components/detail/cuisine/CuisineContainer';
+import IngredientContainer from '../src/components/detail/ingredient/IngredientContainer';
+import Nutrients from '../src/components/detail/nutrients/Nutrients';
+import ReviewContainer from '../src/components/detail/reviews/ReviewContainer';
 // 테스트용
 
 function App() {
@@ -47,7 +51,13 @@ function App() {
                 <Route
                   path="/detail/:recipeId"
                   element={<RecipeDetailPage />}
-                />
+                >
+                  {/* <Route path="/" element={<CuisineContainer />} /> */}
+                  <Route index element={<CuisineContainer />} />
+                  {/* <Route path="ingredient" element={<IngredientContainer />} /> */}
+                  <Route path="nutrients" element={<Nutrients /> } />
+                  <Route path="review" element={<ReviewContainer /> } />
+                </Route>
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/recipe" element={<MyPage />} />
