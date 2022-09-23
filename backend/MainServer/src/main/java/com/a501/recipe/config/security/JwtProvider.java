@@ -3,8 +3,8 @@ package com.a501.recipe.config.security;
 
 import com.a501.recipe.advice.ErrorCode;
 import com.a501.recipe.advice.exception.AuthenticationEntryPointException;
-import com.a501.recipe.dto.token.TokenResponseDto;
-import com.a501.recipe.service.WebUserDetailsService;
+import com.a501.recipe.api.dto.token.TokenResponseDto;
+import com.a501.recipe.api.service.WebUserDetailsService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.Base64UrlCodec;
 import lombok.RequiredArgsConstructor;
