@@ -152,27 +152,33 @@ export const FormContent2: React.FC<{
       className={`${classes.wrapper} ${classes.form2}`}
       onKeyDown={enterHandler}
     >
-      <div className={classes.form2InputContainer}>
-        <div>
+      <div className={`${classes.form2InputContainer}`}>
+        <div className={`${classes.genderContainer}`}>
           <div className={classes.title}>성별</div>
-          <label htmlFor="male">남성</label>
-          <input
-            type="radio"
-            name="gender"
-            id="male"
-            value="MALE"
-            defaultChecked={props.formData.gender === 'MALE'}
-            onChange={genderChange}
-          />
-          <label htmlFor="female">여성</label>
-          <input
-            type="radio"
-            name="gender"
-            id="female"
-            value="FEMALE"
-            defaultChecked={props.formData.gender === 'FEMALE'}
-            onChange={genderChange}
-          />
+          <div>
+            <div>
+              <label htmlFor="male">남성</label>
+              <input
+                type="radio"
+                name="gender"
+                id="male"
+                value="MALE"
+                defaultChecked={props.formData.gender === 'MALE'}
+                onChange={genderChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="female">여성</label>
+              <input
+                type="radio"
+                name="gender"
+                id="female"
+                value="FEMALE"
+                defaultChecked={props.formData.gender === 'FEMALE'}
+                onChange={genderChange}
+              />
+            </div>
+          </div>
         </div>
 
         <div>
@@ -183,13 +189,12 @@ export const FormContent2: React.FC<{
           />
         </div>
       </div>
-      <div>
+      <div className={classes.form2InputContainer}>
         <div className={classes.numberInputs}>
           <div>
             <label htmlFor="height">키</label>
             <input
               type="number"
-              className={classes.numberInput}
               name="height"
               id="height"
               min={0}
@@ -203,7 +208,6 @@ export const FormContent2: React.FC<{
             <label htmlFor="weight">몸무게</label>
             <input
               type="number"
-              className={classes.numberInput}
               name="weight"
               id="weight"
               min={0}

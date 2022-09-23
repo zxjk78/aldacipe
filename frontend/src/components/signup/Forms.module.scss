@@ -1,4 +1,5 @@
 @import '../../global.scss';
+
 .wrapper {
   height: 100%;
   display: flex;
@@ -19,6 +20,8 @@
 }
 .signupInput {
   width: 80%;
+  display: block;
+  margin: 0px auto;
   padding: 10px 8px;
   background-color: $background-input;
   border: none;
@@ -28,24 +31,6 @@
     outline: solid 2px $green-secondary;
     background-color: #a4f6e6;
   }
-}
-.form2InputContainer {
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  // background-color: #474747;
-  margin: 0px auto;
-}
-.numberInput {
-  width: 40px;
-  border: solid 1px $green-secondary;
-  border-radius: 5px;
-}
-.numberInputs {
-  width: 150%;
-  display: flex;
-  justify-content: space-between;
-  // background-color: #5f5f5f;
 }
 .btnContainer {
   width: 80%;
@@ -83,7 +68,7 @@
 }
 
 .form2 {
-  align-items: flex-start;
+  align-items: center;
   label {
     font-size: 0.9rem;
 
@@ -100,4 +85,49 @@
   margin-left: 10%;
   text-align: left;
   color: $orange;
+}
+
+.form2InputContainer {
+  width: 90%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  // background-color: #474747;
+  input {
+    outline: none;
+  }
+}
+.genderContainer {
+  > div:not(:first-child) {
+    // background-color: #a4f6e6;
+    display: flex;
+  }
+  input[type='radio'] {
+    width: 80px;
+    outline: none;
+    position: relative;
+    top: 10px;
+    accent-color: $green-primary;
+  }
+}
+.numberInputs {
+  display: flex;
+  width: 120%;
+  justify-content: space-between;
+  > div {
+    width: 200px;
+  }
+  label {
+    font-weight: bold;
+    color: $green-primary;
+  }
+
+  input {
+    width: 70px;
+    margin-left: 10%;
+    border: solid 2px $green-secondary;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+  }
 }
