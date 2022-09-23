@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import './global.scss';
 // route
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 // external library

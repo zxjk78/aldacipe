@@ -32,6 +32,7 @@
     border: none;
     border-radius: 10px;
     width: 100%;
+    text-align: left;
     &:focus {
       @extend %input-focused;
     }
