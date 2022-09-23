@@ -3,13 +3,14 @@ import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from './cookie';
 import { API_URL } from './http-config';
 
+// 사용자 인증 필요없는 기능 사용할때 쓰는 axios instance
 export const axiosCommonInstance = axios.create({
   baseURL: API_URL,
   timeout: 10000,
   headers: { 'Content-Type': 'application/json; charset=utf-8' },
 });
 
-// 헤더에 X-AUTH-TOKEN 사용하는 axios instance
+// 사용자 기능 필요할때: 헤더에 X-AUTH-TOKEN ㅞ사용하는 axios instance
 export const axiosAuthInstance = axios.create({
   baseURL: API_URL,
   headers: {
