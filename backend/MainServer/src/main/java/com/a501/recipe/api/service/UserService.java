@@ -28,6 +28,7 @@ public class UserService {
 
     @Transactional
     public void modifyUserInfo(User loginUser, UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
-        loginUser.updateUserInfo(userInfoUpdateRequestDto.getHeight(),userInfoUpdateRequestDto.getWeight());
+        User user = userRepository.findById(loginUser.getId()).orElseThrow(UserNotFoundException::new);
+        user.updateUserInfo(userInfoUpdateRequestDto.getHeight(),userInfoUpdateRequestDto.getWeight());
     }
 }

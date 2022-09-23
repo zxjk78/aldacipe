@@ -33,9 +33,11 @@ public class UserController {
     }
 
     @PutMapping("/userinfo")
-    public void modifyMyProfile(@ApiIgnore @LoginUser User loginUser, @RequestBody UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
+    public CommonResult modifyMyProfile(@ApiIgnore @LoginUser User loginUser, @RequestBody UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
         if(loginUser==null) throw new AccessDeniedException();
         userService.modifyUserInfo(loginUser, userInfoUpdateRequestDto);
+
+        return responseService.getSuccessResult();
     }
 
 }
