@@ -14,13 +14,7 @@
     left: 0.6rem;
   }
   input {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.5rem;
-    border: none;
-    background-color: #d3d3d3;
-    border-radius: 15px;
-    text-align: center;
+    @extend %input-search;
   }
 }
 form {
@@ -34,6 +28,7 @@ form {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 30;
 }
 .category {
   font-size: 1.3rem;

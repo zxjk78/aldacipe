@@ -45,12 +45,14 @@ export default function Navbar() {
         </Link>
 
         <div className={classes.menu}>
-          <div>레시피</div>
+          <Link to={`/main`}>
+            <div>레시피</div>
+          </Link>
           <div>내 냉장고</div>
           <div>영양관리</div>
         </div>
         <div className={classes.search}>
-          <SearchInput isNavbar />
+          <SearchInput />
         </div>
 
         <div className={classes.userInfo} onClick={showMenuHandler}>

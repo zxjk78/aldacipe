@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import BirthdayInput from '../common/mui/BirthdayInput';
-import dayjs, { Dayjs } from 'dayjs';
 
 import { debounce } from 'lodash';
 
@@ -97,17 +96,11 @@ export const FormContent2: React.FC<{
     props.formData.height >= 0 && props.formData.height <= 300 ? true : false
   );
 
-  const birthdayChange = (newBirthday: Dayjs | null) => {
-    const tmp = newBirthday?.format('YYYY-MM-DD');
-    if (tmp) {
-      setStepTwoData((prev) => {
-        return { ...prev, birthday: tmp };
-      });
-    } else {
-      setStepTwoData((prev) => {
-        return { ...prev, birthday: '2000-01-01' };
-      });
-    }
+  const birthdayChangeHandler = (newBirthday: string) => {
+    const tmp = newBirthday;
+    setStepTwoData((prev) => {
+      return { ...prev, birthday: tmp };
+    });
   };
   const genderChange = (event: ChangeEvent<HTMLInputElement>) => {
     setStepTwoData((prev) => {
@@ -159,59 +152,67 @@ export const FormContent2: React.FC<{
       className={`${classes.wrapper} ${classes.form2}`}
       onKeyDown={enterHandler}
     >
-      <div>
-        <div>성별</div>
-        <label htmlFor="male">남성</label>
-        <input
-          type="radio"
-          name="gender"
-          id="male"
-          value="MALE"
-          defaultChecked={props.formData.gender === 'MALE'}
-          onChange={genderChange}
-        />
-        <label htmlFor="female">여성</label>
-        <input
-          type="radio"
-          name="gender"
-          id="female"
-          value="FEMALE"
-          defaultChecked={props.formData.gender === 'FEMALE'}
-          onChange={genderChange}
-        />
-      </div>
-      <div>
-        <div>생년월일</div>
-        <br />
-        <BirthdayInput
-          birthday={props.formData.birthday}
-          changeBirthday={birthdayChange}
-        />
-      </div>
-      <div>
+      <div className={classes.form2InputContainer}>
         <div>
-          <label htmlFor="height">키</label>
+          <div className={classes.title}>성별</div>
+          <label htmlFor="male">남성</label>
           <input
-            type="number"
-            name="height"
-            id="height"
-            min={0}
-            max={300}
-            defaultValue={props.formData.height}
-            onBlur={heightBlur}
-          />{' '}
-          cm
-          <label htmlFor="weight">몸무게</label>
+            type="radio"
+            name="gender"
+            id="male"
+            value="MALE"
+            defaultChecked={props.formData.gender === 'MALE'}
+            onChange={genderChange}
+          />
+          <label htmlFor="female">여성</label>
           <input
-            type="number"
-            name="weight"
-            id="weight"
-            min={0}
-            max={300}
-            defaultValue={props.formData.weight}
-            onBlur={weightBlur}
-          />{' '}
-          kg
+            type="radio"
+            name="gender"
+            id="female"
+            value="FEMALE"
+            defaultChecked={props.formData.gender === 'FEMALE'}
+            onChange={genderChange}
+          />
+        </div>
+
+        <div>
+          <div className={classes.title}>생년월일</div>
+          <BirthdayInput
+            birthday={props.formData.birthday}
+            changeBirthday={birthdayChangeHandler}
+          />
+        </div>
+      </div>
+      <div>
+        <div className={classes.numberInputs}>
+          <div>
+            <label htmlFor="height">키</label>
+            <input
+              type="number"
+              className={classes.numberInput}
+              name="height"
+              id="height"
+              min={0}
+              max={300}
+              defaultValue={props.formData.height}
+              onBlur={heightBlur}
+            />{' '}
+            cm
+          </div>
+          <div>
+            <label htmlFor="weight">몸무게</label>
+            <input
+              type="number"
+              className={classes.numberInput}
+              name="weight"
+              id="weight"
+              min={0}
+              max={300}
+              defaultValue={props.formData.weight}
+              onBlur={weightBlur}
+            />{' '}
+            kg
+          </div>
         </div>
       </div>
 

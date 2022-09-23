@@ -12,6 +12,12 @@ import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import CuisineContainer from '../src/components/detail/cuisine/CuisineContainer';
+import IngredientContainer from '../src/components/detail/ingredient/IngredientContainer';
+import Nutrients from '../src/components/detail/nutrients/Nutrients';
+import ReviewContainer from '../src/components/detail/reviews/ReviewContainer';
+import SearchPage from './pages/SearchPage';
+import MyRefrigerator from './pages/MyRefrigerator';
 // 테스트용
 
 function App() {
@@ -44,12 +50,17 @@ function App() {
             )}
             {isLoggedIn && (
               <>
-                <Route
-                  path="/detail/:recipeId"
-                  element={<RecipeDetailPage />}
-                />
+                <Route path="/detail/:recipeId" element={<RecipeDetailPage />}>
+                  {/* <Route path="/" element={<CuisineContainer />} /> */}
+                  <Route index element={<CuisineContainer />} />
+                  {/* <Route path="ingredient" element={<IngredientContainer />} /> */}
+                  <Route path="nutrients" element={<Nutrients />} />
+                  <Route path="review" element={<ReviewContainer />} />
+                </Route>
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/myrefrigerator" element={<MyRefrigerator />} />
               </>
             )}
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}
