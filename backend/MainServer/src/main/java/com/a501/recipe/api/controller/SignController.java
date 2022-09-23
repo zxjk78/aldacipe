@@ -2,6 +2,7 @@ package com.a501.recipe.api.controller;
 
 
 import com.a501.recipe.advice.exception.RefreshTokenExpiredException;
+import com.a501.recipe.api.dto.sign.CheckEmailRequestDto;
 import com.a501.recipe.api.dto.token.AccessTokenRequestDto;
 import com.a501.recipe.api.dto.token.AccessTokenResponseDto;
 import com.a501.recipe.api.dto.token.TokenRequestDto;
@@ -9,8 +10,8 @@ import com.a501.recipe.api.dto.token.TokenResponseDto;
 import com.a501.recipe.api.dto.user.UserLoginRequestDto;
 import com.a501.recipe.api.dto.user.UserSignupRequestDto;
 import com.a501.recipe.api.domain.entity.User;
-import com.a501.recipe.api.response.CommonResult;
-import com.a501.recipe.api.response.OneResult;
+import com.a501.recipe.api.dto.response.CommonResult;
+import com.a501.recipe.api.dto.response.OneResult;
 import com.a501.recipe.api.service.ResponseService;
 import com.a501.recipe.api.service.SignService;
 import io.swagger.annotations.Api;
@@ -27,7 +28,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Api(tags = "1. SignUp / LogIn")
+@Api(tags = "01. SignUp / LogIn")
 @RequiredArgsConstructor
 @RestController
 public class SignController {
@@ -92,5 +93,10 @@ public class SignController {
         User loginUser = (User) authentication.getPrincipal();
         signService.logout(loginUser.getId());
         return responseService.getSuccessResult();
+    }
+
+    @GetMapping("/check-email")
+    public CommonResult checkEmailDup(@RequestBody CheckEmailRequestDto checkEmailRequestDto){
+        return responseService.getOneResult(signService.checkEmailDup(checkEmailRequestDto));
     }
 }

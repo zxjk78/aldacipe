@@ -1,6 +1,6 @@
 package com.a501.recipe.api.controller;
 
-import com.a501.recipe.api.response.OneResult;
+import com.a501.recipe.api.dto.response.OneResult;
 import com.a501.recipe.api.service.ResponseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "0. Test")
+@Api(tags = "00. Test")
 @RequiredArgsConstructor
 @RestController
 public class TestController {

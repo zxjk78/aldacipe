@@ -1,4 +1,4 @@
-package com.a501.recipe.api.response;
+package com.a501.recipe.api.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

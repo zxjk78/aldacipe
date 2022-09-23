@@ -2,6 +2,7 @@ package com.a501.recipe.api.service;
 
 
 import com.a501.recipe.advice.exception.*;
+import com.a501.recipe.api.dto.sign.CheckEmailRequestDto;
 import com.a501.recipe.config.security.JwtProvider;
 import com.a501.recipe.api.dto.token.TokenRequestDto;
 import com.a501.recipe.api.dto.token.TokenResponseDto;
@@ -100,5 +101,11 @@ public class SignService {
         User user = userRepository.findById(userId).orElse(null);
         refreshTokenRepository.deleteByTokenKey(user.getId());
     }
+
+    public boolean checkEmailDup(CheckEmailRequestDto checkEmailRequestDto){
+        User user = userRepository.findByEmail(checkEmailRequestDto.getEmail()).orElse(null);
+        return user!=null;
+    }
+
 
 }

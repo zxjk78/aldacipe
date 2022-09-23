@@ -1,4 +1,4 @@
-package com.a501.recipe.api.response;
+package com.a501.recipe.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

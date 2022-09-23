@@ -1,8 +1,8 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.api.response.CommonResult;
-import com.a501.recipe.api.response.ManyResult;
-import com.a501.recipe.api.response.OneResult;
+import com.a501.recipe.api.dto.response.CommonResult;
+import com.a501.recipe.api.dto.response.ManyResult;
+import com.a501.recipe.api.dto.response.OneResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

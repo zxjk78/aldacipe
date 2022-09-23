@@ -1,7 +1,7 @@
 package com.a501.recipe.advice;
 
 import com.a501.recipe.advice.exception.*;
-import com.a501.recipe.api.response.CommonResult;
+import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

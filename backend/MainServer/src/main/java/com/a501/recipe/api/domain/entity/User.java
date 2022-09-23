@@ -88,4 +88,9 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void updateUserInfo(float height, float weight) {
+        this.height = height;
+        this.weight = weight;
+    }
 }
