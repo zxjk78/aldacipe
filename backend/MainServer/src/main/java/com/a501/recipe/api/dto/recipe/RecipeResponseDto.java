@@ -14,7 +14,7 @@ public class RecipeResponseDto {
     public RecipeResponseDto(Recipe recipe){
         this.id = recipe.getId();
         this.name = recipe.getName();
-        this.avgScore = (float)((Math.round(Math.random()*1000/2)/100));
+        this.avgScore = (float)(Math.round(Math.random()/2*100))/10;
 //        this.imgURL = recipe.getImageBig();
         this.imgURL = "rand_img_"+(int)(((Math.random()*10)%5)+1)+".jpg";
     }
