@@ -4,14 +4,14 @@ import com.a501.recipe.api.domain.entity.Recipe;
 import lombok.Getter;
 
 @Getter
-public class RecipeResponseDto {
+public class RecipeThumbNailResponseDto {
 
     private Long id;
     private String name;
     private String imgURL;
     private float avgScore;
 
-    public RecipeResponseDto(Recipe recipe){
+    public RecipeThumbNailResponseDto(Recipe recipe){
         this.id = recipe.getId();
         this.name = recipe.getName();
         this.avgScore = (float)(Math.round(Math.random()/2*100))/10;
