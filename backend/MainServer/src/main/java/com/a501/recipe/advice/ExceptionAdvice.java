@@ -1,8 +1,8 @@
 package com.a501.recipe.advice;
 
 import com.a501.recipe.advice.exception.*;
-import com.a501.recipe.response.CommonResult;
-import com.a501.recipe.service.ResponseService;
+import com.a501.recipe.api.dto.response.CommonResult;
+import com.a501.recipe.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -75,5 +75,17 @@ public class  ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult accessTokenExpiredException(HttpServletRequest request, AccessTokenExpiredException e) {
         return responseService.getFailResult(ErrorCode.AccessTokenExpiredException.getCode(), ErrorCode.AccessTokenExpiredException.getMessage());
+    }
+
+    @ExceptionHandler(RecipeNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult recipeNotFoundException(HttpServletRequest request, RecipeNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.RecipeNotFoundException.getCode(), ErrorCode.RecipeNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(RecipeRelationalDataNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult ㄱecipeRelationalDataNotFoundException(HttpServletRequest request, RecipeRelationalDataNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.RecipeRelationalDataNotFoundException.getCode(), ErrorCode.RecipeRelationalDataNotFoundException.getMessage());
     }
 }

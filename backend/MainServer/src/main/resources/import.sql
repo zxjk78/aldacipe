@@ -1,3 +1,7 @@
+# user
+INSERT INTO user (`id`, `birthday`, `email`, `gender`, `height`, `name`, `password`,`weight`) VALUES(1000,'2000-04-20','string','MALE',175.5,'usertest','{bcrypt}$2a$10$PDnT3iDv3YlfmIjHwxIvluh6.78wjfPZ81BP5pSCL2/gDSCmTOIrO',65);
+INSERT INTO user_roles(`user_id`,`roles`) VALUES (1000,'ROLE_USER');
+
 
 # ingredient_status
 INSERT INTO `ingredient_status` VALUES (1,NULL,NULL,'생것'),(2,NULL,NULL,'삶은것'),(3,NULL,NULL,'찐것'),(4,NULL,NULL,'구운것'),(5,NULL,NULL,'튀긴것'),(6,NULL,NULL,'가공'),(7,NULL,NULL,'말린것'),(8,NULL,NULL,'가루'),(9,NULL,NULL,'볶은것'),(10,NULL,NULL,'통조림'),(11,NULL,NULL,'데친것'),(12,NULL,NULL,'염절임'),(13,NULL,NULL,'삶아서 말린것'),(14,NULL,NULL,'초절임'),(15,NULL,NULL,'동결건조'),(16,NULL,NULL,'냉동'),(17,NULL,NULL,'물에 탄것'),(18,NULL,NULL,'반건조');
