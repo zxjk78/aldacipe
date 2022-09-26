@@ -21,7 +21,12 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
                 " from RecipeIngredient ri join ri.ingredient i where ri.recipe=(:recipe)")
     Optional<List<RecipeIngredientDto>> searchIngredientByRecipe(@Param("recipe") Recipe recipe);
 
-    @Query("select new com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto(i.id, i.name, i.largeCategory, i.smallCategory, ri.weight)" +
+    @Query("select new com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto(i.id, i.name, i.largeCategory, i.smallCategory, ri.weight, ri.expirationDate)" +
             " from RefrigeratorIngredient ri join ri.ingredient i where ri.user=(:user) and i.id in (:idList)")
     Optional<List<RefrigeratorIngredientDto>> searchRecipeIngredientUserHas(@Param("user") User user, @Param("idList") List<Long> idList );
+
+    @Query("select new com.a501.recipe.api.dto.ingredient.IngredientDto(id,name,largeCategory,smallCategory)" +
+            " from Ingredient i where i.name like :keyword%")
+    Optional<List<IngredientDto>> searchIngredientByNameLike(@Param("keyword") String keyword);
+
 }

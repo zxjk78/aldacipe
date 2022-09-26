@@ -1,6 +1,7 @@
 package com.a501.recipe.api.repository;
 
 import com.a501.recipe.api.domain.entity.Recipe;
+import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,11 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
 //            " join r.recipeIngredients ri join ri.ingredient i" +
 //            " where r.id=(:id)")
 //    Optional<RecipeDetailPageResponseDto> searchRecipeDetailById(@Param("id") Long id);
+
+    @Query("select new com.a501.recipe.api.dto.recipe.RecipeDto(r)" +
+            " from Recipe r where r.name like :keyword%")
+    Optional<List<RecipeDto>> searchRecipeByNameLike(@Param("keyword") String keyword);
+
 
     @Query("select distinct r" +
             " from Recipe r" +

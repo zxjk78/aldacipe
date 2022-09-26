@@ -1,5 +1,6 @@
 package com.a501.recipe.api.service;
 
+import com.a501.recipe.advice.exception.IngredientNotFoundException;
 import com.a501.recipe.advice.exception.RecipeNotFoundException;
 import com.a501.recipe.advice.exception.RecipeRelationalDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
@@ -113,4 +114,8 @@ public class RecipeService {
         return new RecipeDetailPageResponseDto(recipeWithNutrientAndManual, ingredientList, evalInfo, evaluationList, myIngredientList);
     }
 
+    public List<RecipeDto> searchRecipeByNameLike(String keyword) {
+        return recipeRepository.searchRecipeByNameLike(keyword)
+                .orElseThrow(RecipeNotFoundException::new);
+    }
 }
