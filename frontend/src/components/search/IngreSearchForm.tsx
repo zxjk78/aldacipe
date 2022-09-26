@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 
 import ChipsArray from './ChipsArray';
 
-import SearchResultList from './SearchResultList';
+// import SearchResultList from './SearchResultList';
 // api
 import { searchIngredient } from '../../api/search';
 // css, interface
@@ -33,13 +33,13 @@ export default function IngreSearchForm(props: {}) {
         placeholder="검색할 재료를 입력하세요"
         onChange={searchIngreHandler}
       />
-      <div className={classes.searchResult}>
+      {/* <div className={classes.searchResult}>
         {searchResult ? (
           <SearchResultList resultArr={[]} addItem={addIngreHandler} />
         ) : (
           '검색 결과가 없습니다.'
         )}
-      </div>
+      </div> */}
 
       <ChipsArray ingredients={ingredientArr} />
     </>

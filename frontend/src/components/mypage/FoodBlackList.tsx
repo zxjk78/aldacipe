@@ -8,7 +8,7 @@ import { searchIngredient } from '../../api/search';
 import SearchInput from '../UI/SearchInput';
 // css
 import { ChangeEvent } from 'react';
-import classes from './FoodAllerge.module.scss';
+import classes from './FoodBlackList.module.scss';
 
 export default function FoodAllerge(props: {}) {
   const keywordInputHandler = async (event: ChangeEvent<HTMLInputElement>) => {

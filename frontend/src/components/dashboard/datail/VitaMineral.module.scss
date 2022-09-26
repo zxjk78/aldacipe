@@ -1,0 +1,22 @@
+@import '../../../global.scss';
+
+.wrapper {
+}
+.container {
+}
+.header {
+}
+.main {
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: $orange;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    scale: 1.05;
+    transition: 0.2s;
+  }
+}

@@ -1,4 +1,4 @@
-import { API_URL } from './http-config';
+import { API_URL } from './config/http-config';
 // import { axiosPostCommonInstance } from './apiController';
 import axios from 'axios';
 

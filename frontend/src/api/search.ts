@@ -1,5 +1,5 @@
-import { axiosAuthInstance } from './apiController';
-import { API_URL } from './http-config';
+import { axiosAuthInstance } from './config/apiController';
+import { API_URL } from './config/http-config';
 
 // 제목에 맞는 요리 5개만 추천해주는
 export const searchRecipeByKeyword = async (keyword: string) => {
@@ -20,6 +20,17 @@ export const searchIngredient = async (keyword: string) => {
       await axiosAuthInstance.get(API_URL + `어쩌고${keyword}`, {});
 
     return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchSearchRecipe = async (keyword: string) => {
+  try {
+    const response = await axiosAuthInstance.get('recipe/popular');
+    console.log(response.data.data);
+
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }
