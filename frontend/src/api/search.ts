@@ -6,7 +6,7 @@ export const searchRecipeByKeyword = async (keyword: string) => {
   try {
     const response: {
       data: { recipe: string[] };
-    } = await axiosAuthInstance.get(API_URL + `어쩌고${keyword}`, {});
+    } = await axiosAuthInstance.get(API_URL + `어쩌고?${keyword}`, {});
 
     return response.data;
   } catch (error) {

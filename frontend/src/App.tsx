@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import './global.scss';
 // route
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 // external library
@@ -20,8 +19,8 @@ import IngredientContainer from '../src/components/detail/ingredient/IngredientC
 
 import ReviewContainer from '../src/components/detail/reviews/ReviewContainer';
 
+import MyRefrigerator from './pages/MyRefrigerator';
 // 테스트용
-import SearchResultList from './components/search/SearchResultList';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -62,7 +61,6 @@ function App() {
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/search" element={<SearchPage />} />
-                <Route path="/test" element={<SearchResultList />} />
               </>
             )}
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}

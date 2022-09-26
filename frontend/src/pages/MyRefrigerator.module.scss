@@ -1,0 +1,14 @@
+@import '../global.scss';
+.wrapper {
+  display: grid;
+  grid: repeat(1, 200px) / auto-flow;
+}
+.refrigerator {
+  background-color: red;
+}
+.ingredientlist {
+  background-color: yellow;
+}
+.foodlist {
+  background-color: blue;
+}
