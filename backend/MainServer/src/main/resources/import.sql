@@ -1,4 +1,6 @@
 # user
+INSERT INTO user (`id`, `birthday`, `email`, `gender`, `height`, `name`, `password`,`weight`) VALUES(1000,'2000-04-20','string','MALE',175.5,'usertest','{bcrypt}$2a$10$PDnT3iDv3YlfmIjHwxIvluh6.78wjfPZ81BP5pSCL2/gDSCmTOIrO',65);
+INSERT INTO user_roles(`user_id`,`roles`) VALUES (1000,'ROLE_USER');
 
 
 # ingredient_status

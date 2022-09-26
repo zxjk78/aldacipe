@@ -36,4 +36,5 @@ public class Recipe extends BaseEntity{
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Evaluation> evaluations = new ArrayList<>();
 
+
 }
