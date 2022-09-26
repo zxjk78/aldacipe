@@ -3,7 +3,7 @@ import './App.css';
 // route
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 // external library
-import { getCookie } from './api/cookie';
+import { getCookie } from './api/config/cookie';
 // custom component
 import Navbar from './components/common/Navbar';
 import LoginPage from './pages/LoginPage';
@@ -53,9 +53,9 @@ function App() {
                   {/* <Route path="/" element={<CuisineContainer />} /> */}
                   <Route index element={<CuisineContainer />} />
                   {/* <Route path="ingredient" element={<IngredientContainer />} /> */}
-                  <Route path="nutrients" element={<Nutrients />} />
                   <Route path="review" element={<ReviewContainer />} />
                 </Route>
+                <Route path="/nutrients" element={<Nutrients />} />
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/search" element={<SearchPage />} />

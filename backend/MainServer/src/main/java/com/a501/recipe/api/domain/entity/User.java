@@ -36,6 +36,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private LocalDate birthday;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private float height;

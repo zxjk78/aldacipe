@@ -76,4 +76,16 @@ public class  ExceptionAdvice {
     protected CommonResult accessTokenExpiredException(HttpServletRequest request, AccessTokenExpiredException e) {
         return responseService.getFailResult(ErrorCode.AccessTokenExpiredException.getCode(), ErrorCode.AccessTokenExpiredException.getMessage());
     }
+
+    @ExceptionHandler(RecipeNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult recipeNotFoundException(HttpServletRequest request, RecipeNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.RecipeNotFoundException.getCode(), ErrorCode.RecipeNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(RecipeRelationalDataNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult ㄱecipeRelationalDataNotFoundException(HttpServletRequest request, RecipeRelationalDataNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.RecipeRelationalDataNotFoundException.getCode(), ErrorCode.RecipeRelationalDataNotFoundException.getMessage());
+    }
 }

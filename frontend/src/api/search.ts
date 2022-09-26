@@ -1,5 +1,5 @@
-import { axiosAuthInstance } from './apiController';
-import { API_URL } from './http-config';
+import { axiosAuthInstance } from './config/apiController';
+import { API_URL } from './config/http-config';
 
 // 제목에 맞는 요리 5개만 추천해주는
 export const searchRecipeByKeyword = async (keyword: string) => {

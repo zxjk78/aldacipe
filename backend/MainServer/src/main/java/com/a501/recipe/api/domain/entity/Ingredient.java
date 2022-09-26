@@ -1,13 +1,12 @@
 package com.a501.recipe.api.domain.entity;
 
+import com.a501.recipe.api.domain.enums.LargeCategory;
+import com.a501.recipe.api.domain.enums.SmallCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +19,12 @@ public class Ingredient extends BaseEntity{
 
     private String name;
 
-    //private LargeCategory largeCategory;
+//    @Enumerated(EnumType.STRING)
+//    private LargeCategory largeCategory;
     private String largeCategory;
 
-    //private SmallCategory smallCategory;
+//    @Enumerated(EnumType.STRING)
+//    private SmallCategory smallCategory;
     private String smallCategory;
 
 

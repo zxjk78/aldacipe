@@ -15,7 +15,12 @@ public enum ErrorCode {
     RefreshTokenNotEqualException(1005, "리프레시 토큰이 일치하지 않음"),
     RefreshTokenExpiredException(1006, "리프레시 토큰이 만료됨, 재로그인 필요"),
     RefreshTokenNotFoundException(1007, "리프레시 토큰이 DB에 존재하지 않음"),
-    AccessTokenExpiredException(1013, "엑세스 토큰이 만료됨, 재발급 필요");
+    AccessTokenExpiredException(1013, "엑세스 토큰이 만료됨, 재발급 필요"),
+    RecipeNotFoundException(1014,"레시피가 존재하지 않음"),
+
+    RecipeRelationalDataNotFoundException(1015,"레시피 관련 데이터가 존재하지 않음")
+
+    ;
 
 
 
