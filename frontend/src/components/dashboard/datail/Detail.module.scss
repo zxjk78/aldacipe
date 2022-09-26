@@ -1,8 +1,10 @@
-@import '../../../../global.scss';
+@import '../../../global.scss';
 .title {
   color: $green-primary;
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 1rem;
+
   span {
     font-size: 0.8rem;
     color: $text-primary;
@@ -11,9 +13,9 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 85%;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1.25fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.5rem;
   > div {
