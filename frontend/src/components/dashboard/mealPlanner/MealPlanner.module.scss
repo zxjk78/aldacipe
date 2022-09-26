@@ -1,9 +1,9 @@
-@import '../../../../global.scss';
+@import '../../../global.scss';
 .header {
   color: $green-primary;
   font-weight: bold;
   font-size: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .main {
   display: flex;

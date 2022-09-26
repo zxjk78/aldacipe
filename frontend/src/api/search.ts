@@ -24,3 +24,14 @@ export const searchIngredient = async (keyword: string) => {
     console.error(error);
   }
 };
+
+export const fetchSearchRecipe = async (keyword: string) => {
+  try {
+    const response = await axiosAuthInstance.get('recipe/popular');
+    console.log(response.data.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

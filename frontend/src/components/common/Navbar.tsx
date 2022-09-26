@@ -49,7 +49,7 @@ export default function Navbar() {
             <div>레시피</div>
           </Link>
           <div>내 냉장고</div>
-          <Link to={`/nutrients`}>
+          <Link to={`/dashboard`}>
             <div>영양관리</div>
           </Link>
         </div>
