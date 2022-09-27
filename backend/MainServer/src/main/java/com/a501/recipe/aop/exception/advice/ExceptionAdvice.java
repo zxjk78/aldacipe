@@ -1,6 +1,7 @@
-package com.a501.recipe.advice;
+package com.a501.recipe.aop.exception.advice;
 
-import com.a501.recipe.advice.exception.*;
+import com.a501.recipe.aop.exception.advice.*;
+import com.a501.recipe.aop.exception.*;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.advice.exception.AlreadyExistIngredientException;
-import com.a501.recipe.advice.exception.IngredientNotFoundException;
+import com.a501.recipe.aop.exception.AlreadyExistIngredientException;
+import com.a501.recipe.aop.exception.IngredientNotFoundException;
 import com.a501.recipe.api.domain.entity.Ingredient;
 import com.a501.recipe.api.domain.entity.RefrigeratorIngredient;
 import com.a501.recipe.api.domain.entity.User;

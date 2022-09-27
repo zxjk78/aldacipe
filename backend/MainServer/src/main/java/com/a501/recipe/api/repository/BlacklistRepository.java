@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BlackListRepository extends JpaRepository<Blacklist,Long> {
+public interface BlacklistRepository extends JpaRepository<Blacklist,Long> {
     @Query("select new com.a501.recipe.api.dto.ingredient.IngredientDto(i.id, i.name, i.largeCategory, i.smallCategory)" +
             " from Blacklist ri join ri.ingredient i where ri.user=:user")
     public Optional<List<IngredientDto>> getMyBlacklistIngredient(@Param("user") User user);

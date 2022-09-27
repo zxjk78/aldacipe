@@ -1,6 +1,6 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.advice.exception.UserNotFoundException;
+import com.a501.recipe.aop.exception.UserNotFoundException;
 import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.user.UserInfoResponseDto;
 import com.a501.recipe.api.dto.user.UserInfoUpdateRequestDto;

@@ -28,4 +28,6 @@ public class UserIntake extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Float amount;
+
 }

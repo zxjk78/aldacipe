@@ -5,7 +5,7 @@ import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.dto.response.ManyResult;
-import com.a501.recipe.api.service.BlackListService;
+import com.a501.recipe.api.service.BlacklistService;
 import com.a501.recipe.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +16,13 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/blacklist")
 public class BlacklistController {
 
-    private final BlackListService blackListService;
+    private final BlacklistService blackListService;
 
     private final ResponseService responseService;
 
 
     @GetMapping()
-    public ManyResult<IngredientDto> getAllMyRefrigeratorIngredients(@ApiIgnore @LoginUser User loginUser) {
+    public ManyResult<IngredientDto> getAllMyBlacklistIngredients(@ApiIgnore @LoginUser User loginUser) {
         return responseService.getManyResult(blackListService.getMyBlacklistIngredient(loginUser));
     }
 
@@ -33,7 +33,7 @@ public class BlacklistController {
     }
 
     @DeleteMapping("/{ingredientId}")
-    public CommonResult deleteIngredient(@ApiIgnore @LoginUser User loginUser, @PathVariable("ingredientId") Long ingredientId){
+    public CommonResult deleteBlacklistIngredient(@ApiIgnore @LoginUser User loginUser, @PathVariable("ingredientId") Long ingredientId){
         blackListService.deleteBlacklistIngredient(loginUser, ingredientId);
         return responseService.getSuccessResult();
     }

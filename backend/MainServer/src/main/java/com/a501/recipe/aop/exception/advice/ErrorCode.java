@@ -1,4 +1,4 @@
-package com.a501.recipe.advice;
+package com.a501.recipe.aop.exception.advice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

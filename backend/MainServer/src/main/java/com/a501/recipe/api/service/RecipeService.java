@@ -1,23 +1,18 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.advice.exception.IngredientNotFoundException;
-import com.a501.recipe.advice.exception.RecipeNotFoundException;
-import com.a501.recipe.advice.exception.RecipeRelationalDataNotFoundException;
+import com.a501.recipe.aop.exception.RecipeNotFoundException;
+import com.a501.recipe.aop.exception.RecipeRelationalDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
 import com.a501.recipe.api.dto.evaluation.EvaluationDto;
 import com.a501.recipe.api.dto.evaluation.UserEvaluationInfoDto;
-import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
 import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
-import com.a501.recipe.api.dto.manual.ManualDto;
-import com.a501.recipe.api.dto.nutrient.NutrientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
 import com.a501.recipe.api.repository.EvaluationRepository;
 import com.a501.recipe.api.repository.IngredientRepository;
-import com.a501.recipe.api.repository.ManualRepository;
 import com.a501.recipe.api.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
