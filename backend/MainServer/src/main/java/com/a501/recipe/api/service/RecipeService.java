@@ -1,20 +1,18 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.advice.exception.RecipeNotFoundException;
-import com.a501.recipe.advice.exception.RecipeRelationalDataNotFoundException;
+import com.a501.recipe.aop.exception.RecipeNotFoundException;
+import com.a501.recipe.aop.exception.RecipeRelationalDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
 import com.a501.recipe.api.dto.evaluation.EvaluationDto;
 import com.a501.recipe.api.dto.evaluation.UserEvaluationInfoDto;
-import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
 import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
-import com.a501.recipe.api.dto.manual.ManualDto;
+import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
 import com.a501.recipe.api.repository.EvaluationRepository;
 import com.a501.recipe.api.repository.IngredientRepository;
-import com.a501.recipe.api.repository.ManualRepository;
 import com.a501.recipe.api.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -113,4 +111,32 @@ public class RecipeService {
         return new RecipeDetailPageResponseDto(recipeWithNutrientAndManual, ingredientList, evalInfo, evaluationList, myIngredientList);
     }
 
+    public List<RecipeDto> searchRecipeByNameAndIngredient(String keyword, List<Long> ingredientIdList) {
+        List<Recipe> candidateList = recipeRepository.searchByRecipeByNameLikeWithIngredient(keyword)
+                .orElseThrow(RecipeNotFoundException::new);
+
+        Set<Long> ingSet = new HashSet<>(ingredientIdList);
+        List<RecipeDto> res = new ArrayList<>();
+        for(Recipe r : candidateList) {
+            int cnt = 0;
+            for (Long ingId : ingSet){
+                boolean isExist = false;
+                for(RecipeIngredient ri : r.getRecipeIngredients()) {
+                    if(ri.getIngredient().getId().equals(ingId)) {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if(isExist) cnt++;
+            }
+            if(ingSet.size()==cnt) res.add(new RecipeDto(r));
+        }
+        return res;
+    }
+
+    public RecipeNutrientDto getRecipeNutrient(Long id) {
+        Recipe r = recipeRepository.searchRecipeWithNutrientById(id)
+                .orElseThrow(RecipeNotFoundException::new);
+        return new RecipeNutrientDto(r.getWeight(), r.getNutrient());
+    }
 }

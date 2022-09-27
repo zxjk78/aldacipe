@@ -1,7 +1,6 @@
 package com.a501.recipe.api.controller;
 
-import com.a501.recipe.advice.exception.AccessDeniedException;
-import com.a501.recipe.advice.exception.UserNotFoundException;
+import com.a501.recipe.aop.exception.AccessDeniedException;
 import com.a501.recipe.aop.LoginUser;
 import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.response.CommonResult;
@@ -14,8 +13,6 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
-import static com.a501.recipe.advice.ErrorCode.AccessDenied;
 
 @Api(tags = "02. User Controller")
 @RestController

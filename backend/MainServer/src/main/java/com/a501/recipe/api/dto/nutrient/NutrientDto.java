@@ -2,10 +2,12 @@ package com.a501.recipe.api.dto.nutrient;
 
 import com.a501.recipe.api.domain.entity.Nutrient;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 
 @Getter
+@NoArgsConstructor
 public class NutrientDto {
     private String id;
     private float kcal;
