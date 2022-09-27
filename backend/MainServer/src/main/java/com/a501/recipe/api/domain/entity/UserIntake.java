@@ -1,6 +1,7 @@
 package com.a501.recipe.api.domain.entity;
 
 import com.a501.recipe.api.domain.enums.IntakeType;
+import com.a501.recipe.api.dto.intake.IntakeUpdateRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,4 +37,8 @@ public class UserIntake extends BaseEntity{
 
     private LocalDate intakeDate;
 
+    public void updateIntakeInfo(IntakeUpdateRequestDto intakeUpdateRequestDto) {
+        this.amount = intakeUpdateRequestDto.getIntakeAmount();
+        this.intakeDate = intakeUpdateRequestDto.getIntakeDate();
+    }
 }

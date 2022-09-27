@@ -19,6 +19,8 @@ import java.util.Optional;
 @Repository
 public interface IntakeRepository extends JpaRepository<UserIntake, Long> {
 
+    @Query("select ui from UserIntake ui join fetch ui.user where ui.id=:id")
+    Optional<UserIntake> searchIntakeWithUserById(@Param("id") Long id);
 
     @Query("select f from Food f where f.id=:foodId")
     Optional<Food> searchFoodById(@Param("foodId") Long intakeTargetId);

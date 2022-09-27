@@ -4,6 +4,7 @@ import com.a501.recipe.aop.LoginUser;
 import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.intake.IntakeAddRequestDto;
 import com.a501.recipe.api.dto.intake.IntakeDto;
+import com.a501.recipe.api.dto.intake.IntakeUpdateRequestDto;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.service.IntakeService;
@@ -39,7 +40,22 @@ public class IntakeController {
         return responseService.getSuccessResult();
     }
 
+    @ApiOperation(value = "섭취한 음식 수정")
+    @PutMapping("/{id}")
+    public CommonResult updateIntake(@ApiIgnore @LoginUser User loginUser,
+                                  @PathVariable("id") Long id,
+                                  @RequestBody IntakeUpdateRequestDto intakeUpdateRequestDto) throws IllegalAccessException {
+        intakeService.updateIntake(loginUser, id, intakeUpdateRequestDto);
+        return responseService.getSuccessResult();
+    }
 
+    @ApiOperation(value = "섭취한 음식 삭제")
+    @DeleteMapping("/{id}")
+    public CommonResult updateIntake(@ApiIgnore @LoginUser User loginUser,
+                                     @PathVariable("id") Long id) throws IllegalAccessException {
+        intakeService.deleteIntake(loginUser, id);
+        return responseService.getSuccessResult();
+    }
 
 
 

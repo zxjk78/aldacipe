@@ -10,6 +10,7 @@ import com.a501.recipe.api.domain.entity.UserIntake;
 import com.a501.recipe.api.domain.enums.IntakeType;
 import com.a501.recipe.api.dto.intake.IntakeAddRequestDto;
 import com.a501.recipe.api.dto.intake.IntakeDto;
+import com.a501.recipe.api.dto.intake.IntakeUpdateRequestDto;
 import com.a501.recipe.api.repository.IntakeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class IntakeService {
                 .intakeType(intakeAddRequestDto.getIntakeType())
                 .food(intakeFood)
                 .recipe(intakeRecipe)
-                .amount(intakeAddRequestDto.getAmount())
+                .amount(intakeAddRequestDto.getIntakeAmount())
                 .intakeDate(intakeAddRequestDto.getIntakeDate())
                 .build();
         intakeRepository.save(newUserIntake);
@@ -65,5 +66,19 @@ public class IntakeService {
                 });
         intakeList.sort((i1,i2)->i1.getIntakeDate().compareTo(i2.getIntakeDate()));
         return intakeList;
+    }
+
+    @Transactional
+    public void updateIntake(User loginUser, Long id, IntakeUpdateRequestDto intakeUpdateRequestDto) throws IllegalAccessException {
+        UserIntake userIntakeToUpdate = intakeRepository.searchIntakeWithUserById(id).orElseThrow(IntakeInfoNotFoundException::new);
+        if(!userIntakeToUpdate.getUser().getId().equals(loginUser.getId())) throw new IllegalAccessException();
+        userIntakeToUpdate.updateIntakeInfo(intakeUpdateRequestDto);
+    }
+
+    @Transactional
+    public void deleteIntake(User loginUser, Long id) throws IllegalAccessException{
+        UserIntake userIntakeToDelete = intakeRepository.searchIntakeWithUserById(id).orElseThrow(IntakeInfoNotFoundException::new);
+        if(!userIntakeToDelete.getUser().getId().equals(loginUser.getId())) throw new IllegalAccessException();
+        intakeRepository.delete(userIntakeToDelete);
     }
 }
