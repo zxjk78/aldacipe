@@ -1,10 +1,84 @@
 @import '../global.scss';
 .wrapper {
   text-align: left;
+  width: 95vw;
+  margin: 0px auto;
 }
 
 .title {
   color: $green-primary;
   font-weight: bold;
   font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.detailContainer {
+  display: none;
+  width: 90%;
+  height: 10vh;
+  background-color: aqua;
+}
+.notVisible {
+  display: none;
+}
+.ingredientBtn {
+  display: block;
+  margin: 1rem auto;
+  box-shadow: 0px 0px 0px 0px #3dc21b;
+  background-color: $background-highlight;
+  border-radius: 42px;
+  border: 2px solid $green-secondary;
+  cursor: pointer;
+  color: $green-secondary;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 8px 76px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #adffa0;
+    transition: 0.5s;
+    color: $background-highlight;
+  }
+}
+
+/* fade in */
+
+@keyframes slide-fade-in-dropdown-animation {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-fade-in-dropdown {
+  overflow: hidden;
+}
+
+.slide-fade-in-dropdown > * {
+  animation: slide-fade-in-dropdown-animation 0.4s ease;
+}
+
+/* fade out */
+
+@keyframes slide-fade-out-dropdown-animation {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-fade-out-dropdown {
+  overflow: hidden;
+}
+
+.slide-fade-out-dropdown > * {
+  animation: slide-fade-out-dropdown-animation 0.4s ease;
+  animation-fill-mode: forwards;
 }
