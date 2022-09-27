@@ -282,6 +282,7 @@ export const FormContent3: React.FC<{
   ) => {
     if (event.key === 'Enter' && !pwValid) {
       const tmp: any = event.target;
+      console.log(tmp);
 
       if (tmp.dataset.idx < passwordsRef.current.length - 1) {
         passwordsRef.current[+tmp.dataset.idx + 1]!.focus();
