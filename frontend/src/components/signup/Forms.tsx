@@ -247,7 +247,7 @@ export const FormContent3: React.FC<{
 }> = (props) => {
   const [password, setPassword] = useState('');
   const [pwValid, setPwValid] = useState(false);
-
+  const passwordsRef = useRef<HTMLInputElement[] | null[]>([]);
   useEffect(() => {
     if (pwValid) {
       props.updatePw(password);
@@ -263,6 +263,7 @@ export const FormContent3: React.FC<{
     } else {
       setPassword(() => '');
     }
+    setPwValid(false);
   };
   const checkPasswordConfirm = (event: React.FocusEvent<HTMLInputElement>) => {
     const pw2 = event.target.value;
@@ -276,15 +277,30 @@ export const FormContent3: React.FC<{
   const formStepBackHandler = () => {
     props.stepBackHandle();
   };
+  const enterHandler = (
+    event: React.KeyboardEvent<HTMLDivElement | HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter' && !pwValid) {
+      const tmp: any = event.target;
 
+      if (tmp.dataset.idx < passwordsRef.current.length - 1) {
+        passwordsRef.current[+tmp.dataset.idx + 1]!.focus();
+      }
+    }
+    return;
+  };
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} onKeyDown={enterHandler}>
       <label htmlFor="password1">비밀번호</label>
       <input
         type="password"
         className={classes.signupInput}
         id="password1"
         onChange={checkPasswordValid}
+        data-idx={0}
+        ref={(ele) => {
+          passwordsRef.current[0] = ele;
+        }}
         autoFocus
       />
       <label htmlFor="password1">비밀번호 확인</label>
@@ -292,13 +308,18 @@ export const FormContent3: React.FC<{
         type="password"
         className={classes.signupInput}
         id="password2"
+        data-idx={1}
         onChange={checkPasswordConfirm}
+        ref={(ele) => {
+          passwordsRef.current[1] = ele;
+        }}
       />
       <div className={classes.btnContainer}>
         <button
           type="button"
           className={classes.prevBtn}
           onClick={formStepBackHandler}
+          tabIndex={-1}
         >
           이전
         </button>

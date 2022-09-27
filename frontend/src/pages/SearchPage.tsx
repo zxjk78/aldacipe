@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchSearchRecipe } from '../api/search';
 // custom component
@@ -12,7 +12,9 @@ export default function SearchPage(props: {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [searchList, setSearchList] = useState<[]>([]);
+  const [detailVisible, setDetailVisible] = useState(false);
   const searchKeyword = searchParams.get('keyword');
+  const ingreSearchRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     setIsLoading(true);
     (async () => {
@@ -24,15 +26,43 @@ export default function SearchPage(props: {}) {
 
     setIsLoading(false);
   }, [searchKeyword]);
-
+  const toggleDetailSearch = () => {
+    setDetailVisible((prev) => {
+      if (prev) {
+        setTimeout(() => {
+          ingreSearchRef.current!.classList.add(classes.notVisible);
+        }, 300);
+      }
+      return !prev;
+    });
+  };
   return (
     <>
       {!isLoading && (
         <div className={classes.wrapper}>
-          <div className={classes.title}>재료 상세 검색</div>
-          <IngreBasedSearchForm />
+          <div>
+            <button
+              className={classes.ingredientBtn}
+              onClick={toggleDetailSearch}
+            >
+              재료 상세 검색 {detailVisible ? '닫기' : `열기`}
+            </button>
+          </div>
+          {/* ${classes.detailContainer} */}
+          <div
+            className={`${classes.visible} ${
+              detailVisible
+                ? classes['slide-fade-in-dropdown']
+                : classes['slide-fade-out-dropdown']
+            }`}
+            ref={ingreSearchRef}
+          >
+            <div className={classes.title}>재료 상세 검색</div>
+            <div>
+              <IngreBasedSearchForm />
+            </div>
+          </div>
           <div className={classes.title}>요리 검색 결과</div>
-
           <CarouselPopular cardList={searchList!} />
         </div>
       )}
