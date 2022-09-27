@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { searchKeyword, searchIngredient } from '../../api/search';
+import { searchRecipeByKeyword, searchIngredient } from '../../api/search';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from '@emotion/styled';
 
 // css
 import classes from './SearchInput.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;
@@ -12,24 +13,43 @@ const MySearchIcon = styled(SearchIcon)`
 
 // 물음표 사용해서 있으면 boolean true, 없으면 undefined로
 const SearchInput: React.FC<{
-  isNavbar?: boolean;
   isMypage?: boolean;
+  isSearch?: boolean;
   placeholder?: string;
 }> = (props) => {
-  type SearchResult = { recipe: string[]; ingredient: string[] };
-  type myPageIngredient = { ingredient: string[] };
+  interface RecipeResult {
+    recipe: string[];
+  }
+  interface IngredientResult {
+    ingredient: string[];
+  }
 
+  const navigate = useNavigate();
+
+  const isNavbar = !(props.isMypage || props.isSearch);
   const [briefVisible, setBriefVisible] = useState(false);
-  const [navSearchResult, setNavSearchResult] = useState<
-    SearchResult | undefined
+
+  const [recipeSearchResult, setRecipeSearchResult] = useState<
+    RecipeResult | undefined
   >(undefined);
-  const [myPageSearchResult, setMyPageSearchResult] = useState<
-    myPageIngredient | undefined
+  const [ingredientSearchResult, setIngredientSearchResult] = useState<
+    IngredientResult | undefined
   >(undefined);
+
   const searchRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
+    console.log('검색', isNavbar, props.isMypage, props.isSearch);
+
+    if (isNavbar && searchRef.current?.value) {
+      navigate({
+        pathname: 'search',
+        search: `?keyword=${searchRef.current!.value}`,
+      });
+      setBriefVisible(false);
+    }
+    return;
   };
 
   const keywordChangeHandler = async () => {
@@ -41,17 +61,19 @@ const SearchInput: React.FC<{
     }
     // 인풋의 키워드 변화가
     //네비게이션 바의 검색에서면
-    if (props.isNavbar) {
-      const data: SearchResult | undefined = await searchKeyword(keyword);
-      setNavSearchResult((prev) => data);
+    if (isNavbar) {
+      const data: RecipeResult | undefined = await searchRecipeByKeyword(
+        keyword
+      );
+      setRecipeSearchResult((prev) => data);
       setBriefVisible(true);
     }
     // 마이페이지의 못먹는 재료 검색이면
-    else if (props.isMypage) {
-      const data: myPageIngredient | undefined = await searchIngredient(
+    else if (props.isMypage || props.isSearch) {
+      const data: IngredientResult | undefined = await searchIngredient(
         keyword
       );
-      setMyPageSearchResult((prev) => data);
+      setIngredientSearchResult((prev) => data);
       setBriefVisible(true);
     }
   };
@@ -61,39 +83,35 @@ const SearchInput: React.FC<{
       <div className="wrapper">
         <form onSubmit={submitHandler}>
           <div className={classes.searchContainer}>
-            <span>
+            <span onClick={submitHandler}>
               <MySearchIcon />
             </span>
 
             <input
               type="text"
-              placeholder={props?.placeholder || '요리 또는 재료명 검색'}
+              placeholder={props?.placeholder || '요리 이름 검색'}
               onChange={keywordChangeHandler}
               ref={searchRef}
             />
           </div>
-          {briefVisible && props.isNavbar ? (
+          {briefVisible && isNavbar ? (
             <div className={classes.searchBriefResult}>
               <div className={classes.recipe}>
                 <div className={`${classes.category} ${classes.recipe}`}>
                   요리
                 </div>
                 <div className={classes.searchResult}>
-                  {navSearchResult?.recipe}요리 부분
-                </div>
-              </div>
-              <div className={classes.ingredient}>
-                <div className={`${classes.category} ${classes.ingredient}`}>
-                  재료
-                </div>
-                <div className={classes.searchResult}>
-                  {navSearchResult?.ingredient}재료 부분
+                  {recipeSearchResult?.recipe}요리 부분
                 </div>
               </div>
             </div>
           ) : briefVisible && props.isMypage ? (
             <div className={classes.searchBriefResult}>
-              {myPageSearchResult?.ingredient}
+              {ingredientSearchResult?.ingredient}
+            </div>
+          ) : briefVisible && props.isSearch ? (
+            <div className={classes.searchBriefResult}>
+              {ingredientSearchResult?.ingredient}
             </div>
           ) : (
             <></>

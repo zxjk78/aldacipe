@@ -2,12 +2,14 @@ import ReviewItem from './ReviewItem';
 import { Review } from '../interface';
 import classes from './ReviewContainer.module.scss';
 
-const ReviewContainer = (props: { reviewList: Review[] }) => {
+const ReviewContainer = () => {
+  const reviewList:Review[] = []
   return (
     <>
-      {props.reviewList.map((review) => (
+      {reviewList.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
+      리뷰리뷰리뷰
     </>
   );
 };

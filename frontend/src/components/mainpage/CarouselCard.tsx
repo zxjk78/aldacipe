@@ -1,13 +1,15 @@
-import { useState, FormEvent, ChangeEvent } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { useState, FormEvent, ChangeEvent } from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
-// css
-import classes from "./CarouselCard.module.scss";
-const CarouselCard: React.FC<{ title: string }> = (props) => {
+// css, interfacde
+import classes from './CarouselCard.module.scss';
+import { CardRecipe } from './interface';
+import { API_URL } from '../../api/config/http-config';
+const CarouselCard = (props: { card: CardRecipe }) => {
   return (
     <>
       <div className={classes.card}>
@@ -16,13 +18,12 @@ const CarouselCard: React.FC<{ title: string }> = (props) => {
             <CardMedia
               component="img"
               height="150"
-              image="https://health.chosun.com/site/data/img_dir/2022/07/11/2022071101596_0.jpg"
+              image={`${API_URL}image/${props.card.imgURL}`}
               alt="green iguana"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                음식이름
-                {props.title}
+                {props.card.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 간단한 내용 설명 간단한 내용 설명 간단한 내용 설명 간단한 내용

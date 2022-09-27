@@ -1,0 +1,174 @@
+// global 색 변수 모음
+
+$green-primary: #058181 !global;
+$green-secondary: #2fbba0 !global;
+$text-primary: #474747 !global;
+$text-highlight: #000 !global;
+$text-disable: #d3d3d3 !global;
+$background-primary: #fafafa !global;
+$background-input: #f6f6f6 !global;
+$background-highlight: #fff !global;
+$orange: #ff8f3b !global;
+$red: #f33620 !global;
+
+// 효과에 대한 문법
+
+/*
+% 문법: id, class 선택자처럼 %로 선택자를 사용할 수 있음. 이 scss 파일 import 후 이거를 사용하고 싶은 클래스에서 @extend %선택자명  해주면 사용가능
+예시: LoginForm.module.scss 파일의 로그인 비밀번호 input
+*/
+
+%input-normal {
+  width: 300px;
+  height: 23px;
+  box-sizing: border-box;
+  border: none;
+  outline: solid 2px #474747;
+  background-color: #d3d3d3;
+  border-radius: 15px;
+  padding: 8px;
+}
+%input-search {
+  @extend %input-normal;
+  height: 30px;
+  text-align: center;
+}
+
+%input-focused {
+  outline: solid 2px $green-secondary;
+  background-color: #a4f6e6;
+}
+a {
+  text-decoration: none;
+}
+// reset 위한 문법
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

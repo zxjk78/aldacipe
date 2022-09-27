@@ -1,34 +1,27 @@
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import React, { ChangeEvent } from 'react';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import Stack from '@mui/material/Stack';
 
-const BirthdayInput: React.FC<{
+export default function BirthdayInput(props: {
   birthday: string;
-  changeBirthday: (birthday: Dayjs | null) => void;
-}> = (props) => {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs(props.birthday));
-
-  const handleChange = (newBirthday: Dayjs | null) => {
-    setValue(newBirthday);
-    // console.log(newBirthday);
-
-    props.changeBirthday(newBirthday);
+  changeBirthday: (birthday: string) => void;
+}) {
+  const birthdayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    props.changeBirthday(event.target.value);
   };
-
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DesktopDatePicker
-        inputFormat="YYYY/MM/DD"
-        value={value}
-        onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+    <Stack component="form" noValidate spacing={3}>
+      <TextField
+        id="date"
+        type="date"
+        defaultValue={props.birthday}
+        sx={{ width: 160 }}
+        onChange={birthdayChangeHandler}
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
-    </LocalizationProvider>
+    </Stack>
   );
-};
-
-export default BirthdayInput;
+}
