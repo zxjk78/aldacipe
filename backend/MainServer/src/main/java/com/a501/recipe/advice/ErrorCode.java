@@ -18,8 +18,9 @@ public enum ErrorCode {
     AccessTokenExpiredException(1013, "엑세스 토큰이 만료됨, 재발급 필요"),
     RecipeNotFoundException(1014,"레시피가 존재하지 않음"),
     RecipeRelationalDataNotFoundException(1015,"레시피 관련 데이터가 존재하지 않음"),
-    AlreadyExistIngredientException(1016,"이미 존재하는 재료"),
-    IngredientNotFoundException(1017,"존재하지 않는 식재료입니다.")
+    AlreadyExistIngredientException(1016,"이미 존재하는 식재료"),
+    IngredientNotFoundException(1017,"존재하지 않는 식재료"),
+    NutrientDataNotFoundException(1018,"영양소 정보가 존재하지 않음")
 
     ;
 

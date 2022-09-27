@@ -100,4 +100,10 @@ public class  ExceptionAdvice {
     protected CommonResult ingredientNotFoundException(HttpServletRequest request, IngredientNotFoundException e) {
         return responseService.getFailResult(ErrorCode.IngredientNotFoundException.getCode(), ErrorCode.IngredientNotFoundException.getMessage());
     }
+
+    @ExceptionHandler(NutrientDataNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult nutrientDataNotFoundException(HttpServletRequest request, NutrientDataNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.NutrientDataNotFoundException.getCode(), ErrorCode.NutrientDataNotFoundException.getMessage());
+    }
 }

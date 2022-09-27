@@ -1,13 +1,17 @@
 package com.a501.recipe.api.service;
 
 import com.a501.recipe.advice.exception.IngredientNotFoundException;
+import com.a501.recipe.advice.exception.NutrientDataNotFoundException;
+import com.a501.recipe.api.domain.entity.Ingredient;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
+import com.a501.recipe.api.dto.nutrient.NutrientDto;
 import com.a501.recipe.api.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +23,10 @@ public class IngredientService {
     public List<IngredientDto> searchIngredientByNameLike(String keyword) {
         return ingredientRepository.searchIngredientByNameLike(keyword)
                 .orElseThrow(IngredientNotFoundException::new);
+    }
+
+    public NutrientDto getIngredientNutrient(Long id) {
+         return new NutrientDto(ingredientRepository.searchIngredientWithNutrientById(id)
+                .orElseThrow(IngredientNotFoundException::new));
     }
 }

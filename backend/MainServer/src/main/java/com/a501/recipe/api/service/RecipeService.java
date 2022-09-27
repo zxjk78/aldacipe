@@ -10,6 +10,8 @@ import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
 import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
 import com.a501.recipe.api.dto.manual.ManualDto;
+import com.a501.recipe.api.dto.nutrient.NutrientDto;
+import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
@@ -114,8 +116,32 @@ public class RecipeService {
         return new RecipeDetailPageResponseDto(recipeWithNutrientAndManual, ingredientList, evalInfo, evaluationList, myIngredientList);
     }
 
-    public List<RecipeDto> searchRecipeByNameLike(String keyword) {
-        return recipeRepository.searchRecipeByNameLike(keyword)
+    public List<RecipeDto> searchRecipeByNameAndIngredient(String keyword, List<Long> ingredientIdList) {
+        List<Recipe> candidateList = recipeRepository.searchByRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
+
+        Set<Long> ingSet = new HashSet<>(ingredientIdList);
+        List<RecipeDto> res = new ArrayList<>();
+        for(Recipe r : candidateList) {
+            int cnt = 0;
+            for (Long ingId : ingSet){
+                boolean isExist = false;
+                for(RecipeIngredient ri : r.getRecipeIngredients()) {
+                    if(ri.getIngredient().getId().equals(ingId)) {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if(isExist) cnt++;
+            }
+            if(ingSet.size()==cnt) res.add(new RecipeDto(r));
+        }
+        return res;
+    }
+
+    public RecipeNutrientDto getRecipeNutrient(Long id) {
+        Recipe r = recipeRepository.searchRecipeWithNutrientById(id)
+                .orElseThrow(RecipeNotFoundException::new);
+        return new RecipeNutrientDto(r.getWeight(), r.getNutrient());
     }
 }

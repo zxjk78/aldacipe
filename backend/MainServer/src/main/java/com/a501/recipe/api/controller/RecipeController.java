@@ -3,6 +3,8 @@ package com.a501.recipe.api.controller;
 import com.a501.recipe.aop.LoginUser;
 import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
+import com.a501.recipe.api.dto.nutrient.NutrientDto;
+import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
@@ -16,6 +18,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Api(tags = "05. Recipe Controller")
 @RestController
 @RequiredArgsConstructor
@@ -25,20 +32,29 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final ResponseService responseService;
 
-    //    @ApiOperation(value = "레시피 상세 정보")
-//    @GetMapping("/{id}")
-//    public OneResult<RecipeDetailPageResponseDto> getPopularRecipeList(@ApiIgnore @LoginUser User loginUser, @PathVariable Long id) {
-//        return responseService.getOneResult(recipeService.getRecipeDetail(id,loginUser));
-//    }
-//
+
+    @ApiOperation(value = "레시피 검색 (이름, 재료)")
     @GetMapping("/search")
-    public ManyResult<RecipeDto> searchRecipeByNameLike(@RequestParam("keyword") String keyword) {
-        return responseService.getManyResult(recipeService.searchRecipeByNameLike(keyword));
+    public ManyResult<RecipeDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
+                                                                 @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients) {
+
+        final List<Long> ingredientIdList = new ArrayList<>();
+        if(!ingredients.equals("None"))
+                Arrays.stream(ingredients.split("-")).forEach(str-> {
+                    ingredientIdList.add(Long.parseLong(str));
+                });
+        return responseService.getManyResult(recipeService.searchRecipeByNameAndIngredient(keyword, ingredientIdList));
     }
 
-    @ApiOperation(value = "TEST")
-    @GetMapping("/test/{id}")
-    public OneResult<RecipeDetailPageResponseDto> getPopularRecipeList(@ApiIgnore @LoginUser User loginUser, @PathVariable("id") Long id) {
+    @ApiOperation(value = "레시피 영양정보 조회")
+    @GetMapping("/{id}/nutrient")
+    public OneResult<RecipeNutrientDto> getRecipeNutrient(@PathVariable("id") Long id) {
+        return responseService.getOneResult(recipeService.getRecipeNutrient(id));
+    }
+
+    @ApiOperation(value = "레시피 상세 페이지")
+    @GetMapping("/{id}")
+    public OneResult<RecipeDetailPageResponseDto> getRecipeDetailPageInfo(@ApiIgnore @LoginUser User loginUser, @PathVariable("id") Long id) {
         return responseService.getOneResult(recipeService.getTestRecipe(id, loginUser));
     }
 
