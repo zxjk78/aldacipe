@@ -66,7 +66,7 @@ function App() {
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}
             <Route
               path="*"
-              element={<Navigate to={isLoggedIn ? '/main' : 'login'} />}
+              element={<Navigate to={isLoggedIn ? '/main' : '/login'} />}
             />
           </Routes>
         </BrowserRouter>
