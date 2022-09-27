@@ -31,9 +31,11 @@ public class RefrigeratorController {
         return responseService.getManyResult(refrigeratorService.getMyRefrigeratorIngredient(loginUser));
     }
 
-    @PostMapping()
-    public CommonResult insertIngredient(@ApiIgnore @LoginUser User loginUser, @RequestBody RefrigeratorInsertRequestDto refrigeratorInsertRequestDto){
-        refrigeratorService.insertIngredient(loginUser, refrigeratorInsertRequestDto);
+    @PostMapping("/{ingredientId}")
+    public CommonResult insertIngredient(@ApiIgnore @LoginUser User loginUser,
+                                         @PathVariable("ingredientId") Long ingredientId,
+                                         @RequestBody RefrigeratorInsertRequestDto refrigeratorInsertRequestDto){
+        refrigeratorService.insertIngredient(loginUser, ingredientId, refrigeratorInsertRequestDto);
         return responseService.getSuccessResult();
     }
 

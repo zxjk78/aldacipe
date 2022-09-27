@@ -5,7 +5,6 @@ import com.a501.recipe.advice.exception.IngredientNotFoundException;
 import com.a501.recipe.api.domain.entity.Ingredient;
 import com.a501.recipe.api.domain.entity.RefrigeratorIngredient;
 import com.a501.recipe.api.domain.entity.User;
-import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
 import com.a501.recipe.api.dto.refrigerator.RefrigeratorInsertRequestDto;
 import com.a501.recipe.api.dto.refrigerator.RefrigeratorUpdateRequestDto;
@@ -30,12 +29,12 @@ public class RefrigeratorService {
     }
 
     @Transactional
-    public void insertIngredient(User loginUser, RefrigeratorInsertRequestDto refrigeratorInsertRequestDto) {
-        RefrigeratorIngredient myIngredient = refrigeratorRepository.findByUserAndIngredientId(loginUser, refrigeratorInsertRequestDto.getIngredientId())
+    public void insertIngredient(User loginUser, Long ingredientId, RefrigeratorInsertRequestDto refrigeratorInsertRequestDto) {
+        RefrigeratorIngredient myIngredient = refrigeratorRepository.findByUserAndIngredientId(loginUser, ingredientId)
                 .orElse(null);
         if (myIngredient != null) throw new AlreadyExistIngredientException();
         // 새로운 재료 추가
-        Ingredient ingredientToInsert = ingredientRepository.findById(refrigeratorInsertRequestDto.getIngredientId())
+        Ingredient ingredientToInsert = ingredientRepository.findById(ingredientId)
                 .orElseThrow(IngredientNotFoundException::new);
         RefrigeratorIngredient newIngredient = RefrigeratorIngredient.builder()
                 .ingredient(ingredientToInsert)

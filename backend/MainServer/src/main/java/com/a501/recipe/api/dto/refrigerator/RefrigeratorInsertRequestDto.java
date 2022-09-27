@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Getter
 public class RefrigeratorInsertRequestDto {
-    private Long ingredientId;
+
     private float weight;
     private LocalDate expirationDate;
 }
