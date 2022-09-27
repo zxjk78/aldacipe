@@ -26,7 +26,7 @@ public class Recipe extends BaseEntity{
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="nutrient_id")
     private Nutrient nutrient;
 
@@ -35,5 +35,6 @@ public class Recipe extends BaseEntity{
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Evaluation> evaluations = new ArrayList<>();
+
 
 }

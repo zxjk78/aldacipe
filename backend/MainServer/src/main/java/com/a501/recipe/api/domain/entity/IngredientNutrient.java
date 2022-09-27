@@ -15,7 +15,7 @@ public class IngredientNutrient extends BaseEntity {
 
     private String representative;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="nutrient_id")
     private Nutrient nutrient;
 

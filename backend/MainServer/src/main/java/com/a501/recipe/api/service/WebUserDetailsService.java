@@ -1,6 +1,6 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.advice.exception.UserNotFoundException;
+import com.a501.recipe.aop.exception.UserNotFoundException;
 import com.a501.recipe.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,8 +1,8 @@
 package com.a501.recipe.config.security;
 
 
-import com.a501.recipe.advice.ErrorCode;
-import com.a501.recipe.advice.exception.AuthenticationEntryPointException;
+import com.a501.recipe.aop.exception.advice.ErrorCode;
+import com.a501.recipe.aop.exception.AuthenticationEntryPointException;
 import com.a501.recipe.api.dto.token.TokenResponseDto;
 import com.a501.recipe.api.service.WebUserDetailsService;
 import io.jsonwebtoken.*;
