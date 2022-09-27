@@ -2,18 +2,22 @@ package com.a501.recipe.api.domain.entity;
 
 import com.a501.recipe.api.domain.enums.IntakeType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "user_intake")
 public class UserIntake extends BaseEntity{
 
+    @Enumerated(EnumType.STRING)
     private IntakeType intakeType;
 
     @OneToOne
@@ -29,5 +33,7 @@ public class UserIntake extends BaseEntity{
     private User user;
 
     private Float amount;
+
+    private LocalDate intakeDate;
 
 }

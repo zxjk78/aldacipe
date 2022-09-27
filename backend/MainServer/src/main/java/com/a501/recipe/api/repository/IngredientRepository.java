@@ -36,4 +36,5 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
             " where i.id=:id and ingnut.representative='TRUE'")
     Optional<Nutrient> searchIngredientWithNutrientById(@Param("id") Long id);
 
+
 }

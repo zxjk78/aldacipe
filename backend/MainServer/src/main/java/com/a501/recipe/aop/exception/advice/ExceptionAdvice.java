@@ -107,4 +107,16 @@ public class  ExceptionAdvice {
     protected CommonResult nutrientDataNotFoundException(HttpServletRequest request, NutrientDataNotFoundException e) {
         return responseService.getFailResult(ErrorCode.NutrientDataNotFoundException.getCode(), ErrorCode.NutrientDataNotFoundException.getMessage());
     }
+
+    @ExceptionHandler(FoodNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult foodNotFoundException(HttpServletRequest request, FoodNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.FoodNotFoundException.getCode(), ErrorCode.FoodNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(IntakeInfoNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult intakeInfoNotFoundException(HttpServletRequest request, IntakeInfoNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.IntakeInfoNotFoundException.getCode(), ErrorCode.IntakeInfoNotFoundException.getMessage());
+    }
 }
