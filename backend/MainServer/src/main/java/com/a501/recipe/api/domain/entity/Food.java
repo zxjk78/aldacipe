@@ -24,5 +24,6 @@ public class Food extends BaseEntity{
     @JoinColumn(name="nutrient_id")
     private Nutrient nutrient;
 
+    private Float weight;
 
 }

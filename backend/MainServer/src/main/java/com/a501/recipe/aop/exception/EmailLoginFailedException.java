@@ -1,4 +1,4 @@
-package com.a501.recipe.advice.exception;
+package com.a501.recipe.aop.exception;
 
 public class EmailLoginFailedException extends RuntimeException{
     public EmailLoginFailedException() {

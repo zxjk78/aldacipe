@@ -1,6 +1,7 @@
-package com.a501.recipe.advice;
+package com.a501.recipe.aop.exception.advice;
 
-import com.a501.recipe.advice.exception.*;
+import com.a501.recipe.aop.exception.advice.*;
+import com.a501.recipe.aop.exception.*;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.service.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class  ExceptionAdvice {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     protected CommonResult accessDeniedException(HttpServletRequest request, AccessDeniedException e) {
         return responseService.getFailResult(ErrorCode.AccessDenied.getCode(), ErrorCode.AccessDenied.getMessage());
     }
@@ -72,7 +73,7 @@ public class  ExceptionAdvice {
     }
 
     @ExceptionHandler(AccessTokenExpiredException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     protected CommonResult accessTokenExpiredException(HttpServletRequest request, AccessTokenExpiredException e) {
         return responseService.getFailResult(ErrorCode.AccessTokenExpiredException.getCode(), ErrorCode.AccessTokenExpiredException.getMessage());
     }
@@ -85,7 +86,37 @@ public class  ExceptionAdvice {
 
     @ExceptionHandler(RecipeRelationalDataNotFoundException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    protected CommonResult ㄱecipeRelationalDataNotFoundException(HttpServletRequest request, RecipeRelationalDataNotFoundException e) {
+    protected CommonResult recipeRelationalDataNotFoundException(HttpServletRequest request, RecipeRelationalDataNotFoundException e) {
         return responseService.getFailResult(ErrorCode.RecipeRelationalDataNotFoundException.getCode(), ErrorCode.RecipeRelationalDataNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyExistIngredientException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected CommonResult alreadyExistIngredientException(HttpServletRequest request, AlreadyExistIngredientException e) {
+        return responseService.getFailResult(ErrorCode.AlreadyExistIngredientException.getCode(), ErrorCode.AlreadyExistIngredientException.getMessage());
+    }
+
+    @ExceptionHandler(IngredientNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult ingredientNotFoundException(HttpServletRequest request, IngredientNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.IngredientNotFoundException.getCode(), ErrorCode.IngredientNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(NutrientDataNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult nutrientDataNotFoundException(HttpServletRequest request, NutrientDataNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.NutrientDataNotFoundException.getCode(), ErrorCode.NutrientDataNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(FoodNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult foodNotFoundException(HttpServletRequest request, FoodNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.FoodNotFoundException.getCode(), ErrorCode.FoodNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(IntakeInfoNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult intakeInfoNotFoundException(HttpServletRequest request, IntakeInfoNotFoundException e) {
+        return responseService.getFailResult(ErrorCode.IntakeInfoNotFoundException.getCode(), ErrorCode.IntakeInfoNotFoundException.getMessage());
     }
 }
