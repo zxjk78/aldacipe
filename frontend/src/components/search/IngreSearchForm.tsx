@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChangeEvent, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { debounce } from 'lodash';
 
 import ChipsArray from './ChipsArray';
@@ -11,17 +10,23 @@ import { searchIngredient } from '../../api/search';
 import classes from './IngreSearchForm.module.scss';
 import { Ingredient } from '../../util/interface';
 export default function IngreSearchForm(props: {
+  searchKeyword: string | null;
   addItem: (newIngredient: Ingredient) => void;
 }) {
   const [selectedIngreArr, setSelectedIngreArr] = useState<Ingredient[]>([]);
   const [searchResult, setSearchResult] = useState<Ingredient[] | null>(null);
   const [searchListVisible, setSearchListVisible] = useState(false);
+  const ingreSearchRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    ingreSearchRef.current!.value = '';
+    setSearchResult([]);
+  }, [props.searchKeyword]);
 
   // lodash의 debounce는 선언은 처음에하고 나중에 사용하는 형식
   const searchDebounce = debounce(async (keyword) => {
     const data = await searchIngredient(keyword);
     // console.log(data);
-
     setSearchResult(data);
     setSearchListVisible(true);
     return data;
@@ -47,9 +52,10 @@ export default function IngreSearchForm(props: {
     <>
       <input
         type="text"
+        className={classes.searchInput}
         placeholder="검색할 재료를 입력하세요"
         onChange={searchIngreHandler}
-        className={classes.searchInput}
+        ref={ingreSearchRef}
       />
       {searchResult ? (
         <div className={classes.searchResult}>

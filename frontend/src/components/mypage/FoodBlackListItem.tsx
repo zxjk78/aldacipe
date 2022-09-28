@@ -1,6 +1,7 @@
 // react core
 
 // API
+import { removeMyBlackList } from '../../api/myInfo';
 
 // external module
 
@@ -11,7 +12,6 @@
 // css, interface(type)
 import classes from './FoodBlackListItem.module.scss';
 import { Ingredient } from '../../util/interface';
-import { removeMyBlackList } from '../../api/myInfo';
 const FoodBlackListItem = (props: {
   item: Ingredient;
   removeItem: () => void;
@@ -27,10 +27,12 @@ const FoodBlackListItem = (props: {
     <>
       <div className={classes.container}>
         <div className={classes.main}>
-          <div>{props.item.name}</div>
+          <div>
+            <div>{props.item.name}</div>
+            <div>{props.item.smallCategory}</div>
+          </div>
           <div onClick={removeBlacklist}>삭제</div>
-          {/* <div>{props.item.largeCategory}</div>
-          <div>{props.item.smallCategory}</div> */}
+          {/* <div>{props.item.largeCategory}</div> */}
         </div>
       </div>
     </>
