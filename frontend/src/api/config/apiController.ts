@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from './cookie';
 import { API_URL } from './http-config';
 

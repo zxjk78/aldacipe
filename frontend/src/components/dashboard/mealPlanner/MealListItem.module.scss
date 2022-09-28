@@ -1,0 +1,55 @@
+@import '../../../global.scss';
+
+.wrapper {
+  background-color: $background-highlight;
+  width: 90%;
+  margin: 0px auto;
+  border-radius: 10px;
+  padding: 0.3rem;
+  // &:hover {
+  //   background: $orange;
+  //   transform: translate3d(5px, -5px, 0);
+  //   transition: 0.2s;
+  // }
+}
+.container {
+  height: 60px;
+  width: 95%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left {
+  display: flex;
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .foodName {
+    color: $text-primary;
+    font-weight: bold;
+    margin: 0.4rem;
+
+    > div:last-child {
+      color: $text-highlight;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+  }
+}
+.right {
+  > div:first-child {
+    cursor: pointer;
+    color: $red;
+    font-weight: 600;
+    text-align: right;
+  }
+  > div:nth-of-type(2) {
+    span {
+      font-weight: bold;
+    }
+  }
+}

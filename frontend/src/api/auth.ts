@@ -1,8 +1,8 @@
-import { API_URL } from './http-config';
+import { API_URL } from './config/http-config';
 import moment from 'moment';
 import axios from 'axios';
-import { axiosCommonInstance, axiosAuthInstance } from './apiController';
-import { setCookie, removeCookie, getCookie } from './cookie';
+import { axiosCommonInstance, axiosAuthInstance } from './config/apiController';
+import { setCookie, removeCookie, getCookie } from './config/cookie';
 
 export const login = async (userInfo: { email: string; password: string }) => {
   try {

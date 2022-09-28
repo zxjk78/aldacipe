@@ -1,21 +1,22 @@
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
+@import '../../global';
+.wrapper {
   background-color: #fff;
+  border-radius: 5px;
+  padding: 8px 16px;
 }
-
-.imgContainer {
-  img {
-    width: 50px;
-    height: 50px;
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  > div:first-child {
+    display: flex;
+    font-size: 1rem;
+    font-weight: bold;
   }
-}
-.name {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.plus {
+  > div:last-child {
+    color: $red;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
 }

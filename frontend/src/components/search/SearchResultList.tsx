@@ -1,28 +1,24 @@
-// custom component
 import SearchResultListItem from './SearchResultListItem';
-// css, interface
-import classes from './SearchResultList.module.scss';
-import { Ingredient } from './interface';
+import { Ingredient } from '../../util/interface';
 export default function SearchResultList(props: {
-  resultArr: Ingredient[];
-  addItem: (id: Ingredient) => void;
+  ingreList: Ingredient[];
+  addItem: (ingredientId: number) => void;
 }) {
-  const addItemHandler = (item: Ingredient) => {
-    props.addItem(item);
+  const addIngredient = (ingredientId: number) => {
+    // console.log(ingredientId);
+    props.addItem(ingredientId);
   };
   return (
     <>
-      <div className={classes.wrapper}>
-        <div className={classes.container}>
-          {props.resultArr.map((item) => (
-            <SearchResultListItem
-              key={item.id}
-              item={item}
-              addItem={addItemHandler}
-            />
-          ))}
+      {props.ingreList.map((item) => (
+        <div>
+          <SearchResultListItem
+            key={item.id}
+            ingredient={item}
+            addItem={addIngredient}
+          />
         </div>
-      </div>
+      ))}
     </>
   );
 }
