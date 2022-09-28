@@ -1,14 +1,18 @@
 @import '../global.scss';
 .wrapper {
   display: grid;
-  grid: repeat(1, 200px) / auto-flow;
+  padding: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, 42vh);
+  grid-gap: 30px;
 }
 .refrigerator {
-  background-color: red;
+  background-color: pink;
+  grid-row: 1 / 3;
 }
 .ingredientlist {
-  background-color: yellow;
+
 }
 .foodlist {
-  background-color: blue;
+  
 }
