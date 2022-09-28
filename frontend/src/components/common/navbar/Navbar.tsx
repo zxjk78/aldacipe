@@ -48,7 +48,9 @@ export default function Navbar() {
           <Link to={`/main`}>
             <div>레시피</div>
           </Link>
-          <div>내 냉장고</div>
+          <Link to={`/myrefrigerator`}>
+            <div>내 냉장고</div>
+          </Link>
           <Link to={`/dashboard`}>
             <div>영양관리</div>
           </Link>

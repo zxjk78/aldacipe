@@ -1,0 +1,9 @@
+@import '../../global.scss';
+
+.container {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
+  grid-gap: 10px;
+}
