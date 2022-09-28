@@ -11,7 +11,7 @@
 // css, interface(type)
 import classes from './SearchResultListItem.module.scss';
 
-const SearchResultListItem = (props: {}) => {
+const SearchResultListItem = (props: { ingredient: any }) => {
   return (
     <>
       <div className={classes.wrapper}>
