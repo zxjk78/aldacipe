@@ -69,16 +69,14 @@ public class IntakeService {
     }
 
     @Transactional
-    public void updateIntake(User loginUser, Long id, IntakeUpdateRequestDto intakeUpdateRequestDto) throws IllegalAccessException {
+    public void updateIntake(User loginUser, Long id, IntakeUpdateRequestDto intakeUpdateRequestDto) {
         UserIntake userIntakeToUpdate = intakeRepository.searchIntakeWithUserById(id).orElseThrow(IntakeInfoNotFoundException::new);
-        if(!userIntakeToUpdate.getUser().getId().equals(loginUser.getId())) throw new IllegalAccessException();
         userIntakeToUpdate.updateIntakeInfo(intakeUpdateRequestDto);
     }
 
     @Transactional
-    public void deleteIntake(User loginUser, Long id) throws IllegalAccessException{
+    public void deleteIntake(User loginUser, Long id) {
         UserIntake userIntakeToDelete = intakeRepository.searchIntakeWithUserById(id).orElseThrow(IntakeInfoNotFoundException::new);
-        if(!userIntakeToDelete.getUser().getId().equals(loginUser.getId())) throw new IllegalAccessException();
         intakeRepository.delete(userIntakeToDelete);
     }
 }

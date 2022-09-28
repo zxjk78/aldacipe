@@ -23,15 +23,18 @@ public class UserController {
     private final UserService userService;
     private final ResponseService responseService;
 
-    @GetMapping("/userinfo")
-    public OneResult<UserInfoResponseDto> getMyProfile(@ApiIgnore @LoginUser User loginUser) {
-        if(loginUser==null) throw new AccessDeniedException();
+    @GetMapping("/{userId}/userinfo")
+    public OneResult<UserInfoResponseDto> getMyProfile(@ApiIgnore @LoginUser User loginUser,
+                                                       @PathVariable("userId") Long userId) {
+        if (!userId.equals(loginUser.getId())) throw new AccessDeniedException();
         return responseService.getOneResult(userService.getUserInfo(loginUser));
     }
 
-    @PutMapping("/userinfo")
-    public CommonResult modifyMyProfile(@ApiIgnore @LoginUser User loginUser, @RequestBody UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
-        if(loginUser==null) throw new AccessDeniedException();
+    @PutMapping("/{userId}/userinfo")
+    public CommonResult modifyMyProfile(@ApiIgnore @LoginUser User loginUser,
+                                        @PathVariable("userId") Long userId,
+                                        @RequestBody UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
+        if (!userId.equals(loginUser.getId())) throw new AccessDeniedException();
         userService.modifyUserInfo(loginUser, userInfoUpdateRequestDto);
 
         return responseService.getSuccessResult();
