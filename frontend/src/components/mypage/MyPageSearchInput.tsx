@@ -49,7 +49,11 @@ const MyPageSearchInput = (props: {
     setIngredientSearchResult((prev) => data);
     setBriefVisible(true);
   };
-
+  const enterHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      await keywordChangeHandler();
+    }
+  };
   // 재료 블랙리스트 추가하는 함수
   const addBlackListHandler = async (ingredientId: number) => {
     const data = await addMyBlackList(ingredientId);
@@ -67,7 +71,7 @@ const MyPageSearchInput = (props: {
       <div className={classes.wrapper}>
         <form onSubmit={submitHandler}>
           <div className={classes.searchContainer}>
-            <span onClick={submitHandler}>
+            <span>
               <MySearchIcon />
             </span>
 
@@ -75,6 +79,7 @@ const MyPageSearchInput = (props: {
               type="text"
               placeholder={props?.placeholder || '요리 이름 검색'}
               onChange={keywordChangeHandler}
+              onKeyDown={enterHandler}
               ref={searchRef}
             />
           </div>

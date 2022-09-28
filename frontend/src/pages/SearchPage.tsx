@@ -19,14 +19,17 @@ export default function SearchPage(props: {}) {
   const [searchList, setSearchList] = useState<[]>([]);
   const [detailVisible, setDetailVisible] = useState(false);
   const [selectedIngreArr, setSelectedIngreArr] = useState<Ingredient[]>([]);
+  const [ingreKeyword, setIngreKeyword] = useState('');
 
   const searchKeyword = searchParams.get('keyword');
+
   const ingreSearchRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
     (async () => {
       setSelectedIngreArr([]);
+      setIngreKeyword((prev) => '');
       const data = await fetchSearchRecipe(searchKeyword!, '');
       // console.log(data);
 
@@ -71,6 +74,9 @@ export default function SearchPage(props: {}) {
       }
     });
   };
+  const ingreKeywordChange = (keyword: string) => {
+    setIngreKeyword(keyword);
+  };
   const removeIngredient = (ingreId: number) => {
     setSelectedIngreArr((prev) => prev.filter((item) => +item.id !== ingreId));
   };
@@ -97,7 +103,10 @@ export default function SearchPage(props: {}) {
           >
             <div className={classes.title}>재료 상세 검색</div>
             <div>
-              <IngreBasedSearchForm addItem={addIngredient} />
+              <IngreBasedSearchForm
+                searchKeyword={searchKeyword}
+                addItem={addIngredient}
+              />
             </div>
           </div>
           <div className={classes.title}>요리 검색 결과</div>

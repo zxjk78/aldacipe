@@ -2,7 +2,6 @@
 
 .wrapper {
   padding: 5px 8px;
-  background-color: gray;
   color: black;
 }
 .searchContainer {
@@ -10,11 +9,21 @@
   position: relative;
   span {
     position: absolute;
-    top: 0.2rem;
-    left: 0.6rem;
+    top: 0.8rem;
+    left: 1rem;
   }
   input {
-    @extend %input-search;
+    width: 450px;
+    padding: 16px 3rem;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+    color: $text-primary;
+    &:focus {
+      background-color: $input-focus;
+      outline: $green-secondary;
+      border: solid 2px $green-secondary;
+    }
   }
 }
 form {
