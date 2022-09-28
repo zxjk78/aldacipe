@@ -54,6 +54,39 @@ public class Nutrient{
     private float omega3FattyAcids;
     private float transFattyAcid;
 
-
-
+    public Nutrient(Nutrient nutrient){
+        this.id = nutrient.getId();
+        this.kcal = nutrient.getKcal();
+        this.moisture = nutrient.getMoisture();
+        this.protein = nutrient.getProtein();
+        this.fat = nutrient.getFat();
+        this.carbohydrate = nutrient.getCarbohydrate();
+        this.sugar = nutrient.getSugar();
+        this.dietaryFiber = nutrient.getDietaryFiber();
+        this.calcium = nutrient.getCalcium();
+        this.iron = nutrient.getIron();
+        this.magnesium = nutrient.getMagnesium();
+        this.phosphorus = nutrient.getPhosphorus();
+        this.potassium = nutrient.getPotassium();
+        this.sodium = nutrient.getSodium();
+        this.zinc = nutrient.getZinc();
+        this.copper = nutrient.getCopper();
+        this.manganese = nutrient.getManganese();
+        this.selenium = nutrient.getSelenium();
+        this.molybdenum = nutrient.getMolybdenum();
+        this.iodine = nutrient.getIodine();
+        this.vitaminD = nutrient.getVitaminD();
+        this.vitaminE = nutrient.getVitaminE();
+        this.vitaminK = nutrient.getVitaminK();
+        this.niacin = nutrient.getNiacin();
+        this.pantothenicAcid = nutrient.getPantothenicAcid();
+        this.vitaminB6 = nutrient.getVitaminB6();
+        this.biotin = nutrient.getBiotin();
+        this.folicAcid = nutrient.getFolicAcid();
+        this.vitaminB12 = nutrient.getVitaminB12();
+        this.vitaminC = nutrient.getVitaminC();
+        this.cholesterol = nutrient.getCholesterol();
+        this.omega3FattyAcids = nutrient.getOmega3FattyAcids();
+        this.transFattyAcid = nutrient.getTransFattyAcid();
+    }
 }

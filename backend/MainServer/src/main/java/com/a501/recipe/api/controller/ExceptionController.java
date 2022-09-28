@@ -1,8 +1,8 @@
 package com.a501.recipe.api.controller;
 
-import com.a501.recipe.advice.exception.AccessDeniedException;
-import com.a501.recipe.advice.exception.AccessTokenExpiredException;
-import com.a501.recipe.advice.exception.AuthenticationEntryPointException;
+import com.a501.recipe.aop.exception.AccessDeniedException;
+import com.a501.recipe.aop.exception.AccessTokenExpiredException;
+import com.a501.recipe.aop.exception.AuthenticationEntryPointException;
 import com.a501.recipe.api.dto.response.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

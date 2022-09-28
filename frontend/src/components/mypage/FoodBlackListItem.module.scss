@@ -1,0 +1,17 @@
+@import '../../global';
+.container {
+  padding: 8px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > div:last-child {
+    color: $red;
+    cursor: pointer;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}

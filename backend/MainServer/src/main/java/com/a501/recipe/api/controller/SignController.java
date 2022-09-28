@@ -1,7 +1,7 @@
 package com.a501.recipe.api.controller;
 
 
-import com.a501.recipe.advice.exception.RefreshTokenExpiredException;
+import com.a501.recipe.aop.exception.RefreshTokenExpiredException;
 import com.a501.recipe.api.dto.sign.CheckEmailRequestDto;
 import com.a501.recipe.api.dto.token.AccessTokenRequestDto;
 import com.a501.recipe.api.dto.token.AccessTokenResponseDto;

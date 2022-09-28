@@ -9,15 +9,21 @@ import SearchResultList from './SearchResultList';
 import { searchIngredient } from '../../api/search';
 // css, interface
 import classes from './IngreSearchForm.module.scss';
-import { Ingredient } from './interface';
-export default function IngreSearchForm(props: {}) {
-  const [ingredientArr, setIngredientArr] = useState<Ingredient[]>([]);
-  const [searchResult, setSearchResult] = useState<any>(null);
+import { Ingredient } from '../../util/interface';
+export default function IngreSearchForm(props: {
+  addItem: (newIngredient: Ingredient) => void;
+}) {
+  const [selectedIngreArr, setSelectedIngreArr] = useState<Ingredient[]>([]);
+  const [searchResult, setSearchResult] = useState<Ingredient[] | null>(null);
   const [searchListVisible, setSearchListVisible] = useState(false);
 
   // lodash의 debounce는 선언은 처음에하고 나중에 사용하는 형식
   const searchDebounce = debounce(async (keyword) => {
     const data = await searchIngredient(keyword);
+    // console.log(data);
+
+    setSearchResult(data);
+    setSearchListVisible(true);
     return data;
   }, 500);
   const searchIngreHandler = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -27,12 +33,15 @@ export default function IngreSearchForm(props: {}) {
       return;
     }
 
-    const data = searchDebounce(event.target.value);
-    setSearchResult(data);
-    setSearchListVisible(true);
+    searchDebounce(event.target.value);
   };
-  const addIngreHandler = (item: Ingredient) => {
-    setIngredientArr((prev) => [...prev, item]);
+  const addIngreHandler = (ingreId: number) => {
+    const newItem = searchResult!.filter((item) => +item.id === ingreId)[0];
+
+    props.addItem(newItem);
+  };
+  const removeIngredient = (ingreId: number) => {
+    setSelectedIngreArr((prev) => prev.filter((item) => +item.id !== ingreId));
   };
   return (
     <>
@@ -49,13 +58,16 @@ export default function IngreSearchForm(props: {}) {
             addItem={addIngreHandler}
           />
         </div>
-      ) : searchListVisible ? (
+      ) : !searchListVisible ? (
         <div className={classes.searchResult}>검색 결과가 없습니다.</div>
       ) : (
         ''
       )}
 
-      {/* <ChipsArray ingredients={ingredientArr} /> */}
+      <ChipsArray
+        ingredients={selectedIngreArr}
+        deleteIngre={removeIngredient}
+      />
     </>
   );
 }

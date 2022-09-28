@@ -1,34 +1,45 @@
 import { axiosAuthInstance } from './config/apiController';
-import { API_URL } from './config/http-config';
 
 // 제목에 맞는 요리 5개만 추천해주는
 export const searchRecipeByKeyword = async (keyword: string) => {
   try {
-    const response: {
-      data: { recipe: string[] };
-    } = await axiosAuthInstance.get(API_URL + `어쩌고?${keyword}`, {});
+    // console.log('레시피 키워드검색');
 
-    return response.data;
+    const response: any = await axiosAuthInstance.get(
+      `recipe/search?keyword=${keyword}&ingredient=${''}`
+    );
+    // console.log(response.data.data);
+
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }
 };
 
+// 재료 검색
 export const searchIngredient = async (keyword: string) => {
   try {
-    const response: { data: { ingredient: string[] } } =
-      await axiosAuthInstance.get(API_URL + `어쩌고${keyword}`, {});
+    const response: any = await axiosAuthInstance.get(
+      `ingredient/search?keyword=${keyword}`
+    );
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchSearchRecipe = async (keyword: string) => {
+export const fetchSearchRecipe = async (
+  keyword: string,
+  ingredientString: string
+) => {
   try {
-    const response = await axiosAuthInstance.get('recipe/popular');
-    console.log(response.data.data);
+    console.log(keyword, ingredientString);
+
+    const response = await axiosAuthInstance.get(
+      `recipe/search?keyword=${keyword}&ingredient=${ingredientString}`
+    );
+    // console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {

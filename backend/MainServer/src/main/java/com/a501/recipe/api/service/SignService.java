@@ -1,7 +1,7 @@
 package com.a501.recipe.api.service;
 
 
-import com.a501.recipe.advice.exception.*;
+import com.a501.recipe.aop.exception.*;
 import com.a501.recipe.api.dto.sign.CheckEmailRequestDto;
 import com.a501.recipe.config.security.JwtProvider;
 import com.a501.recipe.api.dto.token.TokenRequestDto;
