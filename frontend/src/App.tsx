@@ -5,7 +5,7 @@ import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 // external library
 import { getCookie } from './api/config/cookie';
 // custom component
-import Navbar from './components/common/Navbar';
+import Navbar from './components/common/navbar/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';

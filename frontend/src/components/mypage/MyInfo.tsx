@@ -13,7 +13,7 @@ import styled from '@emotion/styled';
 
 // css, interface
 import classes from './MyInfo.module.scss';
-import { MyInfomation } from './interface';
+import { MyInfomation } from '../../util/interface';
 const MyBox = styled(Box)`
   position: absolute;
   top: 50%;
@@ -26,7 +26,7 @@ const MyBox = styled(Box)`
   padding: 10px;
 `;
 
-export default function MyInfo(props: {}) {
+export default function MyInfo(props: { modifySuccess: () => void }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [myInfoLoading, setMyInfoLoading] = useState(true);
   const [myInfo, setMyInfo] = useState<MyInfomation | null>(null);
@@ -61,6 +61,7 @@ export default function MyInfo(props: {}) {
         return { ...prevState!, height: newHeight, weight: newWeight };
       });
       handleClose();
+      props.modifySuccess();
     }
   };
   return (

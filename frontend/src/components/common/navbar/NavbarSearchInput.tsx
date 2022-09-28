@@ -1,47 +1,40 @@
+// react core
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+// API
+import { searchRecipeByKeyword, searchIngredient } from '../../../api/search';
 
-// api
-import { addMyBlackList } from '../../api/myInfo';
-// custom components
-import { searchRecipeByKeyword, searchIngredient } from '../../api/search';
+// external module
+
+// external component
 import SearchIcon from '@mui/icons-material/Search';
-import RecipeListItem from './RecipeListItem';
-import IngredientListItem from './IngredientListItem';
 
 import styled from '@emotion/styled';
-// css, interface
-import classes from './SearchInput.module.scss';
-import { Recipe_carousel, Ingredient } from '../../util/interface';
+
+// custom component
+import RecipeListItem from '../../UI/RecipeListItem';
+
+// css, interface(type)
+import classes from './NavbarSearchInput.module.scss';
+import { Recipe_carousel } from '../../../util/interface';
+
 const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;
 `;
 
-// 물음표 사용해서 있으면 boolean true, 없으면 undefined로
-const SearchInput: React.FC<{
-  isMypage?: boolean;
-  isSearch?: boolean;
-  placeholder?: string;
-}> = (props) => {
-  const navigate = useNavigate();
-
-  const isNavbar = !(props.isMypage || props.isSearch);
+const NavbarSearchInput = (props: { placeholder: string }) => {
   const [briefVisible, setBriefVisible] = useState(false);
-
   const [recipeSearchResult, setRecipeSearchResult] = useState<
     Recipe_carousel[]
   >([]);
-  const [ingredientSearchResult, setIngredientSearchResult] = useState<
-    Ingredient[]
-  >([]);
-
   const searchRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     // console.log('검색', isNavbar, props.isMypage, props.isSearch);
 
-    if (isNavbar && searchRef.current?.value) {
+    if (searchRef.current?.value) {
       navigate(
         {
           pathname: 'search',
@@ -61,35 +54,15 @@ const SearchInput: React.FC<{
       setBriefVisible(false);
       return;
     }
-    // 인풋의 키워드 변화가
-    //네비게이션 바의 검색에서면
-    if (isNavbar) {
-      const data = await searchRecipeByKeyword(keyword);
-      setRecipeSearchResult((prev) => data);
-      setBriefVisible(true);
-    }
-    // 마이페이지의 못먹는 재료 검색이면
-    else if (props.isMypage || props.isSearch) {
-      const data = await searchIngredient(keyword);
-      setIngredientSearchResult((prev) => data);
-      setBriefVisible(true);
-    }
+    // 인풋의 키워드 변화가 네비게이션 바의 검색에서면
+    const data = await searchRecipeByKeyword(keyword);
+    setRecipeSearchResult((prev) => data);
+    setBriefVisible(true);
   };
-
   // 클릭한 레시피명으로 이동시키는 함수
   const moveToRecipeDetailHandler = (recipeId: number) => {
     navigate(`detail/${recipeId}`);
     setBriefVisible(false);
-  };
-
-  // 재료 블랙리스트 추가하는 함수
-  const addBlackListHandler = async (ingredientId: number) => {
-    const success = await addMyBlackList(ingredientId);
-    console.log(success);
-
-    // if (success) {
-    //   document.location.reload();
-    // }
   };
 
   return (
@@ -108,7 +81,7 @@ const SearchInput: React.FC<{
               ref={searchRef}
             />
           </div>
-          {briefVisible && isNavbar ? (
+          {briefVisible ? (
             <div className={classes.searchBriefResult}>
               <div className={classes.recipe}>
                 <div className={`${classes.category} ${classes.recipe}`}>
@@ -125,22 +98,6 @@ const SearchInput: React.FC<{
                 </div>
               </div>
             </div>
-          ) : briefVisible && props.isMypage ? (
-            <div className={classes.searchBriefResult}>
-              {ingredientSearchResult.map((item) => (
-                <IngredientListItem
-                  key={item.id}
-                  ingredient={item}
-                  addBlackList={addBlackListHandler}
-                />
-              ))}
-            </div>
-          ) : briefVisible && props.isSearch ? (
-            <div className={classes.searchBriefResult}>
-              {ingredientSearchResult.map((item) => (
-                <IngredientListItem key={item.id} ingredient={item} />
-              ))}
-            </div>
           ) : (
             <></>
           )}
@@ -149,5 +106,4 @@ const SearchInput: React.FC<{
     </>
   );
 };
-
-export default SearchInput;
+export default NavbarSearchInput;

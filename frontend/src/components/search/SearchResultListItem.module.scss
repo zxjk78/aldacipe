@@ -1,3 +1,22 @@
+@import '../../global';
 .wrapper {
   background-color: #fff;
+  border-radius: 5px;
+  padding: 8px 16px;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  > div:first-child {
+    display: flex;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  > div:last-child {
+    color: $red;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
 }

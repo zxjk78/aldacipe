@@ -1,17 +1,22 @@
 import SearchResultListItem from './SearchResultListItem';
-
+import { Ingredient } from '../../util/interface';
 export default function SearchResultList(props: {
-  ingreList: any[];
-  addItem: (item: any) => void;
+  ingreList: Ingredient[];
+  addItem: (ingredientId: number) => void;
 }) {
-  const addIngredient = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log(event.target);
+  const addIngredient = (ingredientId: number) => {
+    // console.log(ingredientId);
+    props.addItem(ingredientId);
   };
   return (
     <>
       {props.ingreList.map((item) => (
-        <div onClick={addIngredient} data-idx={item.id}>
-          <SearchResultListItem key={item.id} ingredient={item} />
+        <div>
+          <SearchResultListItem
+            key={item.id}
+            ingredient={item}
+            addItem={addIngredient}
+          />
         </div>
       ))}
     </>

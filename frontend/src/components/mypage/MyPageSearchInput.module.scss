@@ -1,0 +1,46 @@
+@import '../../global';
+
+.wrapper {
+  padding: 5px 8px;
+  background-color: gray;
+  color: black;
+}
+.searchContainer {
+  width: 100%;
+  position: relative;
+  span {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.6rem;
+  }
+  input {
+    @extend %input-search;
+  }
+}
+form {
+  position: relative;
+}
+.searchBriefResult {
+  width: 100%;
+  padding: 20px;
+  position: absolute;
+  top: 5vh;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 30;
+}
+.category {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  text-align: left;
+  &.recipe {
+    color: $green-primary;
+  }
+  &.ingredient {
+    color: $orange;
+  }
+}
+.searchResult {
+  min-height: 200px;
+}
