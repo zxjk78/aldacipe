@@ -14,6 +14,7 @@ import { Ingredient } from '../../util/interface';
 const IngredientListItem = (props: {
   ingredient: Ingredient;
   addBlackList?: (ingredientId: number) => void;
+  isNormal?: boolean;
 }) => {
   const addBlackList = () => {
     props.addBlackList!(+props.ingredient.id);
@@ -22,13 +23,17 @@ const IngredientListItem = (props: {
     <>
       <div className={classes.container}>
         <div className={classes.main}>
-          <div>
+          <div className={classes.info}>
             <div>
               <img src="" alt="재료" />
             </div>
             <div>{props.ingredient.name}</div>
           </div>
-          <div onClick={addBlackList}>추가</div>
+          {!props.isNormal && (
+            <div className={classes.add} onClick={addBlackList}>
+              추가
+            </div>
+          )}
         </div>
       </div>
     </>
