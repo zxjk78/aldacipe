@@ -1,5 +1,6 @@
 // custom component
 import Refrigerator from '../components/refrigerator/Refrigerator';
+import RefrigeratorBox from '../components/refrigerator/RefrigeratorBox';
 // css
 import classes from './MyRefrigerator.module.scss';
 
@@ -8,7 +9,7 @@ export default function MyRefrigerator() {
     <>
       <div className={classes.wrapper}>
         <div className={classes.refrigerator}>
-          냉장고 박스
+          <RefrigeratorBox />
         </div>
         <div className={classes.ingredientlist}> 
           <h2>Refrigerator</h2>
