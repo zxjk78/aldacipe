@@ -51,7 +51,7 @@ public class SignService {
             savedRefreshToken.updateToken(tokenDto.getRefreshToken());
         }
 
-
+        tokenDto.setUserId(user.getId());
         return tokenDto;
     }
 
