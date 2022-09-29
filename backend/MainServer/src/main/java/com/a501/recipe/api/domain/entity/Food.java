@@ -18,12 +18,10 @@ public class Food extends BaseEntity{
 
     private String name;
 
-    private String image;
+    private Float weight;
 
     @OneToOne
     @JoinColumn(name="nutrient_id")
     private Nutrient nutrient;
-
-    private Float weight;
 
 }
