@@ -1,19 +1,44 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
+
+// api
+import { fetchRecipe } from '../api/detail';
+
 import IngredientContainer from '../components/detail/ingredient/IngredientContainer';
 import CuisineContainer from '../components/detail/cuisine/CuisineContainer';
 import ReviewContainer from '../components/detail/reviews/ReviewContainer';
-// css
+// css, interface
 import classes from './RecipeDetailPage.module.scss';
+import { RecipeDetail } from '../util/interface';
 // 더미데이터
-import { dummyReview } from '../components/detail/interface';
 export default function RecipeDetailPage(props: {}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [recipeInfo, setRecipeInfo] = useState<RecipeDetail | null>(null);
   const location = useLocation();
-  // const [isTrue, setIsTrue] = useState<boolean>(true);
 
-  // useEffect(() => {
+  const { recipeId } = useParams();
+  const navigate = useNavigate();
+  if (!recipeId) {
+    navigate('main');
+  }
+  const recipeId2 = recipeId as string;
+  useEffect(() => {
+    setIsLoading(true);
 
-  // }, [ location ])
+    (async () => {
+      const data = await fetchRecipe(+recipeId2);
+      setRecipeInfo(data);
+    })();
+
+    setIsLoading(false);
+  }, [recipeId2]);
+
   return (
     <>
       <div className={classes.backdrop}>
@@ -21,9 +46,9 @@ export default function RecipeDetailPage(props: {}) {
           <IngredientContainer recipe={{}} />
           <div className={classes.menus}>
             <NavLink
-              to="/detail/1"
+              to={`/detail/${recipeId}`}
               className={() =>
-                location.pathname === '/detail/1'
+                location.pathname === `/detail/${recipeId}`
                   ? classes.selected
                   : classes.notselected
               }
@@ -31,7 +56,7 @@ export default function RecipeDetailPage(props: {}) {
               요리 방법
             </NavLink>
             <NavLink
-              to="/detail/1/nutrients"
+              to={`/detail/${recipeId}/nutrients`}
               className={({ isActive }) =>
                 isActive ? classes.selected : classes.notselected
               }
@@ -39,7 +64,7 @@ export default function RecipeDetailPage(props: {}) {
               영양소
             </NavLink>
             <NavLink
-              to="/detail/1/review"
+              to={`/detail/${recipeId}/review`}
               className={({ isActive }) =>
                 isActive ? classes.selected : classes.notselected
               }
@@ -47,7 +72,7 @@ export default function RecipeDetailPage(props: {}) {
               댓글 및 평점
             </NavLink>
           </div>
-          <Outlet />
+          <Outlet context={recipeInfo} />
         </div>
       </div>
     </>

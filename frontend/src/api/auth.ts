@@ -11,7 +11,10 @@ export const login = async (userInfo: { email: string; password: string }) => {
     });
 
     if (response.data.success) {
-      const { accessToken, accessTokenExpireDate } = response.data.data;
+      const { accessToken, accessTokenExpireDate } =
+        response.data.data.tokenData;
+
+      const { userId } = response.data.data;
       // accessToken, 만료기간 cookie에 저장
       setCookie('accessToken', accessToken, {
         path: '/',
@@ -24,6 +27,10 @@ export const login = async (userInfo: { email: string; password: string }) => {
         secure: true,
         sameSite: 'none',
       });
+
+      // userId localStorage에 저장
+      localStorage.setItem('userId', userId);
+
       return true;
     }
   } catch (error) {

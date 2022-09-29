@@ -16,7 +16,7 @@ import RecipeListItem from '../../UI/RecipeListItem';
 
 // css, interface(type)
 import classes from './NavbarSearchInput.module.scss';
-import { Recipe_carousel } from '../../../util/interface';
+import { Recipe } from '../../../util/interface';
 
 const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;
@@ -24,9 +24,7 @@ const MySearchIcon = styled(SearchIcon)`
 
 const NavbarSearchInput = (props: { placeholder: string }) => {
   const [briefVisible, setBriefVisible] = useState(false);
-  const [recipeSearchResult, setRecipeSearchResult] = useState<
-    Recipe_carousel[]
-  >([]);
+  const [recipeSearchResult, setRecipeSearchResult] = useState<Recipe[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 

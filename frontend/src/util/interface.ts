@@ -1,5 +1,5 @@
 // main, search
-export interface Recipe_carousel {
+export interface Recipe {
   id: number;
   name: string;
   image: string;
@@ -12,7 +12,7 @@ export interface Recipe_detail {
   ingredientListIHave: [];
   manualList: [];
   nutrient: {};
-  recipe: Recipe_carousel;
+  recipe: Recipe;
   userEvaluationInfo: {};
 }
 
@@ -30,4 +30,21 @@ export interface MyInfomation {
   weight: number;
   gender: string;
   birthDay: Date;
+}
+
+// detail
+export interface Manual {
+  image: string;
+  instruction: string;
+  order: number;
+}
+
+export interface RecipeDetail {
+  evaluationList: [];
+  ingredientList: Ingredient[];
+  ingredientListIHave: [];
+  manualList: Manual[];
+  nutrient: {};
+  recipe: Recipe;
+  userEvaluationInfo: { didEvaluate: boolean; score: number };
 }
