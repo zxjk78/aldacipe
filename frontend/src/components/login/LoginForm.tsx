@@ -44,9 +44,8 @@ const LoginForm = (props: { loginFail: () => void }) => {
     event.preventDefault();
     const result: boolean | undefined = await login(loginUserInfo);
     if (result) {
-      // 리덕스 persist에 user명 저장
+      // 리덕스 persist에 user명 저장하고 reload로 main페이지로
       dispatch(loginActions.setUsername(loginUserInfo.email.split('@')[0]));
-
       window.location.reload();
     } else {
       props.loginFail();

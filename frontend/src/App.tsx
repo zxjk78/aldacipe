@@ -52,9 +52,8 @@ function App() {
             {isLoggedIn && (
               <>
                 <Route path="/detail/:recipeId" element={<RecipeDetailPage />}>
-                  {/* <Route path="/" element={<CuisineContainer />} /> */}
                   <Route index element={<CuisineContainer />} />
-                  {/* <Route path="ingredient" element={<IngredientContainer />} /> */}
+                  {/* <Route path="ingredient" element={<NutrituiContainer />} /> */}
                   <Route path="review" element={<ReviewContainer />} />
                 </Route>
                 <Route path="/dashboard" element={<DashboardPage />} />

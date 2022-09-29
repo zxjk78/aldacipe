@@ -2,42 +2,32 @@
 import { useState } from 'react';
 import CustomTable from './IngredientTable';
 import IngredientToggle from './IngredientToggle';
-import { Recipe, Ingredient } from '../interface';
-
-// css
+import IngredientList from './IngredientList';
+// css, interface
 import classes from './IngredientContainer.module.scss';
+import { Recipe, Ingredient, RecipeDetail } from '../../../util/interface';
+import { API_URL } from '../../../api/config/http-config';
+import { calculateIngredient } from '../../../util/fuctions';
+/* 
+있는 재료 없는 재료, 양념을 그냥 나누어서 3개의 영역에 모아서 보여줄 것
 
-const Ingred: React.FC<{ ingredients: Ingredient[] }> = (props) => {
-  const tmp = [
-    { name: '밥', amount: 123, isExist: true },
-    { name: '빵', amount: 123, isExist: false },
-  ];
-  return (
-    <>
-      {/* <CustomTable ingredients={props.ingredients} /> */}
-      <CustomTable ingredients={tmp} />
-    </>
-  );
-};
-const Spice: React.FC<{ ingredients: Ingredient[] }> = (props) => {
-  const tmp = [
-    { name: '후추', amount: 123, isExist: true },
-    { name: '설탕', amount: 123, isExist: false },
-  ];
-  return (
-    <>
-      {/* <CustomTable ingredients={props.ingredients} /> */}
-      <CustomTable ingredients={tmp} />
-    </>
-  );
-};
 
-const IngredientContainer: React.FC<{ recipe: any }> = (props) => {
-  const recipe = props.recipe;
-  const [isSpice, setIsSpice] = useState(false);
-  const toggleSpice = () => {
-    setIsSpice((prev) => !prev);
-  };
+을 위해서는 있는 재료, 없는 재료, 소분류 양념까지 따져야 함
+
+*/
+
+const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
+  const {
+    recipe,
+    ingredientList: allIngre,
+    ingredientListIHave: myIngre,
+  } = props.recipeInfo;
+
+  const [myIngredient, notMyIngredient, spiceArray] = calculateIngredient(
+    allIngre,
+    myIngre
+  );
+
   const imgErrorhandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
@@ -49,21 +39,27 @@ const IngredientContainer: React.FC<{ recipe: any }> = (props) => {
         <div className={classes.header}>{recipe.name}</div>
         <div className={classes.main}>
           <img
-            src={''}
+            src={`${API_URL}image/${recipe.image}`}
             className={classes.recipeImg}
             alt="레시피 큰 이미지"
             onError={imgErrorhandler}
           />
-          <div>
-            <div className={classes.toggle}>
-              <IngredientToggle toggleSpice={toggleSpice} />
+          <div className={classes.ingredientContainer}>
+            <div>
+              <IngredientList
+                title="나에게 있는 재료"
+                ingredients={myIngredient}
+              />
             </div>
-            {/* filter 주어서 소분류 조미료, 식재료 구분해서 띄우기 */}
-            {!isSpice ? (
-              <Ingred ingredients={recipe.recipe_ingredient} />
-            ) : (
-              <Spice ingredients={recipe.recipe_ingredient} />
-            )}
+            <div>
+              <IngredientList
+                title="나에게 없는 재료"
+                ingredients={notMyIngredient}
+              />
+            </div>
+            <div>
+              <IngredientList title="양념" ingredients={spiceArray} />
+            </div>
           </div>
         </div>
       </div>

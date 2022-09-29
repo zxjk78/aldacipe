@@ -1,0 +1,17 @@
+@import '../../global.scss';
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.button {
+  position: relative;
+  margin: 1rem;
+  font-size: 30px;
+  color: $green-secondary;
+  cursor: pointer;
+}
+.closebutton {
+  position: absolute !important;
+  bottom: 10px;
+  right: 10px;
+}

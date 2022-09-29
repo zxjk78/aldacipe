@@ -4,28 +4,28 @@ import { DragDropContext, DropResult, Droppable, Draggable} from 'react-beautifu
 import classes from './RefrigeratorList.module.scss';
 
 // redux로 관리해야 할듯?
-const listItems = [
-  {
-    id: "1",
-    name: "감자"
-  },
-  {
-    id: "2",
-    name: "마늘"
-  },
-  {
-    id: "3",
-    name: "양파"
-  },
-  {
-    id: "4",
-    name: "사과"
-  },
-  {
-    id: "5",
-    name: "버섯"
-  }
-]
+// const listItems = [
+//   {
+//     id: "1",
+//     name: "감자"
+//   },
+//   {
+//     id: "2",
+//     name: "마늘"
+//   },
+//   {
+//     id: "3",
+//     name: "양파"
+//   },
+//   {
+//     id: "4",
+//     name: "사과"
+//   },
+//   {
+//     id: "5",
+//     name: "버섯"
+//   }
+// ]
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   padding: 10,
@@ -40,8 +40,8 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 
 })
 
-export default function RefrigeratorList(props: {}) {
-  const [list, setList] = useState(listItems)
+export default function RefrigeratorList(props: {listItems:never[]}) {
+  const [list, setList] = useState(props.listItems)
   const onDragEnd = (result: DropResult) => {
     const {source, destination} = result
     if (!destination) return
