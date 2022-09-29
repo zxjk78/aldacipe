@@ -12,6 +12,7 @@
 import classes from './Detail.module.scss';
 import UpperDetail from './UpperDetail';
 import VitaMineral from './VitaMineral';
+import MostIngredient from './MostIngredient';
 export default function Detail(props: {}) {
   return (
     <>
@@ -37,7 +38,9 @@ export default function Detail(props: {}) {
         <div>
           <VitaMineral />
         </div>
-        <div>7</div>
+        <div>
+          <MostIngredient />
+        </div>
         <div>8</div>
       </div>
     </>

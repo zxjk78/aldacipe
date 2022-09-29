@@ -15,13 +15,13 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 // css, interface(type)
 import PieChart from './PieChart';
-import classes from './VitaMineral.module.scss';
+import classes from './MostIngredient.module.scss';
 
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
 `;
 
-export default function VitaMineral(props: {}) {
+export default function MostIngredient(props: {}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
@@ -34,25 +34,8 @@ export default function VitaMineral(props: {}) {
           components={{ Backdrop: CustomBackdrop }}
         >
           <div className={classes.vitaMineralModal}>
-            <div className={classes.modalHeader}>섭취 비타민</div>
-            <div className={classes.modalContent}>
-              <div className={classes.detailItem}>
-                <div>비타민 A</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 A</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 A</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 A</div>
-                <div>2000 IU</div>
-              </div>
-            </div>
+            <div className={classes.modalHeader}>가장 많이 먹은 음식</div>
+            <div className={classes.modalContent}></div>
           </div>
         </Modal>
       </div>

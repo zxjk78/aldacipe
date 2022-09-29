@@ -31,6 +31,19 @@ export const login = async (userInfo: { email: string; password: string }) => {
   }
 };
 
+export const emailDupCheck = async (enteredEmail: string) => {
+  try {
+    const response = await axiosCommonInstance.get('check-email', {
+      data: { email: enteredEmail },
+    });
+
+    console.log(response);
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export async function logout() {
   // console.log('로그아웃합니다.');
 
