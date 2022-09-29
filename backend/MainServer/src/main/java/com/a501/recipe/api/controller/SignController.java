@@ -49,7 +49,7 @@ public class SignController {
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
-        return responseService.getOneResult(new LoginResponseDto( 1L ,new AccessTokenResponseDto(tokenDto.getAccessToken(), tokenDto.getAccessTokenExpireDate())));
+        return responseService.getOneResult(new LoginResponseDto( tokenDto.getUserId() ,new AccessTokenResponseDto(tokenDto.getAccessToken(), tokenDto.getAccessTokenExpireDate())));
     }
 
     @ApiOperation(value = "회원가입", notes = "회원가입 수행")
