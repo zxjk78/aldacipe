@@ -2,3 +2,28 @@
   display: flex;
   justify-content: space-between;
 }
+.main {
+  position: relative;
+
+  border: solid 2px black;
+  background-color: #fff;
+  padding: 10px;
+}
+.amount {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 70%;
+  border: solid 2px black;
+  background-color: #fff;
+}
+
+.content {
+  overflow-y: scroll;
+  height: 200px;
+}

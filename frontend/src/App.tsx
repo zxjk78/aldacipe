@@ -8,19 +8,20 @@ import { getCookie } from './api/config/cookie';
 import Navbar from './components/common/navbar/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import RecipeDetailPage from './pages/RecipeDetailPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import SearchPage from './pages/SearchPage';
 import DashboardPage from './pages/DashboardPage';
 
+// 상세페이지 및 nested Routing
+import RecipeDetailPage from './pages/RecipeDetailPage';
 import CuisineContainer from '../src/components/detail/cuisine/CuisineContainer';
-import IngredientContainer from '../src/components/detail/ingredient/IngredientContainer';
-
-import ReviewContainer from '../src/components/detail/reviews/ReviewContainer';
-
+import NutScoreContainer from './components/detail/NutScoreContainer';
+// 냉장고 페이지
 import MyRefrigerator from './pages/MyRefrigerator';
-// 테스트용
+
+// 테스트용 임시 라우팅
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -53,8 +54,7 @@ function App() {
               <>
                 <Route path="/detail/:recipeId" element={<RecipeDetailPage />}>
                   <Route index element={<CuisineContainer />} />
-                  {/* <Route path="ingredient" element={<NutrituiContainer />} /> */}
-                  <Route path="review" element={<ReviewContainer />} />
+                  <Route path="nutScore" element={<NutScoreContainer />} />
                 </Route>
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/main" element={<MainPage />} />
