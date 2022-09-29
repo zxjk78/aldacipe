@@ -72,7 +72,7 @@ export default function RecipeDetailPage(props: {}) {
               댓글 및 평점
             </NavLink>
           </div>
-          <Outlet />
+          <Outlet context={recipeInfo} />
         </div>
       </div>
     </>

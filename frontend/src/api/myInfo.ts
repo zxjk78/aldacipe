@@ -2,7 +2,9 @@ import { axiosAuthInstance } from './config/apiController';
 
 export const fetchMyInfo = async () => {
   try {
-    const response: any = await axiosAuthInstance.get('user/userinfo');
+    const response: any = await axiosAuthInstance.get(
+      `user/${localStorage.getItem('userId')}/userinfo`
+    );
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -13,7 +15,10 @@ export const modifyMyInfo = async (data: {
   weight: number;
 }) => {
   try {
-    const response: any = await axiosAuthInstance.put('user/userinfo', data);
+    const response: any = await axiosAuthInstance.put(
+      `user/${localStorage.getItem('userId')}/userinfo`,
+      data
+    );
 
     return response.data;
   } catch (error) {
@@ -24,7 +29,7 @@ export const modifyMyInfo = async (data: {
 export const fetchMyBlackList = async () => {
   try {
     const response: any = await axiosAuthInstance.get(
-      `user/${localStorage.getItem('username')}/blacklist`
+      `user/${localStorage.getItem('userId')}/blacklist`
     );
 
     return response.data.data;
@@ -35,7 +40,7 @@ export const fetchMyBlackList = async () => {
 export const addMyBlackList = async (ingredientId: number) => {
   try {
     const response: any = await axiosAuthInstance.post(
-      `user/${localStorage.getItem('username')}/blacklist/${ingredientId}`
+      `user/${localStorage.getItem('userId')}/blacklist/${ingredientId}`
     );
 
     return response.data.success;
@@ -47,7 +52,7 @@ export const addMyBlackList = async (ingredientId: number) => {
 export const removeMyBlackList = async (ingredientId: number) => {
   try {
     const response: any = await axiosAuthInstance.delete(
-      `user/${localStorage.getItem('username')}/blacklist/${ingredientId}`
+      `user/${localStorage.getItem('userId')}/blacklist/${ingredientId}`
     );
 
     return response.data.success;
