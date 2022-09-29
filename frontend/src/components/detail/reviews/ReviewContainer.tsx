@@ -1,9 +1,14 @@
 import ReviewItem from './ReviewItem';
+import { useOutletContext } from 'react-router-dom';
 import { Review } from '../interface';
 import classes from './ReviewContainer.module.scss';
+import { useContext } from 'react';
 
-const ReviewContainer = () => {
-  const reviewList:Review[] = []
+const ReviewContainer = (props: {}) => {
+  const reviewList: Review[] = [];
+  const parentData = useOutletContext();
+  console.log(parentData);
+
   return (
     <>
       {reviewList.map((review) => (
