@@ -19,12 +19,10 @@ const IngredientList = (props: {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.header}>
-          <div>{props.title}</div>
-          <div>총 {props.ingredients.length}개</div>
-        </div>
         <div className={classes.main}>
-          <div className={classes.icon}>안녕</div>
+          <div>{props.title}</div>
+
+          <div className={classes.amount}> {props.ingredients.length}</div>
           <div className={classes.content}>
             {props.ingredients.map((item) => (
               <IngredientListItem ingredient={item} isNormal />

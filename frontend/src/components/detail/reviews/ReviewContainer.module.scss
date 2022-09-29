@@ -1,0 +1,98 @@
+@import '../../../global';
+.wrapper {
+  background-color: #fff;
+  min-height: 500px;
+}
+
+.header {
+  color: $green-primary;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.noReview {
+  border: 2px dashed $green-secondary;
+  padding: 2rem 3rem;
+  color: $green-secondary;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .addReview {
+    color: $green-primary;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.reviewModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 250px;
+  width: 400px;
+
+  padding: 20px;
+
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  .modalHeader {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: $green-primary;
+  }
+  .modalContent {
+    .modalRatingContainer {
+      > div:nth-of-type(2) {
+        text-align: right;
+        font-size: 0.9rem;
+      }
+    }
+    .reviewContent {
+      textarea {
+        width: 90%;
+        margin-left: 5%;
+        box-sizing: border-box;
+        resize: none;
+        padding: 10px;
+        border-radius: 5px;
+        height: 40%;
+        border: 2px solid $green-secondary;
+        &:focus {
+          outline: none;
+        }
+      }
+      .textCnt {
+        width: 90%;
+        margin: 0px auto;
+        margin-top: 5px;
+        text-align: right;
+        font-size: 0.9rem;
+        color: $green-primary;
+      }
+    }
+
+    .btnContainer {
+      display: flex;
+      flex-direction: row-reverse;
+      button {
+        margin-top: 1rem;
+        margin-right: 5%;
+
+        background-color: $green-primary;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+}
