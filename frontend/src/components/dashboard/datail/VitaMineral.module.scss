@@ -20,3 +20,37 @@
     transition: 0.2s;
   }
 }
+.vitaMineralModal {
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $text-primary;
+}
+.modalHeader {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1.2rem 0px;
+}
+.modalContent {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  .detailItem {
+    width: 150px;
+    height: 150px;
+    padding: 0.3rem;
+
+    > div:nth-of-type(2) {
+      color: $text-highlight;
+
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+}
