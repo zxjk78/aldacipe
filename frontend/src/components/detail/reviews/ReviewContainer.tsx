@@ -1,20 +1,24 @@
 import ReviewItem from './ReviewItem';
 import { useOutletContext } from 'react-router-dom';
-import { Review } from '../interface';
-import classes from './ReviewContainer.module.scss';
+
 import { useContext } from 'react';
+// css, interface
+import classes from './ReviewContainer.module.scss';
+import { RecipeDetail, Review } from '../../../util/interface';
 
 const ReviewContainer = (props: {}) => {
   const reviewList: Review[] = [];
-  const parentData = useOutletContext();
-  console.log(parentData);
-
+  const parentData: RecipeDetail = useOutletContext();
+  const reviewData = parentData.evaluationList;
+  const isEvaluate = parentData.userEvaluationInfo.didEvaluate;
+  // 리뷰 안남기면 0임
   return (
     <>
-      {reviewList.map((review) => (
-        <ReviewItem key={review.id} review={review} />
-      ))}
-      리뷰리뷰리뷰
+      {reviewList.length === 0
+        ? '등록된 리뷰가 없습니다.'
+        : reviewList.map((review) => (
+            <ReviewItem key={review.userId} review={review} />
+          ))}
     </>
   );
 };
