@@ -10,9 +10,9 @@ import { API_URL } from '../../api/config/http-config';
 
 // css, interface(type)
 import classes from './RecipeListItem.module.scss';
-import { Recipe_carousel } from '../../util/interface';
+import { Recipe } from '../../util/interface';
 const RecipeListItem = (props: {
-  recipe: Recipe_carousel;
+  recipe: Recipe;
   moveToDetail: (id: number) => void;
 }) => {
   const moveToDetail = () => {

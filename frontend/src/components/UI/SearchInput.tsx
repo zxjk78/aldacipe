@@ -12,7 +12,7 @@ import IngredientListItem from './IngredientListItem';
 import styled from '@emotion/styled';
 // css, interface
 import classes from './SearchInput.module.scss';
-import { Recipe_carousel, Ingredient } from '../../util/interface';
+import { Recipe, Ingredient } from '../../util/interface';
 const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;
 `;
@@ -28,9 +28,7 @@ const SearchInput: React.FC<{
   const isNavbar = !(props.isMypage || props.isSearch);
   const [briefVisible, setBriefVisible] = useState(false);
 
-  const [recipeSearchResult, setRecipeSearchResult] = useState<
-    Recipe_carousel[]
-  >([]);
+  const [recipeSearchResult, setRecipeSearchResult] = useState<Recipe[]>([]);
   const [ingredientSearchResult, setIngredientSearchResult] = useState<
     Ingredient[]
   >([]);

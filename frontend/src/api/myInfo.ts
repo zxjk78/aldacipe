@@ -23,7 +23,9 @@ export const modifyMyInfo = async (data: {
 
 export const fetchMyBlackList = async () => {
   try {
-    const response: any = await axiosAuthInstance.get('blacklist');
+    const response: any = await axiosAuthInstance.get(
+      `user/${localStorage.getItem('username')}/blacklist`
+    );
 
     return response.data.data;
   } catch (error) {
@@ -33,7 +35,7 @@ export const fetchMyBlackList = async () => {
 export const addMyBlackList = async (ingredientId: number) => {
   try {
     const response: any = await axiosAuthInstance.post(
-      `blacklist/${ingredientId}`
+      `user/${localStorage.getItem('username')}/blacklist/${ingredientId}`
     );
 
     return response.data.success;
@@ -45,7 +47,7 @@ export const addMyBlackList = async (ingredientId: number) => {
 export const removeMyBlackList = async (ingredientId: number) => {
   try {
     const response: any = await axiosAuthInstance.delete(
-      `blacklist/${ingredientId}`
+      `user/${localStorage.getItem('username')}/blacklist/${ingredientId}`
     );
 
     return response.data.success;
