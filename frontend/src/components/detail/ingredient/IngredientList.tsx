@@ -24,9 +24,12 @@ const IngredientList = (props: {
           <div>총 {props.ingredients.length}개</div>
         </div>
         <div className={classes.main}>
-          {props.ingredients.map((item) => (
-            <IngredientListItem ingredient={item} isNormal />
-          ))}
+          <div className={classes.icon}>안녕</div>
+          <div className={classes.content}>
+            {props.ingredients.map((item) => (
+              <IngredientListItem ingredient={item} isNormal />
+            ))}
+          </div>
         </div>
       </div>
     </>

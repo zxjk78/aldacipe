@@ -64,20 +64,12 @@ export default function RecipeDetailPage(props: {}) {
                 요리 방법
               </NavLink>
               <NavLink
-                to={`/detail/${recipeId}/nutrients`}
+                to={`/detail/${recipeId}/nutScore`}
                 className={({ isActive }) =>
                   isActive ? classes.selected : classes.notselected
                 }
               >
-                영양소
-              </NavLink>
-              <NavLink
-                to={`/detail/${recipeId}/review`}
-                className={({ isActive }) =>
-                  isActive ? classes.selected : classes.notselected
-                }
-              >
-                댓글 및 평점
+                영양소 및 평점
               </NavLink>
             </div>
             <Outlet context={recipeInfo} />

@@ -6,11 +6,12 @@ import { useContext } from 'react';
 import classes from './ReviewContainer.module.scss';
 import { RecipeDetail, Review } from '../../../util/interface';
 
-const ReviewContainer = (props: {}) => {
-  const reviewList: Review[] = [];
-  const parentData: RecipeDetail = useOutletContext();
-  const reviewData = parentData.evaluationList;
-  const isEvaluate = parentData.userEvaluationInfo.didEvaluate;
+const ReviewContainer = (props: {
+  reviewList: Review[];
+  userEval: { didEvaluate: boolean; score: number };
+}) => {
+  const reviewList = props.reviewList;
+  const { didEvaluate: isEvaluate, score: userScore } = props.userEval;
   // 리뷰 안남기면 0임
   return (
     <>
