@@ -29,7 +29,7 @@ public class IntakeDto {
             this.intakeTargetId = userIntake.getFood().getId();
             this.name = userIntake.getFood().getName();
             this.originalWeight = userIntake.getFood().getWeight();
-            this.image = userIntake.getFood().getImage();
+            this.image = "";
         } else if (IntakeType.RECIPE.equals(intakeType)) {
             this.intakeTargetId = userIntake.getRecipe().getId();
             this.name = userIntake.getRecipe().getName();
