@@ -65,7 +65,7 @@ export default function FoodBlackList(props: {
                 addBlacklist={addBlacklistHandler}
               />
             </div>
-            <div>
+            <div className={classes.blacklistItemContainer}>
               {myBlackList.map((item) => (
                 <FoodBlackListItem
                   key={item.id}

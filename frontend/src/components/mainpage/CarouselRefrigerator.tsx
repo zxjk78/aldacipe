@@ -8,7 +8,9 @@ import PrevArrow from './PrevArrow';
 import { refrigeratorRecipe } from '../../api/main'
 // css
 import classes from './CarouselRefrigerator.module.scss';
-const CarouselRefrigerator: React.FC<{}> = () => {
+import { CardRecipe } from './interface';
+
+const CarouselRefrigerator= (props: {list:never[]}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -20,27 +22,13 @@ const CarouselRefrigerator: React.FC<{}> = () => {
     // dotsClass: "custom-dots"
   };
 
-  const cardList = [];
-  // axios 로 데이터 20개 받아와서 map 돌릴 예정
-  cardList.push(['key1', 'value1', 'value2']);
-  cardList.push(['key2', 'value1', 'value2']);
-  cardList.push(['key3', 'value1', 'value2']);
-  cardList.push(['key4', 'value1', 'value2']);
-  cardList.push(['key5', 'value1', 'value2']);
-  cardList.push(['key6', 'value1', 'value2']);
-  cardList.push(['key7', 'value1', 'value2']);
-  cardList.push(['key8', 'value1', 'value2']);
-  cardList.push(['key9', 'value1', 'value2']);
-  cardList.push(['key10', 'value1', 'value2']);
-  cardList.push(['key11', 'value1', 'value2']);
-  // const data = refrigeratorRecipe
-  // console.log(data)
+  const cardList = props.list;
 
   return (
     <>
       <section className={classes.carousel}>
         <Slider {...settings}>
-          {/* {cardList.map((card:string[])=>(<Card key={card[0]}/>))} */}
+          {cardList.map((card:CardRecipe)=>(<Card card={card} key={card.id}/>))}
         </Slider>
       </section>
     </>
