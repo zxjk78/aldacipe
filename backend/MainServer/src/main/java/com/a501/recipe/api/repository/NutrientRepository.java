@@ -25,6 +25,18 @@ public interface NutrientRepository extends JpaRepository<Nutrient,String> {
             " where ui.user=:user and ui.intakeType = com.a501.recipe.api.domain.enums.IntakeType.RECIPE and ui.intakeDate>=:fromDate")
     Optional<List<UserIntake>> searchDailyIntakeRecipeWithNutrientFrom(@Param("user") User user, @Param("fromDate") LocalDate fromDate);
 
+    @Query("select distinct ui from UserIntake ui join fetch ui.food f join fetch f.nutrient n " +
+            " where ui.user=:user and ui.intakeType = com.a501.recipe.api.domain.enums.IntakeType.FOOD and ui.intakeDate>=:fromDate")
+    Optional<List<UserIntake>> searchDailyIntakeFoodWithIngredientAndNutrientFrom(@Param("user") User user, @Param("fromDate") LocalDate fromDate);
+
+    @Query("select distinct ui from UserIntake ui " +
+            " join fetch ui.recipe r" +
+            " join fetch r.nutrient n" +
+            " join fetch r.recipeIngredients ri" +
+            " join fetch ri.ingredient i" +
+            " where ui.user=:user and ui.intakeType = com.a501.recipe.api.domain.enums.IntakeType.RECIPE and ui.intakeDate>=:fromDate")
+    Optional<List<UserIntake>> searchDailyIntakeRecipeWithIngredientAndNutrientFrom(@Param("user") User user, @Param("fromDate") LocalDate fromDate);
+
     @Query("select rn.nutrient from RecommendedIntake rn where rn.gender=:gender and rn.minAge <= :age and rn.maxAge >= :age ")
     Optional<Nutrient> searchRecommendedIntakeNutrientByUser(@Param("gender") Gender gender, @Param("age") int age);
 }
