@@ -152,11 +152,6 @@ public class NutrientService {
         recipeCntList.sort((r1,r2)->r2.cnt-r1.cnt);
         ingredientCntList.sort((i1,i2)->i2.cnt-i1.cnt);
 
-
-        System.out.println("### 섭취한 재료 카운트 리스트 : ");
-        for(IngredientCnt ic : ingredientCntList) {
-            System.out.println(ic.ingredientDto.getName() +" - "+ ic.cnt);
-        }
         List<RecipeDto> top5RecipeList = new ArrayList<>();
         List<IngredientDto> top5IngredientList = new ArrayList<>();
 
@@ -173,8 +168,6 @@ public class NutrientService {
                 .orElseThrow(NutrientDataNotFoundException::new);
 
         MajorNutrientDto recommendedIntakeMajorNutrient = new MajorNutrientDto(recommendedIntakeNutrient,day);
-
-        System.out.println("### 섭취한 레시피 TOP 5 : " + top5RecipeList );
 
         return NutrientDetailResponseDto.builder()
                 .totalIntakeNutrient(intakeMajorNutrient)
