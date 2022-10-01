@@ -5,19 +5,33 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
+.container2 {
+  background-color: #fafafa;
+}
 .header {
 }
 .main {
 }
 .footer {
 }
+.noShow {
+  display: none;
+}
 .fadeOut {
-  animation: fade-out 1s;
+  animation: fade-out 0.5s;
   animation-fill-mode: forwards; // 지속
 }
 .fadeIn {
-  animation: fade-in 1s;
+  animation: fade-in 0.5s;
   animation-fill-mode: forwards; // 지속
+}
+.bottomUp {
+  animation: bottom-up 1s;
+  animation-fill-mode: forwards;
+}
+.bottomDown {
+  animation: bottom-down 1s;
+  animation-fill-mode: forwards;
 }
 @keyframes fade-out {
   from {
@@ -38,7 +52,21 @@
 
 @keyframes bottom-up {
   from {
+    position: relative;
+    top: 0;
   }
   to {
+    position: relative;
+    top: -50vh;
+  }
+}
+@keyframes bottom-down {
+  from {
+    position: relative;
+    top: -50vh;
+  }
+  to {
+    position: relative;
+    top: 0;
   }
 }

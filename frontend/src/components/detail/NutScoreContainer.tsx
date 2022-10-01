@@ -57,14 +57,16 @@ const NutScoreContainer = (props: {}) => {
         
         ${
           detail === null
-            ? ''
+            ? `${classes.noShow}`
             : detail
-            ? `${classes.fadeOut}`
-            : `${classes.fadeIn}`
+            ? `${classes.fadeIn} ${classes.bottomUp}`
+            : `${classes.bottomDown} ${setTimeout(() => {
+                setDetail(null);
+              }, 700)}`
         }
         `}
         >
-          <NutrientDetail nutrient={nutrient} />
+          <NutrientDetail nutrient={nutrient} close={closeNutDetail} />
         </div>
       </div>
     </>

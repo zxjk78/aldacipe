@@ -24,7 +24,9 @@ const NutrientDetailItem = (props: {
             {props.itemList.itemArr.map((item) => (
               <div className={classes.item} key={item.name}>
                 <div>{nutritionDictionary[item.name].name}</div>
-                <div>{item.value}</div>
+                <div>
+                  {item.value.toFixed(1)} {item.scale}
+                </div>
               </div>
             ))}
           </div>

@@ -12,20 +12,24 @@ import NutrientDetailItem from './NutrientDetailItem';
 import classes from './NutrientDetail.module.scss';
 import { Nutrient } from '../../../util/interface';
 import { categorializeNutrient } from '../../../util/fuctions';
-const NutrientDetail = (props: { nutrient: Nutrient }) => {
+const NutrientDetail = (props: { nutrient: Nutrient; close: () => void }) => {
   const categorializedNutrients = categorializeNutrient(props.nutrient);
-
+  const handleDetailClose = () => {
+    props.close();
+  };
   return (
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}>영양소 상세정보</div>
+          <div className={classes.header}>
+            영양소 상세정보 <span onClick={handleDetailClose}>닫기</span>
+          </div>
           <div className={classes.main}>
-            <div>
-              {categorializedNutrients.map((item) => (
+            {categorializedNutrients.map((item) => (
+              <div>
                 <NutrientDetailItem itemList={item} />
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
           <div className={classes.footer}></div>
         </div>

@@ -106,8 +106,9 @@ export interface RecipeDetail {
 export interface NutObj {
   name: string;
   value: number;
+  scale: string;
 }
 
 export interface NutDictionary {
-  [index: string]: { name: string; category: number };
+  [index: string]: { name: string; category: number; scale: string };
 }

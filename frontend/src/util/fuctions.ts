@@ -33,8 +33,12 @@ export const categorializeNutrient = (nutrient: Nutrient) => {
   for (const key in nutrient) {
     if (key === 'id') continue;
     let category = nutritionDictionary[key].category;
-
-    categoryArr[category].itemArr.push({ name: key, value: +nutrient[key] });
+    let s = nutritionDictionary[key].scale;
+    categoryArr[category].itemArr.push({
+      name: key,
+      value: +nutrient[key],
+      scale: s,
+    });
   }
 
   return categoryArr;
