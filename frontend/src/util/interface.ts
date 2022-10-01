@@ -112,3 +112,18 @@ export interface NutObj {
 export interface NutDictionary {
   [index: string]: { name: string; category: number; scale: string };
 }
+
+// ------------- dashboard 관련
+
+// 섭취 intake 관련
+
+export interface Intake {
+  id: number;
+  image: string;
+  intakeAmount: number;
+  intakeDate: string;
+  intakeTargetId: number;
+  intakeType: string;
+  name: string;
+  originalWeight: number;
+}
