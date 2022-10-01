@@ -1,7 +1,11 @@
 package com.a501.recipe.api.dto.recipe;
 
+import com.a501.recipe.api.domain.entity.Food;
 import com.a501.recipe.api.domain.entity.Recipe;
+import jdk.jfr.Name;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class RecipeDto {
@@ -17,4 +21,6 @@ public class RecipeDto {
         this.image = recipe.getImageBig();
         this.weight = recipe.getWeight();
     }
+
+
 }

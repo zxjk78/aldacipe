@@ -51,7 +51,7 @@ public class SignService {
             savedRefreshToken.updateToken(tokenDto.getRefreshToken());
         }
 
-
+        tokenDto.setUserId(user.getId());
         return tokenDto;
     }
 
@@ -102,8 +102,8 @@ public class SignService {
         refreshTokenRepository.deleteByTokenKey(user.getId());
     }
 
-    public boolean checkEmailDup(CheckEmailRequestDto checkEmailRequestDto){
-        User user = userRepository.findByEmail(checkEmailRequestDto.getEmail()).orElse(null);
+    public boolean checkEmailDup(String email){
+        User user = userRepository.findByEmail(email).orElse(null);
         return user!=null;
     }
 

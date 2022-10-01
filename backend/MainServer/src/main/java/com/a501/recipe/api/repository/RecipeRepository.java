@@ -5,6 +5,7 @@ import com.a501.recipe.api.domain.entity.Recipe;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.nutrient.NutrientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
+import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,4 +46,6 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     @Query("select r from Recipe r join fetch r.nutrient n where r.id=:id")
     Optional<Recipe> searchRecipeWithNutrientById(@Param("id") Long id);
 
+    @Query("select new com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto(f) from Food f where f.name like :keyword% ")
+    List<RecipeAndFoodSearchResponseDto> searchAllFoodByNameLike(@Param("keyword") String keyword);
 }

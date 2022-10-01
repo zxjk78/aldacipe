@@ -1,6 +1,5 @@
 package com.a501.recipe.aop.exception.advice;
 
-import com.a501.recipe.aop.exception.advice.*;
 import com.a501.recipe.aop.exception.*;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.service.ResponseService;
@@ -118,5 +117,11 @@ public class  ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult intakeInfoNotFoundException(HttpServletRequest request, IntakeInfoNotFoundException e) {
         return responseService.getFailResult(ErrorCode.IntakeInfoNotFoundException.getCode(), ErrorCode.IntakeInfoNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyEvaluatedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult alreadyDidEvaluateException(HttpServletRequest request, AlreadyEvaluatedException e) {
+        return responseService.getFailResult(ErrorCode.AlreadyDidEvaluateException.getCode(), ErrorCode.AlreadyDidEvaluateException.getMessage());
     }
 }
