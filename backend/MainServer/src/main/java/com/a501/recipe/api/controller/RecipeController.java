@@ -38,7 +38,7 @@ public class RecipeController {
     @GetMapping("/search")
     public ManyResult<RecipeAndFoodSearchResponseDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
                                                                                       @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients,
-                                                                                      @RequestParam(value = "with-food",required = false,defaultValue = "false") String withFood  ) {
+                                                                                      @RequestParam(value = "with-food",required = false, defaultValue = "false") String withFood  ) {
 
         final List<Long> ingredientIdList = new ArrayList<>();
         if(!ingredients.equals("None"))
