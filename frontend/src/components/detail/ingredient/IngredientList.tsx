@@ -25,7 +25,7 @@ const IngredientList = (props: {
           <div className={classes.amount}> {props.ingredients.length}</div>
           <div className={classes.content}>
             {props.ingredients.map((item) => (
-              <IngredientListItem ingredient={item} isNormal />
+              <IngredientListItem key={item.id} ingredient={item} isNormal />
             ))}
           </div>
         </div>
