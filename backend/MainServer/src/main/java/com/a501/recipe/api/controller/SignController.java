@@ -97,7 +97,7 @@ public class SignController {
     }
 
     @GetMapping("/check-email")
-    public CommonResult checkEmailDup(@RequestBody CheckEmailRequestDto checkEmailRequestDto){
-        return responseService.getOneResult(signService.checkEmailDup(checkEmailRequestDto));
+    public CommonResult checkEmailDup(@RequestParam("email") String email){
+        return responseService.getOneResult(signService.checkEmailDup(email));
     }
 }
