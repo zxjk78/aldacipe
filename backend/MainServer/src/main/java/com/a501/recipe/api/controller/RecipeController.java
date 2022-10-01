@@ -14,6 +14,8 @@ import com.a501.recipe.api.dto.response.OneResult;
 import com.a501.recipe.api.service.RecipeService;
 import com.a501.recipe.api.service.ResponseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,13 @@ public class RecipeController {
 
 
     @ApiOperation(value = "레시피 검색 (이름, 재료)")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(name = "keyword", value = "검색할 키워드"),
+                    @ApiImplicitParam(name = "ingredient", value = "재료 포함 검색 시에만 재료id1-재료id2-재료id3 형식으로 전달"),
+                    @ApiImplicitParam(name = "with-food", value = "true 전달 시 검색 범위를 레시피 -> 레시피+음식으로 넓힘")
+            }
+    )
     @GetMapping("/search")
     public ManyResult<RecipeAndFoodSearchResponseDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
                                                                                       @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients,
