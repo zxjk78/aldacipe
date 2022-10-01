@@ -104,7 +104,10 @@ public class RecipeService {
         // 레시피 평가 리스트
         List<EvaluationDto> evaluationList = evaluationRepository.searchAllByRecipe(recipeWithNutrientAndManual)
                 .orElseThrow(RecipeRelationalDataNotFoundException::new);
-        Integer evalSum = evaluationList.stream().map(sc->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0);
+        System.out.println("SIZE#### " + evaluationList.size());
+        Integer evalSum = evaluationList.stream()
+                .map(sc->sc.getScore())
+                .reduce((sum,sc)->sum+sc).orElse(0);
         Float avgEvaluationScore = evaluationList.size()==0?0:((float)evalSum/evaluationList.size());
         // 나에게 있는 재료 리스트 구하기
         ArrayList<Long> ingList = new ArrayList<>();
