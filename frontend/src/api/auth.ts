@@ -42,11 +42,11 @@ export async function logout() {
   // console.log('로그아웃합니다.');
 
   try {
+    removeCookie('accessToken');
+    removeCookie('accessTokenExpireDate');
     const response = await axiosAuthInstance.delete('log-out', {});
 
     if (response.data.success) {
-      removeCookie('accessToken');
-      removeCookie('accessTokenExpireDate');
       return true;
     }
   } catch (err) {

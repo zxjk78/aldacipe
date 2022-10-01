@@ -11,10 +11,12 @@ import { Backdrop } from '@mui/material';
 import styled from '@emotion/styled';
 // custom component
 import { useEffect, useState } from 'react';
+import MealPlannerSearchInput from './MealPlannerSearchInput';
+
 import MealListItem from './MealListItem';
 // css, interface(type)
 import classes from './MealPlanner.module.scss';
-import { Intake } from '../../../util/interface';
+import { Intake, Meal } from '../../../util/interface';
 
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
@@ -22,7 +24,7 @@ const CustomBackdrop = styled(Backdrop)`
 
 export default function MealPlanner(props: {}) {
   const [isLoading, setIsLoading] = useState(true);
-  const [mealList, setMealList] = useState<Intake[]>([]);
+  const [mealList, setMealList] = useState<Meal[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     setIsLoading(true);
@@ -49,6 +51,8 @@ export default function MealPlanner(props: {}) {
           <div>
             <div>모달창</div>
             <div>X</div>
+
+            <MealPlannerSearchInput placeholder="음식 검색" />
           </div>
         </div>
       </Modal>
@@ -61,9 +65,11 @@ export default function MealPlanner(props: {}) {
             </div>
           </div>
           <div className={classes.main}>
-            {mealList.map((item) => (
-              <MealListItem />
-            ))}
+            {mealList.length === 0 ? (
+              <div>음식 추가해주세요</div>
+            ) : (
+              mealList.map((item) => <MealListItem key={item.id} meal={item} />)
+            )}
           </div>
         </div>
       </div>

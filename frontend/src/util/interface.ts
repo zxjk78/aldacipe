@@ -1,4 +1,4 @@
-// main, search
+// main, search, dashboard
 export interface Recipe {
   id: number;
   name: string;
@@ -6,14 +6,8 @@ export interface Recipe {
   weight: number;
 }
 
-export interface Recipe_detail {
-  evaluationList: [];
-  ingredientList: [];
-  ingredientListIHave: [];
-  manualList: [];
-  nutrient: {};
-  recipe: Recipe;
-  userEvaluationInfo: {};
+export interface Meal extends Recipe {
+  type: string;
 }
 
 // search, mypage
