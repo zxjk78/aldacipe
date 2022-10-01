@@ -8,6 +8,7 @@ import com.a501.recipe.api.dto.evaluation.UserEvaluationInfoDto;
 import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
 import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
+import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
@@ -111,12 +112,12 @@ public class RecipeService {
         return new RecipeDetailPageResponseDto(recipeWithNutrientAndManual, ingredientList, evalInfo, evaluationList, myIngredientList);
     }
 
-    public List<RecipeDto> searchRecipeByNameAndIngredient(String keyword, List<Long> ingredientIdList) {
+    public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
         List<Recipe> candidateList = recipeRepository.searchByRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
 
         Set<Long> ingSet = new HashSet<>(ingredientIdList);
-        List<RecipeDto> res = new ArrayList<>();
+        List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
         for(Recipe r : candidateList) {
             int cnt = 0;
             for (Long ingId : ingSet){
@@ -129,8 +130,14 @@ public class RecipeService {
                 }
                 if(isExist) cnt++;
             }
-            if(ingSet.size()==cnt) res.add(new RecipeDto(r));
+            if(ingSet.size()==cnt) res.add(new RecipeAndFoodSearchResponseDto(r));
         }
+
+        if(withFood) {
+            List<RecipeAndFoodSearchResponseDto> foodList = recipeRepository.searchAllFoodByNameLike(keyword);
+            res.addAll(foodList);
+        }
+
         return res;
     }
 
