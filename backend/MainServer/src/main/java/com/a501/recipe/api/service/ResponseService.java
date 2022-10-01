@@ -1,9 +1,12 @@
 package com.a501.recipe.api.service;
 
+import com.a501.recipe.api.domain.entity.Evaluation;
+import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.dto.response.OneResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,6 +55,7 @@ public class ResponseService {
         result.setCode(code);
         result.setMessage(message);
     }
+
 
 }
 

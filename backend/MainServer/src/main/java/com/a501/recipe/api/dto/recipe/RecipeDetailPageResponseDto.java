@@ -26,12 +26,14 @@ public class RecipeDetailPageResponseDto {
     private List<ManualDto> manualList;
 
     private UserEvaluationInfoDto userEvaluationInfo;
+    private Float avgEvalutationScore;
     private List<EvaluationDto> evaluationList;
 
 
     public RecipeDetailPageResponseDto(Recipe recipe
             , List<RecipeIngredientDto> recipeIngredientDtoList
-            , UserEvaluationInfoDto evalInfo
+            , UserEvaluationInfoDto userEvalInfo
+            , Float avgEvalutationScore
             , List<EvaluationDto> evaluationList
             , List<RefrigeratorIngredientDto> myIngredientList)
     {
@@ -41,7 +43,8 @@ public class RecipeDetailPageResponseDto {
                 .map(m->new ManualDto(m))
                 .collect(Collectors.toList());
         this.ingredientList = recipeIngredientDtoList;
-        this.userEvaluationInfo = evalInfo;
+        this.userEvaluationInfo = userEvalInfo;
+        this.avgEvalutationScore = avgEvalutationScore;
         this.evaluationList = evaluationList;
         this.ingredientListIHave = myIngredientList;
     }
