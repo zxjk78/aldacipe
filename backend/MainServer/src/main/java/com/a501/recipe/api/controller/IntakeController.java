@@ -38,6 +38,8 @@ public class IntakeController {
         return responseService.getManyResult(intakeService.getMyIntakeList(loginUser, baseDate));
     }
 
+
+
     @ApiOperation(value = "섭취한 음식 추가")
     @PostMapping()
     public CommonResult addIntake(@ApiIgnore @LoginUser User loginUser,
