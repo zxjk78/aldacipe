@@ -6,10 +6,12 @@ import com.a501.recipe.api.dto.evaluation.EvaluationPostRequestDto;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.service.EvalutationService;
 import com.a501.recipe.api.service.ResponseService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+@Api(tags = "10. Evaluation Controller")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recipe/{recipeId}/evaluation")

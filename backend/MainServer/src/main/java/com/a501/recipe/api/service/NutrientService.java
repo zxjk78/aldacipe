@@ -3,6 +3,7 @@ package com.a501.recipe.api.service;
 import com.a501.recipe.aop.exception.NutrientDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
 import com.a501.recipe.api.domain.enums.LargeCategory;
+import com.a501.recipe.api.domain.enums.RecommendedNutrientType;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.nutrient.MajorNutrientDto;
 import com.a501.recipe.api.dto.nutrient.NutrientDetailResponseDto;
@@ -71,7 +72,7 @@ public class NutrientService {
         }
 
         int userAge = AgeCalculator.getAge(loginUser.getBirthday());
-        Nutrient recommendedIntakeNutrient = nutrientRepository.searchRecommendedIntakeNutrientByUser(loginUser.getGender(), userAge)
+        Nutrient recommendedIntakeNutrient = nutrientRepository.searchRecommendedIntakeNutrientByUser(loginUser.getGender(), userAge, RecommendedNutrientType.RECOMMENDED)
                 .orElseThrow(NutrientDataNotFoundException::new);
 
         return NutrientRatioDto.builder()
@@ -164,7 +165,7 @@ public class NutrientService {
 
         // 7일 권장 섭취량
         int userAge = AgeCalculator.getAge(loginUser.getBirthday());
-        Nutrient recommendedIntakeNutrient = nutrientRepository.searchRecommendedIntakeNutrientByUser(loginUser.getGender(), userAge)
+        Nutrient recommendedIntakeNutrient = nutrientRepository.searchRecommendedIntakeNutrientByUser(loginUser.getGender(), userAge, RecommendedNutrientType.RECOMMENDED)
                 .orElseThrow(NutrientDataNotFoundException::new);
 
         MajorNutrientDto recommendedIntakeMajorNutrient = new MajorNutrientDto(recommendedIntakeNutrient,day);

@@ -8,6 +8,8 @@ import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.service.NutrientService;
 import com.a501.recipe.api.service.ResponseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -23,6 +25,8 @@ public class NutrientController {
     private final NutrientService nutrientService;
     private final ResponseService responseService;
 
+    @ApiOperation(value = "월/주/일 동안 섭취한 영양분의 권장섭취량 대비 비율 정보 ")
+    @ApiImplicitParam(name="period", value="month or week or day")
     @GetMapping()
     public CommonResult getDailyNutrientInfo(@ApiIgnore @LoginUser User loginUser,
                                              @PathVariable("userId") Long userId,
@@ -39,6 +43,7 @@ public class NutrientController {
         return responseService.getOneResult(nutrientService.getDailyNutrientInfo(loginUser,day));
     }
 
+    @ApiOperation(value = "7일간 영양섭취 상세 정보")
     @GetMapping("/detail")
     public CommonResult getWeeklyNutrientDetailInfo(@ApiIgnore @LoginUser User loginUser,
                                              @PathVariable("userId") Long userId) {
