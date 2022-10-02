@@ -99,7 +99,7 @@ public class RecipeService {
                 .collect(Collectors.toList());
     }
 
-    public RecipeDetailPageResponseDto getTestRecipe(Long id, User loginUser) {
+    public RecipeDetailPageResponseDto getRecipeDetailPageData(Long id, User loginUser) {
         // n+1 -> 쿼리 2방으로 줄임
         Recipe recipeWithNutrientAndManual = recipeRepository.searchRecipeWithNutrientAndManualById(id)
                 .orElseThrow(RecipeNotFoundException::new);

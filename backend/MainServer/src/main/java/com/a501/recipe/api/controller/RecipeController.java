@@ -74,7 +74,7 @@ public class RecipeController {
     @ApiOperation(value = "레시피 상세 페이지")
     @GetMapping("/{id}")
     public OneResult<RecipeDetailPageResponseDto> getRecipeDetailPageInfo(@ApiIgnore @LoginUser User loginUser, @PathVariable("id") Long id) {
-        return responseService.getOneResult(recipeService.getTestRecipe(id, loginUser));
+        return responseService.getOneResult(recipeService.getRecipeDetailPageData(id, loginUser));
     }
 
 
