@@ -6,7 +6,7 @@ export const fetchUserIntake = async (date: string, setFnc: any) => {
     const response = await axiosAuthInstance.get(
       `user/${localStorage.getItem('userId')}/intake?date=${date}`
     );
-    console.log(response.data.data);
+    // console.log(response.data.data);
 
     setFnc(response.data.data);
   } catch (error) {
@@ -28,11 +28,10 @@ export const addUserIntake = async (data: any) => {
 export const fetchUserNutrientByPeriod = async (period: string) => {
   try {
     const response = await axiosAuthInstance.get(
-      `user/${localStorage.getItem('userId')}/nutrient/?period=${period}`
+      `user/${localStorage.getItem('userId')}/nutrient?period=${period}`
     );
-    console.log(response);
 
-    return response;
+    return response.data.data;
   } catch (error: any) {
     console.log(error);
 

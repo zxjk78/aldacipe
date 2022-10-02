@@ -32,11 +32,11 @@ const DashboardPage = () => {
         <div className={classes.title}>영양관리</div>
         <div className={classes.container}>
           <div className={classes.graphWeek}>
-            <RadarChart />
+            <RadarChart period="week" />
           </div>
           <div className={classes.graphDay}>
             {!isSearching ? (
-              <RadarChart />
+              <RadarChart period="day" />
             ) : (
               <MealSearch onSearchClose={handleSearchClose} />
             )}
@@ -46,7 +46,9 @@ const DashboardPage = () => {
               <MealDetail foodId={foodId} onDetailClose={handleDetailClose} />
             </div>
           )}
-          <div className={classes.graphMonth}></div>
+          <div className={classes.graphMonth}>
+            <RadarChart period="month" />
+          </div>
           <div className={classes.mealPlanner}>
             <MealPlanner
               onSearch={handleSearchOpen}

@@ -121,3 +121,34 @@ export interface Intake {
   name: string;
   originalWeight: number;
 }
+
+// 그래프 관련
+
+export interface UserNutritionRatio {
+  kcalRatio: number;
+  carbohydrateRatio: number;
+  proteinRatio: number;
+  fatRatio: number;
+  sodiumRatio: number;
+}
+
+export interface RadarChartData {
+  labels: string[];
+  datasets: {
+    label?: string;
+    data: number[];
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: number;
+  }[];
+}
+
+const options = {
+  scales: {
+    r: {
+      angleLines: {
+        display: true,
+      },
+    },
+  },
+};
