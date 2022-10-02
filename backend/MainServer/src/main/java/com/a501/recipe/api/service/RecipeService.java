@@ -20,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,7 +60,14 @@ public class RecipeService {
 
     public List<RecipeThumbNailResponseDto> getPopularRecipeList() {
         LocalDate fromDate = LocalDate.parse("2022-01-01");
-        return recipeRepository.searchTop20BestRecipeFrom(fromDate);
+        List<Object[]> result = recipeRepository.searchTop20BestRecipeFrom(fromDate);
+        return result.stream()
+                .map(objects->new RecipeThumbNailResponseDto(
+                        ((BigInteger)objects[0]).longValue()
+                        ,(String)objects[1]
+                        ,(String)objects[2]
+                        ,((BigDecimal)objects[3]).floatValue()))
+                .collect(Collectors.toList());
     }
 
     public List<RecipeThumbNailResponseDto> getCookableRecipeList() {
