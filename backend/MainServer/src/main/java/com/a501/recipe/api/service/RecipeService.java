@@ -1,5 +1,6 @@
 package com.a501.recipe.api.service;
 
+import com.a501.recipe.aop.exception.FoodNotFoundException;
 import com.a501.recipe.aop.exception.RecipeNotFoundException;
 import com.a501.recipe.aop.exception.RecipeRelationalDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +35,8 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final EvaluationRepository evaluationRepository;
-    public List<RecipeThumbNailResponseDto> getPopularRecipeList() {
+
+    public List<RecipeThumbNailResponseDto> getRandomRecipeList() {
 
         // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
         Set<Long> idSet = new HashSet<>();
@@ -50,6 +53,12 @@ public class RecipeService {
         return recipeRepository.searchRecipeByIdList(idList).stream()
                 .map(r -> new RecipeThumbNailResponseDto(r))
                 .collect(Collectors.toList());
+    }
+
+
+    public List<RecipeThumbNailResponseDto> getPopularRecipeList() {
+        LocalDate fromDate = LocalDate.parse("2022-01-01");
+        return recipeRepository.searchTop20BestRecipeFrom(fromDate);
     }
 
     public List<RecipeThumbNailResponseDto> getCookableRecipeList() {
@@ -104,7 +113,6 @@ public class RecipeService {
         // 레시피 평가 리스트
         List<EvaluationDto> evaluationList = evaluationRepository.searchAllByRecipe(recipeWithNutrientAndManual)
                 .orElseThrow(RecipeRelationalDataNotFoundException::new);
-        System.out.println("SIZE#### " + evaluationList.size());
         Integer evalSum = evaluationList.stream()
                 .map(sc->sc.getScore())
                 .reduce((sum,sc)->sum+sc).orElse(0);
@@ -120,7 +128,7 @@ public class RecipeService {
     }
 
     public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
-        List<Recipe> candidateList = recipeRepository.searchByRecipeByNameLikeWithIngredient(keyword)
+        List<Recipe> candidateList = recipeRepository.searchRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
 
         Set<Long> ingSet = new HashSet<>(ingredientIdList);
@@ -152,5 +160,11 @@ public class RecipeService {
         Recipe r = recipeRepository.searchRecipeWithNutrientById(id)
                 .orElseThrow(RecipeNotFoundException::new);
         return new RecipeNutrientDto(r.getWeight(), r.getNutrient());
+    }
+
+    public RecipeNutrientDto getFoodNutrient(Long id) {
+        Food f = recipeRepository.searchFoodWithNutrientById(id)
+                .orElseThrow(FoodNotFoundException::new);
+        return new RecipeNutrientDto(f.getWeight(), f.getNutrient());
     }
 }
