@@ -22,7 +22,8 @@ public enum ErrorCode {
     IngredientNotFoundException(1017,"존재하지 않는 식재료"),
     NutrientDataNotFoundException(1018,"영양소 정보가 존재하지 않음"),
     FoodNotFoundException(1019,"존재하지 않는 음식"),
-    IntakeInfoNotFoundException(1020,"섭취 정보가 존재하지 않음")
+    IntakeInfoNotFoundException(1020,"섭취 정보가 존재하지 않음"),
+    AlreadyDidEvaluateException(1021,"이미 평가한 레시피")
 
     ;
 
