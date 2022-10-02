@@ -1,4 +1,5 @@
 // react core
+import { useState } from 'react';
 
 // API
 
@@ -7,17 +8,32 @@
 // external component
 
 // custom component
-
+import NutritionInfo from '../../UI/NutritionInfo';
 // css, interface(type)
 import classes from './NutrientContainer.module.scss';
 import { Nutrient } from '../../../util/interface';
-const NutrientContainer = (props: { nutrient: Nutrient }) => {
+const NutrientContainer = (props: {
+  nutrient: Nutrient;
+  showDetail: () => void;
+}) => {
+  const [detail, setDetail] = useState(false);
+
+  const handleOpenDetail = () => {
+    setDetail(true);
+    props.showDetail();
+  };
   return (
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}>영양정보</div>
-          <div className={classes.main}>{props.nutrient.biotin}</div>
+          <div className={classes.main}>
+            <div>
+              <NutritionInfo
+                nutrition={props.nutrient}
+                showDetail={handleOpenDetail}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>
