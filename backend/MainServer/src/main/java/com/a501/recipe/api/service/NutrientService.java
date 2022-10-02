@@ -31,7 +31,7 @@ public class NutrientService {
         Calendar cal = Calendar.getInstance();
         Date today = new Date();
         cal.setTime(today);
-        cal.add(Calendar.DATE, -1 * day);
+        cal.add(Calendar.DATE, -1 * (day-1));
 
         SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fromDateStr = dtFormat.format(cal.getTime());

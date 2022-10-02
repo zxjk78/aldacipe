@@ -34,11 +34,11 @@ public class NutrientController {
         if (!userId.equals(loginUser.getId())) throw new AccessDeniedException();
         Integer day = 0;
         if ("day".equals(period)) {
-            day = 0;
+            day = 1;
         } else if ("week".equals(period)) {
-            day = 6;
+            day = 7;
         } else if ("month".equals(period)) {
-            day = 27;
+            day = 28;
         } else return responseService.getFailResult(400, "잘못된 조회 기간 형식");
         return responseService.getOneResult(nutrientService.getDailyNutrientInfo(loginUser,day));
     }
