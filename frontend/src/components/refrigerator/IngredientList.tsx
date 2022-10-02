@@ -24,12 +24,9 @@ const IngredientList = (props: {
       <div className={classes.container}>
         <div className={classes.main}>
           <div>
-            <div>
-              <img src="" alt="재료" />
-            </div>
             <div>{props.ingredient.name}</div>
           </div>
-          <div onClick={addRefrigeList}>추가</div>
+          <div className={classes.button} onClick={addRefrigeList}>추가</div>
         </div>
       </div>
     </>

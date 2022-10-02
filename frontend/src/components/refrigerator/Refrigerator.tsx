@@ -4,22 +4,17 @@ import RefrigeratorList from './RefrigeratorList';
 
 import classes from './Refrigerator.module.scss';
 import { getRefrigerator } from '../../api/myrefrigerator';
-export default function Refrigerator(props: {}) {
-  const [refrigeList, setRefrigeList] = useState([])
+import { Ingredient } from './interface';
 
-  useEffect(() => {
-    (async () => {
-      const data = await getRefrigerator();
-      setRefrigeList(data)
-    })();
-  }, [])
+export default function Refrigerator(props: {item:Ingredient[]}) {
 
-  
   return (
     <>
       <div className={classes.container}>
-        <img src={potImg} alt="potImg" />
-        <RefrigeratorList listItems={refrigeList}/>
+        <img className={classes.img} src={potImg} alt="potImg" />
+        <div className={classes.itemList}>
+          <RefrigeratorList item={props.item}/>
+        </div>
       </div>
     </>
   );

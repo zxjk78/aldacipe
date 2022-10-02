@@ -22,4 +22,5 @@ public interface EvaluationRepository extends JpaRepository<Evaluation,Long> {
 
     @Query("select e from Evaluation e where user=:user and recipe=:recipe")
     Optional<Evaluation> searchByUserAndRecipe(@Param("user") User user, @Param("recipe") Recipe recipe);
+
 }

@@ -6,6 +6,9 @@ import Button from '@mui/material/Button';
 
 import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
+import { getRefrigerator } from '../../api/myrefrigerator';
+import MyIngredientList from './MyIngredientList';
+import { Ingredient } from './interface';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,14 +25,9 @@ const style = {
   pb: 3,
 };
 
-export default function RefrigeratorBox() {
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = await getRefrigerator();
-  //     setRefrigeList(data)
-  //   })();
-  // }, [])
+export default function RefrigeratorBox(props:{
+  item:Ingredient[]
+}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -40,9 +38,9 @@ export default function RefrigeratorBox() {
 
   
   return (
-    <>
+    <div className={classes.wrapper}>
       <div className={classes.container}>
-        <h2>냉장고 박스</h2>
+        <h2 className={classes.header}>식재료 등록</h2>
         <div className={classes.button}>
           <IoAddCircleOutline onClick={handleOpen}/>
           <Modal
@@ -58,8 +56,18 @@ export default function RefrigeratorBox() {
               <Button className={classes.closebutton} onClick={handleClose}>나가기</Button>
             </Box>
           </Modal>
-        </div>  
+        </div>
       </div>
-    </>
+      <div className={classes.ingredientList}>
+        <h3 className={classes.ingredinetHeader}>재료</h3>
+        {props.item.map((item) => (
+          <MyIngredientList
+            key={item.id}
+            item={item}
+            // removeItem={removeItem}
+          />
+        ))}
+      </div> 
+    </div>
   );
 }

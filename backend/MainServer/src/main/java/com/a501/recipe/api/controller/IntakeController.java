@@ -11,6 +11,7 @@ import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.service.IntakeService;
 import com.a501.recipe.api.service.ResponseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class IntakeController {
     private final ResponseService responseService;
 
     @ApiOperation(value = "특정 날짜 이상부터 섭취한 음식 조회")
+    @ApiImplicitParam(name="date", value="yyyy-MM-dd 형식")
     @GetMapping()
     public ManyResult<IntakeDto> getMyIntakeList(@ApiIgnore @LoginUser User loginUser,
                                                  @PathVariable("userId") Long userId,
