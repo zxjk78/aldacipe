@@ -1,5 +1,5 @@
 // custom component
-import GraphWeek from '../components/dashboard/graph/GraphWeek';
+import RadarChart from '../components/dashboard/graph/RadarChart';
 import Detail from '../components/dashboard/datail/Detail';
 import MealPlanner from '../components/dashboard/mealPlanner/MealPlanner';
 // css
@@ -12,7 +12,7 @@ const DashboardPage = () => {
         <div className={classes.title}>영양관리</div>
         <div className={classes.container}>
           <div className={classes.graphWeek}>
-            <GraphWeek />
+            <RadarChart />
           </div>
           <div className={classes.graphDay}></div>
           <div className={classes.graphMonth}></div>

@@ -1,16 +1,17 @@
 @import '../../../global.scss';
 
 .wrapper {
+  position: relative;
   background-color: $background-highlight;
   width: 90%;
   margin: 0px auto;
   border-radius: 10px;
   padding: 0.3rem;
-  // &:hover {
-  //   background: $orange;
-  //   transform: translate3d(5px, -5px, 0);
-  //   transition: 0.2s;
-  // }
+}
+.foodInfomation {
+  position: absolute;
+  z-index: 10;
+  right: 0;
 }
 .container {
   height: 60px;
@@ -29,27 +30,12 @@
     border-radius: 5px;
   }
   .foodName {
-    color: $text-primary;
     font-weight: bold;
-    margin: 0.4rem;
 
-    > div:last-child {
-      color: $text-highlight;
-      font-size: 1.2rem;
-      margin-top: 0.2rem;
-    }
+    color: $text-highlight;
+    font-size: 1.2rem;
   }
 }
 .right {
-  > div:first-child {
-    cursor: pointer;
-    color: $red;
-    font-weight: 600;
-    text-align: right;
-  }
-  > div:nth-of-type(2) {
-    span {
-      font-weight: bold;
-    }
-  }
+  color: $orange;
 }

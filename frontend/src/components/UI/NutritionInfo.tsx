@@ -18,6 +18,7 @@ const NutritionInfo = (props: {
   recipeName?: string;
   recipeId?: number;
   nutrition?: Nutrient;
+  dashboard?: boolean;
   showDetail?: () => void;
 }) => {
   const [nutrition, setNutrition] = useState<Nutrient | null>(null);
@@ -45,7 +46,7 @@ const NutritionInfo = (props: {
           <div className={classes.container}>
             <div className={classes.header}>
               <div>영양성분</div>
-              {props.nutrition && (
+              {!props.dashboard && (
                 <div className={classes.detailBtn} onClick={handleShowDetail}>
                   <InfoIcon fontSize="small" />
                   <span>자세히 보기</span>

@@ -1,13 +1,35 @@
 @import '../../../global.scss';
+
+.wrapper {
+  box-sizing: border-box;
+  padding: 8px;
+}
+
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   color: $green-primary;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
+}
+.addMeal {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+    background-color: $green-secondary;
+  }
 }
 .main {
   display: flex;
   flex-direction: column;
+  max-height: 40vh;
+  overflow-y: scroll;
   gap: 1rem;
 }
 
