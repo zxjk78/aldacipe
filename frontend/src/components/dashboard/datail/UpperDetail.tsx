@@ -10,17 +10,22 @@
 
 // css, interface(type)
 import classes from './UpperDetail.module.scss';
+import { nutritionDictionary } from '../../../util/data';
+export default function UpperDetail(props: {
+  nutName: string;
+  nutValue: number;
+}) {
+  const result = nutritionDictionary[props.nutName];
 
-export default function UpperDetail(props: {}) {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.header}>{`열량`}</div>
+        <div className={classes.header}>{result.name}</div>
         <div className={classes.main}>
-          <div>{14000}</div>
-          <div>Kcal</div>
+          <div>{props.nutValue.toFixed(1)}</div>
+          <div>{result.scale}</div>
         </div>
-        <div className={classes.footer}>{`평균보다 12% 낮습니다.`}</div>
+        {/* <div className={classes.footer}>{`평균보다 12% 낮습니다.`}</div> */}
       </div>
     </>
   );

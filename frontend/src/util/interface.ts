@@ -142,13 +142,11 @@ export interface RadarChartData {
     borderWidth: number;
   }[];
 }
-
-const options = {
-  scales: {
-    r: {
-      angleLines: {
-        display: true,
-      },
-    },
-  },
-};
+export interface WeekDetailData {
+  mostIntakeIngredientList: [];
+  mostIntakeRecipeList: [];
+  recommendedIntakeNutrient: {};
+  totalIntakeNutrient: {
+    [index: string]: string;
+  };
+}

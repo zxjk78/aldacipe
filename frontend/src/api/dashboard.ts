@@ -40,3 +40,14 @@ export const fetchUserNutrientByPeriod = async (period: string) => {
     }
   }
 };
+
+export const fetchWeekDetail = async () => {
+  try {
+    const response = await axiosAuthInstance.get(
+      `user/${localStorage.getItem('userId')}/nutrient/detail`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

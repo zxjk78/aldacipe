@@ -42,6 +42,7 @@ const RadarChart = (props: { period: string }) => {
     setIsLoading(true);
     (async () => {
       const data = await fetchUserNutrientByPeriod(props.period);
+
       const radarChartData = {
         labels: ['칼로리', '탄수화물', '단백질', '지방', '나트륨'],
 
@@ -56,7 +57,11 @@ const RadarChart = (props: { period: string }) => {
         ],
       };
 
-      setChartData(radarChartData);
+      if (Object.values(data).join('-') === '0-0-0-0-0') {
+        setChartData(null);
+      } else {
+        setChartData(radarChartData);
+      }
 
       // radarChartData.datasets[0].data = Object.values(data) as number[];
     })();
@@ -66,7 +71,7 @@ const RadarChart = (props: { period: string }) => {
 
   return (
     <>
-      {!isLoading && chartData && (
+      {!isLoading && chartData ? (
         <div className={classes.wrapper}>
           <div className={classes.container}>
             <div className={classes.header}>
@@ -92,6 +97,10 @@ const RadarChart = (props: { period: string }) => {
             <div className={classes.footer}></div>
           </div>
         </div>
+      ) : !isLoading && !chartData ? (
+        <div>섭취 기록을 추가해 주세요</div>
+      ) : (
+        <></>
       )}
     </>
   );
