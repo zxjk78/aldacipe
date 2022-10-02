@@ -29,7 +29,7 @@ const MyRefrigeSearchInput = (props: {
   };
   const keywordChangeHandler = async () => {
     const keyword = searchRef.current!.value;
-    console.log(keyword);
+    // console.log(keyword);
     
     // keyward 이용해서 search 받아서 navBar에 올림
     if (keyword.length === 0) {
