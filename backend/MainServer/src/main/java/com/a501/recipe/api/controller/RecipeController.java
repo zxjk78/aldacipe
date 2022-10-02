@@ -5,6 +5,7 @@ import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.nutrient.NutrientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
+import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
@@ -35,16 +36,18 @@ public class RecipeController {
 
     @ApiOperation(value = "레시피 검색 (이름, 재료)")
     @GetMapping("/search")
-    public ManyResult<RecipeDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
-                                                                 @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients) {
+    public ManyResult<RecipeAndFoodSearchResponseDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
+                                                                                      @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients,
+                                                                                      @RequestParam(value = "with-food",required = false,defaultValue = "false") String withFood  ) {
 
         final List<Long> ingredientIdList = new ArrayList<>();
         if(!ingredients.equals("None"))
                 Arrays.stream(ingredients.split("-")).forEach(str-> {
                     ingredientIdList.add(Long.parseLong(str));
                 });
-        return responseService.getManyResult(recipeService.searchRecipeByNameAndIngredient(keyword, ingredientIdList));
+        return responseService.getManyResult(recipeService.searchRecipeAndFoodByNameAndIngredient(keyword, ingredientIdList, withFood.equals("true")));
     }
+
 
     @ApiOperation(value = "레시피 영양정보 조회")
     @GetMapping("/{id}/nutrient")

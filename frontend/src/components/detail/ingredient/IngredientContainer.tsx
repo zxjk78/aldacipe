@@ -1,8 +1,10 @@
 // custom component
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CustomTable from './IngredientTable';
 import IngredientToggle from './IngredientToggle';
 import IngredientList from './IngredientList';
+import Rating from '@mui/material/Rating';
+
 // css, interface
 import classes from './IngredientContainer.module.scss';
 import { Recipe, Ingredient, RecipeDetail } from '../../../util/interface';
@@ -27,6 +29,14 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
     allIngre,
     myIngre
   );
+  const [rating, setRating] = useState<number | null>(2);
+
+  useEffect(() => {
+    // rating 변경 시마다 서버에 put 요청 보내는 API
+    (async () => {
+      const success = console.log(123);
+    })();
+  }, [rating]);
 
   const imgErrorhandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
@@ -38,27 +48,46 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
       <div className={classes.wrapper}>
         <div className={classes.header}>{recipe.name}</div>
         <div className={classes.main}>
-          <img
-            src={`${API_URL}image/${recipe.image}`}
-            className={classes.recipeImg}
-            alt="레시피 큰 이미지"
-            onError={imgErrorhandler}
-          />
+          <div>
+            <img
+              src={`${API_URL}image/${recipe.image}`}
+              className={classes.recipeImg}
+              alt="레시피 큰 이미지"
+              onError={imgErrorhandler}
+            />
+            <div>
+              <div>
+                <div>별점 4.3</div>
+
+                <Rating
+                  name="recipe-rating"
+                  value={rating}
+                  precision={0.5}
+                  size="large"
+                  onChange={(event, newValue) => {
+                    setRating(newValue);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
           <div className={classes.ingredientContainer}>
             <div>
               <IngredientList
+                key={1}
                 title="나에게 있는 재료"
                 ingredients={myIngredient}
               />
             </div>
             <div>
               <IngredientList
+                key={2}
                 title="나에게 없는 재료"
                 ingredients={notMyIngredient}
               />
             </div>
             <div>
-              <IngredientList title="양념" ingredients={spiceArray} />
+              <IngredientList key={3} title="양념" ingredients={spiceArray} />
             </div>
           </div>
         </div>
