@@ -13,27 +13,17 @@ import MealDetail from './MealDetail';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
 import { Nutrient, Intake } from '../../../util/interface';
-export default function MealListItem(props: { intake: Intake }) {
-  const [foodInfo, setFoodInfo] = useState<Nutrient | null>(null);
-  const [foodInfoVisible, setFoodInfoVisible] = useState(false);
+export default function MealListItem(props: {
+  intake: Intake;
+  onFoodDetail: (id: number) => void;
+}) {
   const handleDetailToggle = () => {
-    if (!foodInfoVisible) {
-      (async () => {
-        const data = await fetchRecipeNutrition(props.intake.id);
-        setFoodInfo(data);
-        setFoodInfoVisible(true);
-      })();
-    } else {
-      setFoodInfoVisible(!foodInfoVisible);
-    }
+    props.onFoodDetail(props.intake.intakeTargetId);
   };
 
   return (
     <>
       <div className={classes.wrapper}>
-        <div className={classes.foodInfomation}>
-          {foodInfoVisible && <MealDetail foodInfo={foodInfo!} />}
-        </div>
         <div className={classes.container}>
           <div className={classes.left}>
             <div>

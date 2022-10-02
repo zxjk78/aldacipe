@@ -21,7 +21,10 @@ const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;
 `;
 
-const MealPlannerSearchInput = (props: { placeholder: string }) => {
+const MealPlannerSearchInput = (props: {
+  placeholder: string;
+  onSearchClose: () => void;
+}) => {
   const [briefVisible, setBriefVisible] = useState(false);
   const [intakeSearchResult, setIntakeSearchResult] = useState<Meal[]>([]);
   const keywordRef = useRef<null | HTMLInputElement>(null);
@@ -53,6 +56,7 @@ const MealPlannerSearchInput = (props: { placeholder: string }) => {
     infoToastr('섭취한 음식을 기록하였습니다.');
 
     setBriefVisible(false);
+    props.onSearchClose();
   };
   return (
     <>

@@ -7,6 +7,7 @@ import { fetchRecipeNutrition } from '../../api/nutrition';
 // external module
 
 // external component
+import CloseIcon from '@mui/icons-material/Close';
 import InfoIcon from '@mui/icons-material/Info';
 // custom component
 
@@ -20,6 +21,7 @@ const NutritionInfo = (props: {
   nutrition?: Nutrient;
   dashboard?: boolean;
   showDetail?: () => void;
+  onDetailClose?: () => void;
 }) => {
   const [nutrition, setNutrition] = useState<Nutrient | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +41,9 @@ const NutritionInfo = (props: {
   const handleShowDetail = () => {
     props.showDetail!();
   };
+  const handleClose = () => {
+    props.onDetailClose!();
+  };
   return (
     <>
       {nutrition && !isLoading && (
@@ -46,10 +51,14 @@ const NutritionInfo = (props: {
           <div className={classes.container}>
             <div className={classes.header}>
               <div>영양성분</div>
-              {!props.dashboard && (
+              {!props.dashboard ? (
                 <div className={classes.detailBtn} onClick={handleShowDetail}>
                   <InfoIcon fontSize="small" />
                   <span>자세히 보기</span>
+                </div>
+              ) : (
+                <div onClick={handleClose}>
+                  <CloseIcon />
                 </div>
               )}
             </div>
@@ -75,7 +84,7 @@ const NutritionInfo = (props: {
                   <div className={classes.nutName}>주요 비타민</div>
                   <div className={classes.nutItem}>
                     <div className={classes.nutName}>비타민 D</div>
-                    <div>{Math.floor(nutrition.vitaminD)} IU</div>
+                    <div>{Math.floor(nutrition.vitaminD)} mg</div>
                   </div>
                   <div className={classes.nutItem}>
                     <div className={classes.nutName}>비타민 C</div>
