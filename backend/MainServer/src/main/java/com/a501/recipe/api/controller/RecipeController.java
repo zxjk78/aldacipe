@@ -9,6 +9,7 @@ import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
+import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.dto.response.OneResult;
 import com.a501.recipe.api.service.RecipeService;
@@ -59,15 +60,21 @@ public class RecipeController {
 
 
     @ApiOperation(value = "레시피 영양정보 조회")
+    @ApiImplicitParam(name = "type", value = "recipe or food 입력")
     @GetMapping("/{id}/nutrient")
-    public OneResult<RecipeNutrientDto> getRecipeNutrient(@PathVariable("id") Long id) {
-        return responseService.getOneResult(recipeService.getRecipeNutrient(id));
+    public CommonResult getRecipeNutrient(@PathVariable("id") Long id,
+                                          @RequestParam("type") String type) {
+        if("recipe".equals(type))
+            return responseService.getOneResult(recipeService.getRecipeNutrient(id));
+        else if("food".equals(type))
+            return responseService.getOneResult(recipeService.getFoodNutrient(id));
+        else return responseService.getFailResult(400, "잘못된 영양소 조회 타입");
     }
 
     @ApiOperation(value = "레시피 상세 페이지")
     @GetMapping("/{id}")
     public OneResult<RecipeDetailPageResponseDto> getRecipeDetailPageInfo(@ApiIgnore @LoginUser User loginUser, @PathVariable("id") Long id) {
-        return responseService.getOneResult(recipeService.getTestRecipe(id, loginUser));
+        return responseService.getOneResult(recipeService.getRecipeDetailPageData(id, loginUser));
     }
 
 
