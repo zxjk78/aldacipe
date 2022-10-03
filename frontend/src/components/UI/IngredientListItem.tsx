@@ -11,6 +11,8 @@
 // css, interface(type)
 import classes from './IngredientListItem.module.scss';
 import { Ingredient } from '../../util/interface';
+import { ingredientCategoryDictionary } from '../../util/data';
+import imageArr from '../../assets/ingredients';
 const IngredientListItem = (props: {
   ingredient: Ingredient;
   addBlackList?: (ingredientId: number) => void;
@@ -25,7 +27,14 @@ const IngredientListItem = (props: {
         <div className={classes.main}>
           <div className={classes.info}>
             <div>
-              <img src="" alt="재료" />
+              <img
+                src={
+                  imageArr[
+                    ingredientCategoryDictionary[props.ingredient.smallCategory]
+                  ]
+                }
+                alt="재료"
+              />
             </div>
             <div>{props.ingredient.name}</div>
           </div>

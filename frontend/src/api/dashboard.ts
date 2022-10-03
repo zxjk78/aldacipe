@@ -51,3 +51,13 @@ export const fetchWeekDetail = async () => {
     console.log(error);
   }
 };
+export const fetchIngredientNutrition = async (ingredientId: number) => {
+  try {
+    const response = await axiosAuthInstance.get(
+      `ingredient/${ingredientId}/nutrient`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

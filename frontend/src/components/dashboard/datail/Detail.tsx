@@ -34,7 +34,7 @@ export default function Detail(props: {}) {
         recommendedIntakeNutrient,
         totalIntakeNutrient,
       } = await fetchWeekDetail();
-      console.log('추천영양소', recommendedIntakeNutrient);
+      // console.log('추천영양소', recommendedIntakeNutrient);
 
       setMostIngredientList(mostIntakeIngredientList);
       setMostRecipeList(mostIntakeRecipeList);
