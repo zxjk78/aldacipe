@@ -6,7 +6,7 @@ export const fetchUserIntake = async (date: string, setFnc: any) => {
     const response = await axiosAuthInstance.get(
       `user/${localStorage.getItem('userId')}/intake?date=${date}`
     );
-    console.log(response.data.data);
+    // console.log(response.data.data);
 
     setFnc(response.data.data);
   } catch (error) {
@@ -28,16 +28,26 @@ export const addUserIntake = async (data: any) => {
 export const fetchUserNutrientByPeriod = async (period: string) => {
   try {
     const response = await axiosAuthInstance.get(
-      `user/${localStorage.getItem('userId')}/nutrient/?period=${period}`
+      `user/${localStorage.getItem('userId')}/nutrient?period=${period}`
     );
-    console.log(response);
 
-    return response;
+    return response.data.data;
   } catch (error: any) {
     console.log(error);
 
     if (error.response.data.code === 1018) {
       return '섭취 기록이 존재하지 않습니다.';
     }
+  }
+};
+
+export const fetchWeekDetail = async () => {
+  try {
+    const response = await axiosAuthInstance.get(
+      `user/${localStorage.getItem('userId')}/nutrient/detail`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
 };

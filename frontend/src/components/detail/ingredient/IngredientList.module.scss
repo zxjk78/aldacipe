@@ -1,3 +1,5 @@
+@import '../../../global';
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -6,8 +8,12 @@
   position: relative;
 
   border: solid 2px black;
+  border-radius: 5px;
   background-color: #fff;
-  padding: 10px;
+  padding: 15px;
+  // > div:nth-of-type(1) {
+  //   margin-top: 0.5rem;
+  // }
 }
 .amount {
   width: 40px;
@@ -22,8 +28,33 @@
   border: solid 2px black;
   background-color: #fff;
 }
-
+.title {
+  font-weight: bold;
+}
 .content {
+  width: 200px;
   overflow-y: scroll;
   height: 200px;
+}
+
+.own {
+  border-color: $green-primary;
+  .title,
+  .amount {
+    color: $green-primary;
+  }
+}
+.notOwn {
+  border-color: $text-disable;
+  .title,
+  .amount {
+    color: $text-disable;
+  }
+}
+.seasoning {
+  border-color: $orange;
+  .title,
+  .amount {
+    color: $orange;
+  }
 }

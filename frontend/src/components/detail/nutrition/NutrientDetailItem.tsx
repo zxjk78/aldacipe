@@ -30,7 +30,6 @@ const NutrientDetailItem = (props: {
               </div>
             ))}
           </div>
-          <div className={classes.footer}></div>
         </div>
       </div>
     </>

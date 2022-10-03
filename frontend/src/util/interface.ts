@@ -42,9 +42,13 @@ export interface Manual {
 }
 
 export interface Review {
-  score: number;
-  userId: number;
-  userName: string;
+  contents: string;
+  id: number;
+  imageList: any;
+  user: {
+    id: number;
+    name: null | string;
+  };
 }
 
 export interface Nutrient {
@@ -103,8 +107,13 @@ export interface NutObj {
   scale: string;
 }
 
+// ------ 데이터 변환 딕셔너리 관련
 export interface NutDictionary {
   [index: string]: { name: string; category: number; scale: string };
+}
+
+export interface IngredientCategoryDictionary {
+  [index: string]: number;
 }
 
 // ------------- dashboard 관련
@@ -120,4 +129,33 @@ export interface Intake {
   intakeType: string;
   name: string;
   originalWeight: number;
+}
+
+// 그래프 관련
+
+export interface UserNutritionRatio {
+  kcalRatio: number;
+  carbohydrateRatio: number;
+  proteinRatio: number;
+  fatRatio: number;
+  sodiumRatio: number;
+}
+
+export interface RadarChartData {
+  labels: string[];
+  datasets: {
+    label?: string;
+    data: number[];
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: number;
+  }[];
+}
+export interface WeekDetailData {
+  mostIntakeIngredientList: [];
+  mostIntakeRecipeList: [];
+  recommendedIntakeNutrient: {};
+  totalIntakeNutrient: {
+    [index: string]: string;
+  };
 }

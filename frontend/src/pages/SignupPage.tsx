@@ -20,9 +20,9 @@ const SignupPage: React.FC<{}> = () => {
   const [signUpInfo, setSignUpInfo] = useState<all.userInfo>({
     email: '',
     password: '',
-    birthday: '',
-    weight: 0,
-    height: 0,
+    birthday: '2000-01-01',
+    weight: 60,
+    height: 160,
     gender: '',
   });
 

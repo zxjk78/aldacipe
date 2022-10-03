@@ -22,7 +22,7 @@ export const searchRecipeByKeyword2 = async (keyword: string) => {
     const response: any = await axiosAuthInstance.get(
       `recipe/search?keyword=${keyword}&ingredient=${''}&with-food=true`
     );
-    console.log(response.data.data);
+    // console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {

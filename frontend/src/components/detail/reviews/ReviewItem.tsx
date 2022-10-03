@@ -12,15 +12,13 @@ const ReviewItem = (props: { review: Review }) => {
   const review = props.review;
   return (
     <>
-      <div className={classes.header}>
-        <div>{review.userName}</div>
-        {/*  이부분 별로 바꾸기 */}
-        <Rating
-          name="read-only"
-          value={review.score}
-          readOnly
-          precision={0.5}
-        />
+      <div className={classes.wrapper}>
+        <div className={classes.header}>
+          <div>{review.user.name ? review.user.name : '익명의 사용자'}</div>
+        </div>
+        <div className={classes.content}>
+          <div>{review.contents}</div>
+        </div>
       </div>
     </>
   );

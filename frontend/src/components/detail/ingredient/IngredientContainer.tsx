@@ -1,22 +1,16 @@
-// custom component
 import { useState, useEffect } from 'react';
-import CustomTable from './IngredientTable';
-import IngredientToggle from './IngredientToggle';
+// api
+import { API_URL } from '../../../api/config/http-config';
+// custom component
 import IngredientList from './IngredientList';
 import Rating from '@mui/material/Rating';
 
+// external component
+import StarIcon from '@mui/icons-material/Star';
 // css, interface
 import classes from './IngredientContainer.module.scss';
-import { Recipe, Ingredient, RecipeDetail } from '../../../util/interface';
-import { API_URL } from '../../../api/config/http-config';
+import { RecipeDetail } from '../../../util/interface';
 import { calculateIngredient } from '../../../util/fuctions';
-/* 
-있는 재료 없는 재료, 양념을 그냥 나누어서 3개의 영역에 모아서 보여줄 것
-
-
-을 위해서는 있는 재료, 없는 재료, 소분류 양념까지 따져야 함
-
-*/
 
 const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
   const {
@@ -25,18 +19,18 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
     ingredientListIHave: myIngre,
   } = props.recipeInfo;
 
-  const [myIngredient, notMyIngredient, spiceArray] = calculateIngredient(
+  const [myIngredient, notMyIngredient, spice] = calculateIngredient(
     allIngre,
     myIngre
   );
   const [rating, setRating] = useState<number | null>(2);
 
-  useEffect(() => {
-    // rating 변경 시마다 서버에 put 요청 보내는 API
-    (async () => {
-      const success = console.log(123);
-    })();
-  }, [rating]);
+  // useEffect(() => {
+  //   // rating 변경 시마다 서버에 put 요청 보내는 API
+  //   (async () => {
+  //     const success = console.log(123);
+  //   })();
+  // }, [rating]);
 
   const imgErrorhandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
@@ -57,17 +51,24 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
             />
             <div>
               <div>
-                <div>별점 4.3</div>
-
-                <Rating
-                  name="recipe-rating"
-                  value={rating}
-                  precision={0.5}
-                  size="large"
-                  onChange={(event, newValue) => {
-                    setRating(newValue);
-                  }}
-                />
+                <div className={classes.totalRating}>
+                  <div>
+                    <span>
+                      <StarIcon />
+                    </span>{' '}
+                    4.3
+                  </div>
+                  <div>
+                    <Rating
+                      name="recipe-rating"
+                      value={rating}
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                        setRating(newValue);
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -75,19 +76,26 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
             <div>
               <IngredientList
                 key={1}
-                title="나에게 있는 재료"
+                title="있는 재료"
                 ingredients={myIngredient}
+                type="own"
               />
             </div>
             <div>
               <IngredientList
                 key={2}
-                title="나에게 없는 재료"
+                title="없는 재료"
                 ingredients={notMyIngredient}
+                type="notOwn"
               />
             </div>
             <div>
-              <IngredientList key={3} title="양념" ingredients={spiceArray} />
+              <IngredientList
+                key={3}
+                title="양념"
+                ingredients={spice}
+                type="seasoning"
+              />
             </div>
           </div>
         </div>

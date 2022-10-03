@@ -5,6 +5,7 @@ import { fetchMyInfo, modifyMyInfo } from '../../api/myInfo';
 // external module
 import moment from 'moment';
 // external component
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -119,6 +120,9 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
               <div>
                 <div className={classes.title}>회원정보</div>
                 <div className={classes.modify} onClick={modifyModalHandler}>
+                  <span>
+                    <BorderColorIcon fontSize="small" />
+                  </span>
                   회원정보 수정
                 </div>
               </div>

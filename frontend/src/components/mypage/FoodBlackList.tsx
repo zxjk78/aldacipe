@@ -5,12 +5,24 @@ import { Ingredient } from '../../util/interface';
 import { fetchMyBlackList, addMyBlackList } from '../../api/myInfo';
 // external component
 // external
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import styled from '@emotion/styled';
 import 'react-toastify/dist/ReactToastify.css';
 // custom component
 import MyPageSearchInput from './MyPageSearchInput';
 import FoodBlackListItem from './FoodBlackListItem';
 // css
 import classes from './FoodBlackList.module.scss';
+
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    padding: '8px 16px',
+    maxWidth: 400,
+  },
+});
 
 export default function FoodBlackList(props: {
   addItemError: () => void;
@@ -52,19 +64,24 @@ export default function FoodBlackList(props: {
       {!isLoading && (
         <div className={classes.container}>
           <div className={classes.header}>
-            <div>못 먹는 음식 관리</div>
+            <div>
+              <div>
+                못 먹는 음식 관리{' '}
+                <span>
+                  <CustomWidthTooltip title="식품 검색 및 추가를 통해서, 요리 검색 및 추천 서비스에서 해당 식품이 들어간 레시피들을 제외할 수 있습니다.">
+                    <HelpOutlineIcon />
+                  </CustomWidthTooltip>
+                </span>
+              </div>
+              <div className={classes.searchBar}>
+                <MyPageSearchInput
+                  placeholder="재료명 검색"
+                  addBlacklist={addBlacklistHandler}
+                />
+              </div>
+            </div>
           </div>
           <div className={classes.main}>
-            <div>
-              식품 검색 및 추가를 통해서, 요리 검색 및 추천 서비스에서 해당
-              식품이 들어간 레시피들을 제외할 수 있습니다.
-            </div>
-            <div className={classes.searchBar}>
-              <MyPageSearchInput
-                placeholder="재료명 검색"
-                addBlacklist={addBlacklistHandler}
-              />
-            </div>
             <div className={classes.blacklistItemContainer}>
               {myBlackList.map((item) => (
                 <FoodBlackListItem
