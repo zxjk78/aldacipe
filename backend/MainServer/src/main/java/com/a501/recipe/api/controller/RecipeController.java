@@ -81,18 +81,25 @@ public class RecipeController {
     @ApiOperation(value = "24시간 동안 가장 인기 있는 요리")
     @GetMapping("/popular")
     public ManyResult<RecipeThumbNailResponseDto> getPopularRecipeList() {
-        return responseService.getManyResult(recipeService.getPopularRecipeList());
+        int day = 1;
+        return responseService.getManyResult(recipeService.getPopularRecipeList(1));
     }
 
     @ApiOperation(value = "냉장고 재료로 만들 수 있는 요리")
     @GetMapping("/cookable")
-    public ManyResult<RecipeThumbNailResponseDto> getCookableRecipeList() {
-        return responseService.getManyResult(recipeService.getCookableRecipeList());
+    public ManyResult<RecipeThumbNailResponseDto> getCookableRecipeList(@ApiIgnore @LoginUser User loginUser) {
+        return responseService.getManyResult(recipeService.getCookableRecipeList(loginUser.getId()));
     }
 
     @ApiOperation(value = "회원과 유사한 사람들이 선택한 요리")
     @GetMapping("/likable")
-    public ManyResult<RecipeThumbNailResponseDto> getLikableRecipeList() {
-        return responseService.getManyResult(recipeService.getLikableRecipeList());
+    public ManyResult<RecipeThumbNailResponseDto> getLikableRecipeList(@ApiIgnore @LoginUser User loginUser) {
+        return responseService.getManyResult(recipeService.getLikableRecipeList(loginUser.getId()));
+    }
+
+    @ApiOperation(value = "영양소 균형을 위한 추천 요리")
+    @GetMapping("/healthy")
+    public ManyResult<RecipeThumbNailResponseDto> getHealthyRecipeList(@ApiIgnore @LoginUser User loginUser) {
+        return responseService.getManyResult(recipeService.getHealthyRecipeList(loginUser.getId()));
     }
 }
