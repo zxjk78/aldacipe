@@ -1,0 +1,116 @@
+@import '../../../global';
+.wrapper {
+  background-color: #fff;
+
+  padding: 1.5rem 2rem;
+
+  min-height: 500px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: $green-primary;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  .addReview {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover {
+      color: $green-secondary;
+    }
+  }
+}
+.noReview {
+  border: 2px dashed $green-secondary;
+  padding: 2rem 3rem;
+  color: $green-secondary;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .addReview {
+    color: $green-primary;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.reviewModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 40%;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding: 1.5rem;
+
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  .modalHeader {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: $green-primary;
+  }
+  .modalContent {
+    .modalRatingContainer {
+      > div:nth-of-type(2) {
+        text-align: right;
+        font-size: 0.9rem;
+      }
+    }
+    .reviewContent {
+      textarea {
+        width: 100%;
+        height: 40%;
+        box-sizing: border-box;
+        resize: none;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid $green-secondary;
+        &:focus {
+          outline: none;
+        }
+      }
+      .textCnt {
+        width: 100%;
+        margin: 0px auto;
+        margin-top: 5px;
+        text-align: right;
+        font-size: 0.9rem;
+        color: $green-primary;
+      }
+    }
+
+    .btnContainer {
+      display: flex;
+      flex-direction: row-reverse;
+      button {
+        margin-top: 1rem;
+
+        background-color: $green-primary;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+}

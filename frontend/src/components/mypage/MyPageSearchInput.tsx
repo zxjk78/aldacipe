@@ -16,7 +16,7 @@ import styled from '@emotion/styled';
 
 // css, interface(type)
 import classes from './MyPageSearchInput.module.scss';
-import { Recipe_carousel, Ingredient } from '../../util/interface';
+import { Recipe, Ingredient } from '../../util/interface';
 
 const MySearchIcon = styled(SearchIcon)`
   color: #5d5d5d;

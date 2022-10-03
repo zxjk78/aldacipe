@@ -1,62 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, DropResult, Droppable, Draggable} from 'react-beautiful-dnd';
+import { getRefrigerator } from '../../api/myrefrigerator';
+import { Ingredient } from './interface';
 
 import classes from './RefrigeratorList.module.scss';
+import RefrigeratorListItem from './RefrigeratorListItem';
 
-// redux로 관리해야 할듯?
-const listItems = [
-  {
-    id: "1",
-    name: "감자"
-  },
-  {
-    id: "2",
-    name: "마늘"
-  },
-  {
-    id: "3",
-    name: "양파"
-  },
-  {
-    id: "4",
-    name: "사과"
-  },
-  {
-    id: "5",
-    name: "버섯"
-  }
-]
 
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  padding: 10,
-  margin: `0 50px 15px 50px`,
-  background: isDragging ? "#4a2975" : "white",
-  color: isDragging ? 'white' : 'black',
-  border: `1px solid black`,
-  fontSize: `20px`,
-  borderRadius: `5px`,
+export default function RefrigeratorList(props:{item: Ingredient[]}) {
+  // const onDragEnd = (result: DropResult) => {
+  //   const {source, destination} = result
+  //   if (!destination) return
 
-  ...draggableStyle
+  //   const items = Array.from(list)
+  //   const [newOrder] = items.splice(source.index, 1)
+  //   items.splice(destination.index, 0, newOrder)
 
-})
-
-export default function RefrigeratorList(props: {}) {
-  const [list, setList] = useState(listItems)
-  const onDragEnd = (result: DropResult) => {
-    const {source, destination} = result
-    if (!destination) return
-
-    const items = Array.from(list)
-    const [newOrder] = items.splice(source.index, 1)
-    items.splice(destination.index, 0, newOrder)
-
-    setList(items)
-  }
+  //   setList(items)
+  // }
 
   return (
     <>
       <div>
-        <DragDropContext onDragEnd={onDragEnd}>
+        {/* <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {(provided) => (
               <div className={classes.list} {...provided.droppableProps} ref={provided.innerRef}>
@@ -78,7 +44,13 @@ export default function RefrigeratorList(props: {}) {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
+        </DragDropContext> */}
+        {props.item.map((item) => (
+          <RefrigeratorListItem
+            key={item.id}
+            item={item}
+          />
+        ))}
       </div>
     </>
   );

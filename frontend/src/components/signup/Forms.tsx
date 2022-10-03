@@ -2,6 +2,8 @@ import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import BirthdayInput from '../common/mui/BirthdayInput';
 
 import { debounce } from 'lodash';
+// api
+import { emailDupCheck } from '../../api/signup';
 
 // interface - 타입스크립트 인터페이스를 다른 곳에 입력해두고 받아옴
 import * as all from './config';
@@ -20,6 +22,7 @@ export const FormContent1: React.FC<{
       ? emailRegExp.test(props.formData.email)
       : false
   );
+  const [emailValidMsg, setEmailValidMsg] = useState<null | string>(null);
 
   // useRef 는 이런식으로 제네릭<null>
   const submitStepOneDataHandler = () => {
@@ -27,13 +30,21 @@ export const FormContent1: React.FC<{
   };
 
   const checkEmailValid = (event: React.FocusEvent<HTMLInputElement>) => {
-    debounce(() => {
+    debounce(async () => {
       setEmail(event.target.value);
 
       if (emailRegExp.test(event.target.value)) {
-        setEmailValid(() => true);
+        const isDup = await emailDupCheck(event.target.value);
+        if (!isDup) {
+          setEmailValid(() => false);
+          setEmailValidMsg(() => '중복된 이메일입니다.');
+        } else {
+          setEmailValid(() => true);
+          setEmailValidMsg(null);
+        }
       } else {
         setEmailValid(() => false);
+        setEmailValidMsg(() => '유효하지 않은 이메일입니다.');
       }
     }, 500)();
   };
@@ -156,7 +167,7 @@ export const FormContent2: React.FC<{
         <div className={`${classes.genderContainer}`}>
           <div className={classes.title}>성별</div>
           <div>
-            <div>
+            <div className={classes.genderOption}>
               <label htmlFor="male">남성</label>
               <input
                 type="radio"
@@ -167,7 +178,7 @@ export const FormContent2: React.FC<{
                 onChange={genderChange}
               />
             </div>
-            <div>
+            <div className={classes.genderOption}>
               <label htmlFor="female">여성</label>
               <input
                 type="radio"

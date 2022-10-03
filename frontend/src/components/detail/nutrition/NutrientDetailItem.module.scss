@@ -1,0 +1,24 @@
+@import '../../../global';
+.wrapper {
+  height: 90%;
+  box-sizing: border-box;
+  padding: 1.5rem 2.5rem;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $green-secondary;
+  margin-bottom: 2rem;
+}
+.main {
+  height: 20vh;
+  margin-bottom: 1.5rem;
+  overflow-y: scroll;
+}
+.item {
+  display: flex;
+
+  justify-content: space-between;
+}

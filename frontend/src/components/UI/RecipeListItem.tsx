@@ -10,9 +10,9 @@ import { API_URL } from '../../api/config/http-config';
 
 // css, interface(type)
 import classes from './RecipeListItem.module.scss';
-import { Recipe_carousel } from '../../util/interface';
+import { Recipe } from '../../util/interface';
 const RecipeListItem = (props: {
-  recipe: Recipe_carousel;
+  recipe: Recipe;
   moveToDetail: (id: number) => void;
 }) => {
   const moveToDetail = () => {
@@ -30,7 +30,7 @@ const RecipeListItem = (props: {
           <div className={classes.imgContainer}>
             <img
               src={`${API_URL}image/${props.recipe.image}`}
-              alt="1"
+              alt="레시피이미지"
               onError={errorHandler}
             />
           </div>

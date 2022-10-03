@@ -8,22 +8,20 @@
 .title {
   color: $green-primary;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-bottom: 1.5rem;
 }
-.detailContainer {
-  display: none;
-  width: 90%;
-  height: 10vh;
-  background-color: aqua;
-}
+
 .notVisible {
   display: none;
 }
 .ingredientBtn {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
   margin: 1rem auto;
-  box-shadow: 0px 0px 0px 0px #3dc21b;
+
   background-color: $background-highlight;
   border-radius: 42px;
   border: 2px solid $green-secondary;
@@ -33,15 +31,19 @@
   font-size: 17px;
   font-weight: bold;
   padding: 8px 76px;
+  padding-left: 85px;
   text-decoration: none;
 
   &:hover {
-    background-color: #adffa0;
+    background-color: #00c1a4;
     transition: 0.5s;
-    color: $background-highlight;
+    color: #fff;
   }
 }
-
+.detailText {
+  display: flex;
+  align-items: center;
+}
 /* fade in */
 
 @keyframes slide-fade-in-dropdown-animation {

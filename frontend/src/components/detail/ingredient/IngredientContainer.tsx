@@ -1,43 +1,37 @@
+import { useState, useEffect } from 'react';
+// api
+import { API_URL } from '../../../api/config/http-config';
 // custom component
-import { useState } from 'react';
-import CustomTable from './IngredientTable';
-import IngredientToggle from './IngredientToggle';
-import { Recipe, Ingredient } from '../interface';
+import IngredientList from './IngredientList';
+import Rating from '@mui/material/Rating';
 
-// css
+// external component
+import StarIcon from '@mui/icons-material/Star';
+// css, interface
 import classes from './IngredientContainer.module.scss';
+import { RecipeDetail } from '../../../util/interface';
+import { calculateIngredient } from '../../../util/fuctions';
 
-const Ingred: React.FC<{ ingredients: Ingredient[] }> = (props) => {
-  const tmp = [
-    { name: '밥', amount: 123, isExist: true },
-    { name: '빵', amount: 123, isExist: false },
-  ];
-  return (
-    <>
-      {/* <CustomTable ingredients={props.ingredients} /> */}
-      <CustomTable ingredients={tmp} />
-    </>
-  );
-};
-const Spice: React.FC<{ ingredients: Ingredient[] }> = (props) => {
-  const tmp = [
-    { name: '후추', amount: 123, isExist: true },
-    { name: '설탕', amount: 123, isExist: false },
-  ];
-  return (
-    <>
-      {/* <CustomTable ingredients={props.ingredients} /> */}
-      <CustomTable ingredients={tmp} />
-    </>
-  );
-};
+const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
+  const {
+    recipe,
+    ingredientList: allIngre,
+    ingredientListIHave: myIngre,
+  } = props.recipeInfo;
 
-const IngredientContainer: React.FC<{ recipe: any }> = (props) => {
-  const recipe = props.recipe;
-  const [isSpice, setIsSpice] = useState(false);
-  const toggleSpice = () => {
-    setIsSpice((prev) => !prev);
-  };
+  const [myIngredient, notMyIngredient, spice] = calculateIngredient(
+    allIngre,
+    myIngre
+  );
+  const [rating, setRating] = useState<number | null>(2);
+
+  // useEffect(() => {
+  //   // rating 변경 시마다 서버에 put 요청 보내는 API
+  //   (async () => {
+  //     const success = console.log(123);
+  //   })();
+  // }, [rating]);
+
   const imgErrorhandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
@@ -48,22 +42,61 @@ const IngredientContainer: React.FC<{ recipe: any }> = (props) => {
       <div className={classes.wrapper}>
         <div className={classes.header}>{recipe.name}</div>
         <div className={classes.main}>
-          <img
-            src={''}
-            className={classes.recipeImg}
-            alt="레시피 큰 이미지"
-            onError={imgErrorhandler}
-          />
           <div>
-            <div className={classes.toggle}>
-              <IngredientToggle toggleSpice={toggleSpice} />
+            <img
+              src={`${API_URL}image/${recipe.image}`}
+              className={classes.recipeImg}
+              alt="레시피 큰 이미지"
+              onError={imgErrorhandler}
+            />
+            <div>
+              <div>
+                <div className={classes.totalRating}>
+                  <div>
+                    <span>
+                      <StarIcon />
+                    </span>{' '}
+                    4.3
+                  </div>
+                  <div>
+                    <Rating
+                      name="recipe-rating"
+                      value={rating}
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                        setRating(newValue);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* filter 주어서 소분류 조미료, 식재료 구분해서 띄우기 */}
-            {!isSpice ? (
-              <Ingred ingredients={recipe.recipe_ingredient} />
-            ) : (
-              <Spice ingredients={recipe.recipe_ingredient} />
-            )}
+          </div>
+          <div className={classes.ingredientContainer}>
+            <div>
+              <IngredientList
+                key={1}
+                title="있는 재료"
+                ingredients={myIngredient}
+                type="own"
+              />
+            </div>
+            <div>
+              <IngredientList
+                key={2}
+                title="없는 재료"
+                ingredients={notMyIngredient}
+                type="notOwn"
+              />
+            </div>
+            <div>
+              <IngredientList
+                key={3}
+                title="양념"
+                ingredients={spice}
+                type="seasoning"
+              />
+            </div>
           </div>
         </div>
       </div>

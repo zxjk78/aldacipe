@@ -7,3 +7,12 @@
   grid-template-rows: 100%;
   grid-gap: 10px;
 }
+.img {
+  height: 250px;
+  width: 250px;
+  object-fit: contain;
+}
+.itemList {
+  max-height: 250px;
+  overflow-y: auto;
+}

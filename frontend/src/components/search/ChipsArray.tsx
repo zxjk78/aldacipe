@@ -24,10 +24,13 @@ export default function ChipsArray(props: {
     <Paper
       sx={{
         display: 'flex',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         flexWrap: 'wrap',
         listStyle: 'none',
-        p: 0.5,
+        bgcolor: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+        p: 0,
         m: 0,
       }}
       component="ul"

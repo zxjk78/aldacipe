@@ -2,21 +2,40 @@
 
 .wrapper {
   background-color: $background-highlight;
-  width: 95%;
-  margin: 0px auto;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 2rem 1rem;
   display: grid;
   grid-template-rows: 1fr 3fr;
   border-radius: 15px;
 }
 .header {
   color: $green-primary;
-  font-size: 3rem;
+  font-size: 2rem;
+  margin: 0.5rem;
   font-weight: bold;
 }
 .main {
   display: flex;
-  justify-content: space-evenly;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-between;
   align-items: center;
+}
+.totalRating {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+  font-size: 1.2rem;
+  span {
+    color: $orange;
+  }
+  > div:first-child {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
 }
 .recipeImg {
   width: 300px;
@@ -25,4 +44,9 @@
 .toggle {
   text-align: right;
   margin-bottom: 1rem;
+}
+.ingredientContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
 }

@@ -15,6 +15,20 @@ export const searchRecipeByKeyword = async (keyword: string) => {
     console.error(error);
   }
 };
+export const searchRecipeByKeyword2 = async (keyword: string) => {
+  try {
+    // console.log('레시피 키워드검색 + 요리 포함');
+
+    const response: any = await axiosAuthInstance.get(
+      `recipe/search?keyword=${keyword}&ingredient=${''}&with-food=true`
+    );
+    // console.log(response.data.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // 재료 검색
 export const searchIngredient = async (keyword: string) => {

@@ -31,7 +31,7 @@ public class NutrientService {
         Calendar cal = Calendar.getInstance();
         Date today = new Date();
         cal.setTime(today);
-        cal.add(Calendar.DATE, -1 * day);
+        cal.add(Calendar.DATE, -1 * (day-1));
 
         SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fromDateStr = dtFormat.format(cal.getTime());
@@ -76,11 +76,11 @@ public class NutrientService {
                 .orElseThrow(NutrientDataNotFoundException::new);
 
         return NutrientRatioDto.builder()
-                .kcalRatio(kcalSum / (recommendedIntakeNutrient.getKcal() * day))
-                .carbohydrateRatio(carbohydrateSum / (recommendedIntakeNutrient.getCarbohydrate() * day))
-                .proteinRatio(proteinSum / (recommendedIntakeNutrient.getProtein() * day))
-                .fatRatio(fatSum / (recommendedIntakeNutrient.getFat() * day))
-                .sodiumRatio(sodiumSum / (recommendedIntakeNutrient.getSodium() * day))
+                .kcalRatio(Math.min(2, (kcalSum / (recommendedIntakeNutrient.getKcal() * day))))
+                .carbohydrateRatio(Math.min(2,(carbohydrateSum / (recommendedIntakeNutrient.getCarbohydrate() * day))))
+                .proteinRatio(Math.min(2,(proteinSum / (recommendedIntakeNutrient.getProtein() * day))))
+                .fatRatio(Math.min(2,(fatSum / (recommendedIntakeNutrient.getFat() * day))))
+                .sodiumRatio(Math.min(2,(sodiumSum / (recommendedIntakeNutrient.getSodium() * day))))
                 .build();
     }
 
@@ -88,7 +88,7 @@ public class NutrientService {
         Calendar cal = Calendar.getInstance();
         Date today = new Date();
         cal.setTime(today);
-        cal.add(Calendar.DATE, -1 * day);
+        cal.add(Calendar.DATE, -1 * (day-1));
 
         SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fromDateStr = dtFormat.format(cal.getTime());
