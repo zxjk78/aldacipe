@@ -1,11 +1,28 @@
 package com.a501.recipe.api.service;
 
-import com.a501.recipe.api.dto.recipe.RecipeResponseDto;
+import com.a501.recipe.aop.exception.FoodNotFoundException;
+import com.a501.recipe.aop.exception.RecipeNotFoundException;
+import com.a501.recipe.aop.exception.RecipeRelationalDataNotFoundException;
+import com.a501.recipe.api.domain.entity.*;
+import com.a501.recipe.api.dto.evaluation.EvaluationDto;
+import com.a501.recipe.api.dto.evaluation.UserEvaluationInfoDto;
+import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
+import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
+import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
+import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
+import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
+import com.a501.recipe.api.dto.recipe.RecipeDto;
+import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
+import com.a501.recipe.api.repository.EvaluationRepository;
+import com.a501.recipe.api.repository.IngredientRepository;
 import com.a501.recipe.api.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +35,10 @@ import java.util.stream.Collectors;
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
-    public List<RecipeResponseDto> getPopularRecipeList() {
+    private final IngredientRepository ingredientRepository;
+    private final EvaluationRepository evaluationRepository;
+
+    public List<RecipeThumbNailResponseDto> getRandomRecipeList() {
 
         // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
         Set<Long> idSet = new HashSet<>();
@@ -33,11 +53,24 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(r))
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeResponseDto> getCookableRecipeList() {
+
+    public List<RecipeThumbNailResponseDto> getPopularRecipeList() {
+        LocalDate fromDate = LocalDate.parse("2022-01-01");
+        List<Object[]> result = recipeRepository.searchTop20BestRecipeFrom(fromDate);
+        return result.stream()
+                .map(objects->new RecipeThumbNailResponseDto(
+                        ((BigInteger)objects[0]).longValue()
+                        ,(String)objects[1]
+                        ,(String)objects[2]
+                        ,((BigDecimal)objects[3]).floatValue()))
+                .collect(Collectors.toList());
+    }
+
+    public List<RecipeThumbNailResponseDto> getCookableRecipeList() {
 
         // make random id list -> 로그인 유저의 냉장고 식재료 리스트가 전부 포함된 요리 쿼리 제작
         Set<Long> idSet = new HashSet<>();
@@ -52,11 +85,11 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(r))
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeResponseDto> getLikableRecipeList() {
+    public List<RecipeThumbNailResponseDto> getLikableRecipeList() {
 
         // make random id list -> CF 알고리즘 레시피 id 리스트 결과로 대체
         Set<Long> idSet = new HashSet<>();
@@ -71,7 +104,76 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(r))
                 .collect(Collectors.toList());
+    }
+
+    public RecipeDetailPageResponseDto getRecipeDetailPageData(Long id, User loginUser) {
+        // n+1 -> 쿼리 2방으로 줄임
+        Recipe recipeWithNutrientAndManual = recipeRepository.searchRecipeWithNutrientAndManualById(id)
+                .orElseThrow(RecipeNotFoundException::new);
+        List<RecipeIngredientDto> ingredientList = ingredientRepository.searchIngredientByRecipe(recipeWithNutrientAndManual)
+                .orElseThrow(RecipeRelationalDataNotFoundException::new);
+        // 평가
+        // 내 평가
+        Evaluation e = evaluationRepository.searchByUserAndRecipe(loginUser,recipeWithNutrientAndManual)
+                .orElse(null);
+        UserEvaluationInfoDto evalInfo = new UserEvaluationInfoDto(e==null?false:true,e==null?0:e.getScore());
+        // 레시피 평가 리스트
+        List<EvaluationDto> evaluationList = evaluationRepository.searchAllByRecipe(recipeWithNutrientAndManual)
+                .orElseThrow(RecipeRelationalDataNotFoundException::new);
+        Integer evalSum = evaluationList.stream()
+                .map(sc->sc.getScore())
+                .reduce((sum,sc)->sum+sc).orElse(0);
+        Float avgEvaluationScore = evaluationList.size()==0?0:((float)evalSum/evaluationList.size());
+        // 나에게 있는 재료 리스트 구하기
+        ArrayList<Long> ingList = new ArrayList<>();
+        for(RecipeIngredientDto ri : ingredientList){
+            ingList.add(ri.getId());
+        }
+        List<RefrigeratorIngredientDto> myIngredientList = ingredientRepository.searchRecipeIngredientUserHas(loginUser, ingList)
+                .orElseThrow(RecipeRelationalDataNotFoundException::new);
+        return new RecipeDetailPageResponseDto(recipeWithNutrientAndManual, ingredientList, evalInfo, avgEvaluationScore, evaluationList, myIngredientList);
+    }
+
+    public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
+        List<Recipe> candidateList = recipeRepository.searchRecipeByNameLikeWithIngredient(keyword)
+                .orElseThrow(RecipeNotFoundException::new);
+
+        Set<Long> ingSet = new HashSet<>(ingredientIdList);
+        List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
+        for(Recipe r : candidateList) {
+            int cnt = 0;
+            for (Long ingId : ingSet){
+                boolean isExist = false;
+                for(RecipeIngredient ri : r.getRecipeIngredients()) {
+                    if(ri.getIngredient().getId().equals(ingId)) {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if(isExist) cnt++;
+            }
+            if(ingSet.size()==cnt) res.add(new RecipeAndFoodSearchResponseDto(r));
+        }
+
+        if(withFood) {
+            List<RecipeAndFoodSearchResponseDto> foodList = recipeRepository.searchAllFoodByNameLike(keyword);
+            res.addAll(foodList);
+        }
+
+        return res;
+    }
+
+    public RecipeNutrientDto getRecipeNutrient(Long id) {
+        Recipe r = recipeRepository.searchRecipeWithNutrientById(id)
+                .orElseThrow(RecipeNotFoundException::new);
+        return new RecipeNutrientDto(r.getWeight(), r.getNutrient());
+    }
+
+    public RecipeNutrientDto getFoodNutrient(Long id) {
+        Food f = recipeRepository.searchFoodWithNutrientById(id)
+                .orElseThrow(FoodNotFoundException::new);
+        return new RecipeNutrientDto(f.getWeight(), f.getNutrient());
     }
 }

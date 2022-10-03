@@ -1,8 +1,9 @@
 package com.a501.recipe.api.controller;
 
 
-import com.a501.recipe.advice.exception.RefreshTokenExpiredException;
+import com.a501.recipe.aop.exception.RefreshTokenExpiredException;
 import com.a501.recipe.api.dto.sign.CheckEmailRequestDto;
+import com.a501.recipe.api.dto.sign.LoginResponseDto;
 import com.a501.recipe.api.dto.token.AccessTokenRequestDto;
 import com.a501.recipe.api.dto.token.AccessTokenResponseDto;
 import com.a501.recipe.api.dto.token.TokenRequestDto;
@@ -37,7 +38,7 @@ public class SignController {
 
     @ApiOperation(value = "로그인", notes = "이메일로 로그인 수행")
     @PostMapping("/login")
-    public OneResult<AccessTokenResponseDto> login (HttpServletResponse response,
+    public OneResult<LoginResponseDto> login (HttpServletResponse response,
                                                     @ApiParam(value = "로그인 DTO", required = true) @RequestBody UserLoginRequestDto userLoginRequestDto) {
         TokenResponseDto tokenDto = signService.login(userLoginRequestDto);
 
@@ -48,7 +49,7 @@ public class SignController {
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
-        return responseService.getOneResult(new AccessTokenResponseDto(tokenDto.getAccessToken(), tokenDto.getAccessTokenExpireDate()));
+        return responseService.getOneResult(new LoginResponseDto( tokenDto.getUserId() ,new AccessTokenResponseDto(tokenDto.getAccessToken(), tokenDto.getAccessTokenExpireDate())));
     }
 
     @ApiOperation(value = "회원가입", notes = "회원가입 수행")
@@ -96,7 +97,7 @@ public class SignController {
     }
 
     @GetMapping("/check-email")
-    public CommonResult checkEmailDup(@RequestBody CheckEmailRequestDto checkEmailRequestDto){
-        return responseService.getOneResult(signService.checkEmailDup(checkEmailRequestDto));
+    public CommonResult checkEmailDup(@RequestParam("email") String email){
+        return responseService.getOneResult(signService.checkEmailDup(email));
     }
 }
