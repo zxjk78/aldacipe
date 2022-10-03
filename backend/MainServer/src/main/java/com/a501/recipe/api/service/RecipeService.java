@@ -17,6 +17,7 @@ import com.a501.recipe.api.repository.IngredientRepository;
 import com.a501.recipe.api.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -82,15 +83,14 @@ public class RecipeService {
 
     public List<RecipeThumbNailResponseDto> getCookableRecipeList(Long userId) {
         RestTemplate restTemplate = new RestTemplate();
-        class LikableRecipeRequestDto {
-            long user_id;
-            public LikableRecipeRequestDto(long user_id) {
-                this.user_id = user_id;
-            }
-        }
-        LikableRecipeRequestDto body = new LikableRecipeRequestDto(userId);
-        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", body, List.class);
+
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_refrigerator", bodyMap, List.class);
+
+        System.out.println("### COOKABLE ###");
         System.out.println(idList.toString());
+        System.out.println("#### COOKABLE IDLIST END ####");
 
 
         // search recipes by id list
@@ -101,15 +101,15 @@ public class RecipeService {
 
     public List<RecipeThumbNailResponseDto> getLikableRecipeList(Long userId) {
         RestTemplate restTemplate = new RestTemplate();
-        class LikableRecipeRequestDto {
-            long user_id;
-            public LikableRecipeRequestDto(long user_id) {
-                this.user_id = user_id;
-            }
-        }
-        LikableRecipeRequestDto body = new LikableRecipeRequestDto(userId);
-        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", body, List.class);
+
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+
+        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", bodyMap, List.class);
+
+        System.out.println("### Likable ###");
         System.out.println(idList.toString());
+        System.out.println("#### Likable IDLIST END ####");
 
 
         // search recipes by id list
@@ -120,18 +120,17 @@ public class RecipeService {
 
     public List<RecipeThumbNailResponseDto> getHealthyRecipeList(Long userId) {
         RestTemplate restTemplate = new RestTemplate();
-        class HealthyRecipeRequestDto {
-            long user_id;
-            int period;
 
-            public HealthyRecipeRequestDto(long user_id, int period) {
-                this.user_id = user_id;
-                this.period = period;
-            }
-        }
-        HealthyRecipeRequestDto body = new HealthyRecipeRequestDto(userId, 1);
-        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", body, List.class);
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+        bodyMap.put("period","1");
+
+        List<Long> idList  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
+
+        System.out.println("### HEALTHY ###");
         System.out.println(idList.toString());
+        System.out.println("#### HEALTHY IDLIST END ####");
+
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
                 .map(r -> new RecipeThumbNailResponseDto(r))
