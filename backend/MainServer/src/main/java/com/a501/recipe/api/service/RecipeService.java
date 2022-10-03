@@ -86,8 +86,11 @@ public class RecipeService {
 
         Map<String,String> bodyMap = new HashMap<>();
         bodyMap.put("user_id",userId.toString());
-        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_refrigerator", bodyMap, List.class);
-
+        List<Integer> response = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_refrigerator", bodyMap, List.class);
+        List<Long> idList = new ArrayList<>();
+        for (Integer i : response) {
+            idList.add(Long.valueOf(i));
+        }
         System.out.println("### COOKABLE ###");
         System.out.println(idList.toString());
         System.out.println("#### COOKABLE IDLIST END ####");
@@ -105,8 +108,11 @@ public class RecipeService {
         Map<String,String> bodyMap = new HashMap<>();
         bodyMap.put("user_id",userId.toString());
 
-        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", bodyMap, List.class);
-
+        List<Integer> response = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", bodyMap, List.class);
+        List<Long> idList = new ArrayList<>();
+        for (Integer i : response) {
+            idList.add(Long.valueOf(i));
+        }
         System.out.println("### Likable ###");
         System.out.println(idList.toString());
         System.out.println("#### Likable IDLIST END ####");
@@ -125,8 +131,11 @@ public class RecipeService {
         bodyMap.put("user_id",userId.toString());
         bodyMap.put("period","1");
 
-        List<Long> idList  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
-
+        List<Integer> response  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
+        List<Long> idList = new ArrayList<>();
+        for (Integer i : response) {
+            idList.add(Long.valueOf(i));
+        }
         System.out.println("### HEALTHY ###");
         System.out.println(idList.toString());
         System.out.println("#### HEALTHY IDLIST END ####");
@@ -168,22 +177,25 @@ public class RecipeService {
     public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
         List<Recipe> candidateList = recipeRepository.searchRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
+        int resCnt=0;
 
-        Set<Long> ingSet = new HashSet<>(ingredientIdList);
         List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
         for (Recipe r : candidateList) {
-            int cnt = 0;
-            for (Long ingId : ingSet) {
-                boolean isExist = false;
-                for (RecipeIngredient ri : r.getRecipeIngredients()) {
-                    if (ri.getIngredient().getId().equals(ingId)) {
-                        isExist = true;
-                        break;
-                    }
+            Set<Long> riSet = new HashSet<>(r.getRecipeIngredients().stream()
+                    .map(ri->ri.getIngredient().getId()).collect(Collectors.toList()));
+            boolean allHave = true;
+            for(Long ingId : ingredientIdList){
+                if(!riSet.contains(ingId)) {
+                    allHave=false;
+                    break;
                 }
-                if (isExist) cnt++;
             }
-            if (ingSet.size() == cnt) res.add(new RecipeAndFoodSearchResponseDto(r));
+            if(allHave) {
+                res.add(new RecipeAndFoodSearchResponseDto(r));
+                resCnt++;
+                if(resCnt==20) break;
+            }
+
         }
 
         if (withFood) {
