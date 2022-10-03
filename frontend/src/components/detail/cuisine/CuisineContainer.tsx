@@ -18,7 +18,7 @@ const CuisineContainer = (props: {}) => {
     <>
       {recipeMenual && (
         <div className={classes.wrapper}>
-          <div className={classes.header}>조리방법</div>
+          {/* <div className={classes.header}>조리방법</div> */}
           <div className={classes.main}>
             {recipeMenual.map((step) => (
               <CuisineStep key={step.order} step={step} />

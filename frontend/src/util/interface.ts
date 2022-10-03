@@ -42,9 +42,13 @@ export interface Manual {
 }
 
 export interface Review {
-  score: number;
-  userId: number;
-  userName: string;
+  contents: string;
+  id: number;
+  imageList: any;
+  user: {
+    id: number;
+    name: null | string;
+  };
 }
 
 export interface Nutrient {

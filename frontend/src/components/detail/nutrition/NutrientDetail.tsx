@@ -3,8 +3,8 @@
 // API
 
 // external module
-
 // external component
+import CloseIcon from '@mui/icons-material/Close';
 
 // custom component
 import NutrientDetailItem from './NutrientDetailItem';
@@ -22,16 +22,18 @@ const NutrientDetail = (props: { nutrient: Nutrient; close: () => void }) => {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.header}>
-            영양소 상세정보 <span onClick={handleDetailClose}>닫기</span>
+            영양소 상세정보{' '}
+            <span onClick={handleDetailClose}>
+              <CloseIcon />
+            </span>
           </div>
           <div className={classes.main}>
-            {categorializedNutrients.map((item) => (
-              <div>
+            {categorializedNutrients.map((item, index) => (
+              <div className={classes.detailItem} key={item.categoryName}>
                 <NutrientDetailItem itemList={item} />
               </div>
             ))}
           </div>
-          <div className={classes.footer}></div>
         </div>
       </div>
     </>

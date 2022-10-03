@@ -15,13 +15,13 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 // css, interface(type)
 import PieChart from './PieChart';
-import classes from './MostIngredient.module.scss';
-import { Ingredient } from '../../../util/interface';
+import classes from './MostRecipe.module.scss';
+import { Recipe } from '../../../util/interface';
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
 `;
 
-export default function MostIngredient(props: { ingredients: Ingredient[] }) {
+export default function MostRecipe(props: { recipe: Recipe[] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
@@ -36,7 +36,7 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
           <div className={classes.vitaMineralModal}>
             <div className={classes.modalHeader}>가장 많이 먹은 레시피</div>
             <div className={classes.modalContent}>
-              {props.ingredients.map((item, index) => {
+              {props.recipe.map((item, index) => {
                 if (index === 0) return <div key={item.id}>1등</div>;
 
                 return <div key={item.id}>{item.name}</div>;
@@ -50,7 +50,7 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
           <div className={classes.header}>{`가장 많이 먹은 음식`}</div>
           <div className={classes.main}>
             <img src="" alt="재료이미지" />
-            {props.ingredients[0].name}
+            {props.recipe[0].name}
           </div>
           <div className={classes.footer} onClick={handleOpen}>
             자세히 보기

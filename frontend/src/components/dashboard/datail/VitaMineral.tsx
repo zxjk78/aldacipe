@@ -30,7 +30,7 @@ export default function VitaMineral(props: {
   const [nutArray, setNutArray] = useState<any>([]);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
-  console.log(props.nutrient);
+  // console.log(props.nutrient);
   useEffect(() => {
     if (props.vitamin) {
       const { vitaminB6, vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK } =

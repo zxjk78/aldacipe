@@ -12,7 +12,7 @@ import { fetchWeekDetail } from '../../../api/dashboard';
 import UpperDetail from './UpperDetail';
 import VitaMineral from './VitaMineral';
 import MostIngredient from './MostIngredient';
-
+import MostRecipe from './MostRecipe';
 // css, interface(type)
 import classes from './Detail.module.scss';
 export default function Detail(props: {}) {
@@ -34,7 +34,7 @@ export default function Detail(props: {}) {
         recommendedIntakeNutrient,
         totalIntakeNutrient,
       } = await fetchWeekDetail();
-      // console.log(totalIntakeNutrient);
+      console.log('추천영양소', recommendedIntakeNutrient);
 
       setMostIngredientList(mostIntakeIngredientList);
       setMostRecipeList(mostIntakeRecipeList);
@@ -76,9 +76,11 @@ export default function Detail(props: {}) {
             <VitaMineral nutrient={totalIntakeNut} />
           </div>
           <div>
-            <MostIngredient />
+            <MostIngredient ingredients={mostIngredientList} />
           </div>
-          <div>8</div>
+          <div>
+            <MostRecipe recipe={mostRecipeList} />
+          </div>
         </div>
       )}
     </>

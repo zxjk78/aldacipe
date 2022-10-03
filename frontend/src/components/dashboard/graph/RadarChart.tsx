@@ -42,16 +42,24 @@ const RadarChart = (props: { period: string }) => {
     setIsLoading(true);
     (async () => {
       const data = await fetchUserNutrientByPeriod(props.period);
-
+      const numArr = Object.values(data) as number[];
+      const newArr = numArr.map((item) => item * 100);
       const radarChartData = {
         labels: ['칼로리', '탄수화물', '단백질', '지방', '나트륨'],
 
         datasets: [
           {
             label: `${graphName[props.period]}섭취한 영양소`,
-            data: Object.values(data) as number[],
+            data: newArr,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+          },
+          {
+            label: `권장 섭취 영양소`,
+            data: [100, 100, 100, 100, 100],
+            backgroundColor: 'rgba(115, 60, 245, 0.2)',
+            borderColor: '#1c5abc',
             borderWidth: 2,
           },
         ],
@@ -81,11 +89,25 @@ const RadarChart = (props: { period: string }) => {
               <Radar
                 data={chartData!}
                 options={{
+                  plugins: {
+                    tooltip: {
+                      callbacks: {
+                        label: function (context) {
+                          const idx = context.dataIndex;
+                          return context.dataset.data[idx]?.toFixed(2) + '%';
+                        },
+                      },
+                    },
+                  },
                   scales: {
                     r: {
                       display: true,
                       ticks: {
                         display: false,
+
+                        callback: function (value, index, ticks) {
+                          return value + '%';
+                        },
                       },
 
                       angleLines: { display: false },

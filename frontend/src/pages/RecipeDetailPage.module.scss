@@ -8,26 +8,42 @@
   width: 80%;
   margin: 0px auto;
 }
+.main {
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 10px;
+  // background-color: #fff;
+}
 .menus {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  background-color: $background-highlight;
+  background-color: transparent;
   border-bottom: solid 2px $green-secondary;
-  // padding: 8px;
   color: $text-primary;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  & > div:hover {
-    cursor: pointer;
-    color: $green-primary;
-    text-decoration: underline;
+  > div {
+    &:hover {
+      cursor: pointer;
+      color: $green-primary;
+      text-decoration: underline;
+    }
+  }
+  span {
+    color: #fff;
   }
 }
 .selected {
-  color: black;
-  background-color: $green-secondary;
+  color: $green-primary;
+  font-size: 1.5rem;
+  // text-decoration: underline;
+  span {
+    color: $green-primary;
+  }
 }
 .notselected {
-  color: black;
+  color: $text-primary;
 }
