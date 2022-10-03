@@ -48,7 +48,7 @@ public class NutrientController {
     public CommonResult getWeeklyNutrientDetailInfo(@ApiIgnore @LoginUser User loginUser,
                                              @PathVariable("userId") Long userId) {
         if (!userId.equals(loginUser.getId())) throw new AccessDeniedException();
-        Integer day = 6;
+        Integer day = 7;
         return responseService.getOneResult(nutrientService.getDailyNutrientDetail(loginUser,day));
     }
 

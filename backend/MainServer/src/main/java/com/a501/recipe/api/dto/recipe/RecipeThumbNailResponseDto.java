@@ -1,9 +1,15 @@
 package com.a501.recipe.api.dto.recipe;
 
 import com.a501.recipe.api.domain.entity.Recipe;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public class RecipeThumbNailResponseDto {
 
     private Long id;
