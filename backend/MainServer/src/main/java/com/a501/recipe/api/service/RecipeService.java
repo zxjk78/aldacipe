@@ -11,22 +11,22 @@ import com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
-import com.a501.recipe.api.dto.recipe.RecipeDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
 import com.a501.recipe.api.repository.EvaluationRepository;
 import com.a501.recipe.api.repository.IngredientRepository;
 import com.a501.recipe.api.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,16 +38,19 @@ public class RecipeService {
     private final IngredientRepository ingredientRepository;
     private final EvaluationRepository evaluationRepository;
 
+    @Value("${url.server.recommendation}")
+    private String RECOMMENDATION_SERVER_URL;
+
     public List<RecipeThumbNailResponseDto> getRandomRecipeList() {
 
         // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
         Set<Long> idSet = new HashSet<>();
         Long maxId = 1000l;
-        while(idSet.size()<10) {
+        while (idSet.size() < 10) {
             idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
         }
         List<Long> idList = new ArrayList<>();
-        for(Long id : idSet){
+        for (Long id : idSet) {
             idList.add(id);
         }
 
@@ -58,30 +61,37 @@ public class RecipeService {
     }
 
 
-    public List<RecipeThumbNailResponseDto> getPopularRecipeList() {
-        LocalDate fromDate = LocalDate.parse("2022-01-01");
+    public List<RecipeThumbNailResponseDto> getPopularRecipeList(int day) {
+        Calendar cal = Calendar.getInstance();
+        Date today = new Date();
+        cal.setTime(today);
+        cal.add(Calendar.DATE, -1 * (day-1));
+
+        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String fromDateStr = dtFormat.format(cal.getTime());
+        LocalDate fromDate = LocalDate.parse(fromDateStr);
+
         List<Object[]> result = recipeRepository.searchTop20BestRecipeFrom(fromDate);
         return result.stream()
-                .map(objects->new RecipeThumbNailResponseDto(
-                        ((BigInteger)objects[0]).longValue()
-                        ,(String)objects[1]
-                        ,(String)objects[2]
-                        ,((BigDecimal)objects[3]).floatValue()))
+                .map(objects -> new RecipeThumbNailResponseDto(
+                        ((BigInteger) objects[0]).longValue()
+                        , (String) objects[1]
+                        , (String) objects[2]
+                        , ((BigDecimal) objects[3]).floatValue()))
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeThumbNailResponseDto> getCookableRecipeList() {
+    public List<RecipeThumbNailResponseDto> getCookableRecipeList(Long userId) {
+        RestTemplate restTemplate = new RestTemplate();
 
-        // make random id list -> 로그인 유저의 냉장고 식재료 리스트가 전부 포함된 요리 쿼리 제작
-        Set<Long> idSet = new HashSet<>();
-        Long maxId = 1000l;
-        while(idSet.size()<10) {
-            idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
-        }
-        List<Long> idList = new ArrayList<>();
-        for(Long id : idSet){
-            idList.add(id);
-        }
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_refrigerator", bodyMap, List.class);
+
+        System.out.println("### COOKABLE ###");
+        System.out.println(idList.toString());
+        System.out.println("#### COOKABLE IDLIST END ####");
+
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
@@ -89,18 +99,37 @@ public class RecipeService {
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeThumbNailResponseDto> getLikableRecipeList() {
+    public List<RecipeThumbNailResponseDto> getLikableRecipeList(Long userId) {
+        RestTemplate restTemplate = new RestTemplate();
 
-        // make random id list -> CF 알고리즘 레시피 id 리스트 결과로 대체
-        Set<Long> idSet = new HashSet<>();
-        Long maxId = 1000l;
-        while(idSet.size()<10) {
-            idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
-        }
-        List<Long> idList = new ArrayList<>();
-        for(Long id : idSet){
-            idList.add(id);
-        }
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+
+        List<Long> idList = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_sgd", bodyMap, List.class);
+
+        System.out.println("### Likable ###");
+        System.out.println(idList.toString());
+        System.out.println("#### Likable IDLIST END ####");
+
+
+        // search recipes by id list
+        return recipeRepository.searchRecipeByIdList(idList).stream()
+                .map(r -> new RecipeThumbNailResponseDto(r))
+                .collect(Collectors.toList());
+    }
+
+    public List<RecipeThumbNailResponseDto> getHealthyRecipeList(Long userId) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+        bodyMap.put("period","1");
+
+        List<Long> idList  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
+
+        System.out.println("### HEALTHY ###");
+        System.out.println(idList.toString());
+        System.out.println("#### HEALTHY IDLIST END ####");
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
@@ -116,19 +145,19 @@ public class RecipeService {
                 .orElseThrow(RecipeRelationalDataNotFoundException::new);
         // 평가
         // 내 평가
-        Evaluation e = evaluationRepository.searchByUserAndRecipe(loginUser,recipeWithNutrientAndManual)
+        Evaluation e = evaluationRepository.searchByUserAndRecipe(loginUser, recipeWithNutrientAndManual)
                 .orElse(null);
-        UserEvaluationInfoDto evalInfo = new UserEvaluationInfoDto(e==null?false:true,e==null?0:e.getScore());
+        UserEvaluationInfoDto evalInfo = new UserEvaluationInfoDto(e == null ? false : true, e == null ? 0 : e.getScore());
         // 레시피 평가 리스트
         List<EvaluationDto> evaluationList = evaluationRepository.searchAllByRecipe(recipeWithNutrientAndManual)
                 .orElseThrow(RecipeRelationalDataNotFoundException::new);
         Integer evalSum = evaluationList.stream()
-                .map(sc->sc.getScore())
-                .reduce((sum,sc)->sum+sc).orElse(0);
-        Float avgEvaluationScore = evaluationList.size()==0?0:((float)evalSum/evaluationList.size());
+                .map(sc -> sc.getScore())
+                .reduce((sum, sc) -> sum + sc).orElse(0);
+        Float avgEvaluationScore = evaluationList.size() == 0 ? 0 : ((float) evalSum / evaluationList.size());
         // 나에게 있는 재료 리스트 구하기
         ArrayList<Long> ingList = new ArrayList<>();
-        for(RecipeIngredientDto ri : ingredientList){
+        for (RecipeIngredientDto ri : ingredientList) {
             ingList.add(ri.getId());
         }
         List<RefrigeratorIngredientDto> myIngredientList = ingredientRepository.searchRecipeIngredientUserHas(loginUser, ingList)
@@ -142,22 +171,22 @@ public class RecipeService {
 
         Set<Long> ingSet = new HashSet<>(ingredientIdList);
         List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
-        for(Recipe r : candidateList) {
+        for (Recipe r : candidateList) {
             int cnt = 0;
-            for (Long ingId : ingSet){
+            for (Long ingId : ingSet) {
                 boolean isExist = false;
-                for(RecipeIngredient ri : r.getRecipeIngredients()) {
-                    if(ri.getIngredient().getId().equals(ingId)) {
+                for (RecipeIngredient ri : r.getRecipeIngredients()) {
+                    if (ri.getIngredient().getId().equals(ingId)) {
                         isExist = true;
                         break;
                     }
                 }
-                if(isExist) cnt++;
+                if (isExist) cnt++;
             }
-            if(ingSet.size()==cnt) res.add(new RecipeAndFoodSearchResponseDto(r));
+            if (ingSet.size() == cnt) res.add(new RecipeAndFoodSearchResponseDto(r));
         }
 
-        if(withFood) {
+        if (withFood) {
             List<RecipeAndFoodSearchResponseDto> foodList = recipeRepository.searchAllFoodByNameLike(keyword);
             res.addAll(foodList);
         }
@@ -176,4 +205,6 @@ public class RecipeService {
                 .orElseThrow(FoodNotFoundException::new);
         return new RecipeNutrientDto(f.getWeight(), f.getNutrient());
     }
+
+
 }
