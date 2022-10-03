@@ -17,10 +17,12 @@ public class ImageController {
 
     // img 태그 src로 불러오기
     @ResponseBody
-    @GetMapping("/{filename}")
-    public Resource showBoardImage(@PathVariable String filename) throws MalformedURLException {
+    @GetMapping("")
+    public Resource showBoardImage(@RequestParam("path") String filename) throws MalformedURLException {
+        System.out.println(filename);
         String path = System.getProperty("user.dir"); // 현재 디렉토리 가져오기
-        File file = new File(path + imagePath + filename);
+//        File file = new File(path + imagePath + filename);
+        File file = new File( imagePath + filename);
         return new UrlResource("file:"+file.getPath());
     }
 
