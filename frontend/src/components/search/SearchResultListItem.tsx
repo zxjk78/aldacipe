@@ -1,4 +1,5 @@
 // react core
+import React from 'react';
 
 // API
 
@@ -9,9 +10,12 @@
 // custom component
 
 // css, interface(type)
-import React from 'react';
 import classes from './SearchResultListItem.module.scss';
 import { Ingredient } from '../../util/interface';
+// etc
+import { ingredientCategoryDictionary } from '../../util/data';
+import imageArr from '../../assets/ingredients';
+
 const SearchResultListItem = (props: {
   ingredient: Ingredient;
   addItem: (ingredientId: number) => void;
@@ -27,11 +31,16 @@ const SearchResultListItem = (props: {
       <div className={classes.wrapper}>
         <div className={classes.main}>
           <div>
-            <div>
-              <img src="" alt="재료이미지" />
-            </div>
-            <div>{props.ingredient.name}</div>
+            <img
+              src={
+                imageArr[
+                  ingredientCategoryDictionary[props.ingredient.smallCategory]
+                ]
+              }
+              alt="재료이미지"
+            />
           </div>
+          <div>{props.ingredient.name}</div>
           <div onClick={addIngredient} data-idx={props.ingredient.id}>
             추가
           </div>

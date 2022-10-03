@@ -1,16 +1,17 @@
-import { FormEvent, useState, useRef } from 'react';
-import ReviewItem from './ReviewItem';
-import { useOutletContext } from 'react-router-dom';
-import RateReviewIcon from '@mui/icons-material/RateReview';
-import { useContext } from 'react';
-
+import { FormEvent, useState, useRef, useEffect } from 'react';
+// api
+import { fetchReview, createReview } from '../../../api/detail';
 // external component
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Modal from '@mui/material/Modal';
 import { Backdrop } from '@mui/material';
-import Rating from '@mui/material/Rating';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled';
-
+// custom component
+import ReviewItem from './ReviewItem';
 // css, interface
 import classes from './ReviewContainer.module.scss';
 import { RecipeDetail, Review } from '../../../util/interface';
@@ -20,27 +21,51 @@ const CustomBackdrop = styled(Backdrop)`
 `;
 
 const ReviewContainer = (props: {
-  reviewList: Review[];
+  recipeId: number;
+  evaluationList: any[];
   userEval: { didEvaluate: boolean; score: number };
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rating, setRating] = useState<number | null>(2);
   const textAreaRef = useRef<null | HTMLTextAreaElement>(null);
   const [textCnt, setTextCnt] = useState(0);
-  const reviewList = props.reviewList;
+  const [reviewList, setReviewList] = useState<null | Review[]>(null);
   const { didEvaluate: isEvaluate, score: userScore } = props.userEval;
+  const successToastr = (message: string) =>
+    toast.success(<div className={classes.errorMsg}>{message}</div>);
   // 리뷰 안남기면 0임
+
+  const fetchReviewFnc = async (recipeId: number) => {
+    const data = await fetchReview(recipeId);
+    setReviewList(data);
+  };
+
+  useEffect(() => {
+    fetchReviewFnc(props.recipeId);
+  }, [props.recipeId]);
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const handleSubmitReview = (event: FormEvent) => {
+  const handleSubmitReview = async (event: FormEvent) => {
     event.preventDefault();
+    const success = await createReview(
+      props.recipeId,
+      textAreaRef.current!.value
+    );
+    if (success) {
+      successToastr('리뷰를 등록하였습니다.');
+      fetchReviewFnc(props.recipeId);
+    }
   };
+
   return (
     <>
+      <div style={{ position: 'absolute' }}>
+        <ToastContainer autoClose={2000} closeOnClick />
+      </div>
+
       <Modal
         open={isModalOpen}
         onClose={handleModalClose}
@@ -55,19 +80,6 @@ const ReviewContainer = (props: {
           </div>
           <div className={classes.modalContent}>
             <form onSubmit={handleSubmitReview}>
-              <div className={classes.modalRatingContainer}>
-                <div>
-                  <Rating
-                    name="recipe-rating"
-                    value={rating}
-                    precision={0.5}
-                    size="large"
-                    onChange={(event, newValue) => {
-                      setRating(newValue);
-                    }}
-                  />
-                </div>
-              </div>
               <div className={classes.reviewContent}>
                 <textarea
                   name="reviewText"
@@ -91,24 +103,34 @@ const ReviewContainer = (props: {
         </div>
       </Modal>
       <div className={classes.wrapper}>
-        <div className={classes.header}>리뷰</div>
-        <div className={classes.main}>
-          {reviewList.length === 0 ? (
-            <div className={classes.noReview}>
-              <RateReviewIcon fontSize="large" />
-              <div>
-                <div>등록된 리뷰가 없습니다.</div>
-                <div className={classes.addReview} onClick={handleModalOpen}>
-                  리뷰 등록하기
+        <div className={classes.header}>
+          <div>리뷰</div>
+          <div className={classes.addReview} onClick={handleModalOpen}>
+            <span>
+              <AddCircleOutlineIcon />
+            </span>
+            리뷰 남기기
+          </div>
+        </div>
+        {reviewList && (
+          <div className={classes.main}>
+            {reviewList.length === 0 ? (
+              <div className={classes.noReview}>
+                <RateReviewIcon fontSize="large" />
+                <div>
+                  <div>등록된 리뷰가 없습니다.</div>
+                  <div className={classes.addReview} onClick={handleModalOpen}>
+                    리뷰 등록하기
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            reviewList.map((review) => (
-              <ReviewItem key={review.userId} review={review} />
-            ))
-          )}
-        </div>
+            ) : (
+              reviewList.map((review) => (
+                <ReviewItem key={review.id} review={review} />
+              ))
+            )}
+          </div>
+        )}
       </div>
     </>
   );

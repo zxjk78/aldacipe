@@ -34,9 +34,8 @@ export const FormContent1: React.FC<{
       setEmail(event.target.value);
 
       if (emailRegExp.test(event.target.value)) {
-        // const isDup = await emailDupCheck(event.target.value);
-        const isDup = false;
-        if (isDup) {
+        const isDup = await emailDupCheck(event.target.value);
+        if (!isDup) {
           setEmailValid(() => false);
           setEmailValidMsg(() => '중복된 이메일입니다.');
         } else {
@@ -168,7 +167,7 @@ export const FormContent2: React.FC<{
         <div className={`${classes.genderContainer}`}>
           <div className={classes.title}>성별</div>
           <div>
-            <div>
+            <div className={classes.genderOption}>
               <label htmlFor="male">남성</label>
               <input
                 type="radio"
@@ -179,7 +178,7 @@ export const FormContent2: React.FC<{
                 onChange={genderChange}
               />
             </div>
-            <div>
+            <div className={classes.genderOption}>
               <label htmlFor="female">여성</label>
               <input
                 type="radio"

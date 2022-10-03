@@ -20,11 +20,10 @@ export const signup = async (userInfo: {
 export const emailDupCheck = async (enteredEmail: string) => {
   try {
     const response = await axiosCommonInstance.get('check-email', {
-      data: { email: enteredEmail },
+      params: { email: enteredEmail },
     });
 
-    console.log(response);
-    return true;
+    return response.data.success;
   } catch (error) {
     console.log(error);
   }

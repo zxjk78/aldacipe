@@ -30,7 +30,7 @@ const RecipeListItem = (props: {
           <div className={classes.imgContainer}>
             <img
               src={`${API_URL}image/${props.recipe.image}`}
-              alt="1"
+              alt="레시피이미지"
               onError={errorHandler}
             />
           </div>

@@ -81,7 +81,7 @@ const NutritionInfo = (props: {
               </div>
               <div className={classes.etcContainer}>
                 <div>
-                  <div className={classes.nutName}>주요 비타민</div>
+                  <div className={classes.nutTitle}>주요 비타민</div>
                   <div className={classes.nutItem}>
                     <div className={classes.nutName}>비타민 D</div>
                     <div>{Math.floor(nutrition.vitaminD)} mg</div>
@@ -92,7 +92,7 @@ const NutritionInfo = (props: {
                   </div>
                 </div>
                 <div>
-                  <div className={classes.nutName}>주요 무기질</div>
+                  <div className={classes.nutTitle}>주요 무기질</div>
                   <div className={classes.nutItem}>
                     <div className={classes.nutName}>칼슘</div>
                     <div>{Math.floor(nutrition.calcium)} mg</div>

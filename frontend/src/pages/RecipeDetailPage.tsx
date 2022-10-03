@@ -11,8 +11,8 @@ import {
 import { fetchRecipe } from '../api/detail';
 
 import IngredientContainer from '../components/detail/ingredient/IngredientContainer';
-import CuisineContainer from '../components/detail/cuisine/CuisineContainer';
-import ReviewContainer from '../components/detail/reviews/ReviewContainer';
+
+import CheckIcon from '@mui/icons-material/Check';
 // css, interface
 import classes from './RecipeDetailPage.module.scss';
 import { RecipeDetail } from '../util/interface';
@@ -24,6 +24,7 @@ export default function RecipeDetailPage(props: {}) {
 
   const { recipeId } = useParams();
   const navigate = useNavigate();
+  // console.log(recipeId);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +40,7 @@ export default function RecipeDetailPage(props: {}) {
     })();
 
     setIsLoading(false);
-  }, []);
+  }, [recipeId]);
 
   return (
     <>
@@ -51,28 +52,42 @@ export default function RecipeDetailPage(props: {}) {
       {!isLoading && recipeInfo && (
         <div className={classes.backdrop}>
           <div className={classes.wrapper}>
-            <IngredientContainer recipeInfo={recipeInfo!} />
-            <div className={classes.menus}>
-              <NavLink
-                to={`/detail/${recipeId}`}
-                className={() =>
-                  location.pathname === `/detail/${recipeId}`
-                    ? classes.selected
-                    : classes.notselected
-                }
-              >
-                요리 방법
-              </NavLink>
-              <NavLink
-                to={`/detail/${recipeId}/nutScore`}
-                className={({ isActive }) =>
-                  isActive ? classes.selected : classes.notselected
-                }
-              >
-                영양소 및 평점
-              </NavLink>
+            <div>
+              <IngredientContainer recipeInfo={recipeInfo!} />
             </div>
-            <Outlet context={recipeInfo} />
+            <div className={classes.main}>
+              <div className={classes.menus}>
+                <div>
+                  <NavLink
+                    to={`/detail/${recipeId}`}
+                    className={() =>
+                      location.pathname === `/detail/${recipeId}`
+                        ? classes.selected
+                        : classes.notselected
+                    }
+                  >
+                    <span>
+                      <CheckIcon />
+                    </span>
+                    요리 방법
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink
+                    to={`/detail/${recipeId}/nutScore`}
+                    className={({ isActive }) =>
+                      isActive ? classes.selected : classes.notselected
+                    }
+                  >
+                    <span>
+                      <CheckIcon />
+                    </span>
+                    영양소 및 평점
+                  </NavLink>
+                </div>
+              </div>
+              <Outlet context={recipeInfo} />
+            </div>
           </div>
         </div>
       )}

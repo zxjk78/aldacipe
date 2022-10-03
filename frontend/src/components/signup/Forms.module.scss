@@ -86,7 +86,6 @@
   text-align: left;
   color: $orange;
 }
-
 .form2InputContainer {
   width: 90%;
   margin: 0px auto;
@@ -97,16 +96,19 @@
     outline: none;
   }
 }
+.genderOption {
+  width: 100px;
+  display: flex;
+}
 .genderContainer {
   > div:not(:first-child) {
     // background-color: #a4f6e6;
     display: flex;
   }
   input[type='radio'] {
-    width: 80px;
+    width: 30px;
     outline: none;
     position: relative;
-    top: 10px;
     accent-color: $green-primary;
   }
 }

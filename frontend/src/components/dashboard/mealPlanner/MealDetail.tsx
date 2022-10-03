@@ -19,7 +19,7 @@ const MealDetail = (props: { foodId: number; onDetailClose: () => void }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(props.foodId);
+    // console.log(props.foodId);
 
     (async () => {
       const data = await fetchRecipeNutrition(props.foodId);

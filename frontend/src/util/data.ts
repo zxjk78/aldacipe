@@ -1,4 +1,4 @@
-import { NutDictionary } from './interface';
+import { NutDictionary, IngredientCategoryDictionary } from './interface';
 
 // 영양소 영문-> 한글, 분류 mapping
 export const nutritionDictionary: NutDictionary = {
@@ -34,4 +34,26 @@ export const nutritionDictionary: NutDictionary = {
   vitaminE: { name: '비타민 E', category: 3, scale: 'mg' },
   vitaminK: { name: '비타민 K', category: 3, scale: 'mg' },
   zinc: { name: '아연', category: 4, scale: 'mg' },
+};
+
+export const ingredientCategoryDictionary: IngredientCategoryDictionary = {
+  '곡류 및 가공품': 0,
+  '감자 및 전분류': 1,
+  두류: 2,
+  '견과류 및 종실류': 3,
+  채소류: 4,
+  버섯류: 5,
+  과실류: 6,
+  해조류: 7,
+  육류: 8,
+  난류: 9,
+  수산물: 10,
+  '우유 및 유제품류': 11,
+  차류: 12,
+  음료류: 13,
+  주류: 14,
+  당류: 15,
+  조미료류: 16,
+  유지류: 17,
+  기타: 18,
 };

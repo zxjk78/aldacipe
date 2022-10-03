@@ -15,17 +15,24 @@ import { Ingredient, IngredientIHave } from '../../../util/interface';
 const IngredientList = (props: {
   ingredients: Ingredient[] | IngredientIHave[];
   title: string;
+  type: string;
 }) => {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.main}>
-          <div>{props.title}</div>
+        <div className={`${classes.main} ${classes[props.type]}`}>
+          <div className={classes.title}>{props.title}</div>
 
-          <div className={classes.amount}> {props.ingredients.length}</div>
+          <div className={`${classes.amount} ${classes[props.type]}`}>
+            {props.ingredients.length}
+          </div>
           <div className={classes.content}>
-            {props.ingredients.map((item) => (
-              <IngredientListItem key={item.id} ingredient={item} isNormal />
+            {props.ingredients.map((item, index) => (
+              <IngredientListItem
+                key={item.id + '' + index}
+                ingredient={item}
+                isNormal
+              />
             ))}
           </div>
         </div>

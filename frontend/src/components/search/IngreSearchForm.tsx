@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { debounce } from 'lodash';
-
+// external component
 import ChipsArray from './ChipsArray';
-
+import SearchIcon from '@mui/icons-material/Search';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
+// custom component
 import SearchResultList from './SearchResultList';
 // api
 import { searchIngredient } from '../../api/search';
@@ -26,7 +28,6 @@ export default function IngreSearchForm(props: {
   // lodash의 debounce는 선언은 처음에하고 나중에 사용하는 형식
   const searchDebounce = debounce(async (keyword) => {
     const data = await searchIngredient(keyword);
-    // console.log(data);
     setSearchResult(data);
     setSearchListVisible(true);
     return data;
@@ -42,7 +43,7 @@ export default function IngreSearchForm(props: {
   };
   const addIngreHandler = (ingreId: number) => {
     const newItem = searchResult!.filter((item) => +item.id === ingreId)[0];
-
+    ingreSearchRef.current!.value = '';
     props.addItem(newItem);
   };
   const removeIngredient = (ingreId: number) => {
@@ -50,30 +51,36 @@ export default function IngreSearchForm(props: {
   };
   return (
     <>
-      <input
-        type="text"
-        className={classes.searchInput}
-        placeholder="검색할 재료를 입력하세요"
-        onChange={searchIngreHandler}
-        ref={ingreSearchRef}
-      />
-      {searchResult ? (
-        <div className={classes.searchResult}>
-          <SearchResultList
-            ingreList={searchResult}
-            addItem={addIngreHandler}
-          />
+      <div className={classes.wrapper}>
+        <div className={classes.header}>
+          <div className={classes.title}>재료 상세 검색</div>
+          <div className={classes.searchInput}>
+            <SearchIcon />
+            <input
+              type="text"
+              // className={classes.searchInput}
+              placeholder="재료를 검색하세요"
+              onChange={searchIngreHandler}
+              ref={ingreSearchRef}
+            />
+          </div>
         </div>
-      ) : !searchListVisible ? (
-        <div className={classes.searchResult}>검색 결과가 없습니다.</div>
-      ) : (
-        ''
-      )}
-
-      <ChipsArray
-        ingredients={selectedIngreArr}
-        deleteIngre={removeIngredient}
-      />
+        {searchResult && searchResult.length > 0 ? (
+          <div className={classes.searchResult}>
+            <SearchResultList
+              ingreList={searchResult}
+              addItem={addIngreHandler}
+            />
+          </div>
+        ) : (
+          <div className={`${classes.searchResult} ${classes.notFound}`}>
+            <span>
+              <SearchOffIcon />
+            </span>
+            검색 결과가 없습니다.
+          </div>
+        )}
+      </div>
     </>
   );
 }

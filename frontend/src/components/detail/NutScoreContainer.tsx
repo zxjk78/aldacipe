@@ -19,10 +19,11 @@ import NutrientDetail from './nutrition/NutrientDetail';
 
 const NutScoreContainer = (props: {}) => {
   const parentData: RecipeDetail = useOutletContext();
-  const { nutrient, userEvaluationInfo, evaluationList } = parentData;
+  // evaluationList: 별점이고 리뷰가 아님
+  const { nutrient, userEvaluationInfo, evaluationList, recipe } = parentData;
   const [detail, setDetail] = useState<null | boolean>(null);
 
-  const [cssEffect, setCssEffect] = useState();
+  // const [cssEffect, setCssEffect] = useState();
 
   const openNutDetail = () => {
     setDetail(true);
@@ -32,9 +33,8 @@ const NutScoreContainer = (props: {}) => {
   };
   return (
     <>
-      <div className={classes.wrapper}>
-        <div
-          className={`${classes.container1}            
+      <div
+        className={`${classes.container1}            
         
         ${
           detail === null
@@ -44,16 +44,17 @@ const NutScoreContainer = (props: {}) => {
             : `${classes.fadeIn}`
         }
         `}
-        >
-          <NutrientContainer nutrient={nutrient} showDetail={openNutDetail} />
-          <ReviewContainer
-            userEval={userEvaluationInfo}
-            reviewList={evaluationList}
-          />
-        </div>
+      >
+        <NutrientContainer nutrient={nutrient} showDetail={openNutDetail} />
+        <ReviewContainer
+          recipeId={recipe.id}
+          userEval={userEvaluationInfo}
+          evaluationList={evaluationList}
+        />
+      </div>
 
-        <div
-          className={`${classes.container2}            
+      <div
+        className={`${classes.container2}            
         
         ${
           detail === null
@@ -65,9 +66,8 @@ const NutScoreContainer = (props: {}) => {
               }, 700)}`
         }
         `}
-        >
-          <NutrientDetail nutrient={nutrient} close={closeNutDetail} />
-        </div>
+      >
+        <NutrientDetail nutrient={nutrient} close={closeNutDetail} />
       </div>
     </>
   );

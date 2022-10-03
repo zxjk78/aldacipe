@@ -2,7 +2,7 @@
 
 .wrapper {
   padding: 5px 8px;
-  color: black;
+  // color: black;
 }
 .searchContainer {
   width: 100%;
@@ -15,11 +15,12 @@
   input {
     width: 450px;
     padding: 16px 3rem;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     font-weight: bold;
     color: $text-primary;
     &:focus {
+      color: #000;
       background-color: $input-focus;
       outline: $green-secondary;
       border: solid 2px $green-secondary;
@@ -30,6 +31,8 @@ form {
   position: relative;
 }
 .searchBriefResult {
+  color: $text-primary;
+  font-size: 1rem;
   width: 100%;
   padding: 20px;
   position: absolute;
@@ -37,6 +40,7 @@ form {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-weight: 500;
   z-index: 30;
 }
 .category {
