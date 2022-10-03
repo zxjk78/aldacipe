@@ -1,3 +1,7 @@
+// external module
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // custom component
 import RadarChart from '../components/dashboard/graph/RadarChart';
 import Detail from '../components/dashboard/datail/Detail';
@@ -13,6 +17,10 @@ const DashboardPage = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [foodId, setFoodId] = useState(0);
   const searchRefs = useRef<HTMLDivElement[] | null[]>([]);
+
+  const infoToastr = (message: string) =>
+    toast.info(<div className={classes.errorMsg}>{message}</div>);
+
   const handleFoodDetail = (foodId: number) => {
     setFoodId((prev) => foodId);
     setIsDetailVisible(true);
@@ -37,6 +45,7 @@ const DashboardPage = () => {
     setIsSearching(true);
   };
   const handleSearchClose = () => {
+    infoToastr('섭취한 음식을 기록하였습니다.');
     searchRefs.current[1]!.classList.remove(classes.visible);
     searchRefs.current[0]!.classList.remove(classes.fadeOut);
     setTimeout(() => {
@@ -55,17 +64,15 @@ const DashboardPage = () => {
   return (
     <>
       <div className={classes.wrapper}>
+        <div>
+          <ToastContainer autoClose={2000} closeOnClick />
+        </div>
         <div className={classes.title}>영양관리</div>
         <div className={classes.container}>
           <div className={classes.graphWeek}>
             <RadarChart period="week" />
           </div>
           <div className={classes.graphDay}>
-            {/* {!isSearching ? (
-              <RadarChart period="day" />
-            ) : (
-              <MealSearch onSearchClose={handleSearchClose} />
-            )} */}
             <div ref={(ele) => (searchRefs.current[0] = ele)}>
               <RadarChart period="day" />
             </div>

@@ -37,3 +37,11 @@
   // max-height: 40vh;
   overflow-y: scroll;
 }
+.isEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $green-secondary;
+  font-size: 1.3rem;
+  font-weight: bold;
+}

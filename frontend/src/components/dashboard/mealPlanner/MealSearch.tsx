@@ -5,58 +5,37 @@ import React, { useRef, useState } from 'react';
 import { searchRecipeByKeyword2 } from '../../../api/search';
 
 // external module
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import styled from '@emotion/styled';
 
 // external component
-
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
 // custom component
 import MealSearchListItem from './MealSearchListItem';
 
-import MealPlannerSearchInput from './MealPlannerSearchInput';
 // css, interface(type)
 import classes from './MealSearch.module.scss';
 import { Meal } from '../../../util/interface';
 
-const MySearchIcon = styled(SearchIcon)`
-  color: #5d5d5d;
-`;
-
 const MealSearch = (props: { onSearchClose: () => void }) => {
-  const [briefVisible, setBriefVisible] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [intakeSearchResult, setIntakeSearchResult] = useState<Meal[]>([]);
   const keywordRef = useRef<null | HTMLInputElement>(null);
-  const infoToastr = (message: string) =>
-    toast.info(<div className={classes.errorMsg}>{message}</div>);
-
-  const submitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    return;
-  };
 
   const keywordChangeHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const keyword = event.target.value;
-    // keyward 이용해서 search 받아서 navBar에 올림
+    const keyword = event.target.value.trim();
+    // keyward 이용해서 search 받아서 navBar에 올림. 이거 디바운싱 걸어놓아야 할듯?
     if (keyword.length === 0) {
-      setBriefVisible(false);
       return;
     }
-
+    setSearchLoading(true);
     const data = await searchRecipeByKeyword2(keyword);
     setIntakeSearchResult((prev) => data);
-    setBriefVisible(true);
+    setSearchLoading(false);
   };
   const handleMealSubmit = () => {
     keywordRef.current!.value = '';
-    infoToastr('섭취한 음식을 기록하였습니다.');
-
-    setBriefVisible(false);
     props.onSearchClose();
   };
 
@@ -66,8 +45,6 @@ const MealSearch = (props: { onSearchClose: () => void }) => {
   return (
     <>
       <div className={classes.wrapper}>
-        <ToastContainer autoClose={2000} closeOnClick />
-
         <div className={classes.container}>
           <div className={classes.header}>
             <div>
@@ -84,15 +61,31 @@ const MealSearch = (props: { onSearchClose: () => void }) => {
             />
           </div>
           <div className={classes.main}>
-            <div className={classes.searchResult}>
-              {intakeSearchResult.slice(0, 5).map((item) => (
-                <MealSearchListItem
-                  key={item.id}
-                  meal={item}
-                  onDataSubmit={handleMealSubmit}
-                />
-              ))}
-            </div>
+            {searchLoading ? (
+              <div className={`${classes.searchResult} ${classes.isEmpty}`}>
+                <span>
+                  <SearchIcon />
+                </span>
+                검색중...
+              </div>
+            ) : intakeSearchResult.length > 0 ? (
+              <div className={classes.searchResult}>
+                {intakeSearchResult.slice(0, 5).map((item) => (
+                  <MealSearchListItem
+                    key={item.id}
+                    meal={item}
+                    onDataSubmit={handleMealSubmit}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className={`${classes.searchResult} ${classes.isEmpty}`}>
+                <span>
+                  <SearchIcon />
+                </span>
+                결과가 없습니다.
+              </div>
+            )}
           </div>
           <div className={classes.footer}></div>
         </div>

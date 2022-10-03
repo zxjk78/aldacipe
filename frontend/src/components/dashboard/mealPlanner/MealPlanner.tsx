@@ -1,16 +1,15 @@
 // react core
+import { useEffect, useState } from 'react';
 
 // API
 import { fetchUserIntake } from '../../../api/dashboard';
 // external module
 import moment from 'moment';
 // external component
-import Modal from '@mui/material/Modal';
 import { Backdrop } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import styled from '@emotion/styled';
 // custom component
-import { useEffect, useState } from 'react';
 import MealPlannerSearchInput from './MealPlannerSearchInput';
 
 import MealListItem from './MealListItem';
@@ -37,13 +36,10 @@ export default function MealPlanner(props: {
     setIsLoading(false);
   }, []);
   const handleSearchOpen = () => {
-    setModalOpen(true);
+    // setModalOpen(true);
     props.onSearch();
   };
-  const handleModalClose = () => {
-    console.log('모달 닫기');
-    setModalOpen(false);
-  };
+
   const handleFoodDetailOpen = (foodId: number) => {
     props.onFoodDetail(foodId);
   };

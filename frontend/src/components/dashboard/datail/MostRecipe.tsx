@@ -15,7 +15,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 // css, interface(type)
 import PieChart from './PieChart';
-import classes from './MostIngredient.module.scss';
+import classes from './MostRecipe.module.scss';
 import { Recipe } from '../../../util/interface';
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
@@ -28,33 +28,65 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
   return (
     <>
       <div>
-        <Modal
-          open={isModalOpen}
-          onClose={handleClose}
-          components={{ Backdrop: CustomBackdrop }}
-        >
-          <div className={classes.vitaMineralModal}>
-            <div className={classes.modalHeader}>가장 많이 먹은 레시피</div>
+        {props.recipe.length > 0 && (
+          <Modal
+            open={isModalOpen}
+            onClose={handleClose}
+            components={{ Backdrop: CustomBackdrop }}
+          >
+            <div className={classes.modal}>
+              <div className={classes.modalHeader}>가장 많이 먹은 레시피</div>
 
-            <div className={classes.modalContent}>
-              {props.recipe!.map((item, index) => {
-                if (index === 0) return <div key={item.id}>1등</div>;
-
-                return <div key={item.id}>{item.name}</div>;
-              })}
+              <div className={classes.modalContent}>
+                <div>
+                  <div className={classes.most} key={props.recipe[0].id}>
+                    <div className={classes.first}>1</div>
+                    <div>
+                      <img src={''} alt="요리" />
+                      {props.recipe[0].name}
+                    </div>
+                  </div>
+                </div>
+                <div className={classes.other}>
+                  {props.recipe.slice(1).map((item, index) => {
+                    return (
+                      <div key={item.id}>
+                        <div
+                          className={
+                            index === 0
+                              ? classes.second
+                              : index === 1
+                              ? classes.third
+                              : classes.rest
+                          }
+                        >
+                          {index + 2}
+                        </div>
+                        <img src="" alt="요리" />
+                        <div className={classes.otherName}>{item.name}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        )}
       </div>
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.header}>{`가장 많이 먹은 음식`}</div>
           <div className={classes.main}>
-            <img src="" alt="재료이미지" />
             {props.recipe.length === 0 ? (
-              <div>섭취 기록을 추가해주세요.</div>
+              <>
+                <div>기록없음</div>
+                {/* <div onClick={handler}>식사 추가하기</div> */}
+              </>
             ) : (
-              props.recipe[0].name
+              <>
+                <img src={''} alt="재료이미지" />
+                <div>{props.recipe[0].name}</div>
+              </>
             )}
           </div>
           <div className={classes.footer} onClick={handleOpen}>
