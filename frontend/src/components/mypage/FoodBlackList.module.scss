@@ -8,21 +8,36 @@
   box-shadow: 5px 5px 5px #000;
 }
 .header {
-  height: 10vh;
-  text-align: left;
+  width: 100%;
+  margin: 0px auto;
   display: flex;
   align-items: center;
+  height: 10vh;
   border-bottom: solid 2px $green-primary;
-  color: $green-primary;
-  font-weight: bold;
-  font-size: 1.2rem;
+  text-align: left;
   > div {
+    display: flex;
     width: 90%;
     margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
+    color: $green-primary;
+    font-weight: bold;
+    font-size: 1.4rem;
+    > div {
+      width: 100%;
+      margin: 0px auto;
+      display: flex;
+      // justify-content: space-between;
+      align-items: center;
+    }
   }
+}
+.tooltipContent {
+  width: 800px;
+  padding: 8px 16px;
+  background-color: red;
 }
 .main {
   text-align: left;

@@ -107,8 +107,13 @@ export interface NutObj {
   scale: string;
 }
 
+// ------ 데이터 변환 딕셔너리 관련
 export interface NutDictionary {
   [index: string]: { name: string; category: number; scale: string };
+}
+
+export interface IngredientCategoryDictionary {
+  [index: string]: number;
 }
 
 // ------------- dashboard 관련

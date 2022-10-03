@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchSearchRecipe } from '../api/search';
+// external component
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 // custom component
 import CarouselPopular from '../components/mainpage/CarouselPopular';
 import ChipsArray from '../components/search/ChipsArray';
-import IngreBasedSearchForm from '../components/search/IngreSearchForm';
+import IngreSearchForm from '../components/search/IngreSearchForm';
 // css
 import classes from './SearchPage.module.scss';
 /* 검색 페이지들어온다음에추가 검색이 안되는 상황 고쳐야 한다: useEffect로 고침 
@@ -58,9 +61,9 @@ export default function SearchPage(props: {}) {
   const toggleDetailSearch = () => {
     setDetailVisible((prev) => {
       if (prev) {
-        setTimeout(() => {
-          ingreSearchRef.current!.classList.add(classes.notVisible);
-        }, 300);
+        ingreSearchRef.current!.classList.add(classes.notVisible);
+      } else {
+        ingreSearchRef.current!.classList.remove(classes.notVisible);
       }
       return !prev;
     });
@@ -89,21 +92,29 @@ export default function SearchPage(props: {}) {
               className={classes.ingredientBtn}
               onClick={toggleDetailSearch}
             >
-              재료 상세 검색 {detailVisible ? '닫기' : `열기`}
+              재료 상세 검색
+              {detailVisible ? (
+                <span className={classes.detailText}>
+                  <ArrowCircleUpIcon />
+                </span>
+              ) : (
+                <span className={classes.detailText}>
+                  <ArrowCircleDownIcon />
+                </span>
+              )}
             </button>
           </div>
           {/* ${classes.detailContainer} */}
           <div
-            className={`${classes.visible} ${
+            className={`${classes.searchContainer} ${
               detailVisible
-                ? classes['slide-fade-in-dropdown']
-                : classes['slide-fade-out-dropdown']
+                ? `${classes['slide-fade-in-dropdown']}`
+                : `${classes.notVisible}`
             }`}
             ref={ingreSearchRef}
           >
-            <div className={classes.title}>재료 상세 검색</div>
             <div>
-              <IngreBasedSearchForm
+              <IngreSearchForm
                 searchKeyword={searchKeyword}
                 addItem={addIngredient}
               />

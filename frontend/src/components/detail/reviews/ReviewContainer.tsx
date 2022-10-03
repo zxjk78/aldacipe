@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from '@mui/material/Modal';
 import { Backdrop } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled';
 // custom component
@@ -32,12 +33,15 @@ const ReviewContainer = (props: {
   const successToastr = (message: string) =>
     toast.success(<div className={classes.errorMsg}>{message}</div>);
   // 리뷰 안남기면 0임
+
+  const fetchReviewFnc = async (recipeId: number) => {
+    const data = await fetchReview(recipeId);
+    setReviewList(data);
+  };
+
   useEffect(() => {
-    (async () => {
-      const data = await fetchReview(props.recipeId);
-      setReviewList(data);
-    })();
-  }, []);
+    fetchReviewFnc(props.recipeId);
+  }, [props.recipeId]);
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -52,12 +56,15 @@ const ReviewContainer = (props: {
     );
     if (success) {
       successToastr('리뷰를 등록하였습니다.');
+      fetchReviewFnc(props.recipeId);
     }
   };
 
   return (
     <>
-      {/* <ToastContainer autoClose={2000} closeOnClick /> */}
+      <div style={{ position: 'absolute' }}>
+        <ToastContainer autoClose={2000} closeOnClick />
+      </div>
 
       <Modal
         open={isModalOpen}
@@ -99,7 +106,10 @@ const ReviewContainer = (props: {
         <div className={classes.header}>
           <div>리뷰</div>
           <div className={classes.addReview} onClick={handleModalOpen}>
-            리뷰 등록하기
+            <span>
+              <AddCircleOutlineIcon />
+            </span>
+            리뷰 남기기
           </div>
         </div>
         {reviewList && (
