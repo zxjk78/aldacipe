@@ -1,14 +1,38 @@
 @import '../../../global.scss';
 
 .wrapper {
+  height: 100%;
+  padding: 0.7rem;
 }
 .container {
+  position: relative;
+  height: 100%;
 }
 .header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-primary;
+  margin-bottom: 1rem;
 }
 .main {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 0.5rem;
+
+  font-weight: bold;
+  color: #000;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
 }
 .footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;

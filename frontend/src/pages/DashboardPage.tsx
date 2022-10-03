@@ -6,13 +6,13 @@ import MealSearch from '../components/dashboard/mealPlanner/MealSearch';
 import MealDetail from '../components/dashboard/mealPlanner/MealDetail';
 // css
 import classes from './DashboardPage.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const DashboardPage = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [foodId, setFoodId] = useState(0);
-
+  const searchRefs = useRef<HTMLDivElement[] | null[]>([]);
   const handleFoodDetail = (foodId: number) => {
     setFoodId((prev) => foodId);
     setIsDetailVisible(true);
@@ -21,9 +21,35 @@ const DashboardPage = () => {
     setIsDetailVisible(false);
   };
   const handleSearchOpen = () => {
+    searchRefs.current[0]!.classList.remove(classes.visible);
+    searchRefs.current[1]!.classList.remove(classes.fadeOut);
+    setTimeout(() => {
+      searchRefs.current[0]!.classList.add(classes.fadeOut);
+    }, 100);
+    setTimeout(() => {
+      searchRefs.current[0]!.classList.add(classes.notVisible);
+    }, 500);
+    setTimeout(() => {
+      searchRefs.current[1]!.classList.remove(classes.notVisible);
+      searchRefs.current[1]!.classList.add(classes.visible);
+    }, 600);
+
     setIsSearching(true);
   };
   const handleSearchClose = () => {
+    searchRefs.current[1]!.classList.remove(classes.visible);
+    searchRefs.current[0]!.classList.remove(classes.fadeOut);
+    setTimeout(() => {
+      searchRefs.current[1]!.classList.add(classes.fadeOut);
+    }, 100);
+    setTimeout(() => {
+      searchRefs.current[1]!.classList.add(classes.notVisible);
+    }, 500);
+    setTimeout(() => {
+      searchRefs.current[0]!.classList.remove(classes.notVisible);
+      searchRefs.current[0]!.classList.add(classes.visible);
+    }, 600);
+
     setIsSearching(false);
   };
   return (
@@ -35,11 +61,20 @@ const DashboardPage = () => {
             <RadarChart period="week" />
           </div>
           <div className={classes.graphDay}>
-            {!isSearching ? (
+            {/* {!isSearching ? (
               <RadarChart period="day" />
             ) : (
               <MealSearch onSearchClose={handleSearchClose} />
-            )}
+            )} */}
+            <div ref={(ele) => (searchRefs.current[0] = ele)}>
+              <RadarChart period="day" />
+            </div>
+            <div
+              className={classes.notVisible}
+              ref={(ele) => (searchRefs.current[1] = ele)}
+            >
+              <MealSearch onSearchClose={handleSearchClose} />
+            </div>
           </div>
           {isDetailVisible && (
             <div className={classes.recipeDetail}>
