@@ -72,7 +72,7 @@ const LoginForm = (props: { loginFail: () => void }) => {
           <p className={classes.errorMsg}>
             {loginUserInfo.password.length > 0 &&
               !passwordValid &&
-              '비밀번호를 정확히 입력해 주세요'}
+              '특수문자를 포함한 6-16자리입니다.'}
           </p>
         </div>
 

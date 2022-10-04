@@ -15,7 +15,7 @@ export const fetchReview = async (recipeId: number) => {
     const response: any = await axiosAuthInstance.get(
       `recipe/${recipeId}/review`
     );
-    console.log(response.data.data);
+    // console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {
@@ -29,6 +29,19 @@ export const createReview = async (recipeId: number, contents: string) => {
     const response: any = await axiosAuthInstance.post(
       `recipe/${recipeId}/review`,
       { contents }
+    );
+    // console.log(response);
+
+    return response.data.success;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createRating = async (recipeId: number, rating: number) => {
+  try {
+    const response: any = await axiosAuthInstance.post(
+      `recipe/${recipeId}/evaluation`,
+      { score: rating }
     );
     // console.log(response);
 

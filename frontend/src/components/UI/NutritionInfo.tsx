@@ -32,7 +32,7 @@ const NutritionInfo = (props: {
       setNutrition(props.nutrition);
     } else {
       (async () => {
-        const data = await fetchRecipeNutrition(props.recipeId!);
+        const data = await fetchRecipeNutrition(props.recipeId!, 'recipe');
         setNutrition(data);
       })();
     }

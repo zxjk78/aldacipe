@@ -82,7 +82,7 @@ export default function RecipeDetailPage(props: {}) {
                     <span>
                       <CheckIcon />
                     </span>
-                    영양소 및 평점
+                    영양소 및 리뷰
                   </NavLink>
                 </div>
               </div>

@@ -7,12 +7,14 @@ export interface userInfo {
   weight: number;
   height: number;
   gender: string;
+  name: string;
 }
 export interface form1Data {
   email: string;
 }
 
 export interface form2Data {
+  name: string;
   birthday: string;
   weight: number;
   height: number;
