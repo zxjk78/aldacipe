@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, DropResult, Droppable, Draggable} from 'react-beautiful-dnd';
 import { getRefrigerator } from '../../api/myrefrigerator';
-import { Ingredient } from './interface';
+import { ingredient } from './interface';
 
 import classes from './RefrigeratorList.module.scss';
 import RefrigeratorListItem from './RefrigeratorListItem';
 
 
-export default function RefrigeratorList(props:{item: Ingredient[]}) {
+export default function RefrigeratorList(props:
+  {
+    item: ingredient[];
+    searchIngre: (data:number) => void;
+    deleteIngre: (data:number) => void;
+  }) {
   // const onDragEnd = (result: DropResult) => {
   //   const {source, destination} = result
   //   if (!destination) return
@@ -49,6 +54,8 @@ export default function RefrigeratorList(props:{item: Ingredient[]}) {
           <RefrigeratorListItem
             key={item.id}
             item={item}
+            searchIngre={props.searchIngre}
+            deleteIngre={props.deleteIngre}
           />
         ))}
       </div>

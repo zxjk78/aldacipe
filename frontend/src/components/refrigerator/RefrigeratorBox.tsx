@@ -8,7 +8,7 @@ import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
 import { getRefrigerator } from '../../api/myrefrigerator';
 import MyIngredientList from './MyIngredientList';
-import { Ingredient } from './interface';
+import { ingredient } from './interface';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -26,7 +26,7 @@ const style = {
 };
 
 export default function RefrigeratorBox(props:{
-  item:Ingredient[]
+  item:ingredient[]; addIngredient: (data:ingredient) => void;
 }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -52,7 +52,7 @@ export default function RefrigeratorBox(props:{
           >
             <Box sx={{ ...style, width: 500 }}>
               <h2 id="child-modal-title">냉장고에 재료 추가하기</h2>
-              <MyRefrigeSearchInput />
+              <MyRefrigeSearchInput addIngredient={props.addIngredient}/>
               <Button className={classes.closebutton} onClick={handleClose}>나가기</Button>
             </Box>
           </Modal>
