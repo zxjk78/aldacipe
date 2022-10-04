@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Ingredient } from './interface';
+import { ingredient } from './interface';
 
 import classes from './MyIngredientList.module.scss';
 
 export default function MyIngredientList(props: {
-  item: Ingredient;
+  item: ingredient;
   // removeItem: () => void;
 }) {
   // const [ingredient, setIngredient] = useState([])

@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 
 // reducers
 import loginReducer from './slice/login';
+import refrigeratorReducer from './slice/refrigerator';
 
 const persistConfig = {
   key: 'root',
@@ -17,6 +18,7 @@ const persistConfig = {
 const reducer = combineReducers({
   // login
   login: loginReducer,
+  refrigerator: refrigeratorReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
