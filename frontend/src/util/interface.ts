@@ -16,6 +16,7 @@ export interface Ingredient {
   name: string;
   largeCategory: string;
   smallCategory: string;
+  weight: number;
 }
 
 // mypage

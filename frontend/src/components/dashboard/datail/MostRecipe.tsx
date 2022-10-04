@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // API
-
+import { API_URL } from '../../../api/config/http-config';
 // external module
 
 // external component
@@ -42,7 +42,12 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                   <div className={classes.most} key={props.recipe[0].id}>
                     <div className={classes.first}>1</div>
                     <div>
-                      <img src={''} alt="요리" />
+                      <img
+                        src={`${API_URL}image?path=${props.recipe[0].image}`}
+                        width={'50px'}
+                        height={'50px'}
+                        alt="요리"
+                      />
                       {props.recipe[0].name}
                     </div>
                   </div>
@@ -62,7 +67,12 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                         >
                           {index + 2}
                         </div>
-                        <img src="" alt="요리" />
+                        <img
+                          src={`${API_URL}image?path=${item.image}`}
+                          width={'30px'}
+                          height={'30px'}
+                          alt="요리"
+                        />
                         <div className={classes.otherName}>{item.name}</div>
                       </div>
                     );
@@ -84,7 +94,12 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
               </>
             ) : (
               <>
-                <img src={''} alt="재료이미지" />
+                <img
+                  src={`${API_URL}image?path=${props.recipe[0].image}`}
+                  width={'30px'}
+                  height={'30px'}
+                  alt="음식이미지"
+                />
                 <div>{props.recipe[0].name}</div>
               </>
             )}

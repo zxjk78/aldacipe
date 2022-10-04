@@ -38,10 +38,12 @@ const IngredientListItem = (props: {
             </div>
             <div>{props.ingredient.name}</div>
           </div>
-          {!props.isNormal && (
+          {!props.isNormal ? (
             <div className={classes.add} onClick={addBlackList}>
               추가
             </div>
+          ) : (
+            <div>{props.ingredient.weight} g</div>
           )}
         </div>
       </div>

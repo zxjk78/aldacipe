@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 // API
+import { API_URL } from '../../../api/config/http-config';
 import { addUserIntake } from '../../../api/dashboard';
 // external module
 
@@ -67,8 +68,10 @@ export default function MealSearchListItem(props: {
           <div className={classes.left}>
             <div>
               <img
-                src="https://img.freepik.com/free-photo/cheesy-tokbokki-korean-traditional-food-on-black-board-background-lunch-dish_1150-42993.jpg?size=626&ext=jpg"
-                alt="그림"
+                src={`${API_URL}image?path=${props.meal.image}`}
+                width={'30px'}
+                height={'30px'}
+                alt="음식이미지"
               />
             </div>
           </div>
