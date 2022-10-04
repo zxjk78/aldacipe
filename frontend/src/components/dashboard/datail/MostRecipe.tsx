@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // API
-
+import { API_URL } from '../../../api/config/http-config';
 // external module
 
 // external component
@@ -28,29 +28,81 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
   return (
     <>
       <div>
-        <Modal
-          open={isModalOpen}
-          onClose={handleClose}
-          components={{ Backdrop: CustomBackdrop }}
-        >
-          <div className={classes.vitaMineralModal}>
-            <div className={classes.modalHeader}>가장 많이 먹은 레시피</div>
-            <div className={classes.modalContent}>
-              {props.recipe.map((item, index) => {
-                if (index === 0) return <div key={item.id}>1등</div>;
+        {props.recipe.length > 0 && (
+          <Modal
+            open={isModalOpen}
+            onClose={handleClose}
+            components={{ Backdrop: CustomBackdrop }}
+          >
+            <div className={classes.modal}>
+              <div className={classes.modalHeader}>가장 많이 먹은 레시피</div>
 
-                return <div key={item.id}>{item.name}</div>;
-              })}
+              <div className={classes.modalContent}>
+                <div>
+                  <div className={classes.most} key={props.recipe[0].id}>
+                    <div className={classes.first}>1</div>
+                    <div>
+                      <img
+                        src={`${API_URL}image?path=${props.recipe[0].image}`}
+                        width={'50px'}
+                        height={'50px'}
+                        alt="요리"
+                      />
+                      {props.recipe[0].name}
+                    </div>
+                  </div>
+                </div>
+                <div className={classes.other}>
+                  {props.recipe.slice(1).map((item, index) => {
+                    return (
+                      <div key={item.id}>
+                        <div
+                          className={
+                            index === 0
+                              ? classes.second
+                              : index === 1
+                              ? classes.third
+                              : classes.rest
+                          }
+                        >
+                          {index + 2}
+                        </div>
+                        <img
+                          src={`${API_URL}image?path=${item.image}`}
+                          width={'30px'}
+                          height={'30px'}
+                          alt="요리"
+                        />
+                        <div className={classes.otherName}>{item.name}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        )}
       </div>
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.header}>{`가장 많이 먹은 음식`}</div>
           <div className={classes.main}>
-            <img src="" alt="재료이미지" />
-            {props.recipe[0].name}
+            {props.recipe.length === 0 ? (
+              <>
+                <div>기록없음</div>
+                {/* <div onClick={handler}>식사 추가하기</div> */}
+              </>
+            ) : (
+              <>
+                <img
+                  src={`${API_URL}image?path=${props.recipe[0].image}`}
+                  width={'30px'}
+                  height={'30px'}
+                  alt="음식이미지"
+                />
+                <div>{props.recipe[0].name}</div>
+              </>
+            )}
           </div>
           <div className={classes.footer} onClick={handleOpen}>
             자세히 보기

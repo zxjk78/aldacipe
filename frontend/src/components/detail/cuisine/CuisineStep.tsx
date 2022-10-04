@@ -10,8 +10,10 @@ const CuisineStep = (props: { step: Manual }) => {
     <>
       <div className={classes.main}>
         <img
-          src={`${API_URL}/image/${props.step.image}`}
+          src={`${API_URL}image?path=${props.step.image}`}
           alt={`요리법${props.step.order}`}
+          width={'100px'}
+          height={'100px'}
         />
         <div>
           <div className={classes.stepNumber}>{props.step.order}</div>

@@ -29,8 +29,10 @@ const RecipeListItem = (props: {
         <div className={classes.main}>
           <div className={classes.imgContainer}>
             <img
-              src={`${API_URL}image/${props.recipe.image}`}
-              alt="레시피이미지"
+              src={`${API_URL}image?path=${props.recipe.image}`}
+              width={'50px'}
+              height={'50px'}
+              alt="요리"
               onError={errorHandler}
             />
           </div>

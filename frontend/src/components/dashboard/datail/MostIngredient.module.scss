@@ -1,14 +1,38 @@
 @import '../../../global.scss';
 
 .wrapper {
+  height: 100%;
+  padding: 0.7rem;
 }
 .container {
+  position: relative;
+  height: 100%;
 }
 .header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-primary;
+  margin-bottom: 1rem;
 }
 .main {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 0.5rem;
+
+  font-weight: bold;
+  color: #000;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
 }
 .footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -20,9 +44,9 @@
     transition: 0.2s;
   }
 }
-.vitaMineralModal {
+.modal {
   background-color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 2rem 2rem;
   border-radius: 5px;
 
   position: absolute;
@@ -30,27 +54,88 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: $text-primary;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .modalHeader {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  margin: 1.2rem 0px;
+  color: $text-primary;
 }
 .modalContent {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  .detailItem {
-    width: 150px;
-    height: 150px;
-    padding: 0.3rem;
-
+  .most {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+    > div:nth-of-type(1) {
+      color: $orange;
+    }
     > div:nth-of-type(2) {
-      color: $text-highlight;
-
-      font-size: 2rem;
-      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .ingredientNutInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      > div {
+        font-weight: bold;
+        color: $text-primary;
+        font-size: 0.85rem;
+        > span {
+          font-weight: 400;
+        }
+      }
+      > div:nth-of-type(1) {
+        color: $green-primary;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+      > div:nth-of-type(2) {
+        color: #000;
+      }
+      .vitaMineralInfo {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        font-size: 0.7rem;
+        > div {
+          > div:not(:first-child) {
+            font-weight: 400;
+          }
+        }
+      }
     }
   }
+  .other {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    > div {
+      display: flex;
+      gap: 4rem;
+    }
+  }
+}
+.second,
+.third,
+.rest {
+  font-weight: bold;
+}
+.second {
+  color: silver;
+}
+.third {
+  color: brown;
+}
+.otherName {
+  font-weight: bold;
 }

@@ -46,7 +46,7 @@ public class RecipeController {
             }
     )
     @GetMapping("/search")
-    public ManyResult<RecipeAndFoodSearchResponseDto> searchRecipeByNameAndIngredient(@RequestParam("keyword") String keyword,
+    public ManyResult<RecipeAndFoodSearchResponseDto> searchRecipeByNameAndIngredient(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                                                                                       @RequestParam(value = "ingredient", required = false, defaultValue = "None") String ingredients,
                                                                                       @RequestParam(value = "with-food",required = false, defaultValue = "false") String withFood  ) {
 

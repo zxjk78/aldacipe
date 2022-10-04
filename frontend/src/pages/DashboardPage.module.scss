@@ -50,3 +50,36 @@
   border: 3px solid $orange;
   background-color: #fff;
 }
+
+.visible {
+  display: block;
+}
+.notVisible {
+  display: none;
+}
+
+.fadeOut {
+  animation: fade-out 0.2s;
+  animation-fill-mode: forwards;
+}
+.fadeIn {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -27,7 +27,12 @@ export default function MealListItem(props: {
         <div className={classes.container}>
           <div className={classes.left}>
             <div>
-              <img src={`${API_URL}${props.intake.image}`} alt="그림" />
+              <img
+                src={`${API_URL}image?path=${props.intake.image}`}
+                width={'30px'}
+                height={'30px'}
+                alt="요리"
+              />
             </div>
             <div className={classes.foodName}>
               <div>
