@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 
 // css, interface(type)
 import classes from './MyRefrigeSearchInput.module.scss';
-import { Ingredient } from '../../util/interface';
+import { ingredient } from './interface';
 import IngredientList from './IngredientList';
 import { addMyRefrigekList } from '../../api/myrefrigerator';
 
@@ -19,10 +19,12 @@ const MySearchIcon = styled(SearchIcon)`
 
 const MyRefrigeSearchInput = (props: {
   placeholder?: string;
+  addIngredient: (data:ingredient) => void;
 }) => {
   const [briefVisible, setBriefVisible] = useState(false);
-  const [ingredientSearchResult, setIngredientSearchResult] = useState<Ingredient[]>([]);
+  const [ingredientSearchResult, setIngredientSearchResult] = useState<ingredient[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
+
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     // console.log('검색', isNavbar, props.isMypage, props.isSearch);
@@ -70,6 +72,7 @@ const MyRefrigeSearchInput = (props: {
               {ingredientSearchResult.map((item) => (
                 <IngredientList 
                   addRefrigeList={addMyRefrigekList}
+                  addIngredient={props.addIngredient}
                   key={item.id}
                   ingredient={item}
                 />
