@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Ingredient } from './interface';
+import { ingredient } from './interface';
 import Checkbox from '@mui/material/Checkbox';
 
 
 import classes from './RefrigeratorListItem.module.scss';
 
 
+
 export default function RefrigeratorListItem(props:{
-  item:Ingredient
+  item:ingredient;
+  searchIngre: (data:number) => void;
+  deleteIngre: (data:number) => void;
 }) {
   const [checked, setChecked] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+    if (event.target.checked) {
+      props.searchIngre(props.item.id)
+    } else {
+      props.deleteIngre(props.item.id)
+    }
+    
   };
   return (
     <div className={classes.wrapper}>

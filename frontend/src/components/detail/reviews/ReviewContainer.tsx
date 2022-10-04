@@ -57,6 +57,7 @@ const ReviewContainer = (props: {
     if (success) {
       successToastr('리뷰를 등록하였습니다.');
       fetchReviewFnc(props.recipeId);
+      setIsModalOpen(false);
     }
   };
 

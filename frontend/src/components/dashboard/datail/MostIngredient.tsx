@@ -32,6 +32,8 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
     useState<null | Nutrient>(null);
 
   useEffect(() => {
+    if (props.ingredients.length === 0) return;
+
     (async () => {
       const data = await fetchIngredientNutrition(props.ingredients[0].id);
       setMostIngredientDetail(data);

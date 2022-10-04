@@ -23,8 +23,6 @@ const NutScoreContainer = (props: {}) => {
   const { nutrient, userEvaluationInfo, evaluationList, recipe } = parentData;
   const [detail, setDetail] = useState<null | boolean>(null);
 
-  // const [cssEffect, setCssEffect] = useState();
-
   const openNutDetail = () => {
     setDetail(true);
   };

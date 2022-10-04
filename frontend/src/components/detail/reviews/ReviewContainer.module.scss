@@ -26,6 +26,11 @@
     }
   }
 }
+.main {
+  max-height: 40vh;
+  overflow-y: scroll;
+  padding: 0px 0.5rem;
+}
 .noReview {
   border: 2px dashed $green-secondary;
   padding: 2rem 3rem;

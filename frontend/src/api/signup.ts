@@ -7,6 +7,7 @@ export const signup = async (userInfo: {
   gender: string;
   height: number;
   weight: number;
+  name: string;
 }) => {
   try {
     const response: any = await axiosCommonInstance.post(`signup`, userInfo);
@@ -23,7 +24,7 @@ export const emailDupCheck = async (enteredEmail: string) => {
       params: { email: enteredEmail },
     });
 
-    return response.data.success;
+    return response.data.data;
   } catch (error) {
     console.log(error);
   }

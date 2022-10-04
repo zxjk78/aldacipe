@@ -13,9 +13,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import moment from 'moment';
 import { Radar } from 'react-chartjs-2';
 // external component
-
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 // custom component
 
 // css, interface(type)
@@ -30,7 +31,9 @@ ChartJS.register(
   Legend
 );
 
-const RadarChart = (props: { period: string }) => {
+// 부모: dashboardPage
+
+const RadarChart = (props: { period: string; isUpdated: boolean }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState<RadarChartData | null>(null);
   const graphName: { [index: string]: string } = {
@@ -51,15 +54,15 @@ const RadarChart = (props: { period: string }) => {
           {
             label: `${graphName[props.period]}섭취한 영양소`,
             data: newArr,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(47, 188, 160,0.3)',
+            borderColor: '#058181',
             borderWidth: 2,
           },
           {
             label: `권장 섭취 영양소`,
             data: [100, 100, 100, 100, 100],
-            backgroundColor: 'rgba(115, 60, 245, 0.2)',
-            borderColor: '#1c5abc',
+            backgroundColor: 'rgba(255, 235, 53, 0.334)',
+            borderColor: '#bcaf1c',
             borderWidth: 2,
           },
         ],
@@ -70,12 +73,10 @@ const RadarChart = (props: { period: string }) => {
       } else {
         setChartData(radarChartData);
       }
-
-      // radarChartData.datasets[0].data = Object.values(data) as number[];
     })();
 
     setIsLoading(false);
-  }, [props.period]);
+  }, [props.period, props.isUpdated]);
 
   return (
     <>
@@ -83,7 +84,20 @@ const RadarChart = (props: { period: string }) => {
         <div className={classes.wrapper}>
           <div className={classes.container}>
             <div className={classes.header}>
-              {/* {graphName[props.period]}섭취한 영양소 */}
+              <CalendarMonthIcon />
+              {props.period === 'day'
+                ? moment(new Date()).format('YYYY-MM-DD')
+                : props.period === 'week'
+                ? `${moment(new Date())
+                    .subtract(1, 'week')
+                    .format('YYYY-MM-DD')} ~ ${moment(new Date()).format(
+                    'YYYY-MM-DD'
+                  )}`
+                : `${moment(new Date())
+                    .subtract(1, 'month')
+                    .format('YYYY-MM-DD')} ~ ${moment(new Date()).format(
+                    'YYYY-MM-DD'
+                  )}`}
             </div>
             <div className={classes.main}>
               <Radar

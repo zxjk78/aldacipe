@@ -6,4 +6,6 @@ import lombok.Getter;
 public class UserInfoUpdateRequestDto {
     private float height;
     private float weight;
+    private String name;
+
 }
