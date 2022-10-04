@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Backdrop } from '@mui/material';
 import styled from '@emotion/styled';
-
+import CloseIcon from '@mui/icons-material/Close';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // custom component
 
@@ -18,6 +18,7 @@ import PieChart from './PieChart';
 import classes from './VitaMineral.module.scss';
 import { Nutrient } from '../../../util/interface';
 import { nutritionDictionary } from '../../../util/data';
+import nutImgDict from '../../../assets/nutrients';
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
 `;
@@ -70,39 +71,29 @@ export default function VitaMineral(props: {
           <div className={classes.vitaMineralModal}>
             <div className={classes.modalHeader}>
               {props.vitamin ? `섭취 비타민` : `섭취 무기질`}
+              <div onClick={handleClose}>
+                <CloseIcon fontSize="large" />
+              </div>
             </div>
             <div className={classes.modalContent}>
               {nutArray.map(
                 (item: { name: string; value: number }, index: number) => (
                   <div className={classes.detailItem} key={index}>
-                    <div>{nutritionDictionary[item.name].name}</div>
+                    <div className={classes.itemHeader}>
+                      <img
+                        src={nutImgDict[item.name]}
+                        width={'30px'}
+                        alt="영양소 이미지"
+                      />
+                      <div>{nutritionDictionary[item.name].name}</div>
+                    </div>
                     <div>
-                      {item.value.toFixed(2)}{' '}
+                      {item.value.toFixed(1)}{' '}
                       {nutritionDictionary[item.name].scale}
                     </div>
                   </div>
                 )
               )}
-              {/* <div className={classes.detailItem}>
-                <div>비타민 B6</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 C</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 D</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 E</div>
-                <div>2000 IU</div>
-              </div>
-              <div className={classes.detailItem}>
-                <div>비타민 K</div>
-                <div>2000 IU</div>
-              </div> */}
             </div>
           </div>
         </Modal>
@@ -110,7 +101,7 @@ export default function VitaMineral(props: {
       <div className={classes.wrapper}>
         <div className={classes.container}>
           <div className={classes.header}>
-            {props.vitamin ? `섭취 비타민` : `섭취 무기질`}
+            {props.vitamin ? `비타민` : `무기질`}
           </div>
           <div className={classes.main}>
             <PieChart />

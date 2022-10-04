@@ -23,7 +23,9 @@ export default function UpperDetail(props: {
         <div className={classes.header}>{result.name}</div>
         <div className={classes.main}>
           <div>{props.nutValue.toFixed(1)}</div>
-          <div>{result.scale}</div>
+          <div className={result.scale === 'g' ? classes.gram : classes.kcal}>
+            {result.scale}
+          </div>
         </div>
         {/* <div className={classes.footer}>{`평균보다 12% 낮습니다.`}</div> */}
       </div>

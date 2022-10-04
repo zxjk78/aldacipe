@@ -13,6 +13,8 @@ import MealListItem from './MealListItem';
 // css, interface(type)
 import classes from './MealPlanner.module.scss';
 import { Intake } from '../../../util/interface';
+// etc
+import mealEmpty from '../../../assets/mealPlanner_empty.png';
 
 // 부모: DashboardPage
 export default function MealPlanner(props: {
@@ -52,7 +54,13 @@ export default function MealPlanner(props: {
           </div>
           <div className={classes.main}>
             {mealList.length === 0 ? (
-              <div>음식 추가해주세요</div>
+              <div className={classes.empty}>
+                <img src={mealEmpty} width={'200px'} alt="재료이미지" />
+                <div>
+                  먹은 음식을
+                  <br /> 추가해주세요
+                </div>
+              </div>
             ) : (
               mealList.map((item) => (
                 <MealListItem

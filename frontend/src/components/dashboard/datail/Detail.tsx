@@ -15,7 +15,7 @@ import MostIngredient from './MostIngredient';
 import MostRecipe from './MostRecipe';
 // css, interface(type)
 import classes from './Detail.module.scss';
-export default function Detail(props: {}) {
+export default function Detail(props: { isUpdated: boolean }) {
   const [isLoading, setIsloading] = useState(true);
 
   const [mostIngredientList, setMostIngredientList] = useState<any>(null);
@@ -42,12 +42,12 @@ export default function Detail(props: {}) {
       setTotalIntakeNut(totalIntakeNutrient);
     })();
     setIsloading(false);
-  }, []);
+  }, [props.isUpdated]);
 
   return (
     <>
       <div className={classes.title}>
-        상세 <span>개인의 기록을 상세히 표시합니다.</span>
+        상세 <span>7일간의 개인의 기록을 상세히 표시합니다.</span>
       </div>
       {!isLoading && totalIntakeNut && (
         <div className={classes.container}>
