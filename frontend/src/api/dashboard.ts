@@ -56,6 +56,17 @@ export const fetchIngredientNutrition = async (ingredientId: number) => {
     const response = await axiosAuthInstance.get(
       `ingredient/${ingredientId}/nutrient`
     );
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchHealthyRecipe = async () => {
+  try {
+    // const response = await axiosAuthInstance.get(`recipe/healthy`);
+    const response = await axiosAuthInstance.get(`recipe/popular`);
+
     return response.data.data;
   } catch (error) {
     console.log(error);

@@ -15,7 +15,7 @@ export const fetchReview = async (recipeId: number) => {
     const response: any = await axiosAuthInstance.get(
       `recipe/${recipeId}/review`
     );
-    console.log(response.data.data);
+    // console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {

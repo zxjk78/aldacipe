@@ -13,7 +13,7 @@ import { RecipeDetail } from '../../../util/interface';
 import { calculateIngredient } from '../../../util/fuctions';
 
 const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
-  console.log(props.recipeInfo);
+  // console.log(props.recipeInfo);
 
   const {
     recipe,
@@ -26,13 +26,6 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
     myIngre
   );
   const [rating, setRating] = useState<number | null>(2);
-
-  // useEffect(() => {
-  //   // rating 변경 시마다 서버에 put 요청 보내는 API
-  //   (async () => {
-  //     const success = console.log(123);
-  //   })();
-  // }, [rating]);
 
   const imgErrorhandler = (
     event: React.SyntheticEvent<HTMLImageElement, Event>

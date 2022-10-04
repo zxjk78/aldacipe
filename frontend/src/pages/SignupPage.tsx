@@ -24,6 +24,7 @@ const SignupPage: React.FC<{}> = () => {
     weight: 60,
     height: 160,
     gender: '',
+    name: '',
   });
 
   const addOneData = (data: all.form1Data) => {
@@ -40,6 +41,7 @@ const SignupPage: React.FC<{}> = () => {
         gender: data.gender,
         height: data.height,
         weight: data.weight,
+        name: data.name,
       };
     });
     setCurrentStep(() => currentStep + 1);

@@ -15,6 +15,8 @@ export const axiosAuthInstance = axios.create({
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': API_URL,
+    // 'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
   },
   withCredentials: true, // refesh token 발급 위해서 사용하는 옵션
   timeout: 10000,
@@ -52,10 +54,12 @@ axiosAuthInstance.interceptors.response.use(
   },
   // 응답에서 에러 처리
   (error) => {
+    console.log(error);
+
     const { config, response } = error;
     const originalRequest = config;
     if (response.data.code === 1013 && !originalRequest._retry) {
-      // console.log('access token 만료. 재발급 요청');
+      console.log('access token 만료. 재발급 요청');
 
       // 현재 다른 요청쪽에서 accessToken refreshing 위한 작업중인 경우, 에러난 요청은 if문을 진행해서 queue에 집어넣어진다.
       if (isTokenRefreshing) {
@@ -86,6 +90,8 @@ axiosAuthInstance.interceptors.response.use(
             { withCredentials: true }
           )
           .then(({ data }) => {
+            console.log('새 토큰 발급 완료');
+
             const { accessToken: newToken, accessTokenExpireDate: newDate } =
               data.data;
             // 발급받으면 저장
@@ -96,6 +102,8 @@ axiosAuthInstance.interceptors.response.use(
               newToken;
             // 원래 요청의 header를 새 토큰으로 변경한다
             originalRequest.headers['X-AUTH-TOKEN'] = newToken;
+            // originalRequest.headers['Access-Control-Allow-Origin'] = API_URL;
+            originalRequest.withCredentials = true;
             // 큐에 담긴 요청을 전부 다시 쏴주고, 지금 요청을 마지막으로 마무리한다.
             processQueue(null, newToken);
             resolve(axiosAuthInstance(originalRequest));

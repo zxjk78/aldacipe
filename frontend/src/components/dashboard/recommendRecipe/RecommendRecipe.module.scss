@@ -1,0 +1,22 @@
+@import '../../../global';
+.wrapper {
+  margin-top: 0.5rem;
+}
+.container {
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.main {
+  height: 100%;
+  background-color: #fff;
+}
+.footer {
+}

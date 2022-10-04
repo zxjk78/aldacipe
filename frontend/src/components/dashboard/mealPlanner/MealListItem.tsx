@@ -13,12 +13,16 @@ import MealDetail from './MealDetail';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
 import { Nutrient, Intake } from '../../../util/interface';
+
+// 부모: MealPlanner
 export default function MealListItem(props: {
   intake: Intake;
-  onFoodDetail: (id: number) => void;
+  onFoodDetail: (id: number, type: string) => void;
 }) {
   const handleDetailToggle = () => {
-    props.onFoodDetail(props.intake.intakeTargetId);
+    // console.log(props.intake.intakeTargetId, props.intake.intakeType);
+
+    props.onFoodDetail(props.intake.intakeTargetId, props.intake.intakeType);
   };
 
   return (
