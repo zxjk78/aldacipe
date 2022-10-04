@@ -13,9 +13,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import moment from 'moment';
 import { Radar } from 'react-chartjs-2';
 // external component
-
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 // custom component
 
 // css, interface(type)
@@ -83,7 +84,20 @@ const RadarChart = (props: { period: string }) => {
         <div className={classes.wrapper}>
           <div className={classes.container}>
             <div className={classes.header}>
-              {/* {graphName[props.period]}섭취한 영양소 */}
+              <CalendarMonthIcon />
+              {props.period === 'day'
+                ? moment(new Date()).format('YYYY-MM-DD')
+                : props.period === 'week'
+                ? `${moment(new Date())
+                    .subtract(1, 'week')
+                    .format('YYYY-MM-DD')} ~ ${moment(new Date()).format(
+                    'YYYY-MM-DD'
+                  )}`
+                : `${moment(new Date())
+                    .subtract(1, 'month')
+                    .format('YYYY-MM-DD')} ~ ${moment(new Date()).format(
+                    'YYYY-MM-DD'
+                  )}`}
             </div>
             <div className={classes.main}>
               <Radar

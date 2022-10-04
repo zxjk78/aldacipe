@@ -9,6 +9,13 @@ export interface Recipe {
 export interface Meal extends Recipe {
   type: string;
 }
+// main
+export interface CardRecipe {
+  id: number;
+  name: string;
+  imgURL: string;
+  avgScore: number;
+}
 
 // search, mypage
 export interface Ingredient {

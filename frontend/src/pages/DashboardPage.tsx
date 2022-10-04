@@ -100,18 +100,20 @@ const DashboardPage = () => {
             >
               <div className={classes.nutHeader}>
                 <div>섭취 영양소</div>
-                <ToggleButtonGroup
-                  color="success"
-                  size="small"
-                  value={chartPeriod}
-                  exclusive
-                  onChange={handlePeriodChange}
-                  aria-label="Platform"
-                >
-                  <ToggleButton value="day">Day</ToggleButton>
-                  <ToggleButton value="week">Week</ToggleButton>
-                  <ToggleButton value="month">Month</ToggleButton>
-                </ToggleButtonGroup>
+                <div className={classes.periodToggle}>
+                  <ToggleButtonGroup
+                    color="success"
+                    size="small"
+                    value={chartPeriod}
+                    exclusive
+                    onChange={handlePeriodChange}
+                    aria-label="Platform"
+                  >
+                    <ToggleButton value="day">Day</ToggleButton>
+                    <ToggleButton value="week">Week</ToggleButton>
+                    <ToggleButton value="month">Month</ToggleButton>
+                  </ToggleButtonGroup>
+                </div>
               </div>
               <RadarChart period={chartPeriod} />
             </div>

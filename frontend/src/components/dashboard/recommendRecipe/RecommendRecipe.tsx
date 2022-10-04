@@ -8,12 +8,15 @@ import { fetchHealthyRecipe } from '../../../api/dashboard';
 // external component
 
 // custom component
-
+import CardItem from './CardItem';
 // css, interface(type)
 import classes from './RecommendRecipe.module.scss';
-import { Recipe } from '../../../util/interface';
+import { CardRecipe } from '../../../util/interface';
+
+// 부모: DashboardPage.tsx
+
 const RecommendRecipe = (props: {}) => {
-  const [recipeList, setRecipeList] = useState<Recipe[] | null>(null);
+  const [recipeList, setRecipeList] = useState<CardRecipe[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
@@ -30,8 +33,13 @@ const RecommendRecipe = (props: {}) => {
       {!isLoading && recipeList && (
         <div className={classes.wrapper}>
           <div className={classes.container}>
-            <div className={classes.header}>추천 레시피</div>
-            <div className={classes.main}>1</div>
+            <div className={classes.header}>부족한 영양소 기반 추천 레시피</div>
+            <div className={classes.main}>
+              {recipeList.map((item) => (
+                <CardItem card={item} key={item.id} />
+                // <div>{item.name}</div>
+              ))}
+            </div>
             <div className={classes.footer}></div>
           </div>
         </div>
