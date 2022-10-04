@@ -22,14 +22,17 @@ public class UserSignupRequestDto {
 
     private LocalDate birthday;
 
+    private String name;
+
     @Builder
-    public UserSignupRequestDto(String email, String password, float weight, float height, Gender gender, LocalDate birthday) {
+    public UserSignupRequestDto(String email, String password, float weight, float height, Gender gender, LocalDate birthday, String name) {
         this.email = email;
         this.password = password;
         this.weight = weight;
         this.height = height;
         this.gender = gender;
         this.birthday = birthday;
+        this.name = name;
     }
 
     public User toEntity(PasswordEncoder passwordEncoder) {
@@ -40,6 +43,7 @@ public class UserSignupRequestDto {
                 .height(height)
                 .gender(gender)
                 .birthday(birthday)
+                .name(name)
                 .roles(Collections.singletonList("ROLE_USER")) // security에서 검증할떄 USER
                 .build();
     }

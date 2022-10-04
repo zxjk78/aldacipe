@@ -18,5 +18,6 @@ public class UserInfoResponseDto {
     private float weight;
     private Gender gender;
     private LocalDate birthDay;
+    private String name;
 
 }
