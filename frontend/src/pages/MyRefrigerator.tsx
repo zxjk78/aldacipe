@@ -12,8 +12,8 @@ import classes from './MyRefrigerator.module.scss';
 
 export default function MyRefrigerator() {
   const [ingredient, setIngredient] = useState<ingredient[]>([])
-  const [selectIngre, setSelectIngre] = useState<number[]>([]) // 13, 15,
-  const [searchdata, setSearchData] = useState<never[]>([])
+  const [selectIngre, setSelectIngre] = useState<number[]>([])
+  const [searchData, setSearchData] = useState<never[]>([])
   // 재료추가
   const addIngredient = (data:ingredient) => {
     setIngredient([...ingredient, data]);
@@ -33,9 +33,11 @@ export default function MyRefrigerator() {
       const tmp = ingre(selectIngre)
       const data = await searchRecipe(tmp);
       setSearchData(data)
-      console.log(searchdata)
     })();
   }
+  const getSearchData = (() => {
+    return searchData
+  })
   const deleteIngre = (data:number) => {
     const newValue = selectIngre.filter((id) => id !== data);
     setSelectIngre(newValue);
@@ -43,7 +45,6 @@ export default function MyRefrigerator() {
       const tmp = ingre(selectIngre)
       const data = await searchRecipe(tmp);
       setSearchData(data)
-      console.log(searchdata)
     })();
   }
 
@@ -52,8 +53,9 @@ export default function MyRefrigerator() {
       const data = await getRefrigerator();
       setIngredient(data);
     })();
-    console.log('hi')
-  }, [selectIngre, searchdata])
+    console.log(searchData,'searchdata check')
+    console.log(selectIngre,'select check')
+  }, [selectIngre, searchData])
 
   return (
     <>
@@ -68,7 +70,7 @@ export default function MyRefrigerator() {
         </div>
         <div className={classes.foodlist}>
           <h2>선택한 재료로 만들 수 있는 음식</h2>
-          {/* <CarouselSimilar searchdata={searchdata}/> */}
+          <CarouselSimilar searchData={searchData} getSearchData={getSearchData}/>
         </div>
       </div>
     </>
