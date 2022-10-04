@@ -9,6 +9,13 @@ export interface Recipe {
 export interface Meal extends Recipe {
   type: string;
 }
+// main
+export interface CardRecipe {
+  id: number;
+  name: string;
+  imgURL: string;
+  avgScore: number;
+}
 
 // search, mypage
 export interface Ingredient {
@@ -100,6 +107,7 @@ export interface RecipeDetail {
   nutrient: Nutrient;
   recipe: Recipe;
   userEvaluationInfo: { didEvaluate: boolean; score: number };
+  avgEvalutationScore: number;
 }
 
 export interface NutObj {

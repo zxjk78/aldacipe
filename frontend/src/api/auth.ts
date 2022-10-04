@@ -1,6 +1,3 @@
-import { API_URL } from './config/http-config';
-import moment from 'moment';
-import axios from 'axios';
 import { axiosCommonInstance, axiosAuthInstance } from './config/apiController';
 import { setCookie, removeCookie, getCookie } from './config/cookie';
 

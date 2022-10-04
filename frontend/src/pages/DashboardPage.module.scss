@@ -25,17 +25,30 @@
   display: flex;
   flex-direction: column;
 }
-.graphDay {
+.chartOrSearch {
   grid-area: 1/3/2/4;
+  .nutritionChart {
+    margin-top: 0.5rem;
+  }
+  .nutHeader {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    color: $green-primary;
+    font-weight: bold;
+    font-size: 1.3rem;
+
+    .periodToggle {
+      position: absolute;
+      right: 0.5rem;
+      top: 3rem;
+    }
+  }
   // background-color: chartreuse;
 }
-.graphWeek {
-  grid-area: 1/1/2/2;
-  // background-color: aquamarine;
-}
-.graphMonth {
-  grid-area: 2/1/3/2;
-  // background-color: blueviolet;
+.recommendRecipe {
+  grid-area: 1/1/3/2;
+  // background-color: gold;
 }
 .detail {
   grid-area: 2/2/3/4;

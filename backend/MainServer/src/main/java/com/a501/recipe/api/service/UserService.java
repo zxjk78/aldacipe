@@ -23,12 +23,13 @@ public class UserService {
                 height(foundUser.getHeight()).
                 gender(foundUser.getGender()).
                 birthDay(foundUser.getBirthday()).
+                name(foundUser.getName()).
                 build();
     }
 
     @Transactional
     public void modifyUserInfo(User loginUser, UserInfoUpdateRequestDto userInfoUpdateRequestDto) {
         User user = userRepository.findById(loginUser.getId()).orElseThrow(UserNotFoundException::new);
-        user.updateUserInfo(userInfoUpdateRequestDto.getHeight(),userInfoUpdateRequestDto.getWeight());
+        user.updateUserInfo(userInfoUpdateRequestDto.getHeight(),userInfoUpdateRequestDto.getWeight(), userInfoUpdateRequestDto.getName());
     }
 }

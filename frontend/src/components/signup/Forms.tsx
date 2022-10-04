@@ -35,7 +35,9 @@ export const FormContent1: React.FC<{
 
       if (emailRegExp.test(event.target.value)) {
         const isDup = await emailDupCheck(event.target.value);
-        if (!isDup) {
+        console.log(isDup);
+
+        if (isDup) {
           setEmailValid(() => false);
           setEmailValidMsg(() => '중복된 이메일입니다.');
         } else {
@@ -67,7 +69,9 @@ export const FormContent1: React.FC<{
           autoFocus
         />
         <p className={classes.errorMsg}>
-          {email.length > 0 && !emailValid && '유효한 이메일을 입력해 주세요.'}
+          {email.length > 0 &&
+            !emailValid &&
+            (emailValidMsg || '유효한 이메일을 입력해 주세요.')}
         </p>
       </div>
       <div className={classes.btnContainer}>
@@ -95,6 +99,7 @@ export const FormContent2: React.FC<{
     weight: props.formData.weight,
     height: props.formData.height,
     birthday: props.formData.birthday,
+    name: props.formData.name,
   });
 
   const [isGenderValid, setIsGenderValid] = useState(
@@ -106,6 +111,12 @@ export const FormContent2: React.FC<{
   const [isHeightValid, setIsHeightValid] = useState(
     props.formData.height >= 0 && props.formData.height <= 300 ? true : false
   );
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const tmp = event.target.value;
+    setStepTwoData((prev) => {
+      return { ...prev, name: tmp };
+    });
+  };
 
   const birthdayChangeHandler = (newBirthday: string) => {
     const tmp = newBirthday;
@@ -163,6 +174,17 @@ export const FormContent2: React.FC<{
       className={`${classes.wrapper} ${classes.form2}`}
       onKeyDown={enterHandler}
     >
+      <div className={classes.nameContainer}>
+        <div>이름</div>
+        <div>
+          <input
+            type="text"
+            name="name"
+            defaultValue={props.formData.name}
+            onChange={handleNameChange}
+          />
+        </div>
+      </div>
       <div className={`${classes.form2InputContainer}`}>
         <div className={`${classes.genderContainer}`}>
           <div className={classes.title}>성별</div>
@@ -258,6 +280,7 @@ export const FormContent3: React.FC<{
 }> = (props) => {
   const [password, setPassword] = useState('');
   const [pwValid, setPwValid] = useState(false);
+  const [pwCheckValid, setPwCheckValid] = useState(false);
   const passwordsRef = useRef<HTMLInputElement[] | null[]>([]);
   useEffect(() => {
     if (pwValid) {
@@ -271,17 +294,19 @@ export const FormContent3: React.FC<{
     const tmp = event.target.value;
     if (tmp.length > 0 && passwordRegExp.test(tmp)) {
       setPassword(() => tmp);
+      setPwValid(true);
     } else {
       setPassword(() => '');
+      setPwValid(false);
     }
-    setPwValid(false);
+    setPwCheckValid(false);
   };
   const checkPasswordConfirm = (event: React.FocusEvent<HTMLInputElement>) => {
     const pw2 = event.target.value;
     if (password.length > 0 && password === pw2) {
-      setPwValid(true);
+      setPwCheckValid(true);
     } else {
-      setPwValid(false);
+      setPwCheckValid(false);
     }
   };
 
@@ -306,28 +331,40 @@ export const FormContent3: React.FC<{
   return (
     <div className={classes.wrapper} onKeyDown={enterHandler}>
       <label htmlFor="password1">비밀번호</label>
-      <input
-        type="password"
-        className={classes.signupInput}
-        id="password1"
-        onChange={checkPasswordValid}
-        data-idx={0}
-        ref={(ele) => {
-          passwordsRef.current[0] = ele;
-        }}
-        autoFocus
-      />
+      <div>
+        <input
+          type="password"
+          className={classes.signupInput}
+          id="password1"
+          onChange={checkPasswordValid}
+          data-idx={0}
+          ref={(ele) => {
+            passwordsRef.current[0] = ele;
+          }}
+          autoFocus
+        />
+        <div className={classes.pwMsg}>
+          {!pwValid && '비밀번호는 특수문자를 포함한 6-16자리로 입력해 주세요'}
+        </div>
+      </div>
       <label htmlFor="password1">비밀번호 확인</label>
-      <input
-        type="password"
-        className={classes.signupInput}
-        id="password2"
-        data-idx={1}
-        onChange={checkPasswordConfirm}
-        ref={(ele) => {
-          passwordsRef.current[1] = ele;
-        }}
-      />
+      <div>
+        <input
+          type="password"
+          className={classes.signupInput}
+          id="password2"
+          data-idx={1}
+          onChange={checkPasswordConfirm}
+          ref={(ele) => {
+            passwordsRef.current[1] = ele;
+          }}
+        />
+        <div className={classes.pwMsg}>
+          {pwValid &&
+            !pwCheckValid &&
+            '상기의 비밀번호와 같은 비밀번호를 입력해 주세요.'}
+        </div>
+      </div>
       <div className={classes.btnContainer}>
         <button
           type="button"
@@ -341,7 +378,7 @@ export const FormContent3: React.FC<{
           type="submit"
           className={classes.nextBtn}
           // onClick={sumbitStepThreeHandler}
-          disabled={!pwValid}
+          disabled={!pwValid || !pwCheckValid}
         >
           완료
         </button>

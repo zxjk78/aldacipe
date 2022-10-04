@@ -9,7 +9,7 @@ import { addUserIntake } from '../../../api/dashboard';
 // external component
 
 // custom component
-
+import RecipeImgContainer from '../../UI/RecipeImgContainer';
 // css, interface(type)
 import classes from './MealSearchListItem.module.scss';
 import { Meal } from '../../../util/interface';
@@ -67,7 +67,7 @@ export default function MealSearchListItem(props: {
         <div className={classes.container}>
           <div className={classes.left}>
             <div>
-              <img
+              <RecipeImgContainer
                 src={`${API_URL}image?path=${props.meal.image}`}
                 width={'30px'}
                 height={'30px'}

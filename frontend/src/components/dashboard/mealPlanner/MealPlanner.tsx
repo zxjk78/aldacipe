@@ -6,42 +6,36 @@ import { fetchUserIntake } from '../../../api/dashboard';
 // external module
 import moment from 'moment';
 // external component
-import { Backdrop } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import styled from '@emotion/styled';
 // custom component
-import MealPlannerSearchInput from './MealPlannerSearchInput';
 
 import MealListItem from './MealListItem';
 // css, interface(type)
 import classes from './MealPlanner.module.scss';
 import { Intake } from '../../../util/interface';
 
-const CustomBackdrop = styled(Backdrop)`
-  background-color: transparent;
-`;
-
+// 부모: DashboardPage
 export default function MealPlanner(props: {
+  isUpdated: boolean;
   onSearch: () => void;
-  onFoodDetail: (id: number) => void;
+  onFoodDetail: (id: number, type: string) => void;
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [mealList, setMealList] = useState<Intake[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     setIsLoading(true);
 
     fetchUserIntake(moment(new Date()).format('YYYY-MM-DD'), setMealList);
 
     setIsLoading(false);
-  }, []);
+  }, [props.isUpdated]);
   const handleSearchOpen = () => {
     // setModalOpen(true);
     props.onSearch();
   };
 
-  const handleFoodDetailOpen = (foodId: number) => {
-    props.onFoodDetail(foodId);
+  const handleFoodDetailOpen = (foodId: number, foodType: string) => {
+    props.onFoodDetail(foodId, foodType);
   };
   return (
     <>

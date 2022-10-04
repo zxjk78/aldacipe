@@ -16,7 +16,8 @@ import MealSearchListItem from './MealSearchListItem';
 import classes from './MealSearch.module.scss';
 import { Meal } from '../../../util/interface';
 
-const MealSearch = (props: { onSearchClose: () => void }) => {
+// 부모: DashboardPage
+const MealSearch = (props: { onSearchClose: (isAdded: boolean) => void }) => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [intakeSearchResult, setIntakeSearchResult] = useState<Meal[]>([]);
   const keywordRef = useRef<null | HTMLInputElement>(null);
@@ -36,11 +37,12 @@ const MealSearch = (props: { onSearchClose: () => void }) => {
   };
   const handleMealSubmit = () => {
     keywordRef.current!.value = '';
-    props.onSearchClose();
+    setIntakeSearchResult([]);
+    props.onSearchClose(true);
   };
 
   const handleClose = () => {
-    props.onSearchClose();
+    props.onSearchClose(false);
   };
   return (
     <>

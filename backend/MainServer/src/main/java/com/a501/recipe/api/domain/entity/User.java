@@ -90,8 +90,9 @@ public class User extends BaseEntity implements UserDetails {
         return true;
     }
 
-    public void updateUserInfo(float height, float weight) {
+    public void updateUserInfo(float height, float weight, String name) {
         this.height = height;
         this.weight = weight;
+        this.name = name;
     }
 }
