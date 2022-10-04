@@ -13,6 +13,8 @@ import { RecipeDetail } from '../../../util/interface';
 import { calculateIngredient } from '../../../util/fuctions';
 
 const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
+  console.log(props.recipeInfo);
+
   const {
     recipe,
     ingredientList: allIngre,
@@ -44,11 +46,14 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
         <div className={classes.main}>
           <div>
             <img
-              src={`${API_URL}image/${recipe.image}`}
+              src={`${API_URL}image?path=${recipe.image}`}
               className={classes.recipeImg}
               alt="레시피 큰 이미지"
+              width={'150px'}
+              height={'150px'}
               onError={imgErrorhandler}
             />
+
             <div>
               <div>
                 <div className={classes.totalRating}>
