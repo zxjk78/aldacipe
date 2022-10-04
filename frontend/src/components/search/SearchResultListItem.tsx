@@ -8,7 +8,6 @@ import React from 'react';
 // external component
 
 // custom component
-
 // css, interface(type)
 import classes from './SearchResultListItem.module.scss';
 import { Ingredient } from '../../util/interface';

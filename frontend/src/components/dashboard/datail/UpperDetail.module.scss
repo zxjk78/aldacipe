@@ -26,7 +26,15 @@
   > div:last-child {
     color: $text-primary;
 
-    font-size: 1.3rem;
+    // font-size: 1.8rem;
     text-align: right;
+    margin-right: 1rem;
   }
+}
+.gram {
+  font-size: 2.4rem;
+  margin-top: -1rem;
+}
+.kcal {
+  font-size: 1.8rem;
 }

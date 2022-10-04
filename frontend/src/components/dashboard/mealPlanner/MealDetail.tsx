@@ -11,12 +11,13 @@ import { fetchRecipeNutrition } from '../../../api/nutrition';
 import NutritionInfo from '../../UI/NutritionInfo';
 // css, interface(type)
 import classes from './MealDetail.module.scss';
-import { Nutrient } from '../../../util/interface';
+import { Recipe, Nutrient } from '../../../util/interface';
 const MealDetail = (props: {
   foodInfo: { foodId: number; foodType: string };
   onDetailClose: () => void;
 }) => {
-  const [foodInfo, setFoodInfo] = useState<Nutrient | null>(null);
+  const [foodNutInfo, setFoodNutInfo] = useState<Nutrient | null>(null);
+  // const [recipeInfo, setRecipeInfo] = useState<Recipe|null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const handleClose = () => props.onDetailClose();
 
@@ -31,8 +32,9 @@ const MealDetail = (props: {
       );
       // console.log(data);
 
-      setFoodInfo(data);
+      setFoodNutInfo(data);
     })();
+
     setIsLoading(false);
   }, [props.foodInfo]);
 
@@ -44,7 +46,7 @@ const MealDetail = (props: {
           {!isLoading && (
             <div className={classes.main}>
               <NutritionInfo
-                nutrition={foodInfo!}
+                nutrition={foodNutInfo!}
                 dashboard
                 onDetailClose={handleClose}
               />

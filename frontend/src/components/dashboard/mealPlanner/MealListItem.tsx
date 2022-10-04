@@ -1,9 +1,7 @@
 // react core
-import { useState } from 'react';
 
 // API
 import { API_URL } from '../../../api/config/http-config';
-import { fetchRecipeNutrition } from '../../../api/nutrition';
 // external module
 
 // external component
@@ -12,7 +10,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import RecipeImgContainer from '../../UI/RecipeImgContainer';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
-import { Nutrient, Intake } from '../../../util/interface';
+import { Intake } from '../../../util/interface';
 
 // 부모: MealPlanner
 export default function MealListItem(props: {
@@ -20,8 +18,6 @@ export default function MealListItem(props: {
   onFoodDetail: (id: number, type: string) => void;
 }) {
   const handleDetailToggle = () => {
-    // console.log(props.intake.intakeTargetId, props.intake.intakeType);
-
     props.onFoodDetail(props.intake.intakeTargetId, props.intake.intakeType);
   };
 

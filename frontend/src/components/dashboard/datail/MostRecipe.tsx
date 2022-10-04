@@ -89,11 +89,14 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
       </div>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}>{`가장 많이 먹은 음식`}</div>
+          <div className={classes.header}>{`가장 많이 먹은 레시피`}</div>
           <div className={classes.main}>
             {props.recipe.length === 0 ? (
               <>
-                <div>기록없음</div>
+                <div className={classes.empty}>
+                  <div>섭취한 음식이</div>
+                  <div>없습니다</div>
+                </div>
                 {/* <div onClick={handler}>식사 추가하기</div> */}
               </>
             ) : (
@@ -110,10 +113,12 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
               </>
             )}
           </div>
-          <div className={classes.footer} onClick={handleOpen}>
-            자세히 보기
-            <ChevronRightIcon />
-          </div>
+          {props.recipe.length > 0 && (
+            <div className={classes.footer} onClick={handleOpen}>
+              자세히 보기
+              <ChevronRightIcon />
+            </div>
+          )}
         </div>
       </div>
     </>

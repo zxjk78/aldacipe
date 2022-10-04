@@ -38,14 +38,12 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
       const data = await fetchIngredientNutrition(props.ingredients[0].id);
       setMostIngredientDetail(data);
     })();
-  }, []);
+  }, [props.ingredients]);
 
   const handleOpen = async () => {
     setIsModalOpen(true);
   };
   const handleClose = () => setIsModalOpen(false);
-  // 가능한지 보기
-  const handler = () => {};
   return (
     <>
       <div>
@@ -164,7 +162,10 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
           <div className={classes.main}>
             {props.ingredients.length === 0 ? (
               <>
-                <div>기록없음</div>
+                <div className={classes.empty}>
+                  <div>섭취한 음식이</div>
+                  <div>없습니다</div>
+                </div>{' '}
                 {/* <div onClick={handler}>식사 추가하기</div> */}
               </>
             ) : (
@@ -183,10 +184,12 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
               </>
             )}
           </div>
-          <div className={classes.footer} onClick={handleOpen}>
-            자세히 보기
-            <ChevronRightIcon />
-          </div>
+          {props.ingredients.length > 0 && (
+            <div className={classes.footer} onClick={handleOpen}>
+              자세히 보기
+              <ChevronRightIcon />
+            </div>
+          )}
         </div>
       </div>
     </>
