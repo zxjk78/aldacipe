@@ -12,15 +12,15 @@ import styled from '@emotion/styled';
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // custom component
-
+import RecipeImgContainer from '../../UI/RecipeImgContainer';
 // css, interface(type)
-import PieChart from './PieChart';
 import classes from './MostRecipe.module.scss';
 import { Recipe } from '../../../util/interface';
+
 const CustomBackdrop = styled(Backdrop)`
   background-color: transparent;
 `;
-
+// 부모 : detail.tsx
 export default function MostRecipe(props: { recipe: Recipe[] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
@@ -43,7 +43,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                     <div className={classes.first}>1</div>
                     <div>
                       <Link to={`/detail/${props.recipe[0].id}`}>
-                        <img
+                        <RecipeImgContainer
                           src={`${API_URL}image?path=${props.recipe[0].image}`}
                           width={'50px'}
                           height={'50px'}
@@ -70,7 +70,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                           {index + 2}
                         </div>
                         <Link to={`/detail/${item.id}`}>
-                          <img
+                          <RecipeImgContainer
                             src={`${API_URL}image?path=${item.image}`}
                             width={'30px'}
                             height={'30px'}
@@ -99,7 +99,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
             ) : (
               <>
                 <Link to={`/detail/${props.recipe[0].id}`}>
-                  <img
+                  <RecipeImgContainer
                     src={`${API_URL}image?path=${props.recipe[0].image}`}
                     width={'30px'}
                     height={'30px'}

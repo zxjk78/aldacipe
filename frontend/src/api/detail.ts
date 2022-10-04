@@ -37,3 +37,16 @@ export const createReview = async (recipeId: number, contents: string) => {
     console.log(error);
   }
 };
+export const createRating = async (recipeId: number, rating: number) => {
+  try {
+    const response: any = await axiosAuthInstance.post(
+      `recipe/${recipeId}/evaluation`,
+      { score: rating }
+    );
+    // console.log(response);
+
+    return response.data.success;
+  } catch (error) {
+    console.log(error);
+  }
+};

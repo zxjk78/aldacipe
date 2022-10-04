@@ -9,7 +9,7 @@ import { fetchRecipeNutrition } from '../../../api/nutrition';
 // external component
 import InfoIcon from '@mui/icons-material/Info';
 // custom component
-import MealDetail from './MealDetail';
+import RecipeImgContainer from '../../UI/RecipeImgContainer';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
 import { Nutrient, Intake } from '../../../util/interface';
@@ -31,7 +31,7 @@ export default function MealListItem(props: {
         <div className={classes.container}>
           <div className={classes.left}>
             <div>
-              <img
+              <RecipeImgContainer
                 src={`${API_URL}image?path=${props.intake.image}`}
                 width={'30px'}
                 height={'30px'}

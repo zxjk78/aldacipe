@@ -107,6 +107,7 @@ export interface RecipeDetail {
   nutrient: Nutrient;
   recipe: Recipe;
   userEvaluationInfo: { didEvaluate: boolean; score: number };
+  avgEvalutationScore: number;
 }
 
 export interface NutObj {

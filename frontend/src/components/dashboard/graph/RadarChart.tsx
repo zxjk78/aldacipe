@@ -31,7 +31,9 @@ ChartJS.register(
   Legend
 );
 
-const RadarChart = (props: { period: string }) => {
+// 부모: dashboardPage
+
+const RadarChart = (props: { period: string; isUpdated: boolean }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState<RadarChartData | null>(null);
   const graphName: { [index: string]: string } = {
@@ -52,15 +54,15 @@ const RadarChart = (props: { period: string }) => {
           {
             label: `${graphName[props.period]}섭취한 영양소`,
             data: newArr,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(47, 188, 160,0.3)',
+            borderColor: '#058181',
             borderWidth: 2,
           },
           {
             label: `권장 섭취 영양소`,
             data: [100, 100, 100, 100, 100],
-            backgroundColor: 'rgba(115, 60, 245, 0.2)',
-            borderColor: '#1c5abc',
+            backgroundColor: 'rgba(255, 235, 53, 0.334)',
+            borderColor: '#bcaf1c',
             borderWidth: 2,
           },
         ],
@@ -71,12 +73,10 @@ const RadarChart = (props: { period: string }) => {
       } else {
         setChartData(radarChartData);
       }
-
-      // radarChartData.datasets[0].data = Object.values(data) as number[];
     })();
 
     setIsLoading(false);
-  }, [props.period]);
+  }, [props.period, props.isUpdated]);
 
   return (
     <>

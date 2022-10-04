@@ -17,6 +17,7 @@ import React, { useRef, useState } from 'react';
 const DashboardPage = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [isMealPlannerUpdated, setIsMealPlannerUpdated] = useState(false);
+  const [isNutChartUpdated, setIsNutChartUpdated] = useState(false);
   const [chartPeriod, setChartPeriod] = useState('day');
   const [foodInfo, setFoodInfo] = useState<{
     foodId: number;
@@ -78,8 +79,9 @@ const DashboardPage = () => {
       searchRefs.current[0]!.classList.add(classes.visible);
     }, 600);
 
-    // mealPlanner에 신호 전달
+    // mealPlanner, pieChart에 신호 전달
     setIsMealPlannerUpdated((prev) => !prev);
+    setIsNutChartUpdated((prev) => !prev);
   };
   return (
     <>
@@ -115,7 +117,7 @@ const DashboardPage = () => {
                   </ToggleButtonGroup>
                 </div>
               </div>
-              <RadarChart period={chartPeriod} />
+              <RadarChart period={chartPeriod} isUpdated={isNutChartUpdated} />
             </div>
             <div
               className={classes.notVisible}
