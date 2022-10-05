@@ -35,9 +35,15 @@ $input-focus: #a4f6e6 !global;
   @extend %input-normal;
   height: 30px;
   text-align: center;
+  outline: solid 2px $green-secondary;
+  background-color: #fff;
+  &::placeholder {
+    color: $green-primary;
+  }
 }
 
 %input-focused {
+  @extend %input-search;
   outline: solid 2px $green-secondary;
-  background-color: #a4f6e6;
+  background-color: rgba(153, 237, 195, 0.843);
 }

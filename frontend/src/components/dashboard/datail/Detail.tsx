@@ -27,7 +27,9 @@ export default function Detail(props: { isUpdated: boolean }) {
   useEffect(() => {
     setIsloading(true);
     (async () => {
-      // const data = await fetchWeekDetail();
+      const data = await fetchWeekDetail();
+      console.log(data);
+
       const {
         mostIntakeIngredientList,
         mostIntakeRecipeList,

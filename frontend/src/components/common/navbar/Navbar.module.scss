@@ -7,7 +7,7 @@
   column-gap: 50px;
   align-items: center;
   border-bottom: solid 1px $text-primary;
-  box-shadow: 0px 5px 7px 0px #000;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
 .title,
@@ -23,8 +23,23 @@
   & > div:hover {
     color: $green-primary;
   }
+  a {
+    color: #000;
+    padding-bottom: 0.2rem;
+    &:hover {
+      color: $green-primary;
+      // text-decoration: underline;
+    }
+  }
 }
 
 .userInfo {
   font-weight: bold;
+  cursor: pointer;
+}
+
+.isActive {
+  border-bottom: 2px solid $green-secondary;
+
+  color: $green-secondary !important;
 }

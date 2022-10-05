@@ -1,10 +1,15 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { Link } from 'react-router-dom';
+
+// custom component
+
+import RecipeImgContainer from '../../UI/RecipeImgContainer';
 
 // css, interfacde
 import classes from './CardItem.module.scss';
@@ -21,13 +26,13 @@ const CardItem = (props: { card: CardRecipe }) => {
         <Link to={`/detail/${props.card.id}`}>
           <Card sx={{ maxWidth: 225 }}>
             <CardActionArea>
-              <CardMedia
-                component="img"
-                height="150"
-                // image={`${API_URL}image/${props.card.imgURL}`}
-                image={`${API_URL}image?path=${props.card.imgURL}`}
-                alt="green iguana"
+              <RecipeImgContainer
+                src={`${API_URL}image?path=${props.card.imgURL}`}
+                alt="카드이미지"
+                height="150px"
+                width="100%"
               />
+
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {props.card.name}

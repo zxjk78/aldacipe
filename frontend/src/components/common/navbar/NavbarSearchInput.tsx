@@ -19,7 +19,7 @@ import classes from './NavbarSearchInput.module.scss';
 import { Recipe } from '../../../util/interface';
 
 const MySearchIcon = styled(SearchIcon)`
-  color: #5d5d5d;
+  color: #058181;
 `;
 
 const NavbarSearchInput = (props: { placeholder: string }) => {
