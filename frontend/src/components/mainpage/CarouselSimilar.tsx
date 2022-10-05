@@ -11,6 +11,7 @@ import classes from './CarouselSimilar.module.scss';
 import { CardRecipe } from '../../util/interface';
 import { recipe } from '../refrigerator/interface';
 import selectImg from '../../assets/select.jpg';
+import { classicNameResolver } from 'typescript';
 
 const CarouselSimilar = (props: {
   searchData: CardRecipe[];
@@ -31,24 +32,27 @@ const CarouselSimilar = (props: {
   useEffect(() => {
     const value = props.getSearchData();
     setSearchResult(value);
-    console.log(searchResult, 'check carousel---');
-  }, [searchResult]);
+    console.log(cardList, 'cardlist');
+  }, [props.searchData]);
 
-  const cardList = searchResult;
+  const cardList = props.searchData;
 
   return (
     <>
       <section className={classes.carousel}>
-        {cardList.length === 0 ? (
-          <img src={selectImg} alt="재료를 선택해 주세요" />
+        {cardList?.length === 0 ? (
+          <img
+            className={classes.img}
+            src={selectImg}
+            alt="재료를 선택해 주세요"
+          />
         ) : (
-          <h2>있음</h2>
+          <Slider {...settings}>
+            {cardList.map((card: CardRecipe) => (
+              <Card card={card} key={card.id} />
+            ))}
+          </Slider>
         )}
-        <Slider {...settings}>
-          {cardList.map((card: CardRecipe) => (
-            <Card card={card} key={card.id} />
-          ))}
-        </Slider>
       </section>
     </>
   );

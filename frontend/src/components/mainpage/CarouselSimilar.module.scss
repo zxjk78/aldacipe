@@ -2,5 +2,12 @@
 .carousel {
   margin: 1rem;
   max-width: 45vw;
-  max-height: 200px;
+  // max-height: 200px;
+}
+.slick-active {
+  max-height: 30vh;
+}
+.img {
+  margin: auto;
+  display: block;
 }
