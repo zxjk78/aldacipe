@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 // API
 import { fetchUserNutrientByPeriod } from '../../../api/dashboard';
 // external module
+
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -16,12 +17,18 @@ import {
 import moment from 'moment';
 import { Radar } from 'react-chartjs-2';
 // external component
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import styled from '@emotion/styled';
+
 // custom component
 
 // css, interface(type)
 import classes from './RadarChart.module.scss';
 import { RadarChartData } from '../../../util/interface';
+import mealEmpty from '../../../assets/mealPlanner_empty.png';
+
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -31,9 +38,18 @@ ChartJS.register(
   Legend
 );
 
+const CustomStickyNote2Icon = styled(StickyNote2Icon)`
+  font-size: 10rem;
+  color: #98eab9;
+`;
+
 // 부모: dashboardPage
 
-const RadarChart = (props: { period: string; isUpdated: boolean }) => {
+const RadarChart = (props: {
+  period: string;
+  isUpdated: boolean;
+  onChartDataLoaded: () => void;
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState<RadarChartData | null>(null);
   const graphName: { [index: string]: string } = {
@@ -72,6 +88,7 @@ const RadarChart = (props: { period: string; isUpdated: boolean }) => {
         setChartData(null);
       } else {
         setChartData(radarChartData);
+        props.onChartDataLoaded();
       }
     })();
 
@@ -134,7 +151,13 @@ const RadarChart = (props: { period: string; isUpdated: boolean }) => {
           </div>
         </div>
       ) : !isLoading && !chartData ? (
-        <div>섭취 기록을 추가해 주세요</div>
+        <div className={classes.empty}>
+          <CustomStickyNote2Icon />
+          <div>
+            먹은 음식을 추가하면
+            <br /> 기록이 시작됩니다
+          </div>
+        </div>
       ) : (
         <></>
       )}

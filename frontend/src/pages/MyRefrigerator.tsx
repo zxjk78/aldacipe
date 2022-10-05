@@ -20,20 +20,26 @@ export default function MyRefrigerator() {
   }
   // search 보내게 string으로 변환
   const ingre = (newValue:number[]) => {
-    if (newValue.length === 1) {
-      return newValue
-    } else if (newValue.length > 1) {
       return newValue.join('-')
     }
-  }
+  
   // 재료 선택 & 검색
   const searchIngre = (data:number) => {
-    setSelectIngre([...selectIngre, data]);
+    if (searchData.length === 0) {
+      setSelectIngre([data]);
     (async () => {
       const tmp = ingre(selectIngre)
       const data = await searchRecipe(tmp);
       setSearchData(data)
     })();
+    } else {
+      setSelectIngre([...selectIngre, data]);
+      (async () => {
+        const tmp = ingre(selectIngre)
+        const data = await searchRecipe(tmp);
+        setSearchData(data)
+      })();
+    }
   }
   const getSearchData = (() => {
     return searchData
@@ -41,11 +47,16 @@ export default function MyRefrigerator() {
   const deleteIngre = (data:number) => {
     const newValue = selectIngre.filter((id) => id !== data);
     setSelectIngre(newValue);
-    (async () => {
-      const tmp = ingre(selectIngre)
-      const data = await searchRecipe(tmp);
-      setSearchData(data)
-    })();
+    if (newValue.length > 0) {
+      (async () => {
+        const tmp = ingre(selectIngre)
+        const data = await searchRecipe(tmp);
+        setSearchData(data)
+      })();
+    } else {
+      setSearchData([])
+    }
+
   }
 
   useEffect(() => {
@@ -53,8 +64,6 @@ export default function MyRefrigerator() {
       const data = await getRefrigerator();
       setIngredient(data);
     })();
-    console.log(searchData,'searchdata check')
-    console.log(selectIngre,'select check')
   }, [selectIngre, searchData])
 
   return (

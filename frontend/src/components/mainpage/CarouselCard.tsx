@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 // css, interfacde
 import classes from './CarouselCard.module.scss';
 import { CardRecipe } from './interface';
-import { API_URL } from '../../api/config/http-config';
+import { API_URL, IMG_API_URL } from '../../api/config/http-config';
 import { recipe } from '../refrigerator/interface';
 
 const CarouselCard = (props: { card: recipe }) => {

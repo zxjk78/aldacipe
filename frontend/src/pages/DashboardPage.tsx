@@ -18,7 +18,10 @@ const DashboardPage = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [isMealPlannerUpdated, setIsMealPlannerUpdated] = useState(false);
   const [isNutChartUpdated, setIsNutChartUpdated] = useState(false);
+  const [isDetailUpdated, setIsDetailUpdated] = useState(false);
   const [chartPeriod, setChartPeriod] = useState('day');
+  const [isChartDataExist, setIsChartDataExist] = useState(false);
+
   const [foodInfo, setFoodInfo] = useState<{
     foodId: number;
     foodType: string;
@@ -79,9 +82,10 @@ const DashboardPage = () => {
       searchRefs.current[0]!.classList.add(classes.visible);
     }, 600);
 
-    // mealPlanner, pieChart에 신호 전달
+    // mealPlanner, pieChart, detail에 신호 전달
     setIsMealPlannerUpdated((prev) => !prev);
     setIsNutChartUpdated((prev) => !prev);
+    setIsDetailUpdated((prev) => !prev);
   };
   return (
     <>
@@ -102,22 +106,30 @@ const DashboardPage = () => {
             >
               <div className={classes.nutHeader}>
                 <div>섭취 영양소</div>
-                <div className={classes.periodToggle}>
-                  <ToggleButtonGroup
-                    color="success"
-                    size="small"
-                    value={chartPeriod}
-                    exclusive
-                    onChange={handlePeriodChange}
-                    aria-label="Platform"
-                  >
-                    <ToggleButton value="day">Day</ToggleButton>
-                    <ToggleButton value="week">Week</ToggleButton>
-                    <ToggleButton value="month">Month</ToggleButton>
-                  </ToggleButtonGroup>
-                </div>
+                {isChartDataExist && (
+                  <div className={classes.periodToggle}>
+                    <ToggleButtonGroup
+                      color="success"
+                      size="small"
+                      value={chartPeriod}
+                      exclusive
+                      onChange={handlePeriodChange}
+                      aria-label="Platform"
+                    >
+                      <ToggleButton value="day">Day</ToggleButton>
+                      <ToggleButton value="week">Week</ToggleButton>
+                      <ToggleButton value="month">Month</ToggleButton>
+                    </ToggleButtonGroup>
+                  </div>
+                )}
               </div>
-              <RadarChart period={chartPeriod} isUpdated={isNutChartUpdated} />
+              <RadarChart
+                period={chartPeriod}
+                isUpdated={isNutChartUpdated}
+                onChartDataLoaded={() => {
+                  setIsChartDataExist(true);
+                }}
+              />
             </div>
             <div
               className={classes.notVisible}
@@ -143,7 +155,7 @@ const DashboardPage = () => {
             />
           </div>
           <div className={classes.detail}>
-            <Detail />
+            <Detail isUpdated={isDetailUpdated} />
           </div>
         </div>
       </div>
