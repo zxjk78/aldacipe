@@ -7,9 +7,9 @@ import { searchRecipeByKeyword2 } from '../../../api/search';
 
 // external component
 import SearchIcon from '@mui/icons-material/Search';
+import styled from '@emotion/styled';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styled from '@emotion/styled';
 
 // custom component
 import MealSearchListItem from './MealSearchListItem';

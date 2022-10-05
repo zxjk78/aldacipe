@@ -29,6 +29,7 @@ const RecipeImgContainer = (props: {
         alt={props.alt}
         width={props.width || '100px'}
         height={props.height || '100px'}
+        // style={{ borderRadius: '10px', overflow: 'hidden' }}
         onError={handleImgNotfound}
       />
     </>

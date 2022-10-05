@@ -1,7 +1,7 @@
 // global 색 변수 모음
 
 $green-primary: #058181 !global;
-$green-secondary: rgb(47, 188, 160) !global;
+$green-secondary: #2fbca0 !global;
 
 $text-primary: #474747 !global;
 $text-highlight: #000 !global;
@@ -13,6 +13,13 @@ $orange: #ff8f3b !global;
 $red: #f33620 !global;
 
 $input-focus: #a4f6e6 !global;
+
+// font-size 변수
+$fs-title: 2rem;
+$fs-recipeStep: 1.3rem;
+$fs-listItem: 1.2rem;
+
+// margin 변수
 
 // 효과에 대한 문법
 

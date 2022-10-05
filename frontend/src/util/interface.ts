@@ -26,6 +26,13 @@ export interface Ingredient {
   weight: number;
 }
 
+// search - 검색어 입력했을 때는 imgURL이 아니라 다른걸로 오게됨
+export interface CardRecipe2 extends CardRecipe {
+  image: string;
+  type: string;
+  weight: number;
+}
+
 // mypage
 export interface MyInfomation {
   height: number;
