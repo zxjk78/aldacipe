@@ -1,7 +1,6 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-
+import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const data = {
@@ -31,7 +30,7 @@ const options = {
 const PieChart = () => {
   return (
     <>
-      <Doughnut
+      <Pie
         data={data}
         options={options}
         style={{ width: '200px', height: '200px' }}
