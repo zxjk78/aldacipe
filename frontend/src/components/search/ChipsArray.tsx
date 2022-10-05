@@ -4,7 +4,11 @@ import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { Ingredient } from '../../util/interface';
-
+import {
+  ingredientCategoryDictionary,
+  ingredientCategoryColor,
+} from '../../util/data';
+import imageArr from '../../assets/ingredients';
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
@@ -14,12 +18,6 @@ export default function ChipsArray(props: {
   deleteIngre: (ingredientId: number) => void;
 }) {
   const chipData = props.ingredients;
-  const CustomChip = styled(Chip)`
-    width: auto;
-    /* text-align: right; */
-    /* background-color: blue; */
-    /* margin-left: 30px; */
-  `;
 
   const handleDelete = (chipToDelete: Ingredient) => () => {
     props.deleteIngre(+chipToDelete.id);
@@ -43,6 +41,12 @@ export default function ChipsArray(props: {
     >
       {chipData.map((data) => {
         let icon;
+        const primaryCode = ingredientCategoryColor[data.smallCategory].primary;
+        const secondaryCode =
+          ingredientCategoryColor[data.smallCategory].secondary;
+        const CustomChip = styled(Chip)`
+          width: auto;
+        `;
 
         if (data.name === 'React') {
           icon = <TagFacesIcon />;
@@ -50,13 +54,30 @@ export default function ChipsArray(props: {
 
         return (
           <ListItem key={data.id}>
-            <CustomChip
-              variant="outlined"
-              size="medium"
-              icon={icon}
-              label={'\u00A0'.repeat(7) + data.name}
-              onDelete={data.name === 'React' ? undefined : handleDelete(data)}
-            />
+            <div style={{ position: 'relative' }}>
+              <img
+                src={imageArr[ingredientCategoryDictionary[data.smallCategory]]}
+                alt="재료이미지"
+                width={'28px'}
+                height={'28px'}
+                style={{ position: 'absolute', top: '0.1rem', left: '0.5rem' }}
+              />
+
+              <CustomChip
+                variant="outlined"
+                label={'\u00A0'.repeat(7) + data.name}
+                sx={{
+                  border: '2px solid',
+                  borderColor: primaryCode,
+                  color: primaryCode,
+                  fontWeight: 'bold',
+                  // height: '40px',
+                }}
+                onDelete={
+                  data.name === 'React' ? undefined : handleDelete(data)
+                }
+              />
+            </div>
           </ListItem>
         );
       })}

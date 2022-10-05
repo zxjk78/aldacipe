@@ -1,4 +1,8 @@
-import { NutDictionary, IngredientCategoryDictionary } from './interface';
+import {
+  NutDictionary,
+  IngredientCategoryDictionary,
+  IngredientColorDictionary,
+} from './interface';
 
 // 영양소 영문-> 한글, 분류 mapping
 export const nutritionDictionary: NutDictionary = {
@@ -56,4 +60,26 @@ export const ingredientCategoryDictionary: IngredientCategoryDictionary = {
   조미료류: 16,
   유지류: 17,
   기타: 18,
+};
+
+export const ingredientCategoryColor: IngredientColorDictionary = {
+  '곡류 및 가공품': { primary: '#F1B826', secondary: '#8DEA17 ' },
+  '감자 및 전분류': { primary: '#DD9B38', secondary: '#F9E6C8' },
+  두류: { primary: '#33691E', secondary: '#DCE775' },
+  '견과류 및 종실류': { primary: '#FFDAA4', secondary: '#FC5E68' },
+  채소류: { primary: '#FF3A1A', secondary: '#79E645' },
+  버섯류: { primary: '#B27214', secondary: '#F9DCB2' },
+  과실류: { primary: '#FE9F81', secondary: '#A4D31F' },
+  해조류: { primary: '#2D9547', secondary: '#85BB40' },
+  육류: { primary: '#D2492A', secondary: '#FAE6C7' },
+  난류: { primary: '#EDE6CF', secondary: '#FFB72B' },
+  수산물: { primary: '#59CAFC', secondary: '#00B1FF' },
+  '우유 및 유제품류': { primary: '#526FFF', secondary: '#FFFFFF' },
+  차류: { primary: '#FF7171', secondary: '#FFFFFF' },
+  음료류: { primary: '#E3283F', secondary: '#FFFFFF' },
+  주류: { primary: '#99130C', secondary: '#BBE9FD' },
+  당류: { primary: '#A66335', secondary: '#EE4129' },
+  조미료류: { primary: '#84BCEE', secondary: '#C8BC78' },
+  유지류: { primary: '#FDD44B', secondary: '#84BD93' },
+  기타: { primary: '#000', secondary: '#fff' },
 };
