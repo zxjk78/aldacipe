@@ -34,6 +34,7 @@ const ingredientImgs: any = [
   img12,
   img13,
   img14,
+  img15,
   img16,
   img17,
   img18,
