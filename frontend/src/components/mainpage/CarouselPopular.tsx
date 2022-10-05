@@ -7,7 +7,7 @@ import NextArrow from './NextArrow';
 import PrevArrow from './PrevArrow';
 // css, interface
 import classes from './CarouselPopular.module.scss';
-import { CardRecipe } from './interface';
+import { CardRecipe } from '../../util/interface';
 const CarouselPopular = (props: { cardList: CardRecipe[] }) => {
   const settings = {
     dots: true,
