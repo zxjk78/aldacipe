@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-import Card from './CarouselCard';
+import Card from '../refrigerator/CarouselList';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -14,10 +14,10 @@ import selectImg from '../../assets/select.jpg';
 import { classicNameResolver } from 'typescript';
 
 const CarouselSimilar = (props: {
-  searchData: CardRecipe[];
-  getSearchData: () => CardRecipe[];
+  searchData: recipe[];
+  getSearchData: () => recipe[];
 }) => {
-  const [searchResult, setSearchResult] = useState<CardRecipe[]>([]);
+  const [searchResult, setSearchResult] = useState<recipe[]>([]);
   const settings = {
     dots: false,
     infinite: true,
@@ -47,7 +47,7 @@ const CarouselSimilar = (props: {
           />
         ) : (
           <Slider {...settings}>
-            {cardList.map((card: CardRecipe) => (
+            {cardList.map((card: recipe) => (
               <Card card={card} key={card.id} />
             ))}
           </Slider>
