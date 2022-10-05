@@ -102,4 +102,13 @@ public class RecipeController {
     public ManyResult<RecipeThumbNailResponseDto> getHealthyRecipeList(@ApiIgnore @LoginUser User loginUser) {
         return responseService.getManyResult(recipeService.getHealthyRecipeList(loginUser.getId()));
     }
+
+    @ApiOperation(value = "레시피 1인분 섭취 요청(재료 차감, 섭취 데이터 추가)")
+    @PutMapping("/{id}/intake")
+    public CommonResult intakeRecipe(@ApiIgnore @LoginUser User loginUser,
+                                     @PathVariable("id") Long recipeId) {
+        recipeService.intakeRecipe(loginUser,recipeId);
+        return responseService.getSuccessResult();
+    }
+
 }

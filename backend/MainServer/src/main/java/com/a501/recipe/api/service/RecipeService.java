@@ -4,6 +4,7 @@ import com.a501.recipe.aop.exception.FoodNotFoundException;
 import com.a501.recipe.aop.exception.RecipeNotFoundException;
 import com.a501.recipe.aop.exception.RecipeRelationalDataNotFoundException;
 import com.a501.recipe.api.domain.entity.*;
+import com.a501.recipe.api.domain.enums.IntakeType;
 import com.a501.recipe.api.dto.evaluation.EvaluationDto;
 import com.a501.recipe.api.dto.evaluation.UserEvaluationInfoDto;
 import com.a501.recipe.api.dto.ingredient.RecipeIngredientDto;
@@ -12,9 +13,7 @@ import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
-import com.a501.recipe.api.repository.EvaluationRepository;
-import com.a501.recipe.api.repository.IngredientRepository;
-import com.a501.recipe.api.repository.RecipeRepository;
+import com.a501.recipe.api.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +36,8 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final EvaluationRepository evaluationRepository;
+    private final RefrigeratorRepository refrigeratorRepository;
+    private final IntakeRepository intakeRepository;
 
     @Value("${url.server.recommendation}")
     private String RECOMMENDATION_SERVER_URL;
@@ -219,4 +220,46 @@ public class RecipeService {
     }
 
 
+    @Transactional
+    public void intakeRecipe(User loginUser, Long recipeId) {
+        Recipe recipe = recipeRepository.searchRecipeWithIngredient(recipeId)
+                .orElseThrow(RecipeNotFoundException::new);
+
+        // 사용자 섭취
+        UserIntake userIntake = UserIntake.builder()
+                .user(loginUser)
+                .intakeType(IntakeType.RECIPE)
+                .amount(recipe.getWeight())
+                .recipe(recipe)
+                .intakeDate(LocalDate.now())
+                .build();
+        intakeRepository.save(userIntake);
+
+        // 레시피 재료
+        List<RecipeIngredient> recipeIngredientList = recipe.getRecipeIngredients();
+        // 냉장고 재료
+        List<RefrigeratorIngredient> refrigeratorIngredientList = refrigeratorRepository.findAllMyRefrigeratorIngredient(loginUser);
+        Map<Long,RefrigeratorIngredient> refMap = new HashMap<>();
+        for(RefrigeratorIngredient ri : refrigeratorIngredientList) {
+            refMap.put(ri.getIngredient().getId(), ri);
+        }
+        // 냉장고 재료에 존재한다면 1인분 재료만큼 gram 수 차감
+        for(RecipeIngredient recipeIngredient : recipeIngredientList){
+            Long ingId = recipeIngredient.getIngredient().getId();
+            if(refMap.containsKey(ingId)){
+                RefrigeratorIngredient currentRefIng = refMap.get(ingId);
+                float currentWeight = currentRefIng.getWeight();
+                float weightToReduce = recipeIngredient.getWeight();
+                float reducedWeight = currentWeight-weightToReduce;
+//                System.out.println("### "+currentRefIng.getWeight()+" --> 새 무게 "+reducedWeight);
+                if(reducedWeight>0) {
+                    currentRefIng.updateWeight(reducedWeight);
+                } else {
+                    // 0 gram이 되면 냉장고 식재료에서 제거
+                    refrigeratorRepository.delete(currentRefIng);
+                }
+            }
+        }
+
+    }
 }
