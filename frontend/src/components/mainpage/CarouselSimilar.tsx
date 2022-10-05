@@ -32,7 +32,6 @@ const CarouselSimilar = (props: {
   useEffect(() => {
     const value = props.getSearchData();
     setSearchResult(value);
-    console.log(cardList, 'cardlist');
   }, [props.searchData]);
 
   const cardList = props.searchData;
