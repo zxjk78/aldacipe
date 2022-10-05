@@ -37,7 +37,7 @@ export default function UpperDetail(props: {
               : classes.footer
           }
         >
-          평균보다{' '}
+          권장량보다{' '}
           <span
             className={
               amount > 15

@@ -36,7 +36,9 @@ const RecommendRecipe = (props: {}) => {
             <div className={classes.header}>부족한 영양소 기반 추천 레시피</div>
             <div className={classes.main}>
               {recipeList.map((item) => (
-                <CardItem card={item} key={item.id} />
+                <div>
+                  <CardItem card={item} key={item.id} />
+                </div>
                 // <div>{item.name}</div>
               ))}
             </div>
