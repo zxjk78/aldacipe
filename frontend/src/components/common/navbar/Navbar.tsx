@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 // redux
 import { useDispatch } from 'react-redux';
 import { loginActions } from '../../../redux/slice/login';
@@ -15,7 +16,7 @@ import { logout } from '../../../api/auth';
 import classes from './Navbar.module.scss';
 
 export default function Navbar() {
-  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const username = useSelector((state: any) => state.login.username);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -45,13 +46,26 @@ export default function Navbar() {
         </Link>
 
         <div className={classes.menu}>
-          <Link to={`/main`}>
+          <Link
+            to={`/main`}
+            className={location.pathname === '/main' ? classes.isActive : ''}
+          >
             <div>레시피</div>
           </Link>
-          <Link to={`/myrefrigerator`}>
+          <Link
+            to={`/myrefrigerator`}
+            className={
+              location.pathname === '/myrefrigerator' ? classes.isActive : ''
+            }
+          >
             <div>내 냉장고</div>
           </Link>
-          <Link to={`/dashboard`}>
+          <Link
+            to={`/dashboard`}
+            className={
+              location.pathname === '/dashboard' ? classes.isActive : ''
+            }
+          >
             <div>영양관리</div>
           </Link>
         </div>

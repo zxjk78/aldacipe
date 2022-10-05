@@ -14,6 +14,12 @@ export default function ChipsArray(props: {
   deleteIngre: (ingredientId: number) => void;
 }) {
   const chipData = props.ingredients;
+  const CustomChip = styled(Chip)`
+    width: auto;
+    /* text-align: right; */
+    /* background-color: blue; */
+    /* margin-left: 30px; */
+  `;
 
   const handleDelete = (chipToDelete: Ingredient) => () => {
     props.deleteIngre(+chipToDelete.id);
@@ -44,9 +50,11 @@ export default function ChipsArray(props: {
 
         return (
           <ListItem key={data.id}>
-            <Chip
+            <CustomChip
+              variant="outlined"
+              size="medium"
               icon={icon}
-              label={data.name}
+              label={'\u00A0'.repeat(7) + data.name}
               onDelete={data.name === 'React' ? undefined : handleDelete(data)}
             />
           </ListItem>

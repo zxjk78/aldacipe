@@ -8,6 +8,8 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import CarouselPopular from '../components/mainpage/CarouselPopular';
 import ChipsArray from '../components/search/ChipsArray';
 import IngreSearchForm from '../components/search/IngreSearchForm';
+import RecipeCardContainerLessThanFive from '../components/search/RecipeCardContainerLessThanFive';
+
 // css
 import classes from './SearchPage.module.scss';
 /* 검색 페이지들어온다음에추가 검색이 안되는 상황 고쳐야 한다: useEffect로 고침 
@@ -127,7 +129,11 @@ export default function SearchPage(props: {}) {
               deleteIngre={removeIngredient}
             />
           </div>
-          <CarouselPopular cardList={searchList!} />
+          {searchList.length > 5 ? (
+            <CarouselPopular cardList={searchList!} />
+          ) : (
+            <RecipeCardContainerLessThanFive cardList={searchList!} />
+          )}
         </div>
       )}
     </>
