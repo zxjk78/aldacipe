@@ -33,4 +33,8 @@ public class RefrigeratorIngredient extends BaseEntity{
         this.expirationDate=refrigeratorUpdateRequestDto.getExpirationDate();
         this.weight= refrigeratorUpdateRequestDto.getWeight();
     }
+
+    public void updateWeight(float reducedWeight) {
+        this.weight=reducedWeight;
+    }
 }
