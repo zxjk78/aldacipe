@@ -21,7 +21,7 @@ const CarouselCard = (props: { card: CardRecipe }) => {
               <CardMedia
                 component="img"
                 height="150"
-                image={`${API_URL}image/${props.card.imgURL}`}
+                image={`${API_URL}image?path=${props.card.imgURL}`}
                 // image={`${API_URL}image?path=${props.card.image}`}
                 alt="green iguana"
               />

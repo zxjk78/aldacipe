@@ -124,6 +124,9 @@ export interface NutDictionary {
 export interface IngredientCategoryDictionary {
   [index: string]: number;
 }
+export interface IngredientColorDictionary {
+  [index: string]: { primary: string; secondary: string };
+}
 
 // ------------- dashboard 관련
 

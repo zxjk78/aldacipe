@@ -1,3 +1,6 @@
+// external component
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+
 // custom component
 import CuisineStep from './CuisineStep';
 import { useOutletContext } from 'react-router-dom';
@@ -5,6 +8,16 @@ import { useOutletContext } from 'react-router-dom';
 // css
 import classes from './CuisineContainer.module.scss';
 import { Manual, RecipeDetail } from '../../../util/interface';
+import styled from '@emotion/styled';
+
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    padding: '8px 16px',
+    maxWidth: 400,
+  },
+});
 
 const CuisineContainer = (props: {}) => {
   const completeCooking = () => {
@@ -25,7 +38,7 @@ const CuisineContainer = (props: {}) => {
             ))}
 
             <button className={classes.complete} onClick={completeCooking}>
-              완료
+              요리 완료
             </button>
           </div>
         </div>
