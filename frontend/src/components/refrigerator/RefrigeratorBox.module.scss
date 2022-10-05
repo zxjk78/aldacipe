@@ -1,4 +1,4 @@
-@import '../../global.scss';
+@import '../../_global.scss';
 .wrapper {
   text-align: center;
 }
@@ -32,6 +32,22 @@
   overflow-y: auto;
 }
 .ingredinetHeader {
+  text-align: start;
+  margin-left: 1rem;
+}
+.expirationList {
+  display: inline-block;
+  border: solid;
+  border-radius: 10px;
+  border-color: $red;
+  background-color: #fafafa;
+  width: 80%;
+  height: 25vh;
+  overflow-y: auto;
+  margin-top: 2rem;
+}
+.expirationHeader {
+  color: $red;
   text-align: start;
   margin-left: 1rem;
 }

@@ -16,7 +16,7 @@ const CuisineStep = (props: { step: Manual }) => {
         <StepImgContainer
           src={`${API_URL}image?path=${props.step.image}`}
           alt={`요리법${props.step.order}`}
-          width={'180px'}
+          width={'200px'}
           height={'180px'}
         />
         <div>

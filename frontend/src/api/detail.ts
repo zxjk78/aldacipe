@@ -50,3 +50,15 @@ export const createRating = async (recipeId: number, rating: number) => {
     console.log(error);
   }
 };
+export const createIntakeInDetail = async (recipeId: number) => {
+  try {
+    const response: any = await axiosAuthInstance.put(
+      `recipe/${recipeId}/intake`
+    );
+    // console.log(response);
+
+    return response.data.success;
+  } catch (error) {
+    console.log(error);
+  }
+};

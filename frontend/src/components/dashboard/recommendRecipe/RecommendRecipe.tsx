@@ -11,12 +11,12 @@ import { fetchHealthyRecipe } from '../../../api/dashboard';
 import CardItem from './CardItem';
 // css, interface(type)
 import classes from './RecommendRecipe.module.scss';
-import { CardRecipe } from '../../../util/interface';
+import { CardRecipe2 } from '../../../util/interface';
 
 // 부모: DashboardPage.tsx
 
 const RecommendRecipe = (props: {}) => {
-  const [recipeList, setRecipeList] = useState<CardRecipe[] | null>(null);
+  const [recipeList, setRecipeList] = useState<CardRecipe2[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);

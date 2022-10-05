@@ -21,4 +21,9 @@ public interface RefrigeratorRepository extends JpaRepository<RefrigeratorIngred
     @Query("select new com.a501.recipe.api.dto.ingredient.RefrigeratorIngredientDto(i.id, i.name, i.largeCategory, i.smallCategory, ri.weight, ri.expirationDate)" +
             " from RefrigeratorIngredient ri join ri.ingredient i where ri.user=:user")
     List<RefrigeratorIngredientDto> searchAllMyRefrigeratorIngredient(@Param("user") User user);
+
+    List<RefrigeratorIngredient> findAllByUser(User loginUser);
+
+    @Query("select ri from RefrigeratorIngredient ri join fetch ri.ingredient i where ri.user=:user")
+    List<RefrigeratorIngredient> findAllMyRefrigeratorIngredient(@Param("user") User loginUser);
 }

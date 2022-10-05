@@ -13,13 +13,14 @@ import RecipeImgContainer from '../../UI/RecipeImgContainer';
 
 // css, interfacde
 import classes from './CardItem.module.scss';
-import { CardRecipe } from '../../../util/interface';
+import { CardRecipe, CardRecipe2 } from '../../../util/interface';
 import { API_URL } from '../../../api/config/http-config';
 
-const CardItem = (props: { card: CardRecipe }) => {
+const CardItem = (props: { card: CardRecipe2 }) => {
   // const linkDetail = (id: number) => {
   //   <Link></Link>
   // }
+
   return (
     <>
       <div className={classes.card}>
@@ -27,7 +28,9 @@ const CardItem = (props: { card: CardRecipe }) => {
           <Card sx={{ maxWidth: 225 }}>
             <CardActionArea>
               <RecipeImgContainer
-                src={`${API_URL}image?path=${props.card.imgURL}`}
+                src={`${API_URL}image?path=${
+                  props.card.image || props.card.imgURL
+                }`}
                 alt="카드이미지"
                 height="150px"
                 width="100%"
@@ -38,7 +41,7 @@ const CardItem = (props: { card: CardRecipe }) => {
                   {props.card.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {props.card.avgScore}
+                  {/* {props.card.avgScore} */}
                 </Typography>
               </CardContent>
             </CardActionArea>

@@ -10,8 +10,10 @@
 import CardItem from '../dashboard/recommendRecipe/CardItem';
 // css, interface(type)
 import classes from './RecipeCardContainerLessThanFive.module.scss';
-import { CardRecipe } from '../../util/interface';
-const RecipeCardContainerLessThanFive = (props: { cardList: CardRecipe[] }) => {
+import { CardRecipe2 } from '../../util/interface';
+const RecipeCardContainerLessThanFive = (props: {
+  cardList: CardRecipe2[];
+}) => {
   return (
     <>
       <div className={classes.wrapper}>
