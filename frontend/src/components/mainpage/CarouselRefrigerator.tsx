@@ -5,12 +5,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import NextArrow from './NextArrow';
 import PrevArrow from './PrevArrow';
-import { refrigeratorRecipe } from '../../api/main'
+import { refrigeratorRecipe } from '../../api/main';
 // css
 import classes from './CarouselRefrigerator.module.scss';
-import { CardRecipe } from './interface';
+import { CardRecipe } from '../../util/interface';
 
-const CarouselRefrigerator= (props: {list:never[]}) => {
+const CarouselRefrigerator = (props: { list: never[] }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -28,7 +28,9 @@ const CarouselRefrigerator= (props: {list:never[]}) => {
     <>
       <section className={classes.carousel}>
         <Slider {...settings}>
-          {cardList.map((card:CardRecipe)=>(<Card card={card} key={card.id}/>))}
+          {cardList.map((card: CardRecipe) => (
+            <Card card={card} key={card.id} />
+          ))}
         </Slider>
       </section>
     </>
