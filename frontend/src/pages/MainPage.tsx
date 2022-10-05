@@ -6,14 +6,24 @@ import CarouselSimilar from '../components/mainpage/CarouselSimilar';
 import Banner from '../components/mainpage/Banner';
 import { refrigeratorRecipe, userLikeRecipe, popularRecipe } from '../api/main';
 
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import ContentLoader from 'react-content-loader'
 // css
 import classes from './MainPage.module.scss';
 import { classicNameResolver } from 'typescript';
 import { divide } from 'lodash';
+
+const MyLoader = () => (
+  <ContentLoader viewBox="0 0 1360 220" height={220} width={1360}>
+    <rect x="100" y="20" rx="8" ry="8" width="200" height="200" />
+    <rect x="320" y="20" rx="8" ry="8" width="200" height="200" />
+    <rect x="540" y="20" rx="8" ry="8" width="200" height="200" />
+    <rect x="760" y="20" rx="8" ry="8" width="200" height="200" />
+    <rect x="980" y="20" rx="8" ry="8" width="200" height="200" />
+  </ContentLoader> 
+);
+
 const MainPage: React.FC<{}> = () => {
-  const [isLoading1, setIsLoading1] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [refrige, setRefrige] = useState([])
   const [userLike, setUserLike] = useState([])
   const [popular, setPopular] = useState([])
@@ -34,44 +44,21 @@ const MainPage: React.FC<{}> = () => {
       // console.log(data);
       setRefrige(data);
     })();
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }, []);
 
-  // test
-  // const refriRefresh = () => {
-  //   setIsLoading(true);
-  //   (async () => {
-  //     const data = await refrigeratorRecipe();
-  //     // console.log(data);
-  //     setRefrige(data);
-  //   })();
-  // }
-  // const likeRefresh = () => {
-  //   (async () => {
-  //     const data = await userLikeRecipe();
-  //     // console.log(data);
-  //     setUserLike(data);
-  //   })();
-  // }
-  // const popularRefresh = () => {
-  //   (async () => {
-  //     const data = await popularRecipe();
-  //     // console.log(data);
-  //     setPopular(data);
-  //   })();
-  // }
   return (
     <div className={classes.container}>
       <div className={classes.container_box}>
         <Banner />
-        <h2 className={classes.text}>회원님과 입맛이 비슷한 유저가 추천하는 요리</h2>
-        {/* <button onClick={likeRefresh}>입맛 refresh</button> */}
-        <CarouselRefrigerator list={userLike}/>
-        <h2 className={classes.text}>가장 인기있는 요리</h2>
-        <CarouselRefrigerator list={popular}/>
-        {/* <button onClick={popularRefresh}>인기 refresh</button> */}
         <h2 className={classes.text}>냉장고 재료로 만들 수 있는 요리</h2>
-        <CarouselRefrigerator list={refrige}/>
-        {/* <button onClick={refriRefresh}>냉장고 refresh</button> */}
+        {isLoading ? <MyLoader />: <CarouselRefrigerator list={refrige}/>}
+        <h2 className={classes.text}>회원님과 입맛이 비슷한 유저가 추천하는 요리</h2>
+        {isLoading ? <MyLoader />: <CarouselRefrigerator list={userLike}/>}
+        <h2 className={classes.text}>가장 인기있는 요리</h2>
+        {isLoading ? <MyLoader />: <CarouselRefrigerator list={popular}/>}
       </div>
     </div>
   );
