@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 
 import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
+import ExpirationList from './ExpirationList';
 import { getRefrigerator } from '../../api/myrefrigerator';
 import MyIngredientList from './MyIngredientList';
 import { ingredient } from './interface';
@@ -29,6 +30,7 @@ export default function RefrigeratorBox(props:{
   item:ingredient[]; addIngredient: (data:ingredient) => void;
 }) {
   const [open, setOpen] = React.useState(false);
+  const [expirationIngredient, setExpirationIngredient] = useState<any[]>([])
   const handleOpen = () => {
     setOpen(true);
   };
@@ -36,7 +38,21 @@ export default function RefrigeratorBox(props:{
     setOpen(false);
   };
 
-  
+  useEffect(() => {
+    const today:any = new Date();
+    const tmp:any[] = []
+    props.item.map((item:any) => {
+      const dday:any = new Date(`${item.expirationDate} 00:00:00`);
+      const gapNum = dday - today;
+      const expirationDate = Math.ceil(gapNum / (1000 * 60 * 60 * 24));
+      if (expirationDate < 4) {
+        item.Dday = expirationDate
+        tmp.push(item)
+      }
+    })
+    setExpirationIngredient(tmp)
+  }, [props.item])
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.container}>
@@ -67,7 +83,17 @@ export default function RefrigeratorBox(props:{
             // removeItem={removeItem}
           />
         ))}
-      </div> 
+      </div>
+      <div className={classes.expirationList}>
+        <h3 className={classes.expirationHeader}>유통기한 임박 재료</h3>
+        {expirationIngredient.map((item) => (
+          <ExpirationList
+            key={item.id}
+            item={item}
+            // removeItem={removeItem}
+          />
+        ))}
+      </div>
     </div>
   );
 }
