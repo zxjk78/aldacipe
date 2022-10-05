@@ -5,6 +5,13 @@ import Paper from '@mui/material/Paper';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { Ingredient } from '../../util/interface';
 
+const CustomChip = styled(Chip)`
+  width: auto;
+  /* text-align: right; */
+  /* background-color: blue; */
+  /* margin-left: 30px; */
+`;
+
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
@@ -44,9 +51,11 @@ export default function ChipsArray(props: {
 
         return (
           <ListItem key={data.id}>
-            <Chip
+            <CustomChip
+              variant="outlined"
+              size="medium"
               icon={icon}
-              label={data.name}
+              label={'\u00A0'.repeat(7) + data.name}
               onDelete={data.name === 'React' ? undefined : handleDelete(data)}
             />
           </ListItem>

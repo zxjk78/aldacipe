@@ -344,7 +344,8 @@ export const FormContent3: React.FC<{
           autoFocus
         />
         <div className={classes.pwMsg}>
-          {!pwValid && '비밀번호는 특수문자를 포함한 6-16자리로 입력해 주세요'}
+          {!pwValid &&
+            '비밀번호는 특수문자를 포함한 영숫자 6-16자리로 입력해 주세요'}
         </div>
       </div>
       <label htmlFor="password1">비밀번호 확인</label>
