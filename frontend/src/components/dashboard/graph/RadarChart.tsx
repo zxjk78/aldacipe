@@ -133,9 +133,13 @@ const RadarChart = (props: {
                   scales: {
                     r: {
                       display: true,
+                      max: 200,
+                      min: 0,
+                      // suggestedMax: 100,
+                      // suggestedMin: 0,
                       ticks: {
                         display: false,
-
+                        stepSize: 20,
                         callback: function (value, index, ticks) {
                           return value + '%';
                         },

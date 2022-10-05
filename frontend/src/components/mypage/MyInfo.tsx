@@ -86,26 +86,34 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
             <form onSubmit={modifyUserInfo}>
               <div className={classes.modalContainer}>
                 <div>
-                  키{' '}
+                  이름
                   <span>
-                    <input
-                      type="number"
-                      ref={heightRef}
-                      defaultValue={myInfo?.height}
-                    />
-                  </span>{' '}
-                  cm
+                    <input type="text" />
+                  </span>
                 </div>
                 <div>
-                  몸무게{' '}
-                  <span>
-                    <input
-                      type="number"
-                      ref={weightRef}
-                      defaultValue={myInfo?.weight}
-                    />
-                  </span>{' '}
-                  kg
+                  <div>
+                    키{' '}
+                    <span>
+                      <input
+                        type="number"
+                        ref={heightRef}
+                        defaultValue={myInfo?.height}
+                      />
+                    </span>{' '}
+                    cm
+                  </div>
+                  <div>
+                    몸무게{' '}
+                    <span>
+                      <input
+                        type="number"
+                        ref={weightRef}
+                        defaultValue={myInfo?.weight}
+                      />
+                    </span>{' '}
+                    kg
+                  </div>
                 </div>
               </div>
               <button>수정하기</button>
