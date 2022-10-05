@@ -8,6 +8,8 @@ import moment from 'moment';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 // custom component
@@ -27,12 +29,21 @@ const MyBox = styled(Box)`
   padding: 10px;
 `;
 
+const CustomButton = styled(Button)`
+  background-color: #2fbca0;
+  color: #fff;
+  &:hover {
+    background-color: #058181;
+  }
+`;
+
 export default function MyInfo(props: { modifySuccess: () => void }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [myInfoLoading, setMyInfoLoading] = useState(true);
   const [myInfo, setMyInfo] = useState<MyInfomation | null>(null);
   const weightRef = useRef<HTMLInputElement | null>(null);
   const heightRef = useRef<HTMLInputElement | null>(null);
+  const nameRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     setMyInfoLoading(true);
     (async () => {
@@ -51,9 +62,11 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
   };
   const modifyUserInfo = async (event: FormEvent) => {
     event.preventDefault();
+    const newName = nameRef.current!.value;
     const newWeight = +weightRef.current!.value;
     const newHeight = +heightRef.current!.value;
     const data = await modifyMyInfo({
+      name: newName,
       height: newHeight,
       weight: newWeight,
     });
@@ -86,9 +99,14 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
             <form onSubmit={modifyUserInfo}>
               <div className={classes.modalContainer}>
                 <div>
-                  이름
+                  이름{' '}
                   <span>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      className={classes.inputName}
+                      defaultValue={myInfo?.name}
+                      ref={nameRef}
+                    />
                   </span>
                 </div>
                 <div>
@@ -116,7 +134,11 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
                   </div>
                 </div>
               </div>
-              <button>수정하기</button>
+              <div className={classes.btnContainer}>
+                <CustomButton type="submit" variant="contained">
+                  수정하기
+                </CustomButton>
+              </div>
             </form>
           </Typography>
         </MyBox>
@@ -136,6 +158,9 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
               </div>
             </div>
             <div className={classes.main}>
+              <div>
+                이름 <span>{myInfo?.name}</span>
+              </div>
               <div>
                 성별{' '}
                 <span>{myInfo?.gender === 'FEMALE' ? '여성' : '남성'}</span>

@@ -14,9 +14,12 @@ import { nutritionDictionary } from '../../../util/data';
 export default function UpperDetail(props: {
   nutName: string;
   nutValue: number;
+  nutValueReco: number;
 }) {
   const result = nutritionDictionary[props.nutName];
-
+  const ratio = (props.nutValue / props.nutValueReco) * 100;
+  const isLower = ratio <= 100;
+  const amount = isLower ? 100 - ratio : ratio - 100;
   return (
     <>
       <div className={classes.container}>
@@ -27,7 +30,27 @@ export default function UpperDetail(props: {
             {result.scale}
           </div>
         </div>
-        {/* <div className={classes.footer}>{`평균보다 12% 낮습니다.`}</div> */}
+        <div
+          className={
+            result.scale === 'g'
+              ? `${classes.footer} ${classes.gramFooter}`
+              : classes.footer
+          }
+        >
+          평균보다{' '}
+          <span
+            className={
+              amount > 15
+                ? classes.red
+                : amount > 10
+                ? classes.orange
+                : classes.green
+            }
+          >
+            {amount.toFixed(1)}%
+          </span>{' '}
+          <span>{isLower ? '낮습니다' : '높습니다'}</span>
+        </div>
       </div>
     </>
   );

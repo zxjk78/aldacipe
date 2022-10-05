@@ -13,6 +13,7 @@ export const fetchMyInfo = async () => {
 export const modifyMyInfo = async (data: {
   height: number;
   weight: number;
+  name: string;
 }) => {
   try {
     const response: any = await axiosAuthInstance.put(

@@ -39,6 +39,7 @@ export interface MyInfomation {
   weight: number;
   gender: string;
   birthDay: Date;
+  name: string;
 }
 
 // 냉장고
