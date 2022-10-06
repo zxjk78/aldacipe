@@ -44,11 +44,11 @@ const RecommendRecipe = (props: {}) => {
             <div className={classes.header}>
               <div>부족한 영양소 기반 추천 레시피</div>
               <div className={classes.arrowContainer}>
-                <span onClick={handleBackword}>
+                <span onClick={handleBackword} className={classes.arrow}>
                   <ArrowBackIosNewIcon />
                 </span>
                 <div>{`${targetRecipeId + 1} / ${recipeList.length}`}</div>
-                <span onClick={handleForword}>
+                <span onClick={handleForword} className={classes.arrow} >
                   <ArrowForwardIosIcon />
                 </span>
               </div>
