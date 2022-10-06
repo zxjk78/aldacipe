@@ -15,6 +15,7 @@ export interface CardRecipe {
   name: string;
   imgURL: string;
   avgScore: number;
+  evalCnt: number;
 }
 
 // search, mypage
