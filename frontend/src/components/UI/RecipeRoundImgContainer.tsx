@@ -9,9 +9,9 @@
 // custom component
 
 // css, interface(type)
-import classes from './RecipeImgContainer.module.scss';
+import classes from './RecipeRoundImgContainer.module.scss';
 
-const RecipeImgContainer = (props: {
+const RecipeRoundImgContainer = (props: {
   src: string;
   width?: string;
   height?: string;
@@ -24,17 +24,17 @@ const RecipeImgContainer = (props: {
     event.currentTarget.src = require('../../assets/recipeImgNotfound.png');
   };
   return (
-    <>
+    <div className={classes.img_container}>
       <img
         src={props.src}
         alt={props.alt}
-        width={props.width || '100px'}
-        height={props.height || '100px'}
+        width={props.width || '80'}
+        height={props.height || '80px'}
         // style={{ borderRadius: '10px', overflow: 'hidden' }}
         onError={handleImgNotfound}
-        
+        className={classes.round_img}
       />
-    </>
+    </div>
   );
 };
-export default RecipeImgContainer;
+export default RecipeRoundImgContainer;

@@ -27,8 +27,10 @@ const CarouselList = (props: { card: recipe }) => {
                 alt="green iguana"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {props.card.name}
+                <Typography gutterBottom variant="h6" component="div">
+                  {props.card.name.length < 9
+                    ? props.card.name
+                    : props.card.name.substring(0, 7) + '...'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {/* {props.card.avgScore} */}
