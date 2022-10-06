@@ -39,7 +39,7 @@ export default function RefrigeratorBox(props: {
     setOpen(false);
   };
 
-  // const [grainList, meatList, SeafoodList, DairyList, DrinkList, ];
+  // const [grainList, meatList, SeafoodList, DairyList, DrinkList, SeasoningList];
 
   useEffect(() => {
     const today: any = new Date();
