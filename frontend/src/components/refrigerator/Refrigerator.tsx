@@ -20,11 +20,7 @@ export default function Refrigerator(props: {
     <>
       <div className={classes.container}>
         <div className={classes.itemList}>
-          <RefrigeratorList
-            item={selectedIngredientList}
-            searchIngre={props.searchIngre}
-            deleteIngre={props.deleteIngre}
-          />
+          <RefrigeratorList item={selectedIngredientList} />
         </div>
       </div>
     </>

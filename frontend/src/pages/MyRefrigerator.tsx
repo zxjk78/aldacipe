@@ -75,16 +75,16 @@ export default function MyRefrigerator() {
         <div className={classes.refrigerator}>
           <RefrigeratorBox item={ingredient} addIngredient={addIngredient} />
         </div>
-        <div className={classes.ingredientlist}>
-          <h2>Refrigerator</h2>
+        <div className={classes.ingredientlistContainer}>
+          <div>현재 선택한 재료</div>
           <Refrigerator
             item={ingredient}
             searchIngre={searchIngre}
             deleteIngre={deleteIngre}
           />
         </div>
-        <div className={classes.foodlist}>
-          <h2>선택한 재료로 만들 수 있는 음식</h2>
+        <div className={classes.foodlistContainer}>
+          <div>선택한 재료로 만들 수 있는 음식</div>
           <CarouselSimilar
             searchData={searchData}
             getSearchData={getSearchData}
