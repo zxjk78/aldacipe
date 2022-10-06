@@ -37,6 +37,7 @@ const ReviewContainer = (props: {
 
   const fetchReviewFnc = async (recipeId: number) => {
     const data = await fetchReview(recipeId);
+    // 시간 들어오는지 체크!!
     setReviewList(data);
   };
 
@@ -134,6 +135,7 @@ const ReviewContainer = (props: {
                 </div>
               ) : (
                 reviewList.map((review) => (
+                  // 시간 오면 표시
                   <ReviewItem key={review.id} review={review} />
                 ))
               )}
