@@ -14,6 +14,7 @@ import { recipe } from '../refrigerator/interface';
 import selectImg from '../../assets/select.jpg';
 
 import { Ingredient } from '../../util/interface';
+import CardListLessThanThree from './CardListLessThanThree';
 const CarouselSimilar = (props: { selectedItemList: Ingredient[] }) => {
   const [searchResult, setSearchResult] = useState<recipe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +59,8 @@ const CarouselSimilar = (props: { selectedItemList: Ingredient[] }) => {
               src={selectImg}
               alt="재료를 선택해 주세요"
             />
+          ) : searchResult?.length <= 3 ? (
+            <CardListLessThanThree cardList={searchResult} />
           ) : (
             <Slider {...settings}>
               {searchResult.map((card: recipe) => (

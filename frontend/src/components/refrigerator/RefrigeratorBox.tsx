@@ -14,14 +14,14 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-
-import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
 import ExpirationList from './ExpirationList';
 import { getRefrigerator } from '../../api/myrefrigerator';
 import MyIngredientList from './MyIngredientList';
 import { ingredient } from './interface';
 import { sortByLargeCategory } from '../../util/fuctions';
+// css
+import classes from './RefrigeratorBox.module.scss';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -57,15 +57,6 @@ export default function RefrigeratorBox(props: {
 
   useEffect(() => {
     // 대분류 단위로 분배
-    // const [
-    //   grainList,
-    //   meatList,
-    //   seafoodList,
-    //   dairyList,
-    //   drinkList,
-    //   seasoningList,
-    //   otherList,
-    // ]
 
     const tmp = sortByLargeCategory(props.item);
     setLargeCategoryList(tmp);
@@ -102,103 +93,105 @@ export default function RefrigeratorBox(props: {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.container}>
-        <h2 className={classes.header} onClick={handleOpen}>
-          식재료 등록{' '}
-          <span>
-            <IoAddCircleOutline />
-          </span>
-        </h2>
-        <div className={classes.button}>
-          <Modal
-            hideBackdrop
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="child-modal-title"
-            aria-describedby="child-modal-description"
-          >
-            <Box sx={{ ...style, width: 500 }}>
-              <h2 id="child-modal-title">냉장고에 재료 추가하기</h2>
-              <MyRefrigeSearchInput
-                onAddItem={handleAddItem}
-                placeholder={'재료명 검색'}
-              />
-              <Button className={classes.closebutton} onClick={handleClose}>
-                나가기
-              </Button>
-            </Box>
-          </Modal>
-        </div>
+      <div className={classes.modalContainer}>
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
+        >
+          <Box sx={{ ...style, width: 500 }}>
+            <h2 id="child-modal-title">냉장고에 재료 추가하기</h2>
+            <MyRefrigeSearchInput
+              onAddItem={handleAddItem}
+              placeholder={'재료명 검색'}
+            />
+            <Button className={classes.closebutton} onClick={handleClose}>
+              나가기
+            </Button>
+          </Box>
+        </Modal>
       </div>
       {largeCategoryList && (
-        <>
-          <div className={classes.ingredientHeader}>
-            <div>내 냉장고 속 재료</div>
-            <ToggleButtonGroup
-              color="success"
-              value={isCookToggle}
-              exclusive
-              onChange={handleModeChange}
-              aria-label="CookModeToggle"
-            >
-              <ToggleButton value="default">
-                <KitchenIcon />
-              </ToggleButton>
-              <ToggleButton value="cook">
-                <RestaurantIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-          <div className={classes.ingredientListCategory}>
-            {largeCategoryList[0].length > 0 && (
-              <MyIngredientList
-                key={0}
-                itemList={largeCategoryList[0]}
-                name={'곡류 및 채소'}
-              />
-            )}
-            {largeCategoryList[1].length > 0 && (
-              <MyIngredientList
-                key={1}
-                itemList={largeCategoryList[1]}
-                name={'육류'}
-              />
-            )}
-            {largeCategoryList[2].length > 0 && (
-              <MyIngredientList
-                key={2}
-                itemList={largeCategoryList[2]}
-                name={'수산물'}
-              />
-            )}
-            {largeCategoryList[3].length > 0 && (
-              <MyIngredientList
-                key={3}
-                itemList={largeCategoryList[3]}
-                name={'유제품'}
-              />
-            )}
-            {largeCategoryList[4].length > 0 && (
-              <MyIngredientList
-                key={4}
-                itemList={largeCategoryList[4]}
-                name={'음료'}
-              />
-            )}
-            {largeCategoryList[5].length > 0 && (
-              <MyIngredientList
-                key={5}
-                itemList={largeCategoryList[5]}
-                name={'조미료 및 기름'}
-              />
-            )}
-            {largeCategoryList[6].length > 0 && (
-              <MyIngredientList
-                key={6}
-                itemList={largeCategoryList[6]}
-                name={'기타'}
-              />
-            )}
+        <div className={classes.container}>
+          <div className={classes.normalRefrigContainer}>
+            <div className={classes.ingredientHeader}>
+              <div>
+                <div>내 냉장고 속 재료</div>
+                <div onClick={handleOpen}>
+                  식재료 등록{' '}
+                  <span>
+                    <IoAddCircleOutline />
+                  </span>
+                </div>
+              </div>
+              <ToggleButtonGroup
+                color="success"
+                value={isCookToggle}
+                exclusive
+                onChange={handleModeChange}
+                aria-label="CookModeToggle"
+              >
+                <ToggleButton value="default">
+                  <KitchenIcon />
+                </ToggleButton>
+                <ToggleButton value="cook">
+                  <RestaurantIcon />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+            <div className={classes.ingredientListCategoryContainer}>
+              {largeCategoryList[0].length > 0 && (
+                <MyIngredientList
+                  key={0}
+                  itemList={largeCategoryList[0]}
+                  name={'곡류 및 채소'}
+                />
+              )}
+              {largeCategoryList[1].length > 0 && (
+                <MyIngredientList
+                  key={1}
+                  itemList={largeCategoryList[1]}
+                  name={'육류'}
+                />
+              )}
+              {largeCategoryList[2].length > 0 && (
+                <MyIngredientList
+                  key={2}
+                  itemList={largeCategoryList[2]}
+                  name={'수산물'}
+                />
+              )}
+              {largeCategoryList[3].length > 0 && (
+                <MyIngredientList
+                  key={3}
+                  itemList={largeCategoryList[3]}
+                  name={'유제품'}
+                />
+              )}
+              {largeCategoryList[4].length > 0 && (
+                <MyIngredientList
+                  key={4}
+                  itemList={largeCategoryList[4]}
+                  name={'음료'}
+                />
+              )}
+              {largeCategoryList[5].length > 0 && (
+                <MyIngredientList
+                  key={5}
+                  itemList={largeCategoryList[5]}
+                  name={'조미료 및 기름'}
+                />
+              )}
+              {largeCategoryList[6].length > 0 && (
+                <MyIngredientList
+                  key={6}
+                  itemList={largeCategoryList[6]}
+                  name={'기타'}
+                />
+              )}
+            </div>
           </div>
           <div className={classes.expirationList}>
             <div className={classes.expirationHeader}>유통기한 임박 재료</div>
@@ -209,7 +202,7 @@ export default function RefrigeratorBox(props: {
               />
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

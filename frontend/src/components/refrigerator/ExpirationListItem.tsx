@@ -18,7 +18,7 @@ const ExpirationListItem = (props: { ingredient: any }) => {
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}>D-{props.ingredient.Dday}</div>
+          <div className={classes.header}>D{props.ingredient.Dday}</div>
           <div className={classes.main}>
             <img
               src={
@@ -26,18 +26,25 @@ const ExpirationListItem = (props: { ingredient: any }) => {
                   ingredientCategoryDictionary[props.ingredient.smallCategory]
                 ]
               }
-              width={'40px'}
-              height={'40px'}
+              width={'50px'}
+              height={'45px'}
               alt="재료"
             />
+          </div>
+          <div className={classes.footer}>
             <div>
-              <div className={classes.ingreInfo}>
-                <div>{props.ingredient.name}</div>
-                <div>{props.ingredient.weight}g</div>
+              <div>
+                <span>
+                  {props.ingredient.name.length < 8
+                    ? props.ingredient.name
+                    : props.ingredient.name.substring(0, 5) + '...'}
+                </span>
+                <span> {props.ingredient.weight}g</span>
               </div>
-              <div className={classes.footer}>
-                <AccessTimeIcon /> <div>{props.ingredient.expirationDate}</div>
-              </div>
+            </div>
+            <div className={classes.expDate}>
+              <AccessTimeIcon fontSize="small" />{' '}
+              <span>{props.ingredient.expirationDate.substring(5)}</span>
             </div>
           </div>
         </div>

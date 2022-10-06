@@ -3,8 +3,12 @@
   text-align: center;
 }
 .container {
-  display: flex;
-  justify-content: end;
+  // display: flex;
+  // justify-content: end;
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+  row-gap: 2rem;
+  height: 100vh;
 }
 .header {
   display: flex;
@@ -28,8 +32,12 @@
   bottom: 10px;
   right: 10px;
 }
+.normalRefrigContainer {
+  height: 100%;
+  // background-color: red;
+}
 
-.ingredientListCategory {
+.ingredientListCategoryContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -38,7 +46,6 @@
   border-radius: 10px;
   border-color: $green-secondary;
   overflow-y: auto;
-  height: 60vh;
   background-color: #fff;
   // background-color: red;
 
@@ -48,15 +55,41 @@
 .ingredientHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   text-align: start;
   margin-left: 1rem;
-  color: $green-secondary;
+  padding: 0.5rem;
+  color: $green-primary;
+  font-weight: bold;
   font-size: 1.2rem;
+  > div:nth-of-type(1) {
+    display: flex;
+    gap: 1rem;
+    > div:nth-of-type(2) {
+      font-size: 1rem;
+      color: $text-primary;
+      cursor: pointer;
+      &:hover {
+        // background-color: $green-primary;
+        color: $green-secondary;
+        transition: 0.3s;
+      }
+    }
+  }
 }
 
 .expirationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: start;
+  margin-left: 1rem;
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.2rem;
   color: $red;
   text-align: start;
+  font-weight: bold;
 }
 .expirationContainer {
   width: 100vh;
@@ -69,5 +102,5 @@
   background-color: #fafafa;
   height: 25vh;
   overflow-x: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
