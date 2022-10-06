@@ -19,7 +19,6 @@ import CuisineContainer from '../src/components/detail/cuisine/CuisineContainer'
 import NutScoreContainer from './components/detail/NutScoreContainer';
 // 냉장고 페이지
 import MyRefrigerator from './pages/MyRefrigerator';
-import MyRefrigerator2 from './pages/MyRefrigerator2';
 
 // 테스트용 임시 라우팅
 

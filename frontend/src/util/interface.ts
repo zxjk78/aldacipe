@@ -23,6 +23,7 @@ export interface Ingredient {
   id: number;
   name: string;
   largeCategory: string;
+  expirationDate?: string | any;
   smallCategory: string;
   weight: number;
 }

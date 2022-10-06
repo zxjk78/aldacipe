@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { IoAddCircleOutline } from 'react-icons/io5';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { refrigeratorActions } from '../../redux/slice/refrigerator';
+
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+
+// external component
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import KitchenIcon from '@mui/icons-material/Kitchen';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
@@ -32,6 +43,7 @@ export default function RefrigeratorBox(props: {
   item: ingredient[];
   addIngredient: (data: ingredient) => void;
 }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [expirationIngredient, setExpirationIngredient] = useState<any[]>([]);
   const handleOpen = () => {
@@ -50,9 +62,18 @@ export default function RefrigeratorBox(props: {
     seasoningList,
     otherList,
   ] = sortByLargeCategory(props.item);
-  // console.log(grainList, meatList, seafoodList);
+  // 냉장고 모드체인지
 
-  // const largeCategoryList = sortByLargeCategory(props.item);
+  const isCookToggle = useSelector((state: any) => state.refrigerator.isCook)
+    ? 'cook'
+    : 'default';
+
+  const handleModeChange = () => {
+    if (isCookToggle === 'cook') {
+      dispatch(refrigeratorActions.emptyIngredients());
+    }
+    dispatch(refrigeratorActions.toggleIsCook());
+  };
 
   useEffect(() => {
     const today: any = new Date();
@@ -96,7 +117,23 @@ export default function RefrigeratorBox(props: {
           </Modal>
         </div>
       </div>
-      <h3 className={classes.ingredientHeader}>내 냉장고 속 재료</h3>
+      <div className={classes.ingredientHeader}>
+        <div>내 냉장고 속 재료</div>
+        <ToggleButtonGroup
+          color="success"
+          value={isCookToggle}
+          exclusive
+          onChange={handleModeChange}
+          aria-label="CookModeToggle"
+        >
+          <ToggleButton value="default">
+            <KitchenIcon />
+          </ToggleButton>
+          <ToggleButton value="cook">
+            <RestaurantIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
       <div className={classes.ingredientListCategory}>
         {grainList && (
           <MyIngredientList
