@@ -1,3 +1,4 @@
+import React, { useRef, useState } from 'react';
 // external module
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,32 +13,25 @@ import MealDetail from '../components/dashboard/mealPlanner/MealDetail';
 import RecommendRecipe from '../components/dashboard/recommendRecipe/RecommendRecipe';
 // css
 import classes from './DashboardPage.module.scss';
-import React, { useRef, useState } from 'react';
+import { Intake } from '../util/interface';
 
 const DashboardPage = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
-  const [isMealPlannerUpdated, setIsMealPlannerUpdated] = useState(false);
-  const [isNutChartUpdated, setIsNutChartUpdated] = useState(false);
-  const [isDetailUpdated, setIsDetailUpdated] = useState(false);
   const [chartPeriod, setChartPeriod] = useState('day');
   const [isChartDataExist, setIsChartDataExist] = useState(false);
 
-  const [foodInfo, setFoodInfo] = useState<{
-    foodId: number;
-    foodType: string;
-  }>({
-    foodId: 0,
-    foodType: '',
-  });
+  const [foodInfo, setFoodInfo] = useState<Intake | null>(null);
   const searchRefs = useRef<HTMLDivElement[] | null[]>([]);
 
+  const [isIntakeUpdated, setIsIntakeUpdated] = useState(false);
+  // const [isMealPlannerUpdated, setIsMealPlannerUpdated] = useState(false);
+  // const [isNutChartUpdated, setIsNutChartUpdated] = useState(false);
+  // const [isDetailUpdated, setIsDetailUpdated] = useState(false);
   const infoToastr = (message: string) =>
     toast.info(<div className={classes.errorMsg}>{message}</div>);
 
-  const handleFoodDetail = (foodId: number, foodType: string) => {
-    setFoodInfo(() => {
-      return { foodId: foodId, foodType: foodType };
-    });
+  const handleFoodDetail = (intakeRecode: Intake) => {
+    setFoodInfo(() => intakeRecode);
     setIsDetailVisible(true);
   };
   const handleDetailClose = () => {
@@ -49,6 +43,10 @@ const DashboardPage = () => {
     newPeriod: string
   ) => {
     setChartPeriod(newPeriod);
+  };
+
+  const handleIntakeUpdate = () => {
+    setIsIntakeUpdated((prev) => !prev);
   };
 
   const handleSearchOpen = () => {
@@ -83,9 +81,7 @@ const DashboardPage = () => {
     }, 600);
 
     // mealPlanner, pieChart, detail에 신호 전달
-    setIsMealPlannerUpdated((prev) => !prev);
-    setIsNutChartUpdated((prev) => !prev);
-    setIsDetailUpdated((prev) => !prev);
+    setIsIntakeUpdated((prev) => !prev);
   };
   return (
     <>
@@ -125,9 +121,9 @@ const DashboardPage = () => {
               </div>
               <RadarChart
                 period={chartPeriod}
-                isUpdated={isNutChartUpdated}
-                onChartDataLoaded={() => {
-                  setIsChartDataExist(true);
+                isUpdated={isIntakeUpdated}
+                onChartDataLoaded={(isDataExist) => {
+                  setIsChartDataExist(isDataExist);
                 }}
               />
             </div>
@@ -138,11 +134,12 @@ const DashboardPage = () => {
               <MealSearch onSearchClose={handleSearchClose} />
             </div>
           </div>
-          {isDetailVisible && (
+          {isDetailVisible && foodInfo && (
             <div className={classes.recipeDetail}>
               <MealDetail
                 foodInfo={foodInfo}
                 onDetailClose={handleDetailClose}
+                isUpdate={handleIntakeUpdate}
               />
             </div>
           )}
@@ -151,11 +148,11 @@ const DashboardPage = () => {
             <MealPlanner
               onSearch={handleSearchOpen}
               onFoodDetail={handleFoodDetail}
-              isUpdated={isMealPlannerUpdated}
+              isUpdated={isIntakeUpdated}
             />
           </div>
           <div className={classes.detail}>
-            <Detail isUpdated={isDetailUpdated} />
+            <Detail isUpdated={isIntakeUpdated} />
           </div>
         </div>
       </div>
