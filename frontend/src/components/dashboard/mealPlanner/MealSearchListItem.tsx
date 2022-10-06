@@ -92,7 +92,7 @@ export default function MealSearchListItem(props: {
                     divRefs.current[2] = ele;
                   }}
                 >
-                  <label htmlFor="amount">섭취량(g)</label>
+                  <label htmlFor="amount">섭취량</label>
                   <input
                     type="number"
                     id="amount"
@@ -100,6 +100,7 @@ export default function MealSearchListItem(props: {
                     defaultValue={props.meal.weight}
                     ref={amountRef}
                   />
+                  <span>(g)</span>
                 </div>
               </div>
             </div>
