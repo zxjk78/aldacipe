@@ -109,7 +109,11 @@ export default function RefrigeratorBox(props: {
               onAddItem={handleAddItem}
               placeholder={'재료명 검색'}
             />
-            <Button className={classes.closebutton} onClick={handleClose}>
+            <Button
+              className={classes.closebutton}
+              color="success"
+              onClick={handleClose}
+            >
               나가기
             </Button>
           </Box>

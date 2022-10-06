@@ -44,7 +44,7 @@ const ExpirationListItem = (props: { ingredient: any }) => {
                     ? props.ingredient.name
                     : props.ingredient.name.substring(0, 5) + '...'}
                 </span>
-                <span> {props.ingredient.weight}g</span>
+                {/* <span> {props.ingredient.weight}g</span> */}
               </div>
             </div>
             <div className={classes.expDate}>
