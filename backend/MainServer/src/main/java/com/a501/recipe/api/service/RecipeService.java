@@ -133,7 +133,7 @@ public class RecipeService {
 
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
+        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
                 .map(r -> new RecipeThumbNailResponseDto(
                         r.getId(),
                         r.getName(),
@@ -161,7 +161,7 @@ public class RecipeService {
         System.out.println("#### HEALTHY IDLIST END ####");
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
+        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
                 .map(r -> new RecipeThumbNailResponseDto(
                         r.getId(),
                         r.getName(),
