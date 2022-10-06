@@ -5,13 +5,14 @@ import { fetchSearchRecipe } from '../api/search';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 // custom component
-import CarouselPopular from '../components/mainpage/CarouselPopular';
+import CarouselSearch from '../components/search/CarouselSearch';
 import ChipsArray from '../components/search/ChipsArray';
 import IngreSearchForm from '../components/search/IngreSearchForm';
 import RecipeCardContainerLessThanFive from '../components/search/RecipeCardContainerLessThanFive';
 
 // css
 import classes from './SearchPage.module.scss';
+import { SearchRecipe } from '../util/interface';
 /* 검색 페이지들어온다음에추가 검색이 안되는 상황 고쳐야 한다: useEffect로 고침 
 
 주소창을 통한 추가 검색시에는 keyword의 변경이 selectedIngreArr을 초기화시킨다. */
@@ -21,7 +22,7 @@ export default function SearchPage(props: {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [recipeLoading, setRecipeLoading] = useState(false);
-  const [searchList, setSearchList] = useState<[]>([]);
+  const [searchList, setSearchList] = useState<SearchRecipe[]>([]);
   const [detailVisible, setDetailVisible] = useState(false);
   const [selectedIngreArr, setSelectedIngreArr] = useState<Ingredient[]>([]);
   const [ingreKeyword, setIngreKeyword] = useState('');
@@ -36,7 +37,7 @@ export default function SearchPage(props: {}) {
       setSelectedIngreArr([]);
       setIngreKeyword((prev) => '');
       const data = await fetchSearchRecipe(searchKeyword!, '');
-      // console.log(data);
+      console.log(data);
 
       setSearchList(data);
     })();
@@ -130,7 +131,7 @@ export default function SearchPage(props: {}) {
             />
           </div>
           {searchList.length > 5 ? (
-            <CarouselPopular cardList={searchList!} />
+            <CarouselSearch cardList={searchList!} />
           ) : (
             <RecipeCardContainerLessThanFive cardList={searchList!} />
           )}

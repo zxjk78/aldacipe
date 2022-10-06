@@ -1,0 +1,24 @@
+@import '../../global.scss';
+.card {
+  margin: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.2);
+}
+.eval_text {
+  font-size: 0.9rem;
+  padding-bottom: 0.2rem;
+}
+.eval_cnt_text {
+  font-size: 0.5rem;
+  color: gray;
+}
+.middle_text {
+  font-size: 1rem;
+}
+.eval_container {
+  position: relative;
+  top: -2.5rem;
+  left: 1rem;
+}
