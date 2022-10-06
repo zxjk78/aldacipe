@@ -9,14 +9,6 @@ export default function MyIngredientList(props: {
   name: string;
   // removeItem: () => void;
 }) {
-  // const [ingredient, setIngredient] = useState([])
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = await getRefrigerator();
-  //     setIngredient(data)
-  //     console.log(data)
-  //   })();
-  // }, [])
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);

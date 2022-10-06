@@ -51,5 +51,5 @@ export const sortByLargeCategory = (ingredients: Ingredient[]) => {
     categoryList[largeCategoryDictionary[item.largeCategory]].push(item);
   }
 
-  return [...categoryList];
+  return categoryList;
 };

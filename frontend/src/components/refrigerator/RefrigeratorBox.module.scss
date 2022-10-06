@@ -46,6 +46,8 @@
   // width: 80%;
 }
 .ingredientHeader {
+  display: flex;
+  justify-content: space-between;
   text-align: start;
   margin-left: 1rem;
   color: $green-secondary;

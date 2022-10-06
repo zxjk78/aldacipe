@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { IoAddCircleOutline } from 'react-icons/io5';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { refrigeratorActions } from '../../redux/slice/refrigerator';
+
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+
+// external component
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import KitchenIcon from '@mui/icons-material/Kitchen';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 import classes from './RefrigeratorBox.module.scss';
 import MyRefrigeSearchInput from './MyRefrigeSearchInput';
@@ -32,27 +43,44 @@ export default function RefrigeratorBox(props: {
   item: ingredient[];
   addIngredient: (data: ingredient) => void;
 }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [expirationIngredient, setExpirationIngredient] = useState<any[]>([]);
+  const [largeCategoryList, setLargeCategoryList] = useState<any>(null);
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  // 대분류 단위로 분배
-  const [
-    grainList,
-    meatList,
-    seafoodList,
-    dairyList,
-    drinkList,
-    seasoningList,
-    otherList,
-  ] = sortByLargeCategory(props.item);
-  // console.log(grainList, meatList, seafoodList);
+  // 냉장고 모드체인지
 
-  // const largeCategoryList = sortByLargeCategory(props.item);
+  useEffect(() => {
+    // 대분류 단위로 분배
+    // const [
+    //   grainList,
+    //   meatList,
+    //   seafoodList,
+    //   dairyList,
+    //   drinkList,
+    //   seasoningList,
+    //   otherList,
+    // ]
+
+    const tmp = sortByLargeCategory(props.item);
+    setLargeCategoryList(tmp);
+  }, [props.item]);
+
+  const isCookToggle = useSelector((state: any) => state.refrigerator.isCook)
+    ? 'cook'
+    : 'default';
+
+  const handleModeChange = () => {
+    if (isCookToggle === 'cook') {
+      dispatch(refrigeratorActions.emptyIngredients());
+    }
+    dispatch(refrigeratorActions.toggleIsCook());
+  };
 
   useEffect(() => {
     const today: any = new Date();
@@ -96,47 +124,87 @@ export default function RefrigeratorBox(props: {
           </Modal>
         </div>
       </div>
-      <h3 className={classes.ingredientHeader}>내 냉장고 속 재료</h3>
-      <div className={classes.ingredientListCategory}>
-        {grainList && (
-          <MyIngredientList
-            key={0}
-            itemList={grainList}
-            name={'곡류 및 채소'}
-          />
-        )}
-        {meatList.length > 0 && (
-          <MyIngredientList key={1} itemList={meatList} name={'육류'} />
-        )}
-        {seafoodList.length > 0 && (
-          <MyIngredientList key={2} itemList={seafoodList} name={'수산물'} />
-        )}
-        {dairyList.length > 0 && (
-          <MyIngredientList key={3} itemList={dairyList} name={'유제품'} />
-        )}
-        {drinkList.length > 0 && (
-          <MyIngredientList key={4} itemList={drinkList} name={'음료'} />
-        )}
-        {seasoningList.length > 0 && (
-          <MyIngredientList
-            key={5}
-            itemList={seasoningList}
-            name={'조미료 및 기름'}
-          />
-        )}
-        {otherList.length > 0 && (
-          <MyIngredientList key={6} itemList={otherList} name={'기타'} />
-        )}
-      </div>
-      <div className={classes.expirationList}>
-        <div className={classes.expirationHeader}>유통기한 임박 재료</div>
-        <div className={classes.expirationContainer}>
-          <ExpirationList
-            itemList={expirationIngredient}
-            // removeItem={removeItem}
-          />
-        </div>
-      </div>
+      {largeCategoryList && (
+        <>
+          <div className={classes.ingredientHeader}>
+            <div>내 냉장고 속 재료</div>
+            <ToggleButtonGroup
+              color="success"
+              value={isCookToggle}
+              exclusive
+              onChange={handleModeChange}
+              aria-label="CookModeToggle"
+            >
+              <ToggleButton value="default">
+                <KitchenIcon />
+              </ToggleButton>
+              <ToggleButton value="cook">
+                <RestaurantIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+          <div className={classes.ingredientListCategory}>
+            {largeCategoryList[0].length > 0 && (
+              <MyIngredientList
+                key={0}
+                itemList={largeCategoryList[0]}
+                name={'곡류 및 채소'}
+              />
+            )}
+            {largeCategoryList[1].length > 0 && (
+              <MyIngredientList
+                key={1}
+                itemList={largeCategoryList[1]}
+                name={'육류'}
+              />
+            )}
+            {largeCategoryList[2].length > 0 && (
+              <MyIngredientList
+                key={2}
+                itemList={largeCategoryList[2]}
+                name={'수산물'}
+              />
+            )}
+            {largeCategoryList[3].length > 0 && (
+              <MyIngredientList
+                key={3}
+                itemList={largeCategoryList[3]}
+                name={'유제품'}
+              />
+            )}
+            {largeCategoryList[4].length > 0 && (
+              <MyIngredientList
+                key={4}
+                itemList={largeCategoryList[4]}
+                name={'음료'}
+              />
+            )}
+            {largeCategoryList[5].length > 0 && (
+              <MyIngredientList
+                key={5}
+                itemList={largeCategoryList[5]}
+                name={'조미료 및 기름'}
+              />
+            )}
+            {largeCategoryList[6].length > 0 && (
+              <MyIngredientList
+                key={6}
+                itemList={largeCategoryList[6]}
+                name={'기타'}
+              />
+            )}
+          </div>
+          <div className={classes.expirationList}>
+            <div className={classes.expirationHeader}>유통기한 임박 재료</div>
+            <div className={classes.expirationContainer}>
+              <ExpirationList
+                itemList={expirationIngredient}
+                // removeItem={removeItem}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

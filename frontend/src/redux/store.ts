@@ -13,7 +13,7 @@ const persistConfig = {
   key: 'root',
   storage,
   version: 3,
-  blacklist: [],
+  blacklist: ['refrigerator'],
 };
 const reducer = combineReducers({
   // login

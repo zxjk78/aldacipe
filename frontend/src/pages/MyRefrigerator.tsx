@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 // import setIngredients from '../redux/slice/refrigerator';
+
 import { getRefrigerator, searchRecipe } from '../api/myrefrigerator';
 import { ingredient, recipe } from '../components/refrigerator/interface';
 import Refrigerator from '../components/refrigerator/Refrigerator';
@@ -64,24 +65,26 @@ export default function MyRefrigerator() {
       setIngredient(data);
     })();
   }, [selectIngre, searchData]);
-
   return (
     <>
-      <h2 className={classes.header}>내 냉장고</h2>
+      <div className={classes.header}>
+        <div>내 냉장고</div>
+      </div>
+
       <div className={classes.wrapper}>
         <div className={classes.refrigerator}>
           <RefrigeratorBox item={ingredient} addIngredient={addIngredient} />
         </div>
-        <div className={classes.ingredientlist}>
-          <h2>Refrigerator</h2>
+        <div className={classes.ingredientlistContainer}>
+          <div>현재 선택한 재료</div>
           <Refrigerator
             item={ingredient}
             searchIngre={searchIngre}
             deleteIngre={deleteIngre}
           />
         </div>
-        <div className={classes.foodlist}>
-          <h2>선택한 재료로 만들 수 있는 음식</h2>
+        <div className={classes.foodlistContainer}>
+          <div>선택한 재료로 만들 수 있는 음식</div>
           <CarouselSimilar
             searchData={searchData}
             getSearchData={getSearchData}
