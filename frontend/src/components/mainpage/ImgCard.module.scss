@@ -2,14 +2,23 @@
 .container {
   display: flex;
   text-align: center;
+  justify-content: center;
 }
 .img_card {
   height: 450px;
-  width: 45vw;
-  // display: block;
-  margin-left: 5rem;
+  width: 50vw;
+  display: block;
+  // margin-left: 5rem;
 }
 .description {
+  // position: absolute;
+  // right: 15vw;
+  opacity: 0.8;
+  height: 450px;
   width: 25vw;
-  background-color: $green-secondary;
+  background-color: #ffffff;
+}
+.h1 {
+  font-size: 40px;
+  color: $orange;
 }

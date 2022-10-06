@@ -11,24 +11,32 @@ const Banner: React.FC<{}> = () => {
     infinite: true,
     speed: 1000,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
     // dotsClass: "custom-dots"
   }
 
-  const imgList = [] 
-  // img 데이터
-  imgList.push('https://health.chosun.com/site/data/img_dir/2022/02/08/2022020800704_0.jpg');
-  imgList.push('https://mediahub.seoul.go.kr/wp-content/uploads/2020/10/d13ea4a756099add8375e6c795b827ab.jpg');
-  imgList.push('https://health.chosun.com/site/data/img_dir/2022/07/11/2022071101596_0.jpg');
-  imgList.push('https://cdn.imweb.me/thumbnail/20190108/5c344b6b9b39a.jpg');
+  const imgList = [
+    {
+      id: 1,
+      name: '제육볶음',
+      ingredient: ['돼지고기', '양파', '청양고추', '대파'],
+      imgURL:'https://recipe1.ezmember.co.kr/cache/recipe/2020/09/08/52110f292b905a27c30ea6bfed246a491.jpg'
+    },
+    {
+      id: 2,
+      name: '투움바 파스타',
+      ingredient: [''],
+      imgURL: 'https://simg.ssgcdn.com/trans.ssg?src=/cmpt/edit/202009/04/102020090410232211015562585556_930.jpg&w=830&t=6bee0e607b448ab3f0227e460a37ce5ab357a10f'
+    }
+  ] 
 
   return (
     <>
       <section className={classes.container}>
         <Slider {...settings}>
-          {imgList.map((img:string)=>(<ImgCard key={Math.random()} URL={img}/>))}
+          {imgList.map((item:any)=>(<ImgCard key={Math.random()} item={item}/>))}
         </Slider>
       </section>
     </>
