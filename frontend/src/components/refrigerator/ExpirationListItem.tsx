@@ -18,7 +18,7 @@ const ExpirationListItem = (props: { ingredient: any }) => {
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}>D{props.ingredient.Dday}</div>
+          <div className={classes.header}>D-{props.ingredient.Dday}</div>
           <div className={classes.main}>
             <img
               src={
