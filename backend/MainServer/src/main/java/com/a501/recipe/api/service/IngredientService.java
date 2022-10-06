@@ -19,8 +19,11 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
     public List<IngredientDto> searchIngredientByNameLike(String keyword) {
-        return ingredientRepository.searchIngredientByNameLike(keyword)
+        List<IngredientDto> res = ingredientRepository.searchIngredientByNameLike(keyword)
                 .orElseThrow(IngredientNotFoundException::new);
+        res.addAll(ingredientRepository.searchIngredientByNameLikeNotStart(keyword, keyword)
+                        .orElseThrow(IngredientNotFoundException::new));
+        return res;
     }
 
     public NutrientDto getIngredientNutrient(Long id) {
