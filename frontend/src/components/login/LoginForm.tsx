@@ -4,6 +4,7 @@ import { loginActions } from '../../redux/slice/login';
 import { Link, useNavigate } from 'react-router-dom';
 // api
 import { login } from '../../api/auth';
+import { fetchMyInfo } from '../../api/myInfo';
 // css
 import classes from './LoginForm.module.scss';
 // etc
@@ -45,7 +46,10 @@ const LoginForm = (props: { loginFail: () => void }) => {
     const result: boolean | undefined = await login(loginUserInfo);
     if (result) {
       // 리덕스 persist에 user명 저장하고 reload로 main페이지로
-      dispatch(loginActions.setUsername(loginUserInfo.email.split('@')[0]));
+
+      const userInfo = await fetchMyInfo();
+
+      dispatch(loginActions.setUserInfo(userInfo));
       window.location.reload();
     } else {
       props.loginFail();

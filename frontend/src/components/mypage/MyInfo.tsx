@@ -17,6 +17,8 @@ import styled from '@emotion/styled';
 // css, interface
 import classes from './MyInfo.module.scss';
 import { MyInfomation } from '../../util/interface';
+import { useDispatch } from 'react-redux';
+import { loginActions } from '../../redux/slice/login';
 const MyBox = styled(Box)`
   position: absolute;
   top: 50%;
@@ -44,11 +46,15 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
   const weightRef = useRef<HTMLInputElement | null>(null);
   const heightRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useDispatch();
   useEffect(() => {
     setMyInfoLoading(true);
     (async () => {
       const data: MyInfomation = await fetchMyInfo();
       setMyInfo(data);
+
+      dispatch(loginActions.setUserInfo(data));
     })();
 
     setMyInfoLoading(false);
@@ -70,9 +76,15 @@ export default function MyInfo(props: { modifySuccess: () => void }) {
       height: newHeight,
       weight: newWeight,
     });
+
     if (data.success) {
       setMyInfo((prevState) => {
-        return { ...prevState!, height: newHeight, weight: newWeight };
+        return {
+          ...prevState!,
+          height: newHeight,
+          weight: newWeight,
+          name: newName,
+        };
       });
       handleClose();
       props.modifySuccess();
