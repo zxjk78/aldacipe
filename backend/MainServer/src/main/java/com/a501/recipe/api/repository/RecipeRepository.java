@@ -26,7 +26,7 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     @Query("select r from Recipe r where id in (:ids)")
     List<Recipe> searchRecipeByIdList(@Param("ids") List<Long> idList);
 
-    @Query("select r from Recipe r join fetch r.evaluations re where r.id in (:ids)")
+    @Query("select distinct r from Recipe r join fetch r.evaluations re where r.id in (:ids)")
     List<Recipe> searchRecipeByIdListWithEvalInfo(@Param("ids") List<Long> idList);
 
     // name query
