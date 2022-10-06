@@ -10,9 +10,9 @@
 import CardItem from '../dashboard/recommendRecipe/CardItem';
 // css, interface(type)
 import classes from './RecipeCardContainerLessThanFive.module.scss';
-import { CardRecipe2 } from '../../util/interface';
+import { SearchRecipe } from '../../util/interface';
 const RecipeCardContainerLessThanFive = (props: {
-  cardList: CardRecipe2[];
+  cardList: SearchRecipe[];
 }) => {
   return (
     <>

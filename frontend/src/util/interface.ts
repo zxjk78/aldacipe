@@ -4,6 +4,7 @@ export interface Recipe {
   name: string;
   image: string;
   weight: number;
+  type?: string;
 }
 
 export interface Meal extends Recipe {
@@ -16,6 +17,13 @@ export interface CardRecipe {
   imgURL: string;
   avgScore: number;
   evalCnt: number;
+}
+export interface SearchRecipe {
+  type: string;
+  id: number;
+  name: string;
+  image: string;
+  weight: number;
 }
 
 // search, mypage

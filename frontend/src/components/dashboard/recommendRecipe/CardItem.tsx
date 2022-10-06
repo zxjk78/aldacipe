@@ -13,10 +13,10 @@ import RecipeImgContainer from '../../UI/RecipeImgContainer';
 
 // css, interfacde
 import classes from './CardItem.module.scss';
-import { CardRecipe, CardRecipe2 } from '../../../util/interface';
+import { SearchRecipe } from '../../../util/interface';
 import { API_URL } from '../../../api/config/http-config';
 
-const CardItem = (props: { card: CardRecipe2 }) => {
+const CardItem = (props: { card: SearchRecipe }) => {
   // const linkDetail = (id: number) => {
   //   <Link></Link>
   // }
@@ -29,7 +29,7 @@ const CardItem = (props: { card: CardRecipe2 }) => {
             <CardActionArea>
               <RecipeImgContainer
                 src={`${API_URL}image?path=${
-                  props.card.image || props.card.imgURL
+                  props.card.image || props.card.image
                 }`}
                 alt="카드이미지"
                 height="300px"
