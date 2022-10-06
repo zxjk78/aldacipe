@@ -1,11 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import {
-  DragDropContext,
-  DropResult,
-  Droppable,
-  Draggable,
-} from 'react-beautiful-dnd';
-import { getRefrigerator } from '../../api/myrefrigerator';
 import { ingredient } from './interface';
 
 import classes from './RefrigeratorList.module.scss';

@@ -5,19 +5,19 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import NextArrow from './NextArrow';
 import PrevArrow from './PrevArrow';
-import { refrigeratorRecipe } from '../../api/main';
+// api
+import { searchRecipeBySelectedIngredient } from '../../api/myrefrigerator';
 // css
 import classes from './CarouselSimilar.module.scss';
 import { CardRecipe } from '../../util/interface';
 import { recipe } from '../refrigerator/interface';
 import selectImg from '../../assets/select.jpg';
-import { classicNameResolver } from 'typescript';
 
-const CarouselSimilar = (props: {
-  searchData: recipe[];
-  getSearchData: () => recipe[];
-}) => {
+import { Ingredient } from '../../util/interface';
+const CarouselSimilar = (props: { selectedItemList: Ingredient[] }) => {
   const [searchResult, setSearchResult] = useState<recipe[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -30,29 +30,43 @@ const CarouselSimilar = (props: {
   };
 
   useEffect(() => {
-    const value = props.getSearchData();
-    setSearchResult(value);
-  }, [props.searchData]);
+    setIsLoading(true);
+    let tmp = [];
+    for (let i = 0; i < props.selectedItemList.length; i++) {
+      tmp.push(props.selectedItemList[i].id);
+    }
+    const ingredientQueryString = tmp.join('-');
 
-  const cardList = props.searchData;
+    (async () => {
+      const data = await searchRecipeBySelectedIngredient(
+        ingredientQueryString
+      );
+      console.log(data);
+
+      setSearchResult(data);
+    })();
+    setIsLoading(false);
+  }, [props.selectedItemList]);
 
   return (
     <>
-      <section className={classes.carousel}>
-        {cardList?.length === 0 ? (
-          <img
-            className={classes.img}
-            src={selectImg}
-            alt="재료를 선택해 주세요"
-          />
-        ) : (
-          <Slider {...settings}>
-            {cardList.map((card: recipe) => (
-              <Card card={card} key={card.id} />
-            ))}
-          </Slider>
-        )}
-      </section>
+      {!isLoading && (
+        <section className={classes.carousel}>
+          {searchResult?.length === 0 ? (
+            <img
+              className={classes.img}
+              src={selectImg}
+              alt="재료를 선택해 주세요"
+            />
+          ) : (
+            <Slider {...settings}>
+              {searchResult.map((card: recipe) => (
+                <Card card={card} key={card.id} />
+              ))}
+            </Slider>
+          )}
+        </section>
+      )}
     </>
   );
 };
