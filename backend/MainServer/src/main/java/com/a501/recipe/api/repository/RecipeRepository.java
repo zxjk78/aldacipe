@@ -58,7 +58,7 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     List<RecipeAndFoodSearchResponseDto> searchAllFoodByNameLike(@Param("keyword") String keyword);
 
     @Query(nativeQuery = true,
-            value = "select e.recipe_id as id, r.name as name, r.image_big as imgURL, (sum(e.score)/count(*)) as avgScore, count(*) as evalCnt from evaluation e inner join recipe r where e.recipe_id=r.id group by e.recipe_id order by avgScore desc limit 20 ")
+            value = "select e.recipe_id as id, r.name as name, r.image_big as imgURL, (sum(e.score)/count(*)) as avgScore, count(*) as evalCnt from evaluation e inner join recipe r where e.recipe_id=r.id group by e.recipe_id order by avgScore desc, evalCnt desc limit 20 ")
     List<Object[]> searchTop20BestRecipeFrom(@Param("fromDate") LocalDate fromDate);
 
     @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.id=:recipeId")
