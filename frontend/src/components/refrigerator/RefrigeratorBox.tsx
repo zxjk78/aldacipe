@@ -41,7 +41,7 @@ const style = {
 
 export default function RefrigeratorBox(props: {
   item: ingredient[];
-  addIngredient: (data: ingredient) => void;
+  onAddItem: () => void;
 }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -81,6 +81,9 @@ export default function RefrigeratorBox(props: {
     }
     dispatch(refrigeratorActions.toggleIsCook());
   };
+  const handleAddItem = () => {
+    props.onAddItem();
+  };
 
   useEffect(() => {
     const today: any = new Date();
@@ -116,7 +119,10 @@ export default function RefrigeratorBox(props: {
           >
             <Box sx={{ ...style, width: 500 }}>
               <h2 id="child-modal-title">냉장고에 재료 추가하기</h2>
-              <MyRefrigeSearchInput addIngredient={props.addIngredient} />
+              <MyRefrigeSearchInput
+                onAddItem={handleAddItem}
+                placeholder={'재료명 검색'}
+              />
               <Button className={classes.closebutton} onClick={handleClose}>
                 나가기
               </Button>

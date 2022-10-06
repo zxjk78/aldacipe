@@ -37,25 +37,19 @@ export default function UpperDetail(props: {
               : classes.footer
           }
         >
-          {props.nutValue === 0 ? (
-            <div>섭취 기록이 없습니다.</div>
-          ) : (
-            <>
-              권장량보다{' '}
-              <span
-                className={
-                  amount > 15
-                    ? classes.red
-                    : amount > 10
-                    ? classes.orange
-                    : classes.green
-                }
-              >
-                {amount.toFixed(1)}%
-              </span>{' '}
-              <span>{isLower ? '낮습니다' : '높습니다'}</span>
-            </>
-          )}
+          평균보다{' '}
+          <span
+            className={
+              amount > 15
+                ? classes.red
+                : amount > 10
+                ? classes.orange
+                : classes.green
+            }
+          >
+            {amount.toFixed(1)}%
+          </span>{' '}
+          <span>{isLower ? '낮습니다' : '높습니다'}</span>
         </div>
       </div>
     </>

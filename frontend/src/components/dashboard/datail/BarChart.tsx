@@ -61,7 +61,10 @@ const BarChart = (props: {
     datasets: [
       {
         label: '내 섭취량',
-        data: labels.map((item, index) => props.nutrient[labels[index]]),
+        data: labels.map((item, index) => {
+          let tmp = props.nutrient[labels[index]] as number;
+          return tmp.toFixed(1);
+        }),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {

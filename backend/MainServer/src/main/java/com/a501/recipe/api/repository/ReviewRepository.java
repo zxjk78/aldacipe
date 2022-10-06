@@ -13,13 +13,13 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review,Long> {
 
-    @Query("select distinct new com.a501.recipe.api.dto.review.ReviewDto(r.id, u, r.contents)" +
+    @Query("select r" +
             " from Review r " +
             " join r.user u " +
             " join r.recipe rr" +
             " where rr.id=:recipeId " +
             " order by r.createdTime desc")
-    Optional<List<ReviewDto>> searchAllByRecipeIdOrderByCreatedTimeDesc(@Param("recipeId") Long recipeId);
+    Optional<List<Review>> searchAllByRecipeIdOrderByCreatedTimeDesc(@Param("recipeId") Long recipeId);
 
     @Query("select r from Review r join fetch r.user where r.id=:reviewId")
     Optional<Review> searchReviewWithUserById(@Param("reviewId") Long reviewId);
