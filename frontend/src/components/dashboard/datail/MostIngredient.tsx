@@ -61,6 +61,7 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
                     <div>1</div>
                     <div>
                       <img
+                        
                         src={
                           imageArr[
                             ingredientCategoryDictionary[
@@ -70,7 +71,9 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
                         }
                         alt="재료"
                       />
+                      <div>
                       {props.ingredients[0].name}
+                      </div>
                     </div>
                     <div className={classes.ingredientNutInfo}>
                       <div>영양성분</div>
@@ -179,8 +182,9 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
                     ]
                   }
                   alt="재료이미지"
+                  className={classes.no_margins}
                 />
-                <div>{props.ingredients[0].name}</div>
+                <div >{props.ingredients[0].name}</div>
               </>
             )}
           </div>
