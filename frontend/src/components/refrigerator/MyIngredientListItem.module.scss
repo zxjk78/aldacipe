@@ -8,6 +8,8 @@
 }
 .main {
   display: flex;
+  width: 90%;
+  margin: 0px auto;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
@@ -15,6 +17,7 @@
 .left {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 .right {
   display: flex;

@@ -18,9 +18,13 @@ export default function Refrigerator(props: {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.itemList}>
-          <RefrigeratorList item={props.selectedItemList} />
-        </div>
+        {props.selectedItemList.length === 0 ? (
+          <div className={classes.empty}>재료를 선택해 주세요.</div>
+        ) : (
+          <div className={classes.itemList}>
+            <RefrigeratorList item={props.selectedItemList} />
+          </div>
+        )}
       </div>
     </>
   );

@@ -11,6 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // custom component
+import SmallCategoryImg from '../UI/SmallCategoryImg';
 // redux
 import { refrigeratorActions } from '../../redux/slice/refrigerator';
 // css, interface(type)
@@ -41,7 +42,11 @@ const MyIngredientListItem = (props: { ingredient: ingredient }) => {
           <div className={classes.container}>
             <div className={classes.main}>
               <div className={classes.left}>
-                {/* <img src="" alt="" /> */}
+                <SmallCategoryImg
+                  smallCategory={props.ingredient.smallCategory}
+                  width={'40px'}
+                  height={'40px'}
+                />
                 <div>{props.ingredient.name}</div>
               </div>
               <div className={classes.right}>
