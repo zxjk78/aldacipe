@@ -13,6 +13,7 @@ import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
+import com.a501.recipe.api.dto.recipe.RecipeThumbNailWithFeaturesResponseDto;
 import com.a501.recipe.api.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -144,30 +145,26 @@ public class RecipeService {
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeThumbNailResponseDto> getHealthyRecipeList(Long userId) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        Map<String,String> bodyMap = new HashMap<>();
-        bodyMap.put("user_id",userId.toString());
-        bodyMap.put("period","1");
-
-        List<Integer> response  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
-        List<Long> idList = new ArrayList<>();
-        for (Integer i : response) {
-            idList.add(Long.valueOf(i));
+    public List<RecipeThumbNailWithFeaturesResponseDto> getHealthyRecipeList(Long userId) {
+        // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
+        Set<Long> idSet = new HashSet<>();
+        Long maxId = 1000l;
+        while (idSet.size() < 10) {
+            idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
         }
-        System.out.println("### HEALTHY ###");
-        System.out.println(idList.toString());
-        System.out.println("#### HEALTHY IDLIST END ####");
+        List<Long> idList = new ArrayList<>();
+        for (Long id : idSet) {
+            idList.add(id);
+        }
+
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(
+        return recipeRepository.searchRecipeWithFeaturesByIdList(idList).stream()
+                .map(r -> new RecipeThumbNailWithFeaturesResponseDto(
                         r.getId(),
                         r.getName(),
                         r.getImageBig(),
-                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
-                        r.getEvaluations().size()
+                        r.getFeatures().stream().map(nf->nf.getNutrientFeature().getName()).collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
     }
