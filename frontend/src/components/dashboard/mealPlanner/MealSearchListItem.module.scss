@@ -70,12 +70,16 @@
     font-size: 0.9rem;
   }
   input {
-    width: 50px;
+    width: 60px;
     border-radius: 5px;
     border: 2px solid $orange;
     &:focus {
       outline: none;
     }
+  }
+  span {
+    color: $orange;
+    font-size: 0.9rem;
   }
   > div:nth-of-type(1) {
     font-size: 0.8rem;
