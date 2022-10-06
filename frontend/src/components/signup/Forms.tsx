@@ -174,85 +174,86 @@ export const FormContent2: React.FC<{
       className={`${classes.wrapper} ${classes.form2}`}
       onKeyDown={enterHandler}
     >
-      <div className={classes.nameContainer}>
-        <div>이름</div>
-        <div>
-          <input
-            type="text"
-            name="name"
-            defaultValue={props.formData.name}
-            onChange={handleNameChange}
-          />
-        </div>
-      </div>
-      <div className={`${classes.form2InputContainer}`}>
-        <div className={`${classes.genderContainer}`}>
-          <div className={classes.title}>성별</div>
+      <div className={classes.target}>
+        <div className={classes.nameContainer}>
+          <div>이름</div>
           <div>
-            <div className={classes.genderOption}>
-              <label htmlFor="male">남성</label>
-              <input
-                type="radio"
-                name="gender"
-                id="male"
-                value="MALE"
-                defaultChecked={props.formData.gender === 'MALE'}
-                onChange={genderChange}
-              />
-            </div>
-            <div className={classes.genderOption}>
-              <label htmlFor="female">여성</label>
-              <input
-                type="radio"
-                name="gender"
-                id="female"
-                value="FEMALE"
-                defaultChecked={props.formData.gender === 'FEMALE'}
-                onChange={genderChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className={classes.title}>생년월일</div>
-          <BirthdayInput
-            birthday={props.formData.birthday}
-            changeBirthday={birthdayChangeHandler}
-          />
-        </div>
-      </div>
-      <div className={classes.form2InputContainer}>
-        <div className={classes.numberInputs}>
-          <div>
-            <label htmlFor="height">키</label>
             <input
-              type="number"
-              name="height"
-              id="height"
-              min={0}
-              max={300}
-              defaultValue={props.formData.height}
-              onBlur={heightBlur}
-            />{' '}
-            cm
+              type="text"
+              name="name"
+              defaultValue={props.formData.name}
+              onChange={handleNameChange}
+            />
           </div>
+        </div>
+        <div className={`${classes.form2InputContainer}`}>
+          <div className={`${classes.genderContainer}`}>
+            <div className={classes.title}>성별</div>
+            <div>
+              <div className={classes.genderOption}>
+                <label htmlFor="male">남성</label>
+                <input
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="MALE"
+                  defaultChecked={props.formData.gender === 'MALE'}
+                  onChange={genderChange}
+                />
+              </div>
+              <div className={classes.genderOption}>
+                <label htmlFor="female">여성</label>
+                <input
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="FEMALE"
+                  defaultChecked={props.formData.gender === 'FEMALE'}
+                  onChange={genderChange}
+                />
+              </div>
+            </div>
+          </div>
+
           <div>
-            <label htmlFor="weight">몸무게</label>
-            <input
-              type="number"
-              name="weight"
-              id="weight"
-              min={0}
-              max={300}
-              defaultValue={props.formData.weight}
-              onBlur={weightBlur}
-            />{' '}
-            kg
+            <div className={classes.title}>생년월일</div>
+            <BirthdayInput
+              birthday={props.formData.birthday}
+              changeBirthday={birthdayChangeHandler}
+            />
+          </div>
+        </div>
+        <div className={classes.form2InputContainer}>
+          <div className={classes.numberInputs}>
+            <div>
+              <label htmlFor="height">키</label>
+              <input
+                type="number"
+                name="height"
+                id="height"
+                min={0}
+                max={300}
+                defaultValue={props.formData.height}
+                onBlur={heightBlur}
+              />{' '}
+              cm
+            </div>
+            <div>
+              <label htmlFor="weight">몸무게</label>
+              <input
+                type="number"
+                name="weight"
+                id="weight"
+                min={0}
+                max={300}
+                defaultValue={props.formData.weight}
+                onBlur={weightBlur}
+              />{' '}
+              kg
+            </div>
           </div>
         </div>
       </div>
-
       <div className={classes.btnContainer}>
         <button
           type="button"

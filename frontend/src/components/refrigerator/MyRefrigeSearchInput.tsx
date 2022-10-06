@@ -14,7 +14,7 @@ import IngredientList from './IngredientList';
 import { addMyRefrigeList } from '../../api/myrefrigerator';
 
 const MySearchIcon = styled(SearchIcon)`
-  color: #5d5d5d;
+  color: #4caaa1;
 `;
 
 const MyRefrigeSearchInput = (props: {

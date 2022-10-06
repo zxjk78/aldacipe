@@ -37,12 +37,15 @@ const CarouselSimilar = (props: { selectedItemList: Ingredient[] }) => {
       tmp.push(props.selectedItemList[i].id);
     }
     const ingredientQueryString = tmp.join('-');
-
+    // 아무것도 안받아서 string이 0이면 그냥 요청 안보냄
+    if (ingredientQueryString.length <= 0) {
+      return;
+    }
     (async () => {
       const data = await searchRecipeBySelectedIngredient(
         ingredientQueryString
       );
-      console.log(data);
+      // console.log(data);
 
       setSearchResult(data);
     })();

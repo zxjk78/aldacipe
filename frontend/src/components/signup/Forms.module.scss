@@ -6,7 +6,7 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-  padding: 0rem 2rem;
+  padding: 0rem 1rem;
   gap: 2rem;
 }
 
@@ -69,6 +69,10 @@
 }
 
 .form2 {
+  // background-color: red;
+  .target {
+    margin-top: -1rem;
+  }
   align-items: center;
   label {
     font-size: 0.9rem;
@@ -92,7 +96,7 @@
   margin: 0px auto;
   display: flex;
   justify-content: space-between;
-  // background-color: #474747;
+  // background-color: red;
   input {
     outline: none;
   }
