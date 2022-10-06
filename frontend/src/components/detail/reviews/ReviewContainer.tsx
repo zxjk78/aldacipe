@@ -26,6 +26,7 @@ const ReviewContainer = (props: {
   userEval: { didEvaluate: boolean; score: number };
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const textAreaRef = useRef<null | HTMLTextAreaElement>(null);
   const [textCnt, setTextCnt] = useState(0);
   const [reviewList, setReviewList] = useState<null | Review[]>(null);
@@ -40,7 +41,9 @@ const ReviewContainer = (props: {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchReviewFnc(props.recipeId);
+    setIsLoading(false);
   }, [props.recipeId]);
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -103,36 +106,41 @@ const ReviewContainer = (props: {
           </div>
         </div>
       </Modal>
-      <div className={classes.wrapper}>
-        <div className={classes.header}>
-          <div>리뷰</div>
-          <div className={classes.addReview} onClick={handleModalOpen}>
-            <span>
-              <AddCircleOutlineIcon />
-            </span>
-            리뷰 남기기
+      {!isLoading && (
+        <div className={classes.wrapper}>
+          <div className={classes.header}>
+            <div>리뷰</div>
+            <div className={classes.addReview} onClick={handleModalOpen}>
+              <span>
+                <AddCircleOutlineIcon />
+              </span>
+              리뷰 남기기
+            </div>
           </div>
-        </div>
-        {reviewList && (
-          <div className={classes.main}>
-            {reviewList.length === 0 ? (
-              <div className={classes.noReview}>
-                <RateReviewIcon fontSize="large" />
-                <div>
-                  <div>등록된 리뷰가 없습니다.</div>
-                  <div className={classes.addReview} onClick={handleModalOpen}>
-                    리뷰 등록하기
+          {reviewList && (
+            <div className={classes.main}>
+              {reviewList.length === 0 ? (
+                <div className={classes.noReview}>
+                  <RateReviewIcon fontSize="large" />
+                  <div>
+                    <div>등록된 리뷰가 없습니다.</div>
+                    <div
+                      className={classes.addReview}
+                      onClick={handleModalOpen}
+                    >
+                      리뷰 등록하기
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              reviewList.map((review) => (
-                <ReviewItem key={review.id} review={review} />
-              ))
-            )}
-          </div>
-        )}
-      </div>
+              ) : (
+                reviewList.map((review) => (
+                  <ReviewItem key={review.id} review={review} />
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

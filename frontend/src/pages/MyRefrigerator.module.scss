@@ -1,11 +1,13 @@
 @import '../global.scss';
 .wrapper {
+  // height: 120vh;
   display: grid;
-  padding: 20px;
+  padding: 2rem 1rem;
   grid-template-columns: 1fr 1.3fr;
   grid-template-rows: repeat(2, 37vh);
-  grid-row-gap: 50px;
-  grid-column-gap: 180px;
+  grid-row-gap: 3rem;
+  grid-column-gap: 5rem;
+  // background-color: #fff;
 }
 .header {
   margin-left: 5rem;

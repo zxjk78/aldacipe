@@ -83,3 +83,13 @@ export const ingredientCategoryColor: IngredientColorDictionary = {
   유지류: { primary: '#FDD44B', secondary: '#84BD93' },
   기타: { primary: '#000', secondary: '#fff' },
 };
+
+export const largeCategoryDictionary: IngredientCategoryDictionary = {
+  '곡류 및 채소': 0,
+  육류: 1,
+  수산물: 2,
+  유제품: 3,
+  음료: 4,
+  '조미료 및 기름': 5,
+  기타: 6,
+};

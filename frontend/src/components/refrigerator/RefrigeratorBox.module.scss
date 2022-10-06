@@ -7,7 +7,14 @@
   justify-content: end;
 }
 .header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: $green-primary;
+  cursor: pointer;
+  span {
+    font-size: 30px;
+  }
 }
 .button {
   position: relative;
