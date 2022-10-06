@@ -41,8 +41,8 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.name like :keyword%")
     Optional<List<Recipe>> searchRecipeByNameLikeWithIngredient(@Param("keyword") String keyword);
 
-    @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.name like %:keyword% ")
-    Optional<List<Recipe>> searchRecipeByNameLikeNotStartWithIngredient(@Param("keyword") String keyword);
+    @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.name like %:keyword% and r.name not like :sameKeyword%")
+    Optional<List<Recipe>> searchRecipeByNameLikeNotStartWithIngredient(@Param("keyword") String keyword, @Param("sameKeyword") String sameKeyword);
 
 
     @Query("select distinct r" +
