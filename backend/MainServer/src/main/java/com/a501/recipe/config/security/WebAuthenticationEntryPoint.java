@@ -17,14 +17,12 @@ public class WebAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Integer exception = (Integer)request.getAttribute("exception");
         if (exception != null && exception == ErrorCode.AccessTokenExpiredException.getCode()) {
-            RequestDispatcher rd = request.getRequestDispatcher("/api/exception/accessTokenExpired");
-            rd.forward(request, response);
-            //response.sendRedirect("/api/exception/accessTokenExpired");
+            response.sendRedirect("https://j7a501.p.ssafy.io/api/exception/accessTokenExpired");
             // local
             // response.sendRedirect("/exception/accessTokenExpired");
         }
         else {
-            response.sendRedirect("/api/exception/entryPoint");
+            response.sendRedirect("https://j7a501.p.ssafy.io/api/exception/entryPoint");
             // local
             // response.sendRedirect("/exception/entryPoint");
         }
