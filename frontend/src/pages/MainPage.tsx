@@ -19,14 +19,14 @@ const MyLoader = () => (
     <rect x="540" y="20" rx="8" ry="8" width="200" height="200" />
     <rect x="760" y="20" rx="8" ry="8" width="200" height="200" />
     <rect x="980" y="20" rx="8" ry="8" width="200" height="200" />
-  </ContentLoader> 
+  </ContentLoader>
 );
 
 const MainPage: React.FC<{}> = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [refrige, setRefrige] = useState([])
-  const [userLike, setUserLike] = useState([])
-  const [popular, setPopular] = useState([])
+  const [refrige, setRefrige] = useState<[] | null>(null)
+  const [userLike, setUserLike] = useState<[] | null>(null)
+  const [popular, setPopular] = useState<[] | null>(null)
 
   useEffect(() => {
     (async () => {
@@ -53,12 +53,17 @@ const MainPage: React.FC<{}> = () => {
     <div className={classes.container}>
       <div className={classes.container_box}>
         <Banner />
-        <h2 className={classes.text}>냉장고 재료로 만들 수 있는 요리</h2>
-        {isLoading ? <MyLoader />: <CarouselRefrigerator list={refrige}/>}
-        <h2 className={classes.text}>회원님과 입맛이 비슷한 유저가 추천하는 요리</h2>
-        {isLoading ? <MyLoader />: <CarouselRefrigerator list={userLike}/>}
         <h2 className={classes.text}>가장 인기있는 요리</h2>
-        {isLoading ? <MyLoader />: <CarouselRefrigerator list={popular}/>}
+        {isLoading ? <MyLoader /> :
+          <CarouselRefrigerator list={popular ? popular : []} />}
+
+        <h2 className={classes.text}>냉장고 재료로 만들 수 있는 요리</h2>
+        {isLoading ? <MyLoader /> :
+          <CarouselRefrigerator list={refrige ? refrige : []} />}
+
+        <h2 className={classes.text}>회원님과 입맛이 비슷한 유저가 추천하는 요리</h2>
+        {isLoading ? <MyLoader /> :
+          <CarouselRefrigerator list={userLike ? userLike : []} />}
       </div>
     </div>
   );
