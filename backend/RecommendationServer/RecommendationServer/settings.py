@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-z#spr493b5czil(=s0kap@^r3oz@d$pvdrk3#4)skubvty16ow
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = ['172.17.0.1']
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.17.0.1']
 
 # Application definition
 
@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders'
+    #'django_crontab'
 ]
+
+# CRONJOBS = [
+#     ('*/5 * * * *', 'RecommendationApp.tasks.test_func', '>> /usr/src/aldacipe/cron.log')
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
