@@ -25,14 +25,14 @@ const CardItem = (props: { card: SearchRecipe }) => {
     <>
       <div className={classes.card}>
         <Link to={`/detail/${props.card.id}`}>
-          <Card sx={{ width: 450, maxWidth: 500 }}>
+          <Card sx={{ minWidth: 200, maxWidth: 500}}>
             <CardActionArea>
               <RecipeImgContainer
                 src={`${API_URL}image?path=${
                   props.card.image || props.card.image
                 }`}
                 alt="카드이미지"
-                height="300px"
+                height="200px"
                 width="100%"
               />
 

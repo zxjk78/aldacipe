@@ -9,12 +9,13 @@
 }
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
   color: $green-primary;
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
 .main {
@@ -33,4 +34,12 @@
 .arrowContainer {
   display: flex;
   gap: 0.5rem;
+  color:$text-highlight;
+}
+.arrow{
+  color:$green-secondary;
+}
+.arrow:hover{
+  cursor: pointer;
+  color:$green-primary;
 }

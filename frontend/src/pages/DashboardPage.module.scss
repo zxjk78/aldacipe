@@ -2,6 +2,7 @@
 .wrapper {
   width: 95%;
   margin: 0px auto;
+  padding-bottom: 15rem;
 }
 .title {
   color: $green-primary;
@@ -15,7 +16,7 @@
   height: 87vh;
   display: grid;
   grid-template-rows: 2fr 2fr;
-  grid-template-columns: 1fr 5fr 5fr;
+  grid-template-columns: 1fr 3fr 3fr;
   gap: 1rem;
   border-radius: 15px;
 }
@@ -51,7 +52,7 @@
   // background-color: gold;
 }
 .detail {
-  grid-area: 2/2/3/4;
+  grid-area: 3/1/4/8;
 }
 .recipeDetail {
   position: absolute;

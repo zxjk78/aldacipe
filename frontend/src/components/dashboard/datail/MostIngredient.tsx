@@ -184,7 +184,7 @@ export default function MostIngredient(props: { ingredients: Ingredient[] }) {
                   alt="재료이미지"
                   className={classes.no_margins}
                 />
-                <div >{props.ingredients[0].name}</div>
+                <div >{props.ingredients[0].name.length<=10?props.ingredients[0].name:props.ingredients[0].name.substring(0,10)+"⋯"}</div>
               </>
             )}
           </div>

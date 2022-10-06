@@ -44,6 +44,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                     <div className={classes.first}>1</div>
                     <div>
                       <Link to={`/detail/${props.recipe[0].id}`}>
+                      <div className={classes.rank_item}>
                         <RecipeRoundImgContainer
                           src={`${API_URL}image?path=${props.recipe[0].image}`}
                           width={'50px'}
@@ -51,6 +52,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                           alt="요리"
                         />
                         {props.recipe[0].name}
+                        </div>
                       </Link>
                     </div>
                   </div>
@@ -71,13 +73,15 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                           {index + 2}
                         </div>
                         <Link to={`/detail/${item.id}`}>
-                          <RecipeImgContainer
+                          <div className={classes.rank_item}>
+                          <RecipeRoundImgContainer
                             src={`${API_URL}image?path=${item.image}`}
                             width={'30px'}
                             height={'30px'}
                             alt="요리"
                           />
                           <div className={classes.otherName}>{item.name}</div>
+                          </div>
                         </Link>
                       </div>
                     );
@@ -112,7 +116,7 @@ export default function MostRecipe(props: { recipe: Recipe[] }) {
                   />
                   </div>
                 </Link>
-                <div className={classes.most_recipe_name}>{props.recipe[0].name}</div>
+                <div className={classes.most_recipe_name}>{props.recipe[0].name.length<=10?props.recipe[0].name:props.recipe[0].name.substring(0,10)+"⋯"}</div>
               </div>
             )}
           </div>
