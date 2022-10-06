@@ -30,7 +30,9 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid #4caaa1',
+  borderRadius: '10px',
+
   boxShadow: 24,
   p: 4,
 };
@@ -80,7 +82,7 @@ const IngredientList = (props: {
     const success = await addMyRefrigeList(ingredientId, data);
     props.onAddItem();
     // props.addIngredient!(data)
-    console.log(data, success);
+    // console.log(data, success);
     handleClose();
   };
   return (
@@ -106,7 +108,7 @@ const IngredientList = (props: {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Stack spacing={1}>
                   <DesktopDatePicker
-                    label="Date desktop"
+                    // label="Date desktop"
                     inputFormat="MM/DD/YYYY"
                     value={value}
                     onChange={handleChange2}
@@ -131,10 +133,36 @@ const IngredientList = (props: {
                   }}
                 />
                 <FormHelperText id="outlined-weight-helper-text">
-                  Weight
+                  {/* Weight */}
                 </FormHelperText>
-                <button onClick={handleRefrigeAddItem}>추가하기</button>
-                <button onClick={handleClose}>취소</button>
+                <div
+                  style={{
+                    width: '140%',
+                    margin: '0px auto',
+                    marginTop: '1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: '#4caaa1',
+                      '&:hover': { backgroundColor: '#4be0a2' },
+                    }}
+                    onClick={handleRefrigeAddItem}
+                  >
+                    추가하기
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={handleClose}
+                  >
+                    취소
+                  </Button>
+                </div>
               </FormControl>
             </Box>
           </Modal>
