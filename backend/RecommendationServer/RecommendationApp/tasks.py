@@ -17,10 +17,10 @@ deploy_mysql_address = "172.26.14.189"
 
 def get_user_eval():
     # local
-    conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
+    #conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
     
     # deploy
-    #conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
+    conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
 
     curs = conn.cursor()
     query = "SELECT score, recipe_id, user_id FROM evaluation"
@@ -30,10 +30,10 @@ def get_user_eval():
 
 def get_recipe():
     # local
-    conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
+    #conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
     
     # deploy
-    #conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
+    conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
 
     curs = conn.cursor()
     query = "SELECT id, name, weight FROM recipe"
@@ -184,8 +184,8 @@ def calculate_SGD():
 
 def recommend_by_SGD(top_n=20):
     prefix = 'rcmd_'
-    con = redis.StrictRedis(host="172.17.0.1", port=6379, charset="utf-8", decode_responses=True)
-    #con = redis.StrictRedis(host="172.17.0.3", port=6379, charset="utf-8", decode_responses=True)
+    #con = redis.StrictRedis(host="172.17.0.1", port=6379, charset="utf-8", decode_responses=True)
+    con = redis.StrictRedis(host="172.17.0.3", port=6379, charset="utf-8", decode_responses=True)
     
     matrix = calculate_SGD()
     if len(matrix) == 0:
@@ -202,8 +202,8 @@ def recommend_by_SGD(top_n=20):
 
 def get_recipe_by_SGD(user_id):
     prefix = 'rcmd_'
-    con = redis.StrictRedis(host="172.17.0.1", port=6379, charset="utf-8", decode_responses=True)
-    #con = redis.StrictRedis(host="172.17.0.3", port=6379, charset="utf-8", decode_responses=True)
+    #con = redis.StrictRedis(host="172.17.0.1", port=6379, charset="utf-8", decode_responses=True)
+    con = redis.StrictRedis(host="172.17.0.3", port=6379, charset="utf-8", decode_responses=True)
 
     res = con.get(prefix + str(user_id))
     if res == None:
@@ -223,7 +223,8 @@ def get_recipe_by_nutrients(user_id, period):
     from_date = str(start_time).split(" ")[0]
     print("FROMDATE = ",from_date)
 
-    conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
+    #conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
+    conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
     curs = conn.cursor()
 
     user_nut_total = dict([])
@@ -425,94 +426,71 @@ def get_recipe_by_nutrients(user_id, period):
 # %%
 def set_my_ing(user_id,cur):
     res = dict()
-    res["recipe_name"] = ["my"]
-    res["votes"] = [0]
-    res["rank_avg"] = [0]
+    res["recipe_id"] = [-1]
     ing_set = []
     sql_get_ref_ing = "select name from ingredient where id in (select ingredient_id from refrigerator_ingredient  where user_id = {})".format(user_id)
     cur.execute(sql_get_ref_ing)
     res_query = cur.fetchall()
-    tmp = [x[0] for x in res_query]
-    res["ingredient_set"] = [' '.join(tmp)]
+    tmp = []
+    for tp in res_query:
+        ing = tp[0]
+        if len(ing) == 1:
+            ing = ing + "궯"
+        tmp.append(ing)
+    if len(tmp) == 0:
+        tmp = ['']
+    res["recipe_ing"] = [' '.join(tmp)]
+    print(res)
     return res
 
-# %%
-def get_rm(df, recipe,top = 20):
+def get_rm_cv(df, recipe,top = 20):
     count_vector = CountVectorizer(ngram_range=(1,1))
-    c_vector_ingre = count_vector.fit_transform(df["ingredient_set"])
+    c_vector_ingre = count_vector.fit_transform(df["recipe_ing"])
     ingre_c_sim = cosine_similarity(c_vector_ingre, c_vector_ingre).argsort()[:,::-1]
-    target_recipe_index = df[df['recipe_name'] == recipe].index.values
+    target_recipe_index = df[df['recipe_id'] == recipe].index.values
     sim_index = ingre_c_sim[target_recipe_index, :top].reshape(-1)
     sim_index = sim_index[sim_index != target_recipe_index]
-    
     result = df.iloc[sim_index]
-    
     return result
 
-# %%
-def get_ra(cur):
-    res = dict()
-    sql_get_sum_rank = "select recipe_id, SUM(score), count(*) from evaluation group by(recipe_id)"
-    cur.execute(sql_get_sum_rank)
-    res_sql = cur.fetchall()
-    for i in range(len(res_sql)):
-        res[res_sql[i][0]] = [int(res_sql[i][1]),res_sql[i][2]]  
-    return res
+def get_rm_tf(df, recipe,top = 20):
+    tfidf_vector = TfidfVectorizer()
+    t_vector_ingre = tfidf_vector.fit_transform(df["recipe_ing"])
+    t_ingre_c_sim = cosine_similarity(t_vector_ingre, t_vector_ingre).argsort()[:,::-1]
+    target_recipe_index = df[df['recipe_id'] == recipe].index.values
+    t_sim_index = t_ingre_c_sim[target_recipe_index, :top].reshape(-1)
+    t_sim_index = t_sim_index[t_sim_index != target_recipe_index]
+    result = df.iloc[t_sim_index]
+    return result
 
-# %%
-def get_name(recipe_id,cur):
-    sql_get_recipe_name = "select name from recipe  where recipe.id = {}".format(recipe_id)
-    cur.execute(sql_get_recipe_name)
-    res = cur.fetchall()
-    return res[0][0]
-
-# %%
 def cbf(user_id):
-    conn = pymysql.connect(host="172.18.0.1", user="a501", password="local_aldacipe", db="aldacipe")
+    conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
     cur = conn.cursor()
-    sql_tup_cnt = "select id from recipe"
-    cur.execute(sql_tup_cnt)
-    rows = cur.fetchall()
-    id_lst = [x[0] for x in rows]
-    rank = get_ra(cur)
-    re_in_lst = [1]
-    df_recipe_name = []
-    df_recipe_id = []
-    df_ing_set = []
-    df_rank_avg = []
-    df_vote = []
-    for i in id_lst :
-        recipe_name = get_name(i,cur)
-        rank_lst = rank.get(i)
-        rank_average = 0 if rank_lst == None else rank_lst[0]/rank_lst[1] 
-        vote = 0 if rank_lst == None else rank_lst[1]
-        df_recipe_id.append(i)
-        df_recipe_name.append(recipe_name)
-        df_rank_avg.append(rank_average)
-        df_vote.append(vote)
-        sql_set_lst = "select name from ingredient  where ingredient.id in (SELECT ingredient_id FROM aldacipe.recipe_ingredient where recipe_id={})".format(i)
-        cur.execute(sql_set_lst)
-        res = cur.fetchall()
-        temp = []
-        for i in range(len(res)):
-            tw = res[i][0].replace(" ","")
-            if len(tw) == 1 :
-                tw = tw + "궯"
-            temp.append(tw)
-        ing_str = ' '.join(temp)
-        df_ing_set.append(ing_str)
-    data = dict()
-    data["recipe_id"] = df_recipe_id
-    data["recipe_name"] =df_recipe_name
-    data["ingredient_set"] =df_ing_set
-    data["rank_avg"] =df_rank_avg
-    data["votes"] = df_vote
-    df = pd.DataFrame(data)
+    sql_get_lst ="select ri.recipe_id, i.id, i.name from recipe_ingredient ri inner join ingredient i where ri.ingredient_id = i.id;"
+    cur.execute(sql_get_lst)
+    res_get_lst = cur.fetchall()
+    dict_rec_ing = {}
+    for x in res_get_lst:
+        key,ing = x[0],x[2]
+        ing = ing.replace(" ","")
+        if len(ing) == 1:
+            ing = ing + "궯"
+        if dict_rec_ing.get(key) == None:
+            dict_rec_ing[key] = list()
+        dict_rec_ing[key].append(ing)
+    recipe_id = [x[0] for x in dict_rec_ing.items()]
+    recipe_ing = [' '.join(set(tp[1])) for tp in dict_rec_ing.items()]
+
+    dic = {}
+    dic["recipe_id"] =recipe_id
+    dic["recipe_ing"] = recipe_ing
+    df = pd.DataFrame(dic)
     my_data = set_my_ing(user_id,cur)
     new_df = pd.DataFrame(my_data)
     df = pd.concat([df, new_df], ignore_index=True)
-    recom_res = get_rm(df, "my")
+    recom_res = get_rm_cv(df, -1)
     return recom_res
+#    conn = pymysql.connect(host="172.26.14.189", user="a501", password="deploy_aldacipe", db="aldacipe")
 
 def get_recipe_by_refrigerator(user_id):
     df = cbf(int(user_id))
