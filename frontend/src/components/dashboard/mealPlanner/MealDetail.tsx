@@ -31,7 +31,7 @@ const MealDetail = (props: {
   const handleDelete = async () => {
     // 삭제 메소드
     const success = await deleteUserIntake(props.foodInfo.id);
-    console.log(success);
+    // console.log(success);
 
     if (success) {
       props.isUpdate();
