@@ -1,5 +1,6 @@
 import { Ingredient, IngredientIHave, Nutrient, NutObj } from './interface';
-import { nutritionDictionary } from './data';
+import { nutritionDictionary, largeCategoryDictionary } from './data';
+import { ingredient } from '../components/refrigerator/interface';
 // 있는재료 없는재료 양념 리스트 출력함수
 export const calculateIngredient = (
   allIngredient: Ingredient[],
@@ -42,4 +43,13 @@ export const categorializeNutrient = (nutrient: Nutrient) => {
   }
 
   return categoryArr;
+};
+export const sortByLargeCategory = (ingredients: Ingredient[]) => {
+  const categoryList: any = [[], [], [], [], [], [], []];
+
+  for (const item of ingredients) {
+    categoryList[largeCategoryDictionary[item.largeCategory]].push(item);
+  }
+
+  return [...categoryList];
 };

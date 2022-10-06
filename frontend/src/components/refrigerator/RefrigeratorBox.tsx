@@ -10,7 +10,7 @@ import ExpirationList from './ExpirationList';
 import { getRefrigerator } from '../../api/myrefrigerator';
 import MyIngredientList from './MyIngredientList';
 import { ingredient } from './interface';
-
+import { sortByLargeCategory } from '../../util/fuctions';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -26,6 +26,8 @@ const style = {
   pb: 3,
 };
 
+// 있는 재료 종류별로 분배하는 컴포넌트
+
 export default function RefrigeratorBox(props: {
   item: ingredient[];
   addIngredient: (data: ingredient) => void;
@@ -38,8 +40,19 @@ export default function RefrigeratorBox(props: {
   const handleClose = () => {
     setOpen(false);
   };
+  // 대분류 단위로 분배
+  const [
+    grainList,
+    meatList,
+    seafoodList,
+    dairyList,
+    drinkList,
+    seasoningList,
+    otherList,
+  ] = sortByLargeCategory(props.item);
+  // console.log(grainList, meatList, seafoodList);
 
-  // const [grainList, meatList, SeafoodList, DairyList, DrinkList, SeasoningList];
+  // const largeCategoryList = sortByLargeCategory(props.item);
 
   useEffect(() => {
     const today: any = new Date();
@@ -83,25 +96,46 @@ export default function RefrigeratorBox(props: {
           </Modal>
         </div>
       </div>
-      <div className={classes.ingredientList}>
-        <h3 className={classes.ingredinetHeader}>재료</h3>
-        {props.item.map((item) => (
+      <h3 className={classes.ingredientHeader}>내 냉장고 속 재료</h3>
+      <div className={classes.ingredientListCategory}>
+        {grainList && (
           <MyIngredientList
-            key={item.id}
-            item={item}
-            // removeItem={removeItem}
+            key={0}
+            itemList={grainList}
+            name={'곡류 및 채소'}
           />
-        ))}
+        )}
+        {meatList.length > 0 && (
+          <MyIngredientList key={1} itemList={meatList} name={'육류'} />
+        )}
+        {seafoodList.length > 0 && (
+          <MyIngredientList key={2} itemList={seafoodList} name={'수산물'} />
+        )}
+        {dairyList.length > 0 && (
+          <MyIngredientList key={3} itemList={dairyList} name={'유제품'} />
+        )}
+        {drinkList.length > 0 && (
+          <MyIngredientList key={4} itemList={drinkList} name={'음료'} />
+        )}
+        {seasoningList.length > 0 && (
+          <MyIngredientList
+            key={5}
+            itemList={seasoningList}
+            name={'조미료 및 기름'}
+          />
+        )}
+        {otherList.length > 0 && (
+          <MyIngredientList key={6} itemList={otherList} name={'기타'} />
+        )}
       </div>
       <div className={classes.expirationList}>
-        <h3 className={classes.expirationHeader}>유통기한 임박 재료</h3>
-        {expirationIngredient.map((item) => (
+        <div className={classes.expirationHeader}>유통기한 임박 재료</div>
+        <div className={classes.expirationContainer}>
           <ExpirationList
-            key={item.id}
-            item={item}
+            itemList={expirationIngredient}
             // removeItem={removeItem}
           />
-        ))}
+        </div>
       </div>
     </div>
   );

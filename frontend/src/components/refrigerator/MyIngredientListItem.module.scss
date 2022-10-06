@@ -1,0 +1,24 @@
+.wrapper {
+  padding: 1rem;
+  background-color: #fff;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.left {
+  display: flex;
+  gap: 1rem;
+}
+.right {
+}
+.expireDate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  span {
+    font-size: 1rem;
+  }
+}

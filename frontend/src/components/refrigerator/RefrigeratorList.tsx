@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { DragDropContext, DropResult, Droppable, Draggable} from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  DropResult,
+  Droppable,
+  Draggable,
+} from 'react-beautiful-dnd';
 import { getRefrigerator } from '../../api/myrefrigerator';
 import { ingredient } from './interface';
 
 import classes from './RefrigeratorList.module.scss';
 import RefrigeratorListItem from './RefrigeratorListItem';
 
-
-export default function RefrigeratorList(props:
-  {
-    item: ingredient[];
-    searchIngre: (data:number) => void;
-    deleteIngre: (data:number) => void;
-  }) {
+// 리스트 담는 컴포넌트
+export default function RefrigeratorList(props: {
+  item: ingredient[];
+  searchIngre: (data: number) => void;
+  deleteIngre: (data: number) => void;
+}) {
   // const onDragEnd = (result: DropResult) => {
   //   const {source, destination} = result
   //   if (!destination) return

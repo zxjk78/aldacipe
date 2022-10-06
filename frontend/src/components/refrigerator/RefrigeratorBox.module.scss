@@ -28,33 +28,44 @@
   bottom: 10px;
   right: 10px;
 }
-.ingredientList {
-  display: inline-block;
+
+.ingredientListCategory {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 2rem 2rem;
   border: solid;
   border-radius: 10px;
   border-color: $green-secondary;
-  background-color: #fafafa;
-  width: 80%;
-  height: 40vh;
   overflow-y: auto;
+  height: 60vh;
+  background-color: #fff;
+  // background-color: red;
+
+  // display: inline-block;
+  // width: 80%;
 }
-.ingredinetHeader {
+.ingredientHeader {
   text-align: start;
   margin-left: 1rem;
+  color: $green-secondary;
+  font-size: 1.2rem;
 }
-.expirationList {
-  display: inline-block;
+
+.expirationHeader {
+  color: $red;
+  text-align: start;
+}
+.expirationContainer {
+  width: 100vh;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
   border: solid;
   border-radius: 10px;
   border-color: $red;
   background-color: #fafafa;
-  width: 80%;
   height: 25vh;
-  overflow-y: auto;
+  overflow-x: auto;
   margin-top: 2rem;
-}
-.expirationHeader {
-  color: $red;
-  text-align: start;
-  margin-left: 1rem;
 }
