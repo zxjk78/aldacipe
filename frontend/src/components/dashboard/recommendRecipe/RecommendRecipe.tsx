@@ -11,12 +11,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CardItem from './CardItem';
 // css, interface(type)
 import classes from './RecommendRecipe.module.scss';
-import { CardRecipe2 } from '../../../util/interface';
+import { CardHealthyRecipe, CardRecipe2 } from '../../../util/interface';
+// import CarouselCard from '../../mainpage/CarouselCard';
+import HealthyRecipeCard from './HealthyRecipeCard';
 
 // 부모: DashboardPage.tsx
 
 const RecommendRecipe = (props: {}) => {
-  const [recipeList, setRecipeList] = useState<CardRecipe2[] | null>(null);
+  const [recipeList, setRecipeList] = useState<CardHealthyRecipe[] | null>(null);
   const [targetRecipeId, setTargetRecipeId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -43,7 +45,14 @@ const RecommendRecipe = (props: {}) => {
           <div className={classes.container}>
             <div className={classes.header}>
               <div>부족한 영양소 기반 추천 레시피</div>
-              <div className={classes.arrowContainer}>
+
+            </div>
+            <div className={classes.main}>
+              <HealthyRecipeCard card={recipeList[targetRecipeId]} />
+            </div>
+            <div className={classes.footer}></div>
+
+            <div className={classes.arrowContainer}>
                 <span onClick={handleBackword} className={classes.arrow}>
                   <ArrowBackIosNewIcon />
                 </span>
@@ -52,11 +61,6 @@ const RecommendRecipe = (props: {}) => {
                   <ArrowForwardIosIcon />
                 </span>
               </div>
-            </div>
-            <div className={classes.main}>
-              <CardItem card={recipeList[targetRecipeId]} />
-            </div>
-            <div className={classes.footer}></div>
           </div>
         </div>
       )}

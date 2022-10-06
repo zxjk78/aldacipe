@@ -3,6 +3,10 @@
 .wrapper {
   box-sizing: border-box;
   padding: 8px;
+  height:100%;
+}
+.container{
+  height:100%;
 }
 
 .header {
@@ -13,7 +17,6 @@
   color: $green-primary;
   font-weight: bold;
   font-size: 1.3rem;
-  margin-bottom: 1rem;
 }
 .addMeal {
   display: flex;
@@ -31,7 +34,8 @@
   // background-color: red;
   max-height: 35vh;
   overflow-y: scroll;
-
+  height:100%;
+  padding:2rem 0;
   gap: 1rem;
 }
 .empty {

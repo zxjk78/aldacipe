@@ -50,7 +50,7 @@ export default function Detail(props: { isUpdated: boolean }) {
   return (
     <>
       <div className={classes.title}>
-        상세 <span>7일간의 개인의 기록을 상세히 표시합니다.</span>
+        상세 <span>지난 7일간 영양 섭취 통계</span>
       </div>
       {!isLoading && totalIntakeNut && recommendNut && (
         <div className={classes.container}>
