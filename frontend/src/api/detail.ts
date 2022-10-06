@@ -20,7 +20,7 @@ export const fetchReview = async (recipeId: number) => {
     return response.data.data;
   } catch (error) {
     console.log(error);
-    return -1;
+    return [];
   }
 };
 
