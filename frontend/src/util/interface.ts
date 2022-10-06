@@ -147,6 +147,13 @@ export interface IngredientColorDictionary {
 }
 
 // ------------- dashboard 관련
+export interface CardHealthyRecipe {
+  id: number;
+  name: string;
+  imgURL: string;
+  features: [];
+}
+
 
 // 섭취 intake 관련
 

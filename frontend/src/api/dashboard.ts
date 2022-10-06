@@ -75,9 +75,9 @@ export const fetchIngredientNutrition = async (ingredientId: number) => {
 export const fetchHealthyRecipe = async () => {
   try {
     // 임시로 인기 레시피로 포맷 잡기
-    // const response = await axiosAuthInstance.get(`recipe/healthy`);
-    const response = await axiosAuthInstance.get(`recipe/popular`);
-
+    const response = await axiosAuthInstance.get(`recipe/healthy`);
+    // const response = await axiosAuthInstance.get(`recipe/popular`);
+    console.log(response);
     return response.data.data;
   } catch (error) {
     console.log(error);

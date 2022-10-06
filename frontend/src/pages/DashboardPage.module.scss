@@ -2,13 +2,15 @@
 .wrapper {
   width: 95%;
   margin: 0px auto;
-  padding-bottom: 15rem;
+  padding: 2rem 3rem;
 }
 .title {
   color: $green-primary;
   font-weight: bold;
   font-size: 2rem;
   margin: 1rem;
+  margin-bottom: 2rem;
+  color:$text-primary;
 }
 .container {
   background-color: $background-primary;
@@ -16,7 +18,7 @@
   height: 87vh;
   display: grid;
   grid-template-rows: 2fr 2fr;
-  grid-template-columns: 1fr 3fr 3fr;
+  grid-template-columns: 2fr 3fr 3fr;
   gap: 1rem;
   border-radius: 15px;
 }
@@ -38,11 +40,12 @@
     color: $green-primary;
     font-weight: bold;
     font-size: 1.3rem;
+    margin-bottom: 2rem;
 
     .periodToggle {
       position: absolute;
       right: 0.5rem;
-      top: 3rem;
+      top: 3.6rem;
     }
   }
   // background-color: chartreuse;
@@ -53,6 +56,7 @@
 }
 .detail {
   grid-area: 3/1/4/8;
+  padding-bottom: 10rem;
 }
 .recipeDetail {
   position: absolute;

@@ -7,7 +7,8 @@ import { API_URL } from '../../../api/config/http-config';
 // external component
 import InfoIcon from '@mui/icons-material/Info';
 // custom component
-import RecipeImgContainer from '../../UI/RecipeImgContainer';
+// import RecipeImgContainer from '../../UI/RecipeImgContainer';
+import RecipeRoundImgContainer from '../../UI/RecipeRoundImgContainer';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
 import { Intake } from '../../../util/interface';
@@ -28,7 +29,7 @@ export default function MealListItem(props: {
         <div className={classes.container}>
           <div className={classes.left}>
             <div>
-              <RecipeImgContainer
+              <RecipeRoundImgContainer
                 src={`${API_URL}image?path=${props.intake.image}`}
                 width={'30px'}
                 height={'30px'}
@@ -39,7 +40,7 @@ export default function MealListItem(props: {
               <div>
                 {props.intake.name + ' '}
                 <span onClick={handleDetailToggle}>
-                  <InfoIcon fontSize="small" />
+                  <InfoIcon fontSize="small" sx={{ color: "gray"}}/>
                 </span>
               </div>
             </div>

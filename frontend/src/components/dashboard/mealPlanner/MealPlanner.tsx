@@ -16,6 +16,7 @@ import { Intake } from '../../../util/interface';
 // etc
 import mealEmpty from '../../../assets/mealPlanner_empty.png';
 
+
 // 부모: DashboardPage
 export default function MealPlanner(props: {
   isUpdated: boolean;
