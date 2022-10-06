@@ -11,6 +11,8 @@
 // css, interface(type)
 import classes from './UpperDetail.module.scss';
 import { nutritionDictionary } from '../../../util/data';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import { reduce } from 'lodash';
 export default function UpperDetail(props: {
   nutName: string;
   nutValue: number;
@@ -37,6 +39,14 @@ export default function UpperDetail(props: {
               : classes.footer
           }
         >
+          <div className={classes.description_text}>
+          {
+              amount > 15 &&
+              <ReportProblemIcon className={classes.status_icon} sx={{ color: "red"}} />       
+              
+          }
+          {' '}
+          
           평균보다{' '}
           <span
             className={
@@ -50,6 +60,7 @@ export default function UpperDetail(props: {
             {amount.toFixed(1)}%
           </span>{' '}
           <span>{isLower ? '낮습니다' : '높습니다'}</span>
+          </div>
         </div>
       </div>
     </>
