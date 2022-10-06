@@ -25,7 +25,7 @@ const CardItem = (props: { card: SearchRecipe }) => {
     <>
       <div className={classes.card}>
         <Link to={`/detail/${props.card.id}`}>
-          <Card sx={{ minWidth: 200, maxWidth: 500}}>
+          <Card sx={{ minWidth: 200, maxWidth: 200, minHeight: '200px' }}>
             <CardActionArea>
               <RecipeImgContainer
                 src={`${API_URL}image?path=${
@@ -36,12 +36,11 @@ const CardItem = (props: { card: SearchRecipe }) => {
                 width="100%"
               />
 
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {props.card.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {/* {props.card.avgScore} */}
+              <CardContent sx={{ minHeight: '100px' }}>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {props.card.name.length > 22
+                    ? props.card.name.substring(0, 20) + '...'
+                    : props.card.name}
                 </Typography>
               </CardContent>
             </CardActionArea>

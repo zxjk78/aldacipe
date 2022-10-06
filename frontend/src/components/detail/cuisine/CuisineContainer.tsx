@@ -61,7 +61,7 @@ const CuisineContainer = (props: {}) => {
             ))}
           </div>
           <div className={classes.footer}>
-            <CustomWidthTooltip title="냉장고 재료를 차감합니다.">
+            <CustomWidthTooltip title="1인분 만큼의 냉장고 재료를 차감합니다.">
               <CustomButton variant="contained" onClick={completeCooking}>
                 요리 완료
               </CustomButton>

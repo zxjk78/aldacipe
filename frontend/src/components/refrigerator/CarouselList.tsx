@@ -24,13 +24,13 @@ const CarouselList = (props: { card: recipe }) => {
                 height="150"
                 image={`${API_URL}image?path=${props.card.image}`}
                 // image={`${API_URL}image?path=${props.card.image}`}
-                alt="green iguana"
+                alt="요리 이미지"
               />
               <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  {props.card.name.length < 9
+                <Typography gutterBottom variant="subtitle2" component="div">
+                  {props.card.name.length < 7
                     ? props.card.name
-                    : props.card.name.substring(0, 7) + '...'}
+                    : props.card.name.substring(0, 6) + '...'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {/* {props.card.avgScore} */}
