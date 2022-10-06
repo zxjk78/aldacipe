@@ -17,6 +17,8 @@ import RecipeImgContainer from '../../UI/RecipeImgContainer';
 // css, interface(type)
 import classes from './MealDetail.module.scss';
 import { Nutrient, Intake } from '../../../util/interface';
+
+// 부모 :
 const MealDetail = (props: {
   foodInfo: Intake;
   onDetailClose: () => void;
@@ -56,7 +58,6 @@ const MealDetail = (props: {
     <>
       <div className={classes.wrapper}>
         <div className={classes.container}>
-          <div className={classes.header}></div>
           {!isLoading && (
             <div className={classes.main}>
               <div>

@@ -19,6 +19,7 @@ import CuisineContainer from '../src/components/detail/cuisine/CuisineContainer'
 import NutScoreContainer from './components/detail/NutScoreContainer';
 // 냉장고 페이지
 import MyRefrigerator from './pages/MyRefrigerator';
+import MyRefrigerator2 from './pages/MyRefrigerator2';
 
 // 테스트용 임시 라우팅
 
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/myrefrigerator" element={<MyRefrigerator />} />
+                {/* <Route path="/myrefrigerator2" element={<MyRefrigerator2 />} /> */}
               </>
             )}
             {/* 현재 로직으로는 404 페이지 대신에 로그인 또는 메인으로 리다이렉트됨 */}

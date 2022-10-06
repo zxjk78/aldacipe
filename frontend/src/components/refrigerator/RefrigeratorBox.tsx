@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline } from 'react-icons/io5';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -26,11 +26,12 @@ const style = {
   pb: 3,
 };
 
-export default function RefrigeratorBox(props:{
-  item:ingredient[]; addIngredient: (data:ingredient) => void;
+export default function RefrigeratorBox(props: {
+  item: ingredient[];
+  addIngredient: (data: ingredient) => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [expirationIngredient, setExpirationIngredient] = useState<any[]>([])
+  const [expirationIngredient, setExpirationIngredient] = useState<any[]>([]);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -38,27 +39,33 @@ export default function RefrigeratorBox(props:{
     setOpen(false);
   };
 
+  // const [grainList, meatList, SeafoodList, DairyList, DrinkList, ];
+
   useEffect(() => {
-    const today:any = new Date();
-    const tmp:any[] = []
-    props.item.map((item:any) => {
-      const dday:any = new Date(`${item.expirationDate} 00:00:00`);
+    const today: any = new Date();
+    const tmp: any[] = [];
+    props.item.map((item: any) => {
+      const dday: any = new Date(`${item.expirationDate} 00:00:00`);
       const gapNum = dday - today;
       const expirationDate = Math.ceil(gapNum / (1000 * 60 * 60 * 24));
       if (expirationDate < 4) {
-        item.Dday = expirationDate
-        tmp.push(item)
+        item.Dday = expirationDate;
+        tmp.push(item);
       }
-    })
-    setExpirationIngredient(tmp)
-  }, [props.item])
+    });
+    setExpirationIngredient(tmp);
+  }, [props.item]);
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.container}>
-        <h2 className={classes.header}>식재료 등록</h2>
+        <h2 className={classes.header} onClick={handleOpen}>
+          식재료 등록{' '}
+          <span>
+            <IoAddCircleOutline />
+          </span>
+        </h2>
         <div className={classes.button}>
-          <IoAddCircleOutline onClick={handleOpen}/>
           <Modal
             hideBackdrop
             open={open}
@@ -68,8 +75,10 @@ export default function RefrigeratorBox(props:{
           >
             <Box sx={{ ...style, width: 500 }}>
               <h2 id="child-modal-title">냉장고에 재료 추가하기</h2>
-              <MyRefrigeSearchInput addIngredient={props.addIngredient}/>
-              <Button className={classes.closebutton} onClick={handleClose}>나가기</Button>
+              <MyRefrigeSearchInput addIngredient={props.addIngredient} />
+              <Button className={classes.closebutton} onClick={handleClose}>
+                나가기
+              </Button>
             </Box>
           </Modal>
         </div>
