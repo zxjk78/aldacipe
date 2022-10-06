@@ -30,6 +30,8 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     @Query("select distinct r from Recipe r join fetch r.evaluations re where r.id in (:ids)")
     List<Recipe> searchRecipeByIdListWithEvalInfo(@Param("ids") List<Long> idList);
 
+    @Query("select distinct r from Recipe r join fetch r.features f join fetch f.nutrientFeature nf where r.id in (:ids)")
+    List<Recipe> searchRecipeWithFeaturesByIdList(@Param("ids") List<Long> idList);
     // name query
     @Query("select new com.a501.recipe.api.dto.recipe.RecipeDto(r)" +
             " from Recipe r where r.name like :keyword%")
@@ -66,6 +68,7 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
 
     @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.id=:recipeId")
     Optional<Recipe> searchRecipeWithIngredient(@Param("recipeId") Long recipeId);
+
 
 
 }
