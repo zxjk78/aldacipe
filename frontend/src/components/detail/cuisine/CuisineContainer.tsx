@@ -19,6 +19,7 @@ const CustomButton = styled(Button)`
   width: 20%;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 2rem;
   &:hover {
     background-color: #058181;
   }
