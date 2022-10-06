@@ -16,7 +16,7 @@ const CarouselCard = (props: { card: CardRecipe }) => {
     <>
       <div className={classes.card}>
         <Link to={`/detail/${props.card.id}`}>
-          <Card sx={{ maxWidth: 225, minHeight: 280, maxHeight: 280 }}>
+          <Card sx={{ maxWidth: 225, minHeight: 300, maxHeight: 300 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
