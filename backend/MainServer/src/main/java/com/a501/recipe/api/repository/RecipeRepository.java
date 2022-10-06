@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +39,10 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
             " from Recipe r join r.recipeIngredients ri where r.name like :keyword% and ri.id in (:ingredientIdList)")
     Optional<List<RecipeDto>> searchRecipeByNameLikeAndIngredients(@Param("keyword") String keyword, @Param("ingredientIdList") List<Long> ingredientIdList);
     @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.name like :keyword%")
-    Optional<List<Recipe>> searchRecipeByNameLikeWithIngredient(String keyword);
+    Optional<List<Recipe>> searchRecipeByNameLikeWithIngredient(@Param("keyword") String keyword);
 
+    @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.name like %:keyword% ")
+    Optional<List<Recipe>> searchRecipeByNameLikeNotStartWithIngredient(@Param("keyword") String keyword);
 
 
     @Query("select distinct r" +

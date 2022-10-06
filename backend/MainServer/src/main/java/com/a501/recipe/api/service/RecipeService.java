@@ -203,6 +203,8 @@ public class RecipeService {
     public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
         List<Recipe> candidateList = recipeRepository.searchRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
+        candidateList.addAll(recipeRepository.searchRecipeByNameLikeNotStartWithIngredient(keyword)
+                .orElseThrow(RecipeNotFoundException::new));
         int resCnt=0;
 
         List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
@@ -221,7 +223,6 @@ public class RecipeService {
                 resCnt++;
                 if(resCnt==20) break;
             }
-
         }
 
         if (withFood) {
