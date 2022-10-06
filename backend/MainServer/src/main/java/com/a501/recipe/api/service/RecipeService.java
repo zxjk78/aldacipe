@@ -57,7 +57,13 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +84,8 @@ public class RecipeService {
                         ((BigInteger) objects[0]).longValue()
                         , (String) objects[1]
                         , (String) objects[2]
-                        , ((BigDecimal) objects[3]).floatValue()))
+                        , ((BigDecimal) objects[3]).floatValue()
+                        , ((BigInteger)objects[4]).intValue()))
                 .collect(Collectors.toList());
     }
 
@@ -98,8 +105,14 @@ public class RecipeService {
 
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                        ))
                 .collect(Collectors.toList());
     }
 
@@ -121,7 +134,13 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -143,7 +162,13 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                ))
                 .collect(Collectors.toList());
     }
 
