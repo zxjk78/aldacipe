@@ -34,7 +34,7 @@ const CarouselCard = (props: { card: CardRecipe }) => {
                 <span>                
                   <Rating name="half-rating-read" defaultValue={props.card.avgScore} precision={0.5} readOnly />
                   <span className={classes.eval_text}>({props.card.avgScore.toFixed(1)})</span>
-                  <span className={classes.eval_cnt_text}> &nbsp;{props.card.evalCnt}명</span>
+                  <div className={classes.eval_cnt_text}> &nbsp;{props.card.evalCnt}명</div>
                 </span>
                 <Typography variant="body2" color="text.secondary">
                   
