@@ -35,7 +35,13 @@
     text-align: left;
     &:focus {
       @extend %input-focused;
+      border-radius: 10px;
+      width: 100%;
+      text-align: left;
     }
+  }
+  p {
+    height: 8px;
   }
 }
 .other {
