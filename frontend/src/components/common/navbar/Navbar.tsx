@@ -40,8 +40,8 @@ export default function Navbar() {
       <div className={classes.wrapper}>
         <Link to={`/main`}>
           <div className={classes.title}>
-            <img src="" alt="로고이미지" />
-            <h1>알다시피</h1>
+            <img width='80px' src={process.env.PUBLIC_URL+"/aldacipe_main_logo.png"} alt="로고이미지" />
+            {/* <h1>알다시피</h1> */}
           </div>
         </Link>
 
