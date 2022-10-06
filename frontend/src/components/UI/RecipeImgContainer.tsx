@@ -15,6 +15,7 @@ const RecipeImgContainer = (props: {
   src: string;
   width?: string;
   height?: string;
+  style?: any;
   alt: string;
 }) => {
   const handleImgNotfound = (

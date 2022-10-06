@@ -15,10 +15,11 @@ import { Intake } from '../../../util/interface';
 // 부모: MealPlanner
 export default function MealListItem(props: {
   intake: Intake;
-  onFoodDetail: (id: number, type: string) => void;
+  onFoodDetail: (intake: Intake) => void;
 }) {
   const handleDetailToggle = () => {
-    props.onFoodDetail(props.intake.intakeTargetId, props.intake.intakeType);
+    // targetId, type, img 꺼내다 사요앟ㄹ것
+    props.onFoodDetail(props.intake);
   };
 
   return (
