@@ -97,6 +97,7 @@ export default function MealSearchListItem(props: {
                     type="number"
                     id="amount"
                     onChange={handleCanSubmit}
+                    defaultValue={props.meal.weight}
                     ref={amountRef}
                   />
                 </div>
@@ -109,7 +110,11 @@ export default function MealSearchListItem(props: {
               type="button"
               className={classes.add}
               onClick={isSelected ? handleAdd : handleEnterAmount}
-              disabled={isSelected && !isAmountEntered ? true : false}
+              disabled={
+                isSelected && !(isAmountEntered || props.meal.weight)
+                  ? true
+                  : false
+              }
             >
               추가
             </button>
