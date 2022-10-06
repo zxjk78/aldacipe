@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ingredient } from './interface';
+import MyIngredientListItem from './MyIngredientListItem';
 
 import classes from './MyIngredientList.module.scss';
-
+// 대분류 재료 리스트, 부모: RefrigeratorBox
 export default function MyIngredientList(props: {
-  item: ingredient;
+  itemList: ingredient[];
+  name: string;
   // removeItem: () => void;
 }) {
   // const [ingredient, setIngredient] = useState([])
@@ -23,18 +25,16 @@ export default function MyIngredientList(props: {
     setOpen(false);
   };
 
-  
   return (
     <div className={classes.wrapper}>
-      <div>
-        {props.item.name}
+      <div className={classes.header}>
+        <div>{props.name}</div>
+        <div>총 {props.itemList.length}개</div>
       </div>
-      {/* {props.item.largeCategory} */}
-      <div>
-        {props.item.expirationDate}
-      </div>
-      <div>
-        {props.item.weight}g
+      <div className={classes.main}>
+        {props.itemList.map((item) => (
+          <MyIngredientListItem ingredient={item} />
+        ))}
       </div>
     </div>
   );
