@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,12 @@ public class ReviewService {
 
     public List<ReviewDto> getAllReviewByRecipeId(Long recipeId) {
         return reviewRepository.searchAllByRecipeIdOrderByCreatedTimeDesc(recipeId)
-                .orElseThrow(RecipeRelationalDataNotFoundException::new);
+                .orElseThrow(RecipeRelationalDataNotFoundException::new).stream()
+                .map(review-> new ReviewDto(review.getId(),
+                        review.getUser(),
+                        review.getContents(),
+                        review.getCreatedTime()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
