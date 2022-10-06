@@ -16,6 +16,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     @Query("select r from Recipe r where id in (:ids)")
     List<Recipe> searchRecipeByIdList(@Param("ids") List<Long> idList);
 
+    @Query("select r from Recipe r join fetch r.evaluations where id in (:ids)")
+    List<Recipe> searchRecipeByIdListWithEvalInfo(@Param("ids") List<Long> idList);
 
     // name query
     @Query("select new com.a501.recipe.api.dto.recipe.RecipeDto(r)" +
@@ -55,9 +58,11 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     List<RecipeAndFoodSearchResponseDto> searchAllFoodByNameLike(@Param("keyword") String keyword);
 
     @Query(nativeQuery = true,
-            value = "select e.recipe_id as id, r.name as name, r.image_big as imgURL, (sum(e.score)/count(*)) as avgScore from evaluation e inner join recipe r where e.recipe_id=r.id group by e.recipe_id order by avgScore desc limit 20 ")
+            value = "select e.recipe_id as id, r.name as name, r.image_big as imgURL, (sum(e.score)/count(*)) as avgScore, count(*) as evalCnt from evaluation e inner join recipe r where e.recipe_id=r.id group by e.recipe_id order by avgScore desc limit 20 ")
     List<Object[]> searchTop20BestRecipeFrom(@Param("fromDate") LocalDate fromDate);
 
     @Query("select distinct r from Recipe r join fetch r.recipeIngredients ri join fetch ri.ingredient i where r.id=:recipeId")
     Optional<Recipe> searchRecipeWithIngredient(@Param("recipeId") Long recipeId);
+
+
 }
