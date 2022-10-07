@@ -136,6 +136,7 @@ public class NutrientService {
             for(RecipeIngredient ing : recipe.getRecipeIngredients()){
                 Long ingredientId = ing.getIngredient().getId();
                 if(ing.getIngredient().getLargeCategory().equals(LargeCategory.SeasoningAndOil.getName())) continue;
+                if(ing.getIngredient().getLargeCategory().equals(LargeCategory.Other.getName())) continue;
                 if(!ingredientCntMap.containsKey(ingredientId)) ingredientCntMap.put(ingredientId, new IngredientCnt(ing.getIngredient()));
                 ingredientCntMap.get(ingredientId).cnt++;
             }

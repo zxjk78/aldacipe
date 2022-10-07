@@ -5,10 +5,7 @@ import com.a501.recipe.api.domain.entity.User;
 import com.a501.recipe.api.dto.ingredient.IngredientDto;
 import com.a501.recipe.api.dto.nutrient.NutrientDto;
 import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
-import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
-import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
-import com.a501.recipe.api.dto.recipe.RecipeDto;
-import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
+import com.a501.recipe.api.dto.recipe.*;
 import com.a501.recipe.api.dto.response.CommonResult;
 import com.a501.recipe.api.dto.response.ManyResult;
 import com.a501.recipe.api.dto.response.OneResult;
@@ -99,7 +96,8 @@ public class RecipeController {
 
     @ApiOperation(value = "영양소 균형을 위한 추천 요리")
     @GetMapping("/healthy")
-    public ManyResult<RecipeThumbNailResponseDto> getHealthyRecipeList(@ApiIgnore @LoginUser User loginUser) {
+    public ManyResult<RecipeThumbNailWithFeaturesResponseDto> getHealthyRecipeList(@ApiIgnore @LoginUser User loginUser) {
+      
         return responseService.getManyResult(recipeService.getHealthyRecipeList(loginUser.getId()));
     }
 
