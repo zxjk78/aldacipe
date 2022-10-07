@@ -19,6 +19,7 @@ import { RecipeDetail } from '../util/interface';
 // 더미데이터
 export default function RecipeDetailPage(props: {}) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(true);
   const [recipeInfo, setRecipeInfo] = useState<RecipeDetail | null>(null);
   const location = useLocation();
 
@@ -40,8 +41,10 @@ export default function RecipeDetailPage(props: {}) {
     })();
 
     setIsLoading(false);
-  }, [recipeId]);
-
+  }, [recipeId, isUpdate]);
+  const handleInfoUpdate = () => {
+    setIsUpdate((prev) => !prev);
+  };
   return (
     <>
       {/* 비동기로 집어넣는 시간이 애매하게 안맞아서 null에서 속성을 꺼낸다고 오류가 남,
@@ -53,7 +56,10 @@ export default function RecipeDetailPage(props: {}) {
         <div className={classes.backdrop}>
           <div className={classes.wrapper}>
             <div>
-              <IngredientContainer recipeInfo={recipeInfo!} />
+              <IngredientContainer
+                updateRecipeInfo={handleInfoUpdate}
+                recipeInfo={recipeInfo!}
+              />
             </div>
             <div className={classes.main}>
               <div className={classes.menus}>
