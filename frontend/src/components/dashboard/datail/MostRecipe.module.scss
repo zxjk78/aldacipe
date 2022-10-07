@@ -1,0 +1,145 @@
+@import '../../../global.scss';
+
+.wrapper {
+  height: 100%;
+  padding: 0.7rem;
+}
+.container {
+  position: relative;
+  height: 100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.header {
+  position: absolute;
+  top:1.4rem;
+  left:1.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: $text-primary;
+  margin-bottom: 1rem;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  color: #000;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+  .empty {
+    margin-top: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    gap: 1rem;
+  }
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: $orange;
+  font-weight: bold;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  cursor: pointer;
+  &:hover {
+    scale: 1.05;
+    transition: 0.2s;
+  }
+}
+.modal {
+  background-color: #fff;
+  padding: 2rem 2rem;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $text-primary;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.modalHeader {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-primary;
+}
+.modalContent {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.most {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+
+  > div:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.other {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  > div {
+    display: flex;
+    gap: 4rem;
+  }
+}
+
+.first .second,
+.third,
+.rest {
+  font-weight: bold;
+}
+.first {
+  color: gold;
+}
+.second {
+  color: silver;
+}
+.third {
+  color: brown;
+}
+.otherName {
+  font-weight: bold;
+}
+
+.center_container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.most_recipe_name{
+  font-size:0.9rem;
+}
+.rank_item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color:$text-primary;
+  width:100%;
+}

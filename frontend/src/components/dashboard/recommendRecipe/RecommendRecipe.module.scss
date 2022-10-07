@@ -1,0 +1,53 @@
+@import '../../../global';
+.wrapper {
+  margin-top: 0.5rem;
+}
+.container {
+  max-height: 105vh;
+  overflow-y: scroll;
+  padding: 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 0.5rem;
+}
+.header {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
+
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.main {
+  gap: 0.7rem;
+  height: 100%;
+  width: 100%;
+
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+  > div {
+    margin: 0px auto;
+  }
+}
+.arrowContainer {
+  display: flex;
+  gap: 0.5rem;
+  color:$text-highlight;
+}
+.arrow{
+  color:$green-secondary;
+}
+.arrow:hover{
+  cursor: pointer;
+  color:$green-primary;
+}

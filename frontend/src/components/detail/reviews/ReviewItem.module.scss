@@ -1,0 +1,21 @@
+@import '../../../global.scss';
+.wrapper {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+}
+.header {
+  display: flex;
+  gap: 0.3rem;
+
+  & > div:nth-of-type(1) {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+.content {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: $text-primary;
+}

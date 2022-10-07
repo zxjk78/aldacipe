@@ -1,0 +1,57 @@
+@import '../../global.scss';
+.wrapper {
+  background-color: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.title {
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.searchInput {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: $green-primary;
+  // border-radius: 10px;
+  border: none;
+  border-bottom: solid 2px $green-primary;
+  input {
+    border: none;
+    width: 100%;
+    &:focus {
+      outline: $green-primary;
+      // background-color: $green-secondary;
+      color: #000;
+    }
+  }
+}
+.searchResult {
+  width: 80%;
+  margin-top: 2rem;
+  max-height: 40vh;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  // background-color: #fff;
+  padding: 2rem 1rem;
+  border: 2px solid $green-secondary;
+  border-radius: 10px;
+}
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 16px;
+
+  color: $green-secondary;
+}

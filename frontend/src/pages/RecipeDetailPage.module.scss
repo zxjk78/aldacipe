@@ -1,0 +1,49 @@
+@import '../global.scss';
+.backdrop {
+  width: 100%;
+  height: 100%;
+  background-color: $background-primary;
+}
+.wrapper {
+  width: 80%;
+  margin: 0px auto;
+}
+.main {
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 10px;
+  // background-color: #fff;
+}
+.menus {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: transparent;
+  border-bottom: solid 2px $green-secondary;
+  color: $text-primary;
+  font-size: 1.2rem;
+  font-weight: bold;
+  > div {
+    &:hover {
+      cursor: pointer;
+      color: $green-primary;
+      text-decoration: underline;
+    }
+  }
+  span {
+    color: #fff;
+  }
+}
+.selected {
+  color: $green-primary;
+  font-size: 1.5rem;
+  // text-decoration: underline;
+  span {
+    color: $green-primary;
+  }
+}
+.notselected {
+  color: $text-primary;
+}

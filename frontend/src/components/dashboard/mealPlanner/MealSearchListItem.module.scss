@@ -1,0 +1,181 @@
+@import '../../../global.scss';
+
+.wrapper {
+  background-color: $background-highlight;
+  width: 100%;
+  margin: 0px auto;
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 2px solid #fff;
+}
+.container {
+  box-sizing: border-box;
+  height: 60px;
+  width: 90%;
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: red;
+}
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+.foodInfo {
+  color: $text-primary;
+  margin: 0.4rem;
+
+  .foodName {
+    color: $text-highlight;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.2rem;
+  }
+}
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    &:disabled {
+      color: $text-disable;
+      cursor: no-drop;
+    }
+  }
+}
+.amountContainer {
+  position: relative;
+}
+.amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  gap: 1rem;
+  display: none;
+  label {
+    color: $orange;
+    font-size: 0.9rem;
+  }
+  input {
+    width: 60px;
+    border-radius: 5px;
+    border: 2px solid $orange;
+    &:focus {
+      outline: none;
+    }
+  }
+  span {
+    color: $orange;
+    font-size: 0.9rem;
+  }
+  > div:nth-of-type(1) {
+    font-size: 0.8rem;
+  }
+}
+.add {
+  cursor: pointer;
+  color: $red;
+  font-weight: 600;
+  text-align: right;
+}
+
+.selected0 {
+  // animation: border-green 1s;
+  // animation-fill-mode: forwards;
+  border: 2px solid $green-secondary;
+}
+.selected1 {
+  margin-top: 0;
+
+  animation: move-up 0.2s ease-in forwards;
+  animation-delay: 100ms;
+}
+.selected2 {
+  display: flex;
+  justify-content: flex-start;
+  width: 0;
+  height: 1.5rem;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+
+  animation: fade-in-left-right ease-in 0.3s forwards;
+  animation-delay: 300ms;
+}
+
+@keyframes border-green {
+  0% {
+    border: none;
+  }
+  25% {
+    border-top: 2px $green-secondary solid;
+  }
+  50% {
+    border-top: 2px $green-secondary solid;
+
+    border-right: 2px $green-secondary solid;
+  }
+  75% {
+    border-top: 2px $green-secondary solid;
+
+    border-right: 2px $green-secondary solid;
+    border-bottom: 2px $green-secondary solid;
+  }
+  100% {
+    border-top: 2px $green-secondary solid;
+
+    border-right: 2px $green-secondary solid;
+    border-bottom: 2px $green-secondary solid;
+    border-left: 2px $green-secondary solid;
+  }
+}
+@keyframes move-up {
+  0% {
+    position: relative;
+  }
+  25% {
+    position: relative;
+    bottom: 0.1rem;
+  }
+  50% {
+    position: relative;
+    bottom: 0.2rem;
+  }
+  75% {
+    position: relative;
+    bottom: 0.25rem;
+  }
+  100% {
+    position: relative;
+    bottom: 0.3rem;
+  }
+}
+
+@keyframes fade-in-left-right {
+  0% {
+    width: 0%;
+  }
+  40% {
+    width: 40%;
+  }
+  60% {
+    width: 60%;
+  }
+  100% {
+    width: 100%;
+  }
+}

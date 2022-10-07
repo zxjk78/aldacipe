@@ -1,0 +1,26 @@
+@import '../../../global.scss';
+
+.wrapper {
+  background-color: $background-highlight;
+  margin: 0px auto;
+}
+.header {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  color: $green-primary;
+}
+.main {
+  // margin: 2rem 0;
+  // margin-top: 2rem;
+  padding-top: 2rem;
+  & > div:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+.footer {
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

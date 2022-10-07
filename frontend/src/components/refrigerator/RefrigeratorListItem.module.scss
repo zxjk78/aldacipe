@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  // background-color: red;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem;
+
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: #000;
+}

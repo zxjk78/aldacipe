@@ -1,0 +1,44 @@
+@import '../../global';
+.wrapper {
+  padding: 0.5rem 0.5rem;
+  width: 8rem;
+  // height: 150px;
+  border: 2px solid $red;
+  border-radius: 8px;
+}
+.container {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr 3fr 1fr;
+}
+img {
+  margin-bottom: 1.5rem;
+}
+.ingreInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.header {
+  text-align: left;
+  color: #000;
+  font-weight: bold;
+  size: 1.1rem;
+
+  // background-color: aqua;
+}
+.main {
+}
+
+.footer {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+.expDate {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}

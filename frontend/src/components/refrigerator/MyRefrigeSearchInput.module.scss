@@ -1,0 +1,18 @@
+@import '../../global.scss';
+
+.searchBriefResult {
+  margin: 1rem;
+  overflow-y: scroll;
+  max-height: 300px;
+}
+.searchContainer > input {
+  @extend %input-search;
+}
+.searchContainer {
+  position: relative;
+  span {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+  }
+}

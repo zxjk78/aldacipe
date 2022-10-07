@@ -1,0 +1,42 @@
+@import '../global.scss';
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgb(0, 227, 138);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 227, 138, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+.wrapper {
+  width: 70%;
+  height: 70%;
+  min-height: 500px;
+  background-color: #fff;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loginImg {
+  width: 30vw;
+  height: 30vw;
+}
+.errorMsg {
+  font-size: 0.9rem;
+  line-height: 20px;
+  color: $red;
+}
