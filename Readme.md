@@ -30,29 +30,29 @@
 
 ### 메인 화면
 
-![Untitled](Untitled.png)
+![Untitled](images/Untitled.png)
 
-![Untitled](Untitled%201.png)
+![Untitled](images/Untitled1.png)
 
 ### 냉장고 페이지
 
-![Untitled](Untitled%202.png)
+![Untitled](images/Untitled2.png)
 
 ### 검색 페이지
 
-![Untitled](Untitled%203.png)
+![Untitled](images/Untitled3.png)
 
 ### 상세 페이지
 
-![Untitled](Untitled%204.png)
+![Untitled](images/Untitled4.png)
 
-![Untitled](Untitled%205.png)
+![Untitled](images/Untitled5.png)
 
 ### 영양관리 페이지
 
-![Untitled](Untitled%206.png)
+![Untitled](images/Untitled6.png)
 
-![Untitled](Untitled%207.png)
+![Untitled](images/Untitled7.png)
 
 ## ✨ 주요 기능
 
@@ -226,7 +226,7 @@ story에 예상 시간(story point)을 기록해 더 세세하게 일정 관리�
 - 정규화된 테이블
 - 테이블 간 관계 설정
 
-![a501ERD.PNG](a501ERD.png)
+![a501ERD.PNG](images/a501ERD.png)
 
 ### ✨ EC2 포트 정리
 
