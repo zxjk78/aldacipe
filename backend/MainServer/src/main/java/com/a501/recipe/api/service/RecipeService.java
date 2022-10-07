@@ -13,6 +13,7 @@ import com.a501.recipe.api.dto.nutrient.RecipeNutrientDto;
 import com.a501.recipe.api.dto.recipe.RecipeAndFoodSearchResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeDetailPageResponseDto;
 import com.a501.recipe.api.dto.recipe.RecipeThumbNailResponseDto;
+import com.a501.recipe.api.dto.recipe.RecipeThumbNailWithFeaturesResponseDto;
 import com.a501.recipe.api.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +58,13 @@ public class RecipeService {
 
         // search recipes by id list
         return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +85,8 @@ public class RecipeService {
                         ((BigInteger) objects[0]).longValue()
                         , (String) objects[1]
                         , (String) objects[2]
-                        , ((BigDecimal) objects[3]).floatValue()))
+                        , ((BigDecimal) objects[3]).floatValue()
+                        , ((BigInteger)objects[4]).intValue()))
                 .collect(Collectors.toList());
     }
 
@@ -98,8 +106,14 @@ public class RecipeService {
 
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                        ))
                 .collect(Collectors.toList());
     }
 
@@ -120,30 +134,38 @@ public class RecipeService {
 
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+        return recipeRepository.searchRecipeByIdListWithEvalInfo(idList).stream()
+                .map(r -> new RecipeThumbNailResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        ((float)r.getEvaluations().stream().map(e->e.getScore()).reduce((sum,sc)->sum+sc).orElse(0))/r.getEvaluations().size(),
+                        r.getEvaluations().size()
+                ))
                 .collect(Collectors.toList());
     }
 
-    public List<RecipeThumbNailResponseDto> getHealthyRecipeList(Long userId) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        Map<String,String> bodyMap = new HashMap<>();
-        bodyMap.put("user_id",userId.toString());
-        bodyMap.put("period","1");
-
-        List<Integer> response  = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
-        List<Long> idList = new ArrayList<>();
-        for (Integer i : response) {
-            idList.add(Long.valueOf(i));
+    public List<RecipeThumbNailWithFeaturesResponseDto> getHealthyRecipeList(Long userId) {
+        // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
+        Set<Long> idSet = new HashSet<>();
+        Long maxId = 1000l;
+        while (idSet.size() < 10) {
+            idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
         }
-        System.out.println("### HEALTHY ###");
-        System.out.println(idList.toString());
-        System.out.println("#### HEALTHY IDLIST END ####");
+        List<Long> idList = new ArrayList<>();
+        for (Long id : idSet) {
+            idList.add(id);
+        }
+
 
         // search recipes by id list
-        return recipeRepository.searchRecipeByIdList(idList).stream()
-                .map(r -> new RecipeThumbNailResponseDto(r))
+        return recipeRepository.searchRecipeWithFeaturesByIdList(idList).stream()
+                .map(r -> new RecipeThumbNailWithFeaturesResponseDto(
+                        r.getId(),
+                        r.getName(),
+                        r.getImageBig(),
+                        r.getFeatures().stream().map(nf->nf.getNutrientFeature().getName()).collect(Collectors.toList())
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -178,6 +200,8 @@ public class RecipeService {
     public List<RecipeAndFoodSearchResponseDto> searchRecipeAndFoodByNameAndIngredient(String keyword, List<Long> ingredientIdList, boolean withFood) {
         List<Recipe> candidateList = recipeRepository.searchRecipeByNameLikeWithIngredient(keyword)
                 .orElseThrow(RecipeNotFoundException::new);
+        candidateList.addAll(recipeRepository.searchRecipeByNameLikeNotStartWithIngredient(keyword, keyword)
+                .orElseThrow(RecipeNotFoundException::new));
         int resCnt=0;
 
         List<RecipeAndFoodSearchResponseDto> res = new ArrayList<>();
@@ -196,7 +220,6 @@ public class RecipeService {
                 resCnt++;
                 if(resCnt==20) break;
             }
-
         }
 
         if (withFood) {
