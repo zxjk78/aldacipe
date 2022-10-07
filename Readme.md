@@ -258,7 +258,14 @@ story에 예상 시간(story point)을 기록해 더 세세하게 일정 관리�
     - 레시피의 영양 특성 추출 및 영양소 기반 레시피 추천 구현
 
 포트 번호
+|PORT|이름|
+|---|---|
+|443|HTTPS|
+|80|HTTP - HTTPS로 리다이렉트(프론트 페이지지로 리다이렉트)|
+|8443|Openvidu|
+|6379|Redis|
+|3306|MySQL|
+|8000|Django|
+|8080|Spring boot Docker|
+|3000|React|
 
-| --- | --- |
-
-|  |  |
