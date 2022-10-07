@@ -265,6 +265,6 @@ story에 예상 시간(story point)을 기록해 더 세세하게 일정 관리�
 |6379|Redis|
 |3306|MySQL|
 |8000|Django|
-|8080|Spring boot Docker|
+|8080|Spring boot|
 |3000|React|
 
