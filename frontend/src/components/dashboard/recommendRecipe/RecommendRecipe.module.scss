@@ -1,0 +1,29 @@
+@import '../../../global';
+.wrapper {
+  margin-top: 0.5rem;
+}
+.container {
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  height: 100%;
+  max-height: 105vh;
+  overflow-y: scroll;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.footer {
+}

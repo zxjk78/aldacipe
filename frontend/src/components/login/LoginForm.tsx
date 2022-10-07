@@ -44,9 +44,8 @@ const LoginForm = (props: { loginFail: () => void }) => {
     event.preventDefault();
     const result: boolean | undefined = await login(loginUserInfo);
     if (result) {
-      // 리덕스 persist에 user명 저장
+      // 리덕스 persist에 user명 저장하고 reload로 main페이지로
       dispatch(loginActions.setUsername(loginUserInfo.email.split('@')[0]));
-
       window.location.reload();
     } else {
       props.loginFail();
@@ -73,7 +72,7 @@ const LoginForm = (props: { loginFail: () => void }) => {
           <p className={classes.errorMsg}>
             {loginUserInfo.password.length > 0 &&
               !passwordValid &&
-              '비밀번호를 정확히 입력해 주세요'}
+              '특수문자를 포함한 6-16자리입니다.'}
           </p>
         </div>
 

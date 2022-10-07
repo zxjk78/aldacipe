@@ -1,0 +1,45 @@
+@import '../../../global';
+
+.wrapper {
+  height: 4.5rem;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr 1fr;
+  column-gap: 50px;
+  align-items: center;
+  border-bottom: solid 1px $text-primary;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+
+.title,
+.menu {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+  color: $text-primary;
+}
+.menu {
+  justify-content: space-around;
+  gap: 0px;
+  & > div:hover {
+    color: $green-primary;
+  }
+  a {
+    color: #000;
+    padding-bottom: 0.2rem;
+    &:hover {
+      color: $green-primary;
+      // text-decoration: underline;
+    }
+  }
+}
+
+.userInfo {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.isActive {
+  border-bottom: 2px solid $green-secondary;
+
+  color: $green-secondary !important;
+}

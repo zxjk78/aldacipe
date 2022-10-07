@@ -1,0 +1,57 @@
+@import '../../global.scss';
+.container {
+  background-color: #fff;
+
+  width: 80%;
+  margin: 0px auto;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #000;
+}
+.header {
+  width: 100%;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  border-bottom: solid 2px $green-primary;
+  text-align: left;
+  > div {
+    display: flex;
+    width: 90%;
+    margin: 0px auto;
+
+    align-items: center;
+    justify-content: space-between;
+    color: $green-primary;
+    font-weight: bold;
+    font-size: 1.4rem;
+    > div {
+      width: 100%;
+      margin: 0px auto;
+      display: flex;
+      // justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+.tooltipContent {
+  width: 800px;
+  padding: 8px 16px;
+  background-color: red;
+}
+.main {
+  text-align: left;
+  width: 90%;
+  margin: 0px auto;
+}
+.searchBar {
+  width: 40%;
+}
+
+.blacklistItemContainer {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}

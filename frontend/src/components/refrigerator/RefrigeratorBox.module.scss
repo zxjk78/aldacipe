@@ -1,0 +1,53 @@
+@import '../../_global.scss';
+.wrapper {
+  text-align: center;
+}
+.container {
+  display: flex;
+  justify-content: end;
+}
+.header {
+  color: $green-primary;
+}
+.button {
+  position: relative;
+  margin: 0.8rem;
+  font-size: 40px;
+  color: $green-primary;
+  cursor: pointer;
+}
+.closebutton {
+  position: absolute !important;
+  bottom: 10px;
+  right: 10px;
+}
+.ingredientList {
+  display: inline-block;
+  border: solid;
+  border-radius: 10px;
+  border-color: $green-secondary;
+  background-color: #fafafa;
+  width: 80%;
+  height: 40vh;
+  overflow-y: auto;
+}
+.ingredinetHeader {
+  text-align: start;
+  margin-left: 1rem;
+}
+.expirationList {
+  display: inline-block;
+  border: solid;
+  border-radius: 10px;
+  border-color: $red;
+  background-color: #fafafa;
+  width: 80%;
+  height: 25vh;
+  overflow-y: auto;
+  margin-top: 2rem;
+}
+.expirationHeader {
+  color: $red;
+  text-align: start;
+  margin-left: 1rem;
+}

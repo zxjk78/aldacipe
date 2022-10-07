@@ -1,0 +1,7 @@
+@import '../../global.scss';
+
+.searchBriefResult {
+  margin: 1rem;
+  overflow-y: scroll;
+  max-height: 300px;
+}

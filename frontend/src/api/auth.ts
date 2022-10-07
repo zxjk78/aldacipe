@@ -1,8 +1,5 @@
-import { API_URL } from './http-config';
-import moment from 'moment';
-import axios from 'axios';
-import { axiosCommonInstance, axiosAuthInstance } from './apiController';
-import { setCookie, removeCookie, getCookie } from './cookie';
+import { axiosCommonInstance, axiosAuthInstance } from './config/apiController';
+import { setCookie, removeCookie, getCookie } from './config/cookie';
 
 export const login = async (userInfo: { email: string; password: string }) => {
   try {
@@ -11,7 +8,10 @@ export const login = async (userInfo: { email: string; password: string }) => {
     });
 
     if (response.data.success) {
-      const { accessToken, accessTokenExpireDate } = response.data.data;
+      const { accessToken, accessTokenExpireDate } =
+        response.data.data.tokenData;
+
+      const { userId } = response.data.data;
       // accessToken, 만료기간 cookie에 저장
       setCookie('accessToken', accessToken, {
         path: '/',
@@ -24,6 +24,10 @@ export const login = async (userInfo: { email: string; password: string }) => {
         secure: true,
         sameSite: 'none',
       });
+
+      // userId localStorage에 저장
+      localStorage.setItem('userId', userId);
+
       return true;
     }
   } catch (error) {
@@ -37,11 +41,10 @@ export async function logout() {
   try {
     const response = await axiosAuthInstance.delete('log-out', {});
 
-    if (response.data.success) {
-      removeCookie('accessToken');
-      removeCookie('accessTokenExpireDate');
-      return true;
-    }
+    removeCookie('accessToken');
+    removeCookie('accessTokenExpireDate');
+
+    return true;
   } catch (err) {
     // console.log(err);
   }

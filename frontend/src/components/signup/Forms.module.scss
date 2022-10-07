@@ -19,9 +19,10 @@
   margin-bottom: 1rem;
 }
 .signupInput {
-  width: 80%;
+  width: 300px;
   display: block;
-  margin: 0px auto;
+  margin: 0.5rem auto;
+
   padding: 10px 8px;
   background-color: $background-input;
   border: none;
@@ -86,7 +87,6 @@
   text-align: left;
   color: $orange;
 }
-
 .form2InputContainer {
   width: 90%;
   margin: 0px auto;
@@ -97,16 +97,19 @@
     outline: none;
   }
 }
+.genderOption {
+  width: 100px;
+  display: flex;
+}
 .genderContainer {
   > div:not(:first-child) {
     // background-color: #a4f6e6;
     display: flex;
   }
   input[type='radio'] {
-    width: 80px;
+    width: 30px;
     outline: none;
     position: relative;
-    top: 10px;
     accent-color: $green-primary;
   }
 }
@@ -125,6 +128,30 @@
   input {
     width: 70px;
     margin-left: 10%;
+    border: solid 2px $green-secondary;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+  }
+}
+
+.pwMsg {
+  font-size: 0.8rem;
+  color: $orange;
+}
+
+.nameContainer {
+  align-self: flex-start;
+  margin-left: 5%;
+  > div:nth-of-type(1) {
+    font-weight: bold;
+    color: $green-primary;
+  }
+  input {
+    margin-top: 1rem;
+    width: 200px;
+    height: 30px;
+
     border: solid 2px $green-secondary;
     border-radius: 5px;
     outline: none;
