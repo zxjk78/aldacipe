@@ -48,7 +48,7 @@ export const fetchSearchRecipe = async (
   ingredientString: string
 ) => {
   try {
-    console.log('검색키워드:', keyword, '\n재료코드:', ingredientString);
+    // console.log('검색키워드:', keyword, '\n재료코드:', ingredientString);
 
     const response = await axiosAuthInstance.get(
       `recipe/search?keyword=${keyword}&ingredient=${ingredientString}`
