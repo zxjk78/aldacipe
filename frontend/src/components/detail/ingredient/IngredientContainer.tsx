@@ -30,7 +30,10 @@ border: 1px solid #2fbba0;
 // height: 1rem;
 
 `;
-const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
+const IngredientContainer = (props: {
+  recipeInfo: RecipeDetail;
+  updateRecipeInfo: () => void;
+}) => {
   // console.log(props.recipeInfo);
 
   const {
@@ -52,6 +55,7 @@ const IngredientContainer = (props: { recipeInfo: RecipeDetail }) => {
     if (success) {
       // window.location.reload();
       setDidEval(true);
+      props.updateRecipeInfo();
     }
   };
   return (
