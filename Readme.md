@@ -32,27 +32,27 @@
 
 ![Untitled](images/Untitled.png)
 
-![Untitled](images/Untitled1.png)
+![Untitled](images/Untitled_1.png)
 
 ### 냉장고 페이지
 
-![Untitled](images/Untitled2.png)
+![Untitled](images/Untitled_2.png)
 
 ### 검색 페이지
 
-![Untitled](images/Untitled3.png)
+![Untitled](images/Untitled_3.png)
 
 ### 상세 페이지
 
-![Untitled](images/Untitled4.png)
+![Untitled](images/Untitled_4.png)
 
-![Untitled](images/Untitled5.png)
+![Untitled](images/Untitled_5.png)
 
 ### 영양관리 페이지
 
-![Untitled](images/Untitled6.png)
+![Untitled](images/Untitled_6.png)
 
-![Untitled](images/Untitled7.png)
+![Untitled](images/Untitled_7.png)
 
 ## ✨ 주요 기능
 
