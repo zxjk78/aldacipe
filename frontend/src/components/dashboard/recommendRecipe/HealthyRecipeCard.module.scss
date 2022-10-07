@@ -1,0 +1,46 @@
+@import '../../../global.scss';
+.card {
+  margin: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.2);
+}
+.eval_text {
+  font-size: 0.9rem;
+  padding-bottom: 0.2rem;
+}
+.eval_cnt_text {
+  font-size: 0.5rem;
+  color: gray;
+}
+.middle_text {
+  font-size: 1rem;
+}
+.eval_container {
+  position: relative;
+  top: -2.5rem;
+  left: 1rem;
+}
+.feature_container {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem;
+  overflow-y: hidden;
+}
+.feature_tag {
+  background-color: $green-primary;
+  border-radius: 7px;
+  padding: 0.2rem;
+  margin-right: 0.3rem;
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.7rem;
+}
+
+.healthy_recipe_info {
+  padding: 0 1rem;
+  text-align: center;
+}

@@ -26,6 +26,7 @@ const CarouselRefrigerator = (props: { list: never[] }) => {
 
   return (
     <>
+      {cardList.length===0 && <div className={classes.empty_container}> 추천을 위한 데이터가 아직 입력되지 않았습니다.</div>}
       <section className={classes.carousel}>
         <Slider {...settings}>
           {cardList.map((card: CardRecipe) => (

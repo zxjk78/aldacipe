@@ -11,18 +11,20 @@ import styled from '@emotion/styled';
 import classes from './MyRefrigeSearchInput.module.scss';
 import { ingredient } from './interface';
 import IngredientList from './IngredientList';
-import { addMyRefrigekList } from '../../api/myrefrigerator';
+import { addMyRefrigeList } from '../../api/myrefrigerator';
 
 const MySearchIcon = styled(SearchIcon)`
-  color: #5d5d5d;
+  color: #4caaa1;
 `;
 
 const MyRefrigeSearchInput = (props: {
   placeholder?: string;
-  addIngredient: (data:ingredient) => void;
+  onAddItem: () => void;
 }) => {
   const [briefVisible, setBriefVisible] = useState(false);
-  const [ingredientSearchResult, setIngredientSearchResult] = useState<ingredient[]>([]);
+  const [ingredientSearchResult, setIngredientSearchResult] = useState<
+    ingredient[]
+  >([]);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = (event: React.FormEvent) => {
@@ -32,7 +34,7 @@ const MyRefrigeSearchInput = (props: {
   const keywordChangeHandler = async () => {
     const keyword = searchRef.current!.value;
     // console.log(keyword);
-    
+
     // keyward 이용해서 search 받아서 navBar에 올림
     if (keyword.length === 0) {
       setBriefVisible(false);
@@ -48,6 +50,10 @@ const MyRefrigeSearchInput = (props: {
     if (event.key === 'Enter') {
       await keywordChangeHandler();
     }
+  };
+
+  const handleAddItem = () => {
+    props.onAddItem();
   };
 
   return (
@@ -70,9 +76,8 @@ const MyRefrigeSearchInput = (props: {
           {briefVisible && (
             <div className={classes.searchBriefResult}>
               {ingredientSearchResult.map((item) => (
-                <IngredientList 
-                  addRefrigeList={addMyRefrigekList}
-                  addIngredient={props.addIngredient}
+                <IngredientList
+                  onAddItem={handleAddItem}
                   key={item.id}
                   ingredient={item}
                 />

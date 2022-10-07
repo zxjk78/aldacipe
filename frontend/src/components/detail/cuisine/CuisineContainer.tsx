@@ -19,6 +19,7 @@ const CustomButton = styled(Button)`
   width: 20%;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 2rem;
   &:hover {
     background-color: #058181;
   }
@@ -60,7 +61,7 @@ const CuisineContainer = (props: {}) => {
             ))}
           </div>
           <div className={classes.footer}>
-            <CustomWidthTooltip title="냉장고 재료를 차감합니다.">
+            <CustomWidthTooltip title="1인분 만큼의 냉장고 재료를 차감합니다.">
               <CustomButton variant="contained" onClick={completeCooking}>
                 요리 완료
               </CustomButton>

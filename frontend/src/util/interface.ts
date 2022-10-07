@@ -4,6 +4,7 @@ export interface Recipe {
   name: string;
   image: string;
   weight: number;
+  type?: string;
 }
 
 export interface Meal extends Recipe {
@@ -15,6 +16,14 @@ export interface CardRecipe {
   name: string;
   imgURL: string;
   avgScore: number;
+  evalCnt: number;
+}
+export interface SearchRecipe {
+  type: string;
+  id: number;
+  name: string;
+  image: string;
+  weight: number;
 }
 
 // search, mypage
@@ -22,6 +31,7 @@ export interface Ingredient {
   id: number;
   name: string;
   largeCategory: string;
+  expirationDate?: string | any;
   smallCategory: string;
   weight: number;
 }
@@ -137,6 +147,13 @@ export interface IngredientColorDictionary {
 }
 
 // ------------- dashboard 관련
+export interface CardHealthyRecipe {
+  id: number;
+  name: string;
+  imgURL: string;
+  features: [];
+}
+
 
 // 섭취 intake 관련
 

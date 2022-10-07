@@ -17,6 +17,7 @@ export default function MyPage() {
 
   const modifyMyInfo = () => {
     infoToastr('개인정보가 수정되었습니다.');
+    window.location.reload();
   };
   const addBlackListDone = () => {
     infoToastr('블랙리스트에 추가되었습니다.');

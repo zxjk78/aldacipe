@@ -18,7 +18,7 @@ import classes from './Navbar.module.scss';
 export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const username = useSelector((state: any) => state.login.username);
+  const username = useSelector((state: any) => state.login.userInfo.name);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const showMenuHandler = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,7 +31,7 @@ export default function Navbar() {
     const isLogout = await logout();
     if (isLogout) {
       // 리덕스 persist에 user명 삭제
-      dispatch(loginActions.setUsername(''));
+      dispatch(loginActions.setUserInfo(null));
       window.location.reload();
     }
   };
@@ -40,8 +40,12 @@ export default function Navbar() {
       <div className={classes.wrapper}>
         <Link to={`/main`}>
           <div className={classes.title}>
-            <img src="" alt="로고이미지" />
-            <h1>알다시피</h1>
+            <img
+              width="80px"
+              src={process.env.PUBLIC_URL + '/aldacipe_main_logo.png'}
+              alt="로고이미지"
+            />
+            {/* <h1>알다시피</h1> */}
           </div>
         </Link>
 

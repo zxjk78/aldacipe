@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ingredient } from './interface';
+import ExpirationListItem from './ExpirationListItem';
 
 import classes from './ExpirationList.module.scss';
-import { useEventCallback } from '@mui/material';
 
-export default function ExpirationList(props: {
-  item: any;
-}) {
-
+export default function ExpirationList(props: { itemList: any[] }) {
+  // console.log('유통기한 임박', props.item);
 
   return (
     <div className={classes.wrapper}>
-      <div>
-        {props.item.name}
-      </div>
-      {/* {props.item.largeCategory} */}
-      <div>
-        {/* Dday- */}
-        {props.item.Dday}
-      </div>
+      {props.itemList.map((item) => (
+        <ExpirationListItem key={item.id} ingredient={item} />
+      ))}
     </div>
   );
 }

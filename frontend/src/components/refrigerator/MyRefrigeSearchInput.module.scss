@@ -5,3 +5,14 @@
   overflow-y: scroll;
   max-height: 300px;
 }
+.searchContainer > input {
+  @extend %input-search;
+}
+.searchContainer {
+  position: relative;
+  span {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+  }
+}

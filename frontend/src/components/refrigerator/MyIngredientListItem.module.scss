@@ -1,0 +1,33 @@
+@import '../../global';
+
+.wrapper {
+  padding: 0.5rem;
+  background-color: #fff;
+  border: 2px solid $green-secondary;
+  border-radius: 5px;
+}
+.main {
+  display: flex;
+  width: 90%;
+  margin: 0px auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.right {
+  display: flex;
+  align-items: center;
+}
+.expireDate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  span {
+    font-size: 1rem;
+  }
+}

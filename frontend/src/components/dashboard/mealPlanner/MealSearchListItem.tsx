@@ -92,13 +92,15 @@ export default function MealSearchListItem(props: {
                     divRefs.current[2] = ele;
                   }}
                 >
-                  <label htmlFor="amount">섭취량(g)</label>
+                  <label htmlFor="amount">섭취량</label>
                   <input
                     type="number"
                     id="amount"
                     onChange={handleCanSubmit}
+                    defaultValue={props.meal.weight}
                     ref={amountRef}
                   />
+                  <span>(g)</span>
                 </div>
               </div>
             </div>
@@ -109,7 +111,11 @@ export default function MealSearchListItem(props: {
               type="button"
               className={classes.add}
               onClick={isSelected ? handleAdd : handleEnterAmount}
-              disabled={isSelected && !isAmountEntered ? true : false}
+              disabled={
+                isSelected && !(isAmountEntered || props.meal.weight)
+                  ? true
+                  : false
+              }
             >
               추가
             </button>

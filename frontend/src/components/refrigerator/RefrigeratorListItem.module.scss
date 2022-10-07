@@ -1,14 +1,11 @@
 .wrapper {
-  overflow-y: auto;
-}
-.listItem {
   display: flex;
-  justify-content: space-between;
+  // background-color: red;
+  justify-content: space-around;
   align-items: center;
-  margin: 0 20px 15px 10px;
-  background-color: #fafafa;
-  color: black;
-  border: 1px solid black;
-  font-size: 18px;
-  border-radius: 5px;
+  padding: 0.5rem;
+
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: #000;
 }

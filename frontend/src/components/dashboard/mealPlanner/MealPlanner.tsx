@@ -16,11 +16,12 @@ import { Intake } from '../../../util/interface';
 // etc
 import mealEmpty from '../../../assets/mealPlanner_empty.png';
 
+
 // 부모: DashboardPage
 export default function MealPlanner(props: {
   isUpdated: boolean;
   onSearch: () => void;
-  onFoodDetail: (id: number, type: string) => void;
+  onFoodDetail: (intakeRedocd: Intake) => void;
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [mealList, setMealList] = useState<Intake[]>([]);
@@ -36,8 +37,8 @@ export default function MealPlanner(props: {
     props.onSearch();
   };
 
-  const handleFoodDetailOpen = (foodId: number, foodType: string) => {
-    props.onFoodDetail(foodId, foodType);
+  const handleFoodDetailOpen = (intakeRecode: Intake) => {
+    props.onFoodDetail(intakeRecode);
   };
   return (
     <>

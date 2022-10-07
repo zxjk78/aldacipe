@@ -3,11 +3,22 @@
   text-align: center;
 }
 .container {
-  display: flex;
-  justify-content: end;
+  // display: flex;
+  // justify-content: end;
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+  row-gap: 2rem;
+  height: 100vh;
 }
 .header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: $green-primary;
+  cursor: pointer;
+  span {
+    font-size: 30px;
+  }
 }
 .button {
   position: relative;
@@ -21,33 +32,77 @@
   bottom: 10px;
   right: 10px;
 }
-.ingredientList {
-  display: inline-block;
+.normalRefrigContainer {
+  height: 100%;
+  // background-color: red;
+}
+
+.ingredientListCategoryContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 2rem 2rem;
   border: solid;
   border-radius: 10px;
   border-color: $green-secondary;
-  background-color: #fafafa;
-  width: 80%;
-  height: 40vh;
   overflow-y: auto;
+  background-color: #fff;
+  max-height: 50vh;
+  min-height: 50vh;
+  // background-color: red;
+
+  // display: inline-block;
+  // width: 80%;
 }
-.ingredinetHeader {
+.ingredientHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   text-align: start;
   margin-left: 1rem;
+  padding: 0.5rem;
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.2rem;
+  > div:nth-of-type(1) {
+    display: flex;
+    gap: 1rem;
+    > div:nth-of-type(2) {
+      font-size: 1rem;
+      color: $text-primary;
+      cursor: pointer;
+      &:hover {
+        // background-color: $green-primary;
+        color: $green-secondary;
+        transition: 0.3s;
+      }
+    }
+  }
 }
-.expirationList {
-  display: inline-block;
+
+.expirationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: start;
+  margin-left: 1rem;
+  color: $green-primary;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: $red;
+  text-align: start;
+  font-weight: bold;
+}
+.expirationContainer {
+  width: 100vh;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
   border: solid;
   border-radius: 10px;
   border-color: $red;
   background-color: #fafafa;
-  width: 80%;
   height: 25vh;
-  overflow-y: auto;
-  margin-top: 2rem;
-}
-.expirationHeader {
-  color: $red;
-  text-align: start;
-  margin-left: 1rem;
+  overflow-x: auto;
+  margin-top: 1rem;
 }

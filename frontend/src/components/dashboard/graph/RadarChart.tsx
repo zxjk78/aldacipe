@@ -48,7 +48,7 @@ const CustomStickyNote2Icon = styled(StickyNote2Icon)`
 const RadarChart = (props: {
   period: string;
   isUpdated: boolean;
-  onChartDataLoaded: () => void;
+  onChartDataLoaded: (isLoaded: boolean) => void;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState<RadarChartData | null>(null);
@@ -86,9 +86,10 @@ const RadarChart = (props: {
 
       if (Object.values(data).join('-') === '0-0-0-0-0') {
         setChartData(null);
+        props.onChartDataLoaded(false);
       } else {
         setChartData(radarChartData);
-        props.onChartDataLoaded();
+        props.onChartDataLoaded(true);
       }
     })();
 

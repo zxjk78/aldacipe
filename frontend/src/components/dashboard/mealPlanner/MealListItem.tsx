@@ -7,7 +7,8 @@ import { API_URL } from '../../../api/config/http-config';
 // external component
 import InfoIcon from '@mui/icons-material/Info';
 // custom component
-import RecipeImgContainer from '../../UI/RecipeImgContainer';
+// import RecipeImgContainer from '../../UI/RecipeImgContainer';
+import RecipeRoundImgContainer from '../../UI/RecipeRoundImgContainer';
 // css, interface(type)
 import classes from './MealListItem.module.scss';
 import { Intake } from '../../../util/interface';
@@ -15,10 +16,11 @@ import { Intake } from '../../../util/interface';
 // 부모: MealPlanner
 export default function MealListItem(props: {
   intake: Intake;
-  onFoodDetail: (id: number, type: string) => void;
+  onFoodDetail: (intake: Intake) => void;
 }) {
   const handleDetailToggle = () => {
-    props.onFoodDetail(props.intake.intakeTargetId, props.intake.intakeType);
+    // targetId, type, img 꺼내다 사요앟ㄹ것
+    props.onFoodDetail(props.intake);
   };
 
   return (
@@ -27,7 +29,7 @@ export default function MealListItem(props: {
         <div className={classes.container}>
           <div className={classes.left}>
             <div>
-              <RecipeImgContainer
+              <RecipeRoundImgContainer
                 src={`${API_URL}image?path=${props.intake.image}`}
                 width={'30px'}
                 height={'30px'}
@@ -38,7 +40,7 @@ export default function MealListItem(props: {
               <div>
                 {props.intake.name + ' '}
                 <span onClick={handleDetailToggle}>
-                  <InfoIcon fontSize="small" />
+                  <InfoIcon fontSize="small" sx={{ color: "gray"}}/>
                 </span>
               </div>
             </div>

@@ -70,12 +70,16 @@
     font-size: 0.9rem;
   }
   input {
-    width: 50px;
+    width: 60px;
     border-radius: 5px;
     border: 2px solid $orange;
     &:focus {
       outline: none;
     }
+  }
+  span {
+    color: $orange;
+    font-size: 0.9rem;
   }
   > div:nth-of-type(1) {
     font-size: 0.8rem;
@@ -89,8 +93,9 @@
 }
 
 .selected0 {
-  animation: border-green 1s;
-  animation-fill-mode: forwards;
+  // animation: border-green 1s;
+  // animation-fill-mode: forwards;
+  border: 2px solid $green-secondary;
 }
 .selected1 {
   margin-top: 0;
@@ -108,7 +113,7 @@
   left: 0;
   overflow: hidden;
 
-  animation: fade-in-left-right ease-in 0.5s forwards;
+  animation: fade-in-left-right ease-in 0.3s forwards;
   animation-delay: 300ms;
 }
 

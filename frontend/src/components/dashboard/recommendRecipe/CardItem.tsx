@@ -13,10 +13,10 @@ import RecipeImgContainer from '../../UI/RecipeImgContainer';
 
 // css, interfacde
 import classes from './CardItem.module.scss';
-import { CardRecipe, CardRecipe2 } from '../../../util/interface';
+import { SearchRecipe } from '../../../util/interface';
 import { API_URL } from '../../../api/config/http-config';
 
-const CardItem = (props: { card: CardRecipe2 }) => {
+const CardItem = (props: { card: SearchRecipe }) => {
   // const linkDetail = (id: number) => {
   //   <Link></Link>
   // }
@@ -25,23 +25,22 @@ const CardItem = (props: { card: CardRecipe2 }) => {
     <>
       <div className={classes.card}>
         <Link to={`/detail/${props.card.id}`}>
-          <Card sx={{ maxWidth: 225 }}>
+          <Card sx={{ minWidth: 200, maxWidth: 200, minHeight: '200px' }}>
             <CardActionArea>
               <RecipeImgContainer
                 src={`${API_URL}image?path=${
-                  props.card.image || props.card.imgURL
+                  props.card.image || props.card.image
                 }`}
                 alt="카드이미지"
-                height="150px"
+                height="200px"
                 width="100%"
               />
 
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {props.card.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {/* {props.card.avgScore} */}
+              <CardContent sx={{ minHeight: '100px' }}>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {props.card.name.length > 22
+                    ? props.card.name.substring(0, 20) + '...'
+                    : props.card.name}
                 </Typography>
               </CardContent>
             </CardActionArea>
