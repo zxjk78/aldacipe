@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +32,15 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
             " from Ingredient i where i.name like :keyword%")
     Optional<List<IngredientDto>> searchIngredientByNameLike(@Param("keyword") String keyword);
 
+    @Query("select new com.a501.recipe.api.dto.ingredient.IngredientDto(id,name,largeCategory,smallCategory)" +
+            " from Ingredient i where i.name like %:keyword% and i.name not like :sameKeyword%")
+    Optional<List<IngredientDto>>  searchIngredientByNameLikeNotStart(@Param("keyword") String keyword, @Param("sameKeyword") String keyword1);
+
     @Query("select n" +
             " from IngredientNutrient ingnut join ingnut.ingredient i join ingnut.nutrient n" +
             " where i.id=:id and ingnut.representative='TRUE'")
     Optional<Nutrient> searchIngredientWithNutrientById(@Param("id") Long id);
+
 
 
 }
