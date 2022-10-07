@@ -262,7 +262,6 @@ story에 예상 시간(story point)을 기록해 더 세세하게 일정 관리�
 |---|---|
 |443|HTTPS|
 |80|HTTP - HTTPS로 리다이렉트(프론트 페이지지로 리다이렉트)|
-|8443|Openvidu|
 |6379|Redis|
 |3306|MySQL|
 |8000|Django|
