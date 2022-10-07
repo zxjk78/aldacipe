@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.16a5c9d8.css",
+    "main.js": "/static/js/main.4fcc56a9.js",
+    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/loginImg.jpg": "/static/media/loginImg.70702a8184c5666ca773.jpg",
+    "static/media/ingredient_img_7.png": "/static/media/ingredient_img_7.8f4a39a9dbefd100b399.png",
+    "static/media/vitaminE.png": "/static/media/vitaminE.d57258d49275ce6ffefb.png",
+    "static/media/select.jpg": "/static/media/select.52ee4a35719aa9aa5051.jpg",
+    "static/media/ingredient_img_5.png": "/static/media/ingredient_img_5.1794fca604a7cbe42ea0.png",
+    "static/media/calcium.png": "/static/media/calcium.0f88ae404129392eca7e.png",
+    "static/media/ingredient_img_17.png": "/static/media/ingredient_img_17.2568bab072d6e4915a28.png",
+    "static/media/selenium.png": "/static/media/selenium.cdf6c9297374a354ff00.png",
+    "static/media/magnesium.png": "/static/media/magnesium.c899a62ba6a9a4eb7f1f.png",
+    "static/media/zinc.png": "/static/media/zinc.34d9ffea11bebb413ae1.png",
+    "static/media/ingredient_img_8.png": "/static/media/ingredient_img_8.68ca807b86d3baa7f3e4.png",
+    "static/media/ingredient_img_10.png": "/static/media/ingredient_img_10.d8816f6234457b45dce1.png",
+    "static/media/ingredient_img_16.png": "/static/media/ingredient_img_16.a5f024237329e89ed77c.png",
+    "static/media/ingredient_img_4.png": "/static/media/ingredient_img_4.2b91eeaf438ad276b01f.png",
+    "static/media/ingredient_img_18.png": "/static/media/ingredient_img_18.e1f22be3ecf5bb042a03.png",
+    "static/media/stepImgNotfound.png": "/static/media/stepImgNotfound.e1f22be3ecf5bb042a03.png",
+    "static/media/ingredient_img_6.png": "/static/media/ingredient_img_6.32666f0b161347d98a15.png",
+    "static/media/ingredient_img_9.png": "/static/media/ingredient_img_9.4a54876cf448c9e84ef2.png",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/index.html",
+    "main.16a5c9d8.css.map": "/static/css/main.16a5c9d8.css.map",
+    "main.4fcc56a9.js.map": "/static/js/main.4fcc56a9.js.map",
+    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16a5c9d8.css",
+    "static/js/main.4fcc56a9.js"
+  ]
+}
