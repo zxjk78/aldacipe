@@ -150,15 +150,16 @@ public class RecipeService {
 
         Map<String,String> bodyMap = new HashMap<>();
         bodyMap.put("user_id",userId.toString());
+        bodyMap.put("period","7");
 
-        List<Integer> response = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
+        List<Integer> response = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrients", bodyMap, List.class);
         List<Long> idList = new ArrayList<>();
         for (Integer i : response) {
             idList.add(Long.valueOf(i));
         }
-        System.out.println("### Likable ###");
+        System.out.println("### Healthy ###");
         System.out.println(idList.toString());
-        System.out.println("#### Likable IDLIST END ####");
+        System.out.println("#### Healthy IDLIST END ####");
 
 
         // search recipes by id list
