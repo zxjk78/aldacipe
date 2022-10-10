@@ -146,16 +146,19 @@ public class RecipeService {
     }
 
     public List<RecipeThumbNailWithFeaturesResponseDto> getHealthyRecipeList(Long userId) {
-        // make random id list -> 24시간 동안 가장 평점이 좋은 레시피 쿼리 제작
-        Set<Long> idSet = new HashSet<>();
-        Long maxId = 1000l;
-        while (idSet.size() < 10) {
-            idSet.add(((int) (Math.random() * 1000) % maxId) + 1);
-        }
+        RestTemplate restTemplate = new RestTemplate();
+
+        Map<String,String> bodyMap = new HashMap<>();
+        bodyMap.put("user_id",userId.toString());
+
+        List<Integer> response = restTemplate.postForObject(RECOMMENDATION_SERVER_URL + "/recommend_nutrient", bodyMap, List.class);
         List<Long> idList = new ArrayList<>();
-        for (Long id : idSet) {
-            idList.add(id);
+        for (Integer i : response) {
+            idList.add(Long.valueOf(i));
         }
+        System.out.println("### Likable ###");
+        System.out.println(idList.toString());
+        System.out.println("#### Likable IDLIST END ####");
 
 
         // search recipes by id list
